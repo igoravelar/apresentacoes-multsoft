@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apresentações MultSoft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-deep:   #0d3424;   /* texto títulos      */
+    --green-btn:    #54a035;   /* topo do botão      */
+    --green-btn-dn: #397720;   /* base/borda do botão */
+    --green-line:   #dce9d6;   /* borda dos cards     */
+    --green-tip:    #dcf7d2;   /* fundo do balão      */
+    --chk-border:   #bfcec8;   /* checkbox vazio      */
+    --muted:        #888888;
+    --page:         #ffffff;
+    --radius:       6px;
+    --shadow-card:  0 1px 3px rgba(13,52,36,.07), 0 6px 18px rgba(13,52,36,.05);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{
+    font-family:"Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background:var(--page);
+    color:var(--green-deep);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ============ HEADER ============ */
+  .hero{
+    position:relative;
+    width:100%;
+    height:175px;
+    overflow:hidden;
+    background:#15a6c0;
+  }
+  .hero__bg{
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:auto;
+    display:block;
+    pointer-events:none;
+  }
+  .hero__inner{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:clamp(8px, 1vw, 14px);
+    z-index:2;
+  }
+  .hero__eyebrow{
+    margin:0;
+    font-weight:800;
+    letter-spacing:.14em;
+    font-size:clamp(15px, 1.5vw, 20px);
+    color:#fff;
+  }
+  .hero__logo{
+    display:flex;
+  }
+  .hero__logo img{
+    display:block;
+    height:clamp(40px, 4vw, 60px);
+    width:auto;
+  }
+
+  /* ============ LAYOUT ============ */
+  .wrap{
+    width:min(1240px, 92vw);
+    margin:0 auto;
+  }
+
+  /* ============ FILTROS ============ */
+  .filters{
+    padding:clamp(14px,1.6vw,20px) 0 clamp(22px,2.6vw,30px);
+  }
+  .filters__label{
+    margin:0 0 clamp(20px,2.4vw,28px);
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .filters__grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+    gap:18px 28px;
+  }
+  .chk{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    cursor:pointer;
+    user-select:none;
+    line-height:1.25;
+  }
+  .chk input{
+    position:absolute;
+    opacity:0;
+    width:0;height:0;
+  }
+  .chk__box{
+    flex:0 0 auto;
+    width:18px;height:18px;
+    margin-top:1px;
+    border-radius:4px;
+    background:#fff;
+    box-shadow:inset 0 0 0 1px var(--chk-border);
+    position:relative;
+    transition:background .14s ease, box-shadow .14s ease;
+  }
+  .chk:hover .chk__box{ box-shadow:inset 0 0 0 1px var(--green-btn); }
+  /* categoria marcada = verde sólido com "V" branco (igual ao Figma) */
+  .chk input:checked + .chk__box{
+    background:var(--green-btn);
+    box-shadow:inset 0 0 0 1px var(--green-btn-dn);
+  }
+  .chk input:checked + .chk__box::after{
+    content:"";
+    position:absolute;
+    left:6px; top:2.5px;
+    width:4px; height:8px;
+    border:solid #fff;
+    border-width:0 2px 2px 0;
+    border-bottom-right-radius:1px;
+    transform:rotate(43deg);
+  }
+  /* "Todos" em estado parcial = caixa clara + barra cinza (indeterminado) */
+  .chk--todos input:indeterminate + .chk__box{
+    background:#fbfcfe;
+    box-shadow:inset 0 0 0 1px var(--chk-border);
+  }
+  .chk--todos input:indeterminate + .chk__box::after{
+    content:"";
+    position:absolute;
+    left:5px; top:7px;
+    width:8px; height:4px;
+    border-radius:2px;
+    background:#9bada6;
+  }
+  .chk input:focus-visible + .chk__box{
+    outline:2px solid var(--green-btn);
+    outline-offset:2px;
+  }
+  .chk__txt{
+    font-size:13px;
+    font-weight:500;
+    color:var(--green-deep);
+    padding-top:1px;
+  }
+
+  .divider{
+    height:1px;
+    background:var(--green-line);
+    border:0;
+    margin:0;
+  }
+
+  /* ============ GRID DE CARDS ============ */
+  .gallery{
+    position:relative;
+    padding:clamp(30px,3.6vw,46px) 0 clamp(50px,6vw,80px);
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+    gap:22px;
+  }
+  .empty{
+    grid-column:1/-1;
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+    padding:40px 0;
+  }
+
+  .card{
+    border:1px solid var(--green-line);
+    border-radius:var(--radius);
+    background:linear-gradient(to bottom, #fff 0%, #fff 50%, #dcf7d2 100%);
+    box-shadow:0 3px 0 #d3e0cd;
+    overflow:visible;
+    display:flex;
+    flex-direction:column;
+    transition:box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+  }
+  .card:hover{
+    box-shadow:0 3px 0 #d3e0cd, 0 10px 22px rgba(13,52,36,.10);
+    transform:translateY(-2px);
+    border-color:#c7ddbd;
+  }
+  /* card oculto pelo filtro (animação de entrada/saída é feita via Web Animations API) */
+  .card.is-hidden{ display:none; }
+  .card.is-leaving{ pointer-events:none; }
+  .card__thumb{
+    border-radius:var(--radius) var(--radius) 0 0;
+    aspect-ratio:190/126;
+    background:#fff;
+    overflow:hidden;
+    border-bottom:1px solid var(--green-line);
+  }
+  .card__thumb img{
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+  }
+  .card__thumb--ph{
+    background:
+      repeating-linear-gradient(45deg, #f1f7ee 0 10px, #e7f1e2 10px 20px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .card__thumb--ph span{
+    font-family:"SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    color:#8fae84;
+    text-transform:uppercase;
+  }
+  .card__body{
+    padding:20px 20px 16px;
+    flex:1;
+  }
+  .card__title{
+    margin:0;
+    font-size:14px;
+    font-weight:700;
+    line-height:1.3;
+    color:var(--green-deep);
+  }
+  /* divisória que separa o título dos botões: linha de 1px DCE9D6 */
+  .card__sep{
+    height:1px;
+    background:var(--green-line);
+  }
+  .card__foot{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:20px;
+  }
+
+  /* botão info (ⓘ) */
+  .info{
+    position:relative;
+    flex:0 0 auto;
+  }
+  .info__btn{
+    width:44px;height:44px;
+    border:0;
+    padding:0;
+    border-radius:50%;
+    background:var(--green-btn);
+    box-shadow:inset 0 0 0 1px var(--green-btn-dn), 0 3px 0 var(--green-btn-dn);
+    color:#fff;
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+    transition:filter .14s ease, transform .08s ease;
+  }
+  .info__btn:hover{ filter:brightness(1.05); }
+  .info__btn:active{ transform:translateY(3px); box-shadow:inset 0 0 0 1px var(--green-btn-dn); }
+  .info__btn svg{ width:22px; height:22px; }
+
+  .tip{
+    position:absolute;
+    left:0;
+    bottom:calc(100% + 12px);
+    width:230px;
+    background:var(--green-tip);
+    border:1px solid #b6dca6;
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:12px;
+    font-weight:500;
+    line-height:1.45;
+    color:var(--green-deep);
+    box-shadow:0 8px 22px rgba(13,52,36,.16);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(4px);
+    transition:opacity .16s ease, transform .16s ease, visibility .16s;
+    z-index:20;
+  }
+  .tip::before{
+    content:"";
+    position:absolute;
+    left:16px; bottom:-7px;
+    width:12px;height:12px;
+    background:var(--green-tip);
+    border-right:1px solid #b6dca6;
+    border-bottom:1px solid #b6dca6;
+    transform:rotate(45deg);
+  }
+  .tip__meta{
+    margin-top:8px;
+    padding-top:8px;
+    border-top:1px solid #b6dca6;
+    color:#5f8a52;
+    font-weight:600;
+  }
+  .info:hover .tip,
+  .info__btn:focus-visible + .tip{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+
+  /* botão ABRIR */
+  .abrir{
+    flex:1;
+    height:44px;
+    border:0;
+    border-radius:var(--radius);
+    background:var(--green-btn);
+    box-shadow:inset 0 0 0 1px var(--green-btn-dn), 0 3px 0 var(--green-btn-dn);
+    color:#fff;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    text-decoration:none;
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+    transition:filter .14s ease, transform .08s ease;
+  }
+  .abrir:hover{ filter:brightness(1.05); }
+  .abrir:active{ transform:translateY(3px); box-shadow:inset 0 0 0 1px var(--green-btn-dn); }
+  .abrir--soon{
+    background:#eef2ec;
+    color:#9fae98;
+    box-shadow:inset 0 0 0 1px #d8e3d2;
+    cursor:not-allowed;
+    pointer-events:none;
+  }
+
+  /* ============ FOOTER ============ */
+  footer{
+    border-top:1px solid var(--green-line);
+  }
+  .foot{
+    text-align:center;
+    padding:26px 0;
+    font-size:12px;
+    font-weight:500;
+    color:var(--muted);
+  }
+
+  @media (max-width:560px){
+    .filters__grid{ grid-template-columns:1fr 1fr; gap:16px 16px; }
+    .gallery{ grid-template-columns:1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero" data-screen-label="Cabeçalho">
+    <img class="hero__bg" src="assets/header-cattle-banner.webp" alt="">
+    <div class="hero__inner">
+      <p class="hero__eyebrow">APRESENTAÇÕES</p>
+      <div class="hero__logo">
+        <img src="assets/logo-multsoft-topo.webp" alt="MultSoft">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap filters" aria-label="Filtrar apresentações">
+      <p class="filters__label">Filtrar por categoria:</p>
+      <div class="filters__grid" id="filtros"></div>
+    </section>
+
+    <div class="wrap"><hr class="divider"></div>
+
+    <section class="wrap gallery" id="galeria" aria-label="Apresentações disponíveis"></section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">MultSoft @ Todos os direitos reservados.</div>
+  </footer>
+
+  <script src="apresentacoes.js?v=20260706d"></script>
+  <script>
+  (function(){
+    const ICON_INFO = '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M18.182 10A8.182 8.182 0 1 0 1.818 10a8.182 8.182 0 0 0 16.364 0ZM9.091 13.636V10a.909.909 0 1 1 1.818 0v3.636a.909.909 0 1 1-1.818 0Zm.918-8.181a.909.909 0 1 1 0 1.818H10a.909.909 0 1 1 0-1.818ZM20 10A10 10 0 1 1 0 10a10 10 0 0 1 20 0Z" fill="currentColor"/></svg>';
+
+    const galeria = document.getElementById('galeria');
+    const filtrosEl = document.getElementById('filtros');
+
+    // estado dos filtros: Set de categorias selecionadas (vazio = Todos)
+    // estado dos filtros: cada TAG de categoria marcada (true) ou não. Inicia tudo marcado.
+    const estado = new Map(CATEGORIAS.map(c => [c.tag, true]));
+
+    function esc(s){
+      return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    }
+
+    /* ---------- render dos cards ---------- */
+    function cardHTML(p){
+      const indisponivel = !p.arquivo;
+      const thumb = p.thumb
+        ? `<div class="card__thumb"><img src="${esc(p.thumb)}" alt=""></div>`
+        : `<div class="card__thumb card__thumb--ph"><span>Em breve</span></div>`;
+      const meta = (p.atualizadoEm && p.atualizadoEm !== '—')
+        ? `<div class="tip__meta">Atualizado dia ${esc(p.atualizadoEm)}</div>`
+        : `<div class="tip__meta">Em breve</div>`;
+      const abrir = indisponivel
+        ? `<span class="abrir abrir--soon">Em breve</span>`
+        : `<a class="abrir" href="${esc(p.arquivo)}" target="_blank" rel="noopener">Abrir</a>`;
+      return `
+        <article class="card" data-id="${esc(p.id)}" data-categorias="${esc(p.categorias.join('|'))}">
+          ${thumb}
+          <div class="card__body">
+            <h2 class="card__title">${esc(p.titulo)}</h2>
+          </div>
+          <div class="card__sep"></div>
+          <div class="card__foot">
+            <span class="info">
+              <button class="info__btn" type="button" aria-label="Mais informações sobre ${esc(p.titulo)}">${ICON_INFO}</button>
+              <span class="tip" role="tooltip">${esc(p.descricao)}${meta}</span>
+            </span>
+            ${abrir}
+          </div>
+        </article>`;
+    }
+
+    /* ---------- monta todos os cards uma única vez ---------- */
+    const emptyMsg = document.createElement('p');
+    emptyMsg.className = 'empty';
+    emptyMsg.textContent = 'Selecione uma categoria para ver as apresentações.';
+    emptyMsg.style.display = 'none';
+
+    function buildGaleria(){
+      galeria.innerHTML = MULTSOFT_APRESENTACOES.map(cardHTML).join('');
+      galeria.appendChild(emptyMsg);
+    }
+
+    const visivel = p => p.categorias.some(c => estado.get(c));
+    const querMostrar = c => visivel(MULTSOFT_APRESENTACOES.find(p => p.id === c.dataset.id));
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const DUR_FADE = 280, DUR_MOVE = 420;
+
+    // finaliza imediatamente uma saída em andamento (cancela animação e oculta o card)
+    function finalizarSaida(c){
+      if(c._leaveAnim){ c._leaveAnim.cancel(); c._leaveAnim = null; }
+      c.classList.remove('is-leaving');
+      ['position','left','top','width','height','margin','zIndex','opacity'].forEach(p => c.style[p] = '');
+      c.classList.add('is-hidden');
+    }
+    function cancelarMovimento(c){
+      if(c._moveAnim){ c._moveAnim.cancel(); c._moveAnim = null; }
+      if(c._enterAnim){ c._enterAnim.cancel(); c._enterAnim = null; }
+    }
+
+    // posição do card relativa à galeria (offsetParent = .gallery)
+    function rectRel(c){
+      const r = c.getBoundingClientRect();
+      const g = galeria.getBoundingClientRect();
+      return { left: r.left - g.left, top: r.top - g.top, width: r.width, height: r.height };
+    }
+
+    /* ---------- filtro animado (fade + reorganização FLIP via Web Animations API) ---------- */
+    function update(animar = true){
+      const cards = [...galeria.querySelectorAll('.card')];
+      const algumVisivel = MULTSOFT_APRESENTACOES.some(visivel);
+
+      // estado limpo: finaliza saídas ainda em andamento de um filtro anterior
+      cards.forEach(c => { if(c.classList.contains('is-leaving')) finalizarSaida(c); });
+
+      const estaVisivel = c => !c.classList.contains('is-hidden');
+
+      if(!animar || prefersReduced){
+        cards.forEach(c => { cancelarMovimento(c); c.classList.toggle('is-hidden', !querMostrar(c)); });
+        emptyMsg.style.display = algumVisivel ? 'none' : '';
+        return;
+      }
+
+      // FIRST: posições (viewport) dos cards atualmente em fluxo
+      const first = new Map();
+      cards.forEach(c => { if(estaVisivel(c)) first.set(c, c.getBoundingClientRect()); });
+
+      const entrando = [], saindo = [], ficando = [];
+      cards.forEach(c => {
+        const mostrar = querMostrar(c), agora = estaVisivel(c);
+        if(mostrar && !agora) entrando.push(c);
+        else if(!mostrar && agora) saindo.push(c);
+        else if(mostrar && agora) ficando.push(c);
+      });
+
+      // SAINDO: tira do fluxo (position:absolute na galeria) e faz fade-out
+      saindo.forEach(c => {
+        const rel = rectRel(c);
+        cancelarMovimento(c);
+        c.classList.add('is-leaving');
+        c.style.position = 'absolute';
+        c.style.left = rel.left + 'px';
+        c.style.top = rel.top + 'px';
+        c.style.width = rel.width + 'px';
+        c.style.height = rel.height + 'px';
+        c.style.margin = '0';
+        c.style.zIndex = '1';
+        const a = c.animate(
+          [{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(.96)' }],
+          { duration: DUR_FADE, easing: 'ease', fill: 'forwards' }
+        );
+        c._leaveAnim = a;
+        a.onfinish = () => { if(c._leaveAnim === a) finalizarSaida(c); };
+      });
+
+      // ENTRANDO: revela no grid (passa a ocupar espaço)
+      entrando.forEach(c => c.classList.remove('is-hidden'));
+
+      // LAST: mede já com saindo fora do fluxo e entrando revelados -> FLIP nos que ficaram
+      ficando.forEach(c => {
+        const f = first.get(c);
+        const l = c.getBoundingClientRect();
+        const dx = f.left - l.left, dy = f.top - l.top;
+        if(dx || dy){
+          if(c._moveAnim) c._moveAnim.cancel();
+          c._moveAnim = c.animate(
+            [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'translate(0,0)' }],
+            { duration: DUR_MOVE, easing: 'ease' }
+          );
+          c._moveAnim.onfinish = () => { c._moveAnim = null; };
+        }
+      });
+
+      // ENTRANDO: fade + scale-in
+      entrando.forEach(c => {
+        if(c._enterAnim) c._enterAnim.cancel();
+        c._enterAnim = c.animate(
+          [{ opacity: 0, transform: 'scale(.96)' }, { opacity: 1, transform: 'scale(1)' }],
+          { duration: DUR_FADE, easing: 'ease' }
+        );
+        c._enterAnim.onfinish = () => { c._enterAnim = null; };
+      });
+
+      emptyMsg.style.display = algumVisivel ? 'none' : '';
+    }
+
+    /* ---------- render dos filtros ---------- */
+    function filtroHTML(cat){
+      // cat = { tag, label } de uma categoria, ou { tag:'__todos__', label:'Todos' }
+      const todos = cat.tag === '__todos__';
+      const cls = todos ? 'chk chk--todos' : 'chk';
+      const id  = 'f-' + cat.tag;
+      return `
+        <label class="${cls}" for="${id}">
+          <input type="checkbox" id="${id}" value="${esc(cat.tag)}" checked>
+          <span class="chk__box"></span>
+          <span class="chk__txt">${esc(cat.label)}</span>
+        </label>`;
+    }
+
+    filtrosEl.innerHTML =
+      filtroHTML({ tag: '__todos__', label: 'Todos' }) +
+      CATEGORIAS.map(filtroHTML).join('');
+
+    const todosInput = filtrosEl.querySelector('input[value="__todos__"]');
+    const catInputs  = [...filtrosEl.querySelectorAll('input:not([value="__todos__"])')];
+
+    // sincroniza o estado tri-state do "Todos":
+    //  - todas marcadas  -> marcado (verde)
+    //  - nenhuma marcada  -> desmarcado (caixa vazia)
+    //  - algumas marcadas -> indeterminado (barra cinza)
+    function syncTodos(){
+      const total = CATEGORIAS.length;
+      const marcadas = CATEGORIAS.filter(c => estado.get(c.tag)).length;
+      todosInput.indeterminate = marcadas > 0 && marcadas < total;
+      todosInput.checked = marcadas === total;
+    }
+
+    // clicar no "Todos": se estava tudo marcado, desmarca tudo; senão, marca tudo.
+    todosInput.addEventListener('change', () => {
+      const marcarTudo = todosInput.checked; // tri-state: indeterminado/vazio -> marca; cheio -> desmarca
+      CATEGORIAS.forEach(c => estado.set(c.tag, marcarTudo));
+      catInputs.forEach(i => { i.checked = marcarTudo; });
+      syncTodos();
+      update();
+    });
+
+    catInputs.forEach(input => {
+      input.addEventListener('change', () => {
+        estado.set(input.value, input.checked);
+        syncTodos();
+        update();
+      });
+    });
+
+    buildGaleria();
+    syncTodos();
+    update(false);
+  })();
+  </script>
+
+</body>
+</html>
