@@ -280,6 +280,16 @@
         <img class="slide__bg" src="assets/reproducao/slide-15-bg.webp" alt="Morte de Animais — Rotinas de Manejo Salvas, tipo Estoque de Animais. Permite lançar a morte de animais via aplicativo. Protótipo do app MB IATF com o formulário Morte (data, causa e responsável) para o animal REC_T06.">
       </section>
 
+      <!-- ===================== SLIDE 16 — Venda de Animais (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <section class="slide" data-slide="16" data-screen-label="16" aria-label="Slide 16 — Venda de Animais">
+        <img class="slide__bg" src="assets/reproducao/slide-16-bg.webp" alt="Venda de Animais — Rotinas de Manejo Salvas, tipo Estoque de Animais. Permite lançar a venda de animais via aplicativo. Protótipo do app MB IATF com a edição da rotina Venda de Animais (tipo de venda, data, documento, produtor de origem, destino, embarque e sexo).">
+      </section>
+
+      <!-- ===================== SLIDE 17 — Movimentação entre Propriedades (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <section class="slide" data-slide="17" data-screen-label="17" aria-label="Slide 17 — Movimentação entre Propriedades">
+        <img class="slide__bg" src="assets/reproducao/slide-17-bg.webp" alt="Movimentação entre Propriedades — Rotinas de Manejo Salvas, tipo Estoque de Animais. Permite realizar a movimentação de animais via aplicativo. Protótipo do app MB IATF com o formulário Movimentação Entre Propriedades (tipo, documento, propriedade de destino, localidade de destino, produtor de origem e de destino) para o animal REC_T06.">
+      </section>
+
       <!-- ===================== SLIDE 22 — Conferência de Lote "Animais Faltantes" (Reprodução) ===================== -->
       <section class="slide" data-slide="22" data-screen-label="22" aria-label="Slide 22 — Conferência de Lote: Animais Faltantes">
         <img class="slide__bg" src="assets/reproducao/slide-22-bg.webp" alt="Conferência de Lote Animais Faltantes — tipo Reprodução. Permite identificar animais faltantes, transferidos e entreveros dos lotes processados no curral. Protótipo com resumo do dia (compareceram 389, entreveros 14, total 403) e detalhamento por lote.">
@@ -313,7 +323,7 @@
 
   <script>
     const TOTAL = 118;                      // total de páginas do PDF de Reprodução e Cria Comercial
-    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 15, 22, 25, 27]; // slides já construídos (os demais são placeholders)
+    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 15, 16, 17, 22, 25, 27]; // slides já construídos (os demais são placeholders)
 
     const STORE = 'multsoft_repro_slide';
     const deck = document.getElementById('deck');
@@ -381,7 +391,7 @@
       b.addEventListener('click', ()=> goToSlide(target || 9));
       el.appendChild(b);
     }
-    [14, 15, 22, 25, 27].forEach(n => addReproBack(n));
+    [14, 15, 16, 17, 22, 25, 27].forEach(n => addReproBack(n));
 
     /* ---- Navegação por data-slide (índices estáveis para construção incremental) ---- */
     const slideEls = {};
