@@ -290,6 +290,31 @@
         <img class="slide__bg" src="assets/reproducao/slide-17-bg.webp" alt="Movimentação entre Propriedades — Rotinas de Manejo Salvas, tipo Estoque de Animais. Permite realizar a movimentação de animais via aplicativo. Protótipo do app MB IATF com o formulário Movimentação Entre Propriedades (tipo, documento, propriedade de destino, localidade de destino, produtor de origem e de destino) para o animal REC_T06.">
       </section>
 
+      <!-- ===================== SLIDE 19 — Controle Perda de Implante (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <section class="slide" data-slide="19" data-screen-label="19" aria-label="Slide 19 — Controle Perda de Implante">
+        <img class="slide__bg" src="assets/reproducao/slide-19-bg.webp" alt="Controle Perda de Implante — Rotinas de Manejo Salvas, tipo Reprodução. Permite lançar os animais que perderam o implante no momento do manejo de retirada do mesmo no protocolo de sincronização. Protótipo do app MB IATF com o formulário Perda de Implante (perdeu? e responsável) para o animal REC_T06.">
+      </section>
+
+      <!-- ===================== SLIDE 24 — Pesagem de Animais (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <section class="slide" data-slide="24" data-screen-label="24" aria-label="Slide 24 — Pesagem de Animais">
+        <img class="slide__bg" src="assets/reproducao/slide-24-bg.webp" alt="Pesagem de Animais — Rotinas de Manejo Salvas, tipo Controle Ponderal. Permite realizar o lançamento de pesagem dos animais via aplicativo. Protótipo do app MB IATF com o formulário Pesagem (peso e balança conectada) para o animal REC_T06.">
+      </section>
+
+      <!-- ===================== SLIDE 20 — Aplicação de Protocolo IATF (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <section class="slide" data-slide="20" data-screen-label="20" aria-label="Slide 20 — Aplicação de Protocolo IATF">
+        <img class="slide__bg" src="assets/reproducao/slide-20-bg.webp" alt="Aplicação de Protocolo IATF (Edição do Protocolo de IATF) — Rotinas de Manejo Salvas, tipo Reprodução. Permite alterar tipo de hormônio, marca e dosagem durante o lançamento do protocolo de IATF. Protótipo do app MB IATF com o protocolo IATF 2024 - Novilhas e os eventos D0, D8 e D9.">
+      </section>
+
+      <!-- ===================== SLIDE 21 — Aplicação de Tratamento IATF (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <section class="slide" data-slide="21" data-screen-label="21" aria-label="Slide 21 — Aplicação de Tratamento IATF">
+        <img class="slide__bg" src="assets/reproducao/slide-21-bg.webp" alt="Aplicação de Tratamento IATF — Rotinas de Manejo Salvas, tipo Reprodução. Utilizado como possibilidade de aplicar tratamentos específicos de IATF em alguns animais. Protótipo do app MB IATF com o formulário Aplicação de Tratamento (tratamento, quantidade/DS e responsável).">
+      </section>
+
+      <!-- ===================== SLIDE 23 — Inseminação Artificial (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <section class="slide" data-slide="23" data-screen-label="23" aria-label="Slide 23 — Inseminação Artificial">
+        <img class="slide__bg" src="assets/reproducao/slide-23-bg.webp" alt="Inseminação Artificial — Rotinas de Manejo Salvas, tipo Reprodução. Permite lançar as informações de sexagem da Inseminação Artificial nas fêmeas via aplicativo. Protótipo do app MB IATF com o formulário Inseminação artificial (cio, macho, partida, dose, tipo do sêmen, sêmen sexado, proprietário do sêmen e responsável).">
+      </section>
+
       <!-- ===================== SLIDE 22 — Conferência de Lote "Animais Faltantes" (Reprodução) ===================== -->
       <section class="slide" data-slide="22" data-screen-label="22" aria-label="Slide 22 — Conferência de Lote: Animais Faltantes">
         <img class="slide__bg" src="assets/reproducao/slide-22-bg.webp" alt="Conferência de Lote Animais Faltantes — tipo Reprodução. Permite identificar animais faltantes, transferidos e entreveros dos lotes processados no curral. Protótipo com resumo do dia (compareceram 389, entreveros 14, total 403) e detalhamento por lote.">
@@ -323,7 +348,7 @@
 
   <script>
     const TOTAL = 118;                      // total de páginas do PDF de Reprodução e Cria Comercial
-    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 15, 16, 17, 22, 25, 27]; // slides já construídos (os demais são placeholders)
+    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 27]; // slides já construídos (os demais são placeholders)
 
     const STORE = 'multsoft_repro_slide';
     const deck = document.getElementById('deck');
@@ -391,7 +416,7 @@
       b.addEventListener('click', ()=> goToSlide(target || 9));
       el.appendChild(b);
     }
-    [14, 15, 16, 17, 22, 25, 27].forEach(n => addReproBack(n));
+    [14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 27].forEach(n => addReproBack(n));
 
     /* ---- Navegação por data-slide (índices estáveis para construção incremental) ---- */
     const slideEls = {};
