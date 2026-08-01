@@ -37,6 +37,28 @@
   }
   .slide.is-active{opacity:1;visibility:visible;}
   .slide__bg{width:100%;height:100%;object-fit:cover;display:block;}
+  /* Sobreposições: botões que o original mantém fora da imagem de fundo (slides 24-49) */
+  .slide__ov{position:absolute;display:block;object-fit:contain;pointer-events:none;}
+
+  /* Vídeo incorporado: moldura 16:9 posicionada sobre a área reservada do slide */
+  .slide__video{position:absolute;z-index:3;background:#000;overflow:hidden;}
+  .slide__video iframe{width:100%;height:100%;display:block;border:0;}
+  /* Saída alternativa: navegadores embutidos (ex.: o do VS Code) não têm o módulo
+     de DRM que o player do YouTube exige, e a reprodução falha. O link sempre funciona. */
+  .video-alt{
+    position:absolute;z-index:3;text-align:center;text-decoration:none;
+    color:rgba(255,255,255,.5);font-size:1.9vh;letter-spacing:.02em;
+    transition:color .15s ease;
+  }
+  .video-alt:hover,.video-alt:focus-visible{color:#7df0e6;text-decoration:underline;}
+
+  /* Camada animada: elemento separado do fundo para entrar em fade ao abrir o slide */
+  .slide__fx{position:absolute;display:block;object-fit:contain;pointer-events:none;opacity:0;}
+  .slide.is-active .slide__fx{animation:fxFade .9s ease-out .5s both;}
+  @keyframes fxFade{from{opacity:0;} to{opacity:1;}}
+  @media (prefers-reduced-motion:reduce){
+    .slide.is-active .slide__fx{animation:none;opacity:1;}
+  }
 
   /* ---- Generic hotspot ---- */
   .hotspot{
@@ -166,7 +188,7 @@
 
       <!-- ===================== SLIDE 1 — Capa ===================== -->
       <section class="slide is-active" data-slide="1" data-screen-label="01" aria-label="Slide 1 — Reprodução e Cria Comercial">
-        <img class="slide__bg" src="assets/reproducao/slide-01-bg.webp?v=3" alt="MultSoft e MultBovinos — Reprodução e Cria Comercial. Gestão precisa e descomplicada da sua fazenda. Institucional, Coleta de Dados, Conectividade e Gestão à Vista no MB Web.">
+        <img class="slide__bg" src="assets/reproducao/slide-01-bg.webp?v=4" alt="MultSoft e MultBovinos — Reprodução e Cria Comercial. Gestão precisa e descomplicada da sua fazenda. Institucional, Coleta de Dados, Conectividade e Gestão à Vista no MB Web.">
         <button class="hotspot arrow-1" type="button" title="Iniciar — ir para o menu"
                 aria-label="Iniciar — ir para o menu" onclick="goToSlide(2)">
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h14M12 5l7 7-7 7"/></svg>
@@ -175,7 +197,7 @@
 
       <!-- ===================== SLIDE 2 — Opções de Menu ===================== -->
       <section class="slide" data-slide="2" data-screen-label="02" aria-label="Slide 2 — Opções de Menu">
-        <img class="slide__bg" src="assets/reproducao/slide-02-bg.webp?v=3" alt="Opções de Menu: Institucional, Coleta de Dados, Gestão à Vista MB Cria e Conectividade. Botão Prosseguir.">
+        <img class="slide__bg" src="assets/reproducao/slide-02-bg.webp?v=4" alt="Opções de Menu: Institucional, Coleta de Dados, Gestão à Vista MB Cria e Conectividade. Botão Prosseguir.">
 
         <!-- Prosseguir -> primeiro conteúdo -->
         <button class="hotspot s2-hot" type="button" title="Prosseguir" aria-label="Prosseguir"
@@ -194,16 +216,16 @@
 
       <!-- ===================== SLIDES 3–7 (Institucional — sequência linear, rodapé: voltar / menu / avançar) ===================== -->
       <section class="slide" data-slide="3" data-screen-label="03" aria-label="Slide 3 — A MultSoft">
-        <img class="slide__bg" src="assets/reproducao/slide-03-bg.webp?v=3" alt="A MultSoft — 38 anos criando soluções para a melhoria da Gestão e rentabilidade no Agro Business. Empresa líder de mercado no desenvolvimento e implantação de Softwares Agropecuários. Presente em todo Brasil e mais 6 países.">
+        <img class="slide__bg" src="assets/reproducao/slide-03-bg.webp?v=4" alt="A MultSoft — 38 anos criando soluções para a melhoria da Gestão e rentabilidade no Agro Business. Empresa líder de mercado no desenvolvimento e implantação de Softwares Agropecuários. Presente em todo Brasil e mais 6 países.">
       </section>
       <section class="slide" data-slide="4" data-screen-label="04" aria-label="Slide 4 — MultSoft em Números">
-        <img class="slide__bg" src="assets/reproducao/slide-04-bg.webp?v=3" alt="MultSoft em Números — somos a plataforma mais relevante no provimento de informações agropecuárias. 1K+ clientes atendidos, 5K+ fazendas cadastradas, 100M+ animais na base e 6M+ animais ativos.">
+        <img class="slide__bg" src="assets/reproducao/slide-04-bg.webp?v=4" alt="MultSoft em Números — somos a plataforma mais relevante no provimento de informações agropecuárias. 1K+ clientes atendidos, 5K+ fazendas cadastradas, 100M+ animais na base e 6M+ animais ativos.">
       </section>
       <section class="slide" data-slide="5" data-screen-label="05" aria-label="Slide 5 — Grandes Contas e Cases de Sucesso">
-        <img class="slide__bg" src="assets/reproducao/slide-05-bg.webp?v=3" alt="Grandes Contas e Cases de Sucesso — nossa maior conquista é o sucesso de nossos clientes. Grid com logos de grandes contas atendidas.">
+        <img class="slide__bg" src="assets/reproducao/slide-05-bg.webp?v=4" alt="Grandes Contas e Cases de Sucesso — nossa maior conquista é o sucesso de nossos clientes. Grid com logos de grandes contas atendidas.">
       </section>
       <section class="slide" data-slide="6" data-screen-label="06" aria-label="Slide 6 — Plataforma Completa para a Agropecuária">
-        <img class="slide__bg" src="assets/reproducao/slide-06-bg.webp?v=3" alt="Plataforma Completa para a Agropecuária — atende todo elo da cadeia produtiva da carne bovina: Pecuária Elite, Cria Comercial, Recria e Engorda a Pasto, Recria e Engorda em Confinamento, Laboratório FIV e Empresa de Reprodução (IATF). MultBovinos e MultAgrícola.">
+        <img class="slide__bg" src="assets/reproducao/slide-06-bg.webp?v=4" alt="Plataforma Completa para a Agropecuária — atende todo elo da cadeia produtiva da carne bovina: Pecuária Elite, Cria Comercial, Recria e Engorda a Pasto, Recria e Engorda em Confinamento, Laboratório FIV e Empresa de Reprodução (IATF). MultBovinos e MultAgrícola.">
         <button class="hotspot foot-hot" type="button" title="Voltar para o slide anterior" aria-label="Voltar para o slide anterior"
                 style="left:40.7%;top:91.5%;width:5.4%;height:7%;" onclick="goToSlide(5)"></button>
         <button class="hotspot foot-hot" type="button" title="Ir para o menu" aria-label="Ir para o menu"
@@ -212,7 +234,7 @@
                 style="left:53.8%;top:91.5%;width:5.4%;height:7%;" onclick="goToSlide(7)"></button>
       </section>
       <section class="slide" data-slide="7" data-screen-label="07" aria-label="Slide 7 — Arquitetura da Solução MB WEB">
-        <img class="slide__bg" src="assets/reproducao/slide-07-bg.webp?v=3" alt="Arquitetura da Solução MB WEB — coleta de dados off-line nas fazendas, centralização em Big Data e Dashboards, compartilhamento de dados via APIs e acesso anywhere com gestão à vista.">
+        <img class="slide__bg" src="assets/reproducao/slide-07-bg.webp?v=4" alt="Arquitetura da Solução MB WEB — coleta de dados off-line nas fazendas, centralização em Big Data e Dashboards, compartilhamento de dados via APIs e acesso anywhere com gestão à vista.">
         <button class="hotspot foot-hot" type="button" title="Voltar para o slide anterior" aria-label="Voltar para o slide anterior"
                 style="left:43.9%;top:91.9%;width:5.3%;height:6.7%;" onclick="goToSlide(6)"></button>
         <button class="hotspot foot-hot" type="button" title="Ir para o menu" aria-label="Ir para o menu"
@@ -221,7 +243,7 @@
 
       <!-- ===================== SLIDE 8 — Coleta de Dados (submenu com 5 opções) ===================== -->
       <section class="slide" data-slide="8" data-screen-label="08" aria-label="Slide 8 — Coleta de Dados">
-        <img class="slide__bg" src="assets/reproducao/slide-08-bg.webp?v=3" alt="Coleta de Dados — cinco opções: Completo (mais dados coletados), Ágil e Seguro (rotinas salvas padronizadas), Inteligência na Coleta, Protótipo (App MB IATF / Curral) e Vídeo (prática no curral).">
+        <img class="slide__bg" src="assets/reproducao/slide-08-bg.webp?v=4" alt="Coleta de Dados — cinco opções: Completo (mais dados coletados), Ágil e Seguro (rotinas salvas padronizadas), Inteligência na Coleta, Protótipo (App MB IATF / Curral) e Vídeo (prática no curral).">
         <!-- Linha 1 (card inteiro clicável) -->
         <button class="hotspot s2-hot" type="button" title="Completo — mais dados coletados" aria-label="Completo — mais dados coletados"
                 style="left:2.7%;top:15%;width:29.7%;height:25%;" onclick="goToSlide(15)"></button>
@@ -236,9 +258,9 @@
                 style="left:34.8%;top:43.5%;width:29.7%;height:24.4%;" onclick="goToSlide(50)"></button>
       </section>
 
-      <!-- ===================== SLIDE 9 — Completo (imagem + botões clicáveis nos itens com lupa) ===================== -->
+      <!-- ===================== SLIDE 15 — Completo (imagem + botões clicáveis nos itens com lupa) ===================== -->
       <section class="slide" data-slide="15" data-screen-label="15" aria-label="Slide 15 — Completo: mais dados coletados">
-        <img class="slide__bg" src="assets/reproducao/slide-15-bg.webp?v=3" alt="Completo. Mais dados coletados. Tenha todos os eventos disponíveis para montar suas rotinas de manejo. Grupos: Estoque de Animais, Reprodução, Controle Ponderal e Zoosanitário.">
+        <img class="slide__bg" src="assets/reproducao/slide-15-bg.webp?v=4" alt="Completo. Mais dados coletados. Tenha todos os eventos disponíveis para montar suas rotinas de manejo. Grupos: Estoque de Animais, Reprodução, Controle Ponderal e Zoosanitário.">
         <!-- Cabeçalho: navegação -->
         <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:72.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(8)"></button>
         <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:78.5%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(8)"></button>
@@ -260,9 +282,9 @@
         <button class="hotspot s2-hot" type="button" title="Vacinação" aria-label="Vacinação" style="left:78%;top:80.3%;width:18%;height:5.8%;" onclick="goToSlide(108)"></button>
       </section>
 
-      <!-- ===================== SLIDE 10 — Ágil e Seguro: Rotinas Salvas Padronizadas (overview de seção) ===================== -->
+      <!-- ===================== SLIDE 16 — Ágil e Seguro: Rotinas Salvas Padronizadas (overview de seção) ===================== -->
       <section class="slide" data-slide="16" data-screen-label="16" aria-label="Slide 16 — Ágil e Seguro: Rotinas Salvas Padronizadas">
-        <img class="slide__bg" src="assets/reproducao/slide-16-bg.webp?v=3" alt="Ágil e Seguro — Rotinas Salvas Padronizadas com eventos configuráveis. Defina previamente rotinas com seus eventos e detalhamentos, deixando-as prontas para executar em qualquer fazenda. Lista de Rotinas Salvas (Compra de Animais, Inventário e Vacinação, Aplicação de Protocolo IATF, Inseminação, DG Com Ressinc, Partos, Mortes, Vendas de Animais), com as colunas Eventos/Atividades e Configurações (fixar valores, ler a cada vez, não utilizar, sob decisão).">
+        <img class="slide__bg" src="assets/reproducao/slide-16-bg.webp?v=4" alt="Ágil e Seguro — Rotinas Salvas Padronizadas com eventos configuráveis. Defina previamente rotinas com seus eventos e detalhamentos, deixando-as prontas para executar em qualquer fazenda. Lista de Rotinas Salvas (Compra de Animais, Inventário e Vacinação, Aplicação de Protocolo IATF, Inseminação, DG Com Ressinc, Partos, Mortes, Vendas de Animais), com as colunas Eventos/Atividades e Configurações (fixar valores, ler a cada vez, não utilizar, sob decisão).">
         <!-- Cabeçalho: navegação (mesmo padrão do slide Completo) -->
         <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:72.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(15)"></button>
         <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:78.5%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(8)"></button>
@@ -270,9 +292,9 @@
         <button class="hotspot foot-hot" type="button" title="Próximo slide" aria-label="Próximo slide" style="left:91.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(17)"></button>
       </section>
 
-      <!-- ===================== SLIDE 11 — Inteligência na Coleta: eventos condicionais ===================== -->
+      <!-- ===================== SLIDE 17 — Inteligência na Coleta: eventos condicionais ===================== -->
       <section class="slide" data-slide="17" data-screen-label="17" aria-label="Slide 17 — Inteligência na Coleta: eventos condicionais">
-        <img class="slide__bg" src="assets/reproducao/slide-17-bg.webp?v=3" alt="Inteligência na Coleta — Eventos condicionais que impedem manejos indesejados. Exemplos de situações imprevistas onde acionam eventos condicionais: se o animal não for do lote, não executa manejo; se o animal perdeu o implante, siga o tratamento recomendado (ou não); se o animal passou da faixa de peso, realize a apartação. À direita, protótipo do app MB IATF na tela Perda de Implante, destacando a Barra Lateral com informações complementares e tratamentos recomendados.">
+        <img class="slide__bg" src="assets/reproducao/slide-17-bg.webp?v=4" alt="Inteligência na Coleta — Eventos condicionais que impedem manejos indesejados. Exemplos de situações imprevistas onde acionam eventos condicionais: se o animal não for do lote, não executa manejo; se o animal perdeu o implante, siga o tratamento recomendado (ou não); se o animal passou da faixa de peso, realize a apartação. À direita, protótipo do app MB IATF na tela Perda de Implante, destacando a Barra Lateral com informações complementares e tratamentos recomendados.">
         <!-- Cabeçalho: navegação (botões deslocados à esquerda — o mockup ocupa a direita) -->
         <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:37.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(16)"></button>
         <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:43.6%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(8)"></button>
@@ -282,7 +304,7 @@
 
       <!-- ===================== SLIDE 18 — Inteligência na Coleta: alerta de risco na IA ===================== -->
       <section class="slide" data-slide="18" data-screen-label="18" aria-label="Slide 18 — Inteligência na Coleta: alerta de risco na inseminação">
-        <img class="slide__bg" src="assets/reproducao/slide-18-bg.webp?v=3" alt="Inteligência na Coleta — Eventos condicionais que impedem manejos indesejados. Durante o D9, por exemplo, caso a receptora perca o implante protocolado no D0, o MultBovinos alerta sobre o risco de prosseguir com a IA. À direita, protótipo do app MB IATF na tela Inseminação Artificial, com a Barra Lateral marcando “Perdeu o implante” e um diálogo de Confirmação: “A fêmea perdeu o implante. Ainda assim deseja inseminar?”.">
+        <img class="slide__bg" src="assets/reproducao/slide-18-bg.webp?v=4" alt="Inteligência na Coleta — Eventos condicionais que impedem manejos indesejados. Durante o D9, por exemplo, caso a receptora perca o implante protocolado no D0, o MultBovinos alerta sobre o risco de prosseguir com a IA. À direita, protótipo do app MB IATF na tela Inseminação Artificial, com a Barra Lateral marcando “Perdeu o implante” e um diálogo de Confirmação: “A fêmea perdeu o implante. Ainda assim deseja inseminar?”.">
         <!-- Cabeçalho: navegação -->
         <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:37.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(17)"></button>
         <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:43.6%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(8)"></button>
@@ -292,7 +314,7 @@
 
       <!-- ===================== SLIDE 19 — Inteligência na Coleta: Resumo da Rotina ===================== -->
       <section class="slide" data-slide="19" data-screen-label="19" aria-label="Slide 19 — Inteligência na Coleta: Resumo da Rotina">
-        <img class="slide__bg" src="assets/reproducao/slide-19-bg.webp?v=3" alt="Inteligência na Coleta — Resumo da Rotina com possível alerta sobre eventos. Ao terminar a coleta de dados de um animal, um Resumo da Rotina exibirá os eventos executados, seja com sucesso ou não. À direita, protótipo do app MB IATF na tela Resumo da Rotina, listando: 1 Entrada de Animal (alerta, animal já existente), 2 Diagnóstico de Gestação (sucesso, resultado positivo), 3 Aplicação de Protocolo IATF (alerta, fêmea com situação gestante, evento não pode ser aplicado), 4 Inserção no Lote de IATF (alerta, protocolo não aplicado) e 5 Score Corpóreo (sucesso).">
+        <img class="slide__bg" src="assets/reproducao/slide-19-bg.webp?v=4" alt="Inteligência na Coleta — Resumo da Rotina com possível alerta sobre eventos. Ao terminar a coleta de dados de um animal, um Resumo da Rotina exibirá os eventos executados, seja com sucesso ou não. À direita, protótipo do app MB IATF na tela Resumo da Rotina, listando: 1 Entrada de Animal (alerta, animal já existente), 2 Diagnóstico de Gestação (sucesso, resultado positivo), 3 Aplicação de Protocolo IATF (alerta, fêmea com situação gestante, evento não pode ser aplicado), 4 Inserção no Lote de IATF (alerta, protocolo não aplicado) e 5 Score Corpóreo (sucesso).">
         <!-- Cabeçalho: navegação -->
         <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:37.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(18)"></button>
         <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:43.6%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(8)"></button>
@@ -300,94 +322,471 @@
         <button class="hotspot foot-hot" type="button" title="Próximo slide" aria-label="Próximo slide" style="left:56.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(20)"></button>
       </section>
 
-      <!-- ===================== SLIDE 14 — Entrada de Animais (detalhe / protótipo) ===================== -->
+      <!-- ===================== SLIDE 20 — Inteligência na Coleta ===================== -->
+      <section class="slide" data-slide="20" data-screen-label="20" aria-label="Slide 20 — Inteligência na Coleta">
+        <img class="slide__bg" src="assets/reproducao/slide-20-bg.webp?v=4" alt="Inteligência na Coleta — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:37.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:43.6%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu geral" aria-label="Menu geral" style="left:49.9%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(2)"></button>
+        <button class="hotspot foot-hot" type="button" title="Próximo slide" aria-label="Próximo slide" style="left:56.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(21)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 49)" aria-label="Continuar no protótipo (slide 49)" style="left:94.94%;top:5.43%;width:2.26%;height:5.88%;" onclick="goToSlide(49)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 25)" aria-label="Continuar no protótipo (slide 25)" style="left:64.09%;top:9.04%;width:3.48%;height:4.51%;" onclick="goToSlide(25)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 21 — Inteligência na Coleta ===================== -->
+      <section class="slide" data-slide="21" data-screen-label="21" aria-label="Slide 21 — Inteligência na Coleta">
+        <img class="slide__bg" src="assets/reproducao/slide-21-bg.webp?v=4" alt="Inteligência na Coleta — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:37.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(20)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:43.6%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu geral" aria-label="Menu geral" style="left:49.9%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(2)"></button>
+        <button class="hotspot foot-hot" type="button" title="Próximo slide" aria-label="Próximo slide" style="left:56.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(22)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 20)" aria-label="Continuar no protótipo (slide 20)" style="left:90.40%;top:5.56%;width:2.26%;height:5.88%;" onclick="goToSlide(20)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 49)" aria-label="Continuar no protótipo (slide 49)" style="left:94.87%;top:5.56%;width:2.26%;height:5.88%;" onclick="goToSlide(49)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 25)" aria-label="Continuar no protótipo (slide 25)" style="left:64.16%;top:9.04%;width:3.48%;height:4.51%;" onclick="goToSlide(25)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 22 — Inteligência na Coleta ===================== -->
+      <section class="slide" data-slide="22" data-screen-label="22" aria-label="Slide 22 — Inteligência na Coleta">
+        <img class="slide__bg" src="assets/reproducao/slide-22-bg.webp?v=4" alt="Inteligência na Coleta — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__fx" src="assets/reproducao/slide-22-fx.webp?v=4" alt="" aria-hidden="true" style="left:38.33%;top:30.56%;width:27.69%;height:57.29%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:37.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(21)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:43.6%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu geral" aria-label="Menu geral" style="left:49.9%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(2)"></button>
+        <button class="hotspot foot-hot" type="button" title="Próximo slide" aria-label="Próximo slide" style="left:56.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(23)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 20)" aria-label="Continuar no protótipo (slide 20)" style="left:90.40%;top:5.56%;width:2.26%;height:5.88%;" onclick="goToSlide(20)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 49)" aria-label="Continuar no protótipo (slide 49)" style="left:94.87%;top:5.56%;width:2.26%;height:5.88%;" onclick="goToSlide(49)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 25)" aria-label="Continuar no protótipo (slide 25)" style="left:64.16%;top:9.04%;width:3.48%;height:4.51%;" onclick="goToSlide(25)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 23 — Inteligência na Coleta ===================== -->
+      <section class="slide" data-slide="23" data-screen-label="23" aria-label="Slide 23 — Inteligência na Coleta">
+        <img class="slide__bg" src="assets/reproducao/slide-23-bg.webp?v=4" alt="Inteligência na Coleta — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:37.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(22)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:43.6%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu geral" aria-label="Menu geral" style="left:49.9%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(2)"></button>
+        <button class="hotspot foot-hot" type="button" title="Próximo slide" aria-label="Próximo slide" style="left:56.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(24)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 20)" aria-label="Continuar no protótipo (slide 20)" style="left:90.40%;top:5.56%;width:2.26%;height:5.88%;" onclick="goToSlide(20)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 49)" aria-label="Continuar no protótipo (slide 49)" style="left:94.87%;top:5.56%;width:2.26%;height:5.88%;" onclick="goToSlide(49)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 25)" aria-label="Continuar no protótipo (slide 25)" style="left:64.16%;top:9.04%;width:3.48%;height:4.51%;" onclick="goToSlide(25)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 24)" aria-label="Continuar no protótipo (slide 24)" style="left:92.28%;top:22.62%;width:4.42%;height:7.73%;" onclick="goToSlide(24)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 24 — Inteligência na Coleta ===================== -->
+      <section class="slide" data-slide="24" data-screen-label="24" aria-label="Slide 24 — Inteligência na Coleta">
+        <img class="slide__bg" src="assets/reproducao/slide-24-bg.webp?v=4" alt="Inteligência na Coleta — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(23)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 25)" aria-label="Continuar no protótipo (slide 25)" style="left:64.16%;top:4.86%;width:3.48%;height:4.51%;" onclick="goToSlide(25)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 25 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="25" data-screen-label="25" aria-label="Slide 25 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-25-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 49)" aria-label="Continuar no protótipo (slide 49)" style="left:95.24%;top:5.03%;width:2.26%;height:5.88%;" onclick="goToSlide(49)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 20)" aria-label="Continuar no protótipo (slide 20)" style="left:90.63%;top:5.29%;width:2.26%;height:5.88%;" onclick="goToSlide(20)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.96%;top:28.57%;width:31.32%;height:5.88%;" onclick="goToSlide(26)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 26 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="26" data-screen-label="26" aria-label="Slide 26 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-26-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(25)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 20)" aria-label="Continuar no protótipo (slide 20)" style="left:90.63%;top:5.29%;width:2.26%;height:5.88%;" onclick="goToSlide(20)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 49)" aria-label="Continuar no protótipo (slide 49)" style="left:95.09%;top:5.29%;width:2.26%;height:5.88%;" onclick="goToSlide(49)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 25)" aria-label="Continuar no protótipo (slide 25)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(25)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 51)" aria-label="Continuar no protótipo (slide 51)" style="left:89.35%;top:25.81%;width:3.48%;height:7.74%;" onclick="goToSlide(51)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 28)" aria-label="Continuar no protótipo (slide 28)" style="left:89.35%;top:43.53%;width:3.48%;height:7.74%;" onclick="goToSlide(28)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 33)" aria-label="Continuar no protótipo (slide 33)" style="left:92.78%;top:43.53%;width:3.48%;height:7.74%;" onclick="goToSlide(33)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 30)" aria-label="Continuar no protótipo (slide 30)" style="left:89.35%;top:52.65%;width:3.48%;height:7.74%;" onclick="goToSlide(30)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 32)" aria-label="Continuar no protótipo (slide 32)" style="left:92.40%;top:80.26%;width:4.57%;height:8.26%;" onclick="goToSlide(32)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 27)" aria-label="Continuar no protótipo (slide 27)" style="left:64.23%;top:82.64%;width:14.08%;height:5.88%;" onclick="goToSlide(27)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 27 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="27" data-screen-label="27" aria-label="Slide 27 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-27-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 20)" aria-label="Continuar no protótipo (slide 20)" style="left:90.63%;top:5.29%;width:2.26%;height:5.88%;" onclick="goToSlide(20)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 49)" aria-label="Continuar no protótipo (slide 49)" style="left:95.09%;top:5.29%;width:2.26%;height:5.88%;" onclick="goToSlide(49)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 25)" aria-label="Continuar no protótipo (slide 25)" style="left:64.23%;top:8.90%;width:3.48%;height:4.51%;" onclick="goToSlide(25)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 32)" aria-label="Continuar no protótipo (slide 32)" style="left:92.40%;top:80.26%;width:4.57%;height:8.26%;" onclick="goToSlide(32)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:82.64%;width:7.91%;height:5.88%;" onclick="goToSlide(26)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 28 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="28" data-screen-label="28" aria-label="Slide 28 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-28-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(27)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:87.68%;top:80.26%;width:9.29%;height:8.26%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 29)" aria-label="Continuar no protótipo (slide 29)" style="left:64.23%;top:82.64%;width:8.85%;height:5.88%;" onclick="goToSlide(29)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 29 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="29" data-screen-label="29" aria-label="Slide 29 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-29-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(28)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:87.68%;top:80.26%;width:9.29%;height:8.26%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 28)" aria-label="Continuar no protótipo (slide 28)" style="left:64.23%;top:82.64%;width:7.91%;height:5.88%;" onclick="goToSlide(28)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 30 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="30" data-screen-label="30" aria-label="Slide 30 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-30-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(29)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:87.68%;top:80.26%;width:9.29%;height:8.26%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 31)" aria-label="Continuar no protótipo (slide 31)" style="left:64.23%;top:82.64%;width:8.85%;height:5.88%;" onclick="goToSlide(31)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 31 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="31" data-screen-label="31" aria-label="Slide 31 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-31-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(30)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:87.68%;top:80.26%;width:9.29%;height:8.26%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 30)" aria-label="Continuar no protótipo (slide 30)" style="left:64.23%;top:82.64%;width:7.91%;height:5.88%;" onclick="goToSlide(30)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 32 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="32" data-screen-label="32" aria-label="Slide 32 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-32-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(31)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:4.59%;width:3.48%;height:4.51%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 15)" aria-label="Continuar no protótipo (slide 15)" style="left:64.23%;top:89.99%;width:14.44%;height:5.88%;" onclick="goToSlide(15)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 33 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="33" data-screen-label="33" aria-label="Slide 33 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-33-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(32)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 34)" aria-label="Continuar no protótipo (slide 34)" style="left:89.70%;top:24.82%;width:3.96%;height:6.44%;" onclick="goToSlide(34)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 35)" aria-label="Continuar no protótipo (slide 35)" style="left:68.33%;top:31.26%;width:21.85%;height:5.12%;" onclick="goToSlide(35)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 34 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="34" data-screen-label="34" aria-label="Slide 34 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-34-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(33)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 33)" aria-label="Continuar no protótipo (slide 33)" style="left:64.23%;top:4.47%;width:2.26%;height:6.44%;" onclick="goToSlide(33)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 35 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="35" data-screen-label="35" aria-label="Slide 35 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-35-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(34)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 34)" aria-label="Continuar no protótipo (slide 34)" style="left:89.70%;top:24.82%;width:3.96%;height:6.44%;" onclick="goToSlide(34)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 36)" aria-label="Continuar no protótipo (slide 36)" style="left:74.11%;top:47.49%;width:12.95%;height:9.05%;" onclick="goToSlide(36)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 36 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="36" data-screen-label="36" aria-label="Slide 36 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-36-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(35)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 37)" aria-label="Continuar no protótipo (slide 37)" style="left:74.40%;top:79.63%;width:12.95%;height:9.05%;" onclick="goToSlide(37)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 37 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="37" data-screen-label="37" aria-label="Slide 37 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-37-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(36)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 38)" aria-label="Continuar no protótipo (slide 38)" style="left:78.94%;top:78.70%;width:12.95%;height:9.05%;" onclick="goToSlide(38)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 38 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="38" data-screen-label="38" aria-label="Slide 38 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-38-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(37)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 39)" aria-label="Continuar no protótipo (slide 39)" style="left:74.80%;top:24.91%;width:18.80%;height:5.12%;" onclick="goToSlide(39)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 39 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="39" data-screen-label="39" aria-label="Slide 39 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-39-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(38)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 40)" aria-label="Continuar no protótipo (slide 40)" style="left:78.94%;top:78.70%;width:12.95%;height:9.05%;" onclick="goToSlide(40)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 40 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="40" data-screen-label="40" aria-label="Slide 40 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-40-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(39)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 41)" aria-label="Continuar no protótipo (slide 41)" style="left:74.80%;top:24.91%;width:21.56%;height:5.12%;" onclick="goToSlide(41)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 41 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="41" data-screen-label="41" aria-label="Slide 41 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-41-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(40)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 42)" aria-label="Continuar no protótipo (slide 42)" style="left:78.94%;top:78.70%;width:12.95%;height:9.05%;" onclick="goToSlide(42)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 42 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="42" data-screen-label="42" aria-label="Slide 42 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-42-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(41)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 43)" aria-label="Continuar no protótipo (slide 43)" style="left:74.80%;top:24.91%;width:21.56%;height:12.13%;" onclick="goToSlide(43)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 43 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="43" data-screen-label="43" aria-label="Slide 43 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-43-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(42)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 44)" aria-label="Continuar no protótipo (slide 44)" style="left:78.94%;top:78.70%;width:12.95%;height:9.05%;" onclick="goToSlide(44)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 44 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="44" data-screen-label="44" aria-label="Slide 44 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-44-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(43)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 45)" aria-label="Continuar no protótipo (slide 45)" style="left:77.08%;top:78.70%;width:16.67%;height:9.05%;" onclick="goToSlide(45)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 45 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="45" data-screen-label="45" aria-label="Slide 45 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-45-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(44)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 26)" aria-label="Continuar no protótipo (slide 26)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(26)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 35)" aria-label="Continuar no protótipo (slide 35)" style="left:68.33%;top:31.26%;width:21.85%;height:5.12%;" onclick="goToSlide(35)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 23)" aria-label="Continuar no protótipo (slide 23)" style="left:91.44%;top:68.25%;width:4.91%;height:11.04%;" onclick="goToSlide(23)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 46 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="46" data-screen-label="46" aria-label="Slide 46 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-46-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(45)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 20)" aria-label="Continuar no protótipo (slide 20)" style="left:90.40%;top:5.29%;width:2.26%;height:5.88%;" onclick="goToSlide(20)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 49)" aria-label="Continuar no protótipo (slide 49)" style="left:94.87%;top:5.29%;width:2.26%;height:5.88%;" onclick="goToSlide(49)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 25)" aria-label="Continuar no protótipo (slide 25)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(25)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 47)" aria-label="Continuar no protótipo (slide 47)" style="left:64.23%;top:82.64%;width:8.85%;height:5.88%;" onclick="goToSlide(47)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 47 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="47" data-screen-label="47" aria-label="Slide 47 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-47-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(46)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 20)" aria-label="Continuar no protótipo (slide 20)" style="left:90.40%;top:5.29%;width:2.26%;height:5.88%;" onclick="goToSlide(20)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 49)" aria-label="Continuar no protótipo (slide 49)" style="left:94.87%;top:5.29%;width:2.26%;height:5.88%;" onclick="goToSlide(49)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 25)" aria-label="Continuar no protótipo (slide 25)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(25)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 46)" aria-label="Continuar no protótipo (slide 46)" style="left:64.23%;top:82.64%;width:7.91%;height:5.88%;" onclick="goToSlide(46)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 48 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="48" data-screen-label="48" aria-label="Slide 48 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-48-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(47)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 20)" aria-label="Continuar no protótipo (slide 20)" style="left:90.40%;top:5.29%;width:2.26%;height:5.88%;" onclick="goToSlide(20)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 49)" aria-label="Continuar no protótipo (slide 49)" style="left:94.87%;top:5.29%;width:2.26%;height:5.88%;" onclick="goToSlide(49)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 25)" aria-label="Continuar no protótipo (slide 25)" style="left:64.23%;top:8.90%;width:2.26%;height:6.44%;" onclick="goToSlide(25)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 49 — Protótipo App MB IATF / MB Curral ===================== -->
+      <section class="slide" data-slide="49" data-screen-label="49" aria-label="Slide 49 — Protótipo App MB IATF / MB Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-49-bg.webp?v=4" alt="Protótipo App MB IATF / MB Curral — tela do protótipo do aplicativo MB IATF apresentada no tablet. As áreas destacadas avançam para a próxima tela do fluxo.">
+        <img class="slide__ov" src="assets/reproducao/nav-voltar.webp?v=4" alt="" aria-hidden="true" style="left:50.02%;top:0.75%;width:6.54%;height:9.05%;">
+        <img class="slide__ov" src="assets/reproducao/nav-home.webp?v=4" alt="" aria-hidden="true" style="left:56.27%;top:0.75%;width:6.54%;height:9.05%;">
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:50.48%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:56.73%;top:1.57%;width:5.40%;height:6.96%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 25)" aria-label="Continuar no protótipo (slide 25)" style="left:80.51%;top:4.90%;width:16.81%;height:5.88%;" onclick="goToSlide(25)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 21)" aria-label="Continuar no protótipo (slide 21)" style="left:80.51%;top:10.78%;width:16.81%;height:5.88%;" onclick="goToSlide(21)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 20)" aria-label="Continuar no protótipo (slide 20)" style="left:80.51%;top:16.54%;width:16.81%;height:5.88%;" onclick="goToSlide(20)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 22)" aria-label="Continuar no protótipo (slide 22)" style="left:80.51%;top:40.21%;width:16.81%;height:5.88%;" onclick="goToSlide(22)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 46)" aria-label="Continuar no protótipo (slide 46)" style="left:80.51%;top:46.09%;width:16.81%;height:5.88%;" onclick="goToSlide(46)"></button>
+        <button class="hotspot s2-hot" type="button" title="Continuar no protótipo (slide 48)" aria-label="Continuar no protótipo (slide 48)" style="left:80.51%;top:58.13%;width:16.81%;height:5.88%;" onclick="goToSlide(48)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 50 — Vídeo: Prática no Curral ===================== -->
+      <section class="slide" data-slide="50" data-screen-label="50" aria-label="Slide 50 — Vídeo: Prática no Curral">
+        <img class="slide__bg" src="assets/reproducao/slide-50-bg.webp?v=4" alt="Vídeo: Prática no Curral — depoimento do veterinário Moacir Ferreira Jr, da empresa Emprenha e Cria, sobre o manejo de IATF com o aplicativo MB IATF.">
+        <div class="slide__video" style="left:16.38%;top:21.55%;width:67.24%;height:67.24%;">
+          <iframe data-src="https://www.youtube.com/embed/XRzz80Ii2VE"
+                  title="Manejo de IATF — Inseminação de animais com MB IATF"
+                  loading="lazy" allowfullscreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <a class="video-alt" href="https://www.youtube.com/watch?v=XRzz80Ii2VE" target="_blank" rel="noopener"
+           style="left:16.38%;top:90.2%;width:67.24%;">Se o vídeo não carregar aqui, abra no YouTube ↗</a>
+        <!-- Cabeçalho: navegação (3 botões, posições medidas no master) -->
+        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:78.6%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(49)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu Coleta de Dados" aria-label="Menu Coleta de Dados" style="left:84.9%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(8)"></button>
+        <button class="hotspot foot-hot" type="button" title="Menu geral" aria-label="Menu geral" style="left:91.3%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(2)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 103 — Entrada de Animais (detalhe / protótipo) ===================== -->
       <section class="slide" data-slide="103" data-screen-label="103" aria-label="Slide 103 — Entrada de Animais">
-        <img class="slide__bg" src="assets/reproducao/slide-103-bg.webp?v=3" alt="Entrada de Animais — Rotinas de Manejo Salvas, tipo Estoque de Animais. Permite a inclusão de novos animais via aplicativo. Protótipo do app MB IATF com o formulário Entrada do Animal (sexo, tipo, ordem, idade, raça, grau de sangue, rebanho, pelagem, produtor).">
+        <img class="slide__bg" src="assets/reproducao/slide-103-bg.webp?v=4" alt="Entrada de Animais — Rotinas de Manejo Salvas, tipo Estoque de Animais. Permite a inclusão de novos animais via aplicativo. Protótipo do app MB IATF com o formulário Entrada do Animal (sexo, tipo, ordem, idade, raça, grau de sangue, rebanho, pelagem, produtor).">
         <!-- Botão Macho no protótipo (abre a tela Macho) -->
         <button class="hotspot s2-hot" type="button" title="Macho — abrir tela seguinte do protótipo" aria-label="Macho — abrir tela seguinte do protótipo" style="left:80.6%;top:24.6%;width:15.1%;height:4.9%;" onclick="goToSlide(104)"></button>
       </section>
 
-      <!-- ===================== SLIDE 27 — Entrada de Animais / Macho (protótipo) ===================== -->
+      <!-- ===================== SLIDE 104 — Entrada de Animais / Macho (protótipo) ===================== -->
       <section class="slide" data-slide="104" data-screen-label="104" aria-label="Slide 104 — Entrada de Animais: sexo Macho">
-        <img class="slide__bg" src="assets/reproducao/slide-104-bg.webp?v=3" alt="Entrada de Animais — protótipo com sexo Macho selecionado. Formulário Entrada do Animal (tipo, idade, raça, grau de sangue, rebanho, pelagem, produtor).">
+        <img class="slide__bg" src="assets/reproducao/slide-104-bg.webp?v=4" alt="Entrada de Animais — protótipo com sexo Macho selecionado. Formulário Entrada do Animal (tipo, idade, raça, grau de sangue, rebanho, pelagem, produtor).">
         <!-- Botão Fêmea (volta à tela Fêmea) -->
         <button class="hotspot s2-hot" type="button" title="Fêmea — voltar à tela anterior do protótipo" aria-label="Fêmea — voltar à tela anterior do protótipo" style="left:65.5%;top:24.6%;width:15.1%;height:4.9%;" onclick="goToSlide(103)"></button>
       </section>
 
-      <!-- ===================== SLIDE 15 — Morte de Animais (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <!-- ===================== SLIDE 107 — Morte de Animais (detalhe / protótipo, sem interação no tablet) ===================== -->
       <section class="slide" data-slide="107" data-screen-label="107" aria-label="Slide 107 — Morte de Animais">
-        <img class="slide__bg" src="assets/reproducao/slide-107-bg.webp?v=3" alt="Morte de Animais — Rotinas de Manejo Salvas, tipo Estoque de Animais. Permite lançar a morte de animais via aplicativo. Protótipo do app MB IATF com o formulário Morte (data, causa e responsável) para o animal REC_T06.">
+        <img class="slide__bg" src="assets/reproducao/slide-107-bg.webp?v=4" alt="Morte de Animais — Rotinas de Manejo Salvas, tipo Estoque de Animais. Permite lançar a morte de animais via aplicativo. Protótipo do app MB IATF com o formulário Morte (data, causa e responsável) para o animal REC_T06.">
       </section>
 
-      <!-- ===================== SLIDE 16 — Venda de Animais (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <!-- ===================== SLIDE 106 — Venda de Animais (detalhe / protótipo, sem interação no tablet) ===================== -->
       <section class="slide" data-slide="106" data-screen-label="106" aria-label="Slide 106 — Venda de Animais">
-        <img class="slide__bg" src="assets/reproducao/slide-106-bg.webp?v=3" alt="Venda de Animais — Rotinas de Manejo Salvas, tipo Estoque de Animais. Permite lançar a venda de animais via aplicativo. Protótipo do app MB IATF com a edição da rotina Venda de Animais (tipo de venda, data, documento, produtor de origem, destino, embarque e sexo).">
+        <img class="slide__bg" src="assets/reproducao/slide-106-bg.webp?v=4" alt="Venda de Animais — Rotinas de Manejo Salvas, tipo Estoque de Animais. Permite lançar a venda de animais via aplicativo. Protótipo do app MB IATF com a edição da rotina Venda de Animais (tipo de venda, data, documento, produtor de origem, destino, embarque e sexo).">
       </section>
 
-      <!-- ===================== SLIDE 17 — Movimentação entre Propriedades (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <!-- ===================== SLIDE 105 — Movimentação entre Propriedades (detalhe / protótipo, sem interação no tablet) ===================== -->
       <section class="slide" data-slide="105" data-screen-label="105" aria-label="Slide 105 — Movimentação entre Propriedades">
-        <img class="slide__bg" src="assets/reproducao/slide-105-bg.webp?v=3" alt="Movimentação entre Propriedades — Rotinas de Manejo Salvas, tipo Estoque de Animais. Permite realizar a movimentação de animais via aplicativo. Protótipo do app MB IATF com o formulário Movimentação Entre Propriedades (tipo, documento, propriedade de destino, localidade de destino, produtor de origem e de destino) para o animal REC_T06.">
+        <img class="slide__bg" src="assets/reproducao/slide-105-bg.webp?v=4" alt="Movimentação entre Propriedades — Rotinas de Manejo Salvas, tipo Estoque de Animais. Permite realizar a movimentação de animais via aplicativo. Protótipo do app MB IATF com o formulário Movimentação Entre Propriedades (tipo, documento, propriedade de destino, localidade de destino, produtor de origem e de destino) para o animal REC_T06.">
       </section>
 
-      <!-- ===================== SLIDE 18 — Lançamento de Partos (1/3): formulário Parto ===================== -->
+      <!-- ===================== SLIDE 112 — Lançamento de Partos (1/3): formulário Parto ===================== -->
       <section class="slide" data-slide="112" data-screen-label="112" aria-label="Slide 112 — Lançamento de Partos (tela 1 de 3)">
-        <img class="slide__bg" src="assets/reproducao/slide-112-bg.webp?v=3" alt="Lançamento de Partos — Rotinas de Manejo Salvas, tipo Reprodução. Permite lançar informações do parto de fêmeas no campo. Protótipo do app MB IATF com o formulário Parto (data, tipo de parto, responsável) e a lista de Crias ainda sem registros.">
+        <img class="slide__bg" src="assets/reproducao/slide-112-bg.webp?v=4" alt="Lançamento de Partos — Rotinas de Manejo Salvas, tipo Reprodução. Permite lançar informações do parto de fêmeas no campo. Protótipo do app MB IATF com o formulário Parto (data, tipo de parto, responsável) e a lista de Crias ainda sem registros.">
         <!-- Interação: adicionar cria (Crias +) -> abre formulário da cria -->
         <button class="hotspot s2-hot" type="button" title="Adicionar cria" aria-label="Adicionar cria — abrir formulário da cria"
                 style="left:76.5%;top:50.6%;width:6%;height:4.6%;" onclick="goToSlide(113)"></button>
       </section>
 
-      <!-- ===================== SLIDE 28 — Lançamento de Partos (2/3): cadastro da cria ===================== -->
+      <!-- ===================== SLIDE 113 — Lançamento de Partos (2/3): cadastro da cria ===================== -->
       <section class="slide" data-slide="113" data-screen-label="113" aria-label="Slide 113 — Lançamento de Partos: cadastro da cria (tela 2 de 3)">
-        <img class="slide__bg" src="assets/reproducao/slide-113-bg.webp?v=3" alt="Lançamento de Partos — cadastro da cria. Painel Cria aberto sobre o formulário Parto, com os dados da mãe e os campos da cria (situação, ID usual, nome, raça, tipo, pelagem e grau de sangue) e o botão Salvar.">
+        <img class="slide__bg" src="assets/reproducao/slide-113-bg.webp?v=4" alt="Lançamento de Partos — cadastro da cria. Painel Cria aberto sobre o formulário Parto, com os dados da mãe e os campos da cria (situação, ID usual, nome, raça, tipo, pelagem e grau de sangue) e o botão Salvar.">
         <!-- Interação: salvar a cria -> volta ao Parto com as crias registradas -->
         <button class="hotspot s2-hot" type="button" title="Salvar cria" aria-label="Salvar cria"
                 style="left:75%;top:81%;width:11%;height:6%;" onclick="goToSlide(114)"></button>
       </section>
 
-      <!-- ===================== SLIDE 29 — Lançamento de Partos (3/3): crias registradas ===================== -->
+      <!-- ===================== SLIDE 114 — Lançamento de Partos (3/3): crias registradas ===================== -->
       <section class="slide" data-slide="114" data-screen-label="114" aria-label="Slide 114 — Lançamento de Partos: crias registradas (tela 3 de 3)">
-        <img class="slide__bg" src="assets/reproducao/slide-114-bg.webp?v=3" alt="Lançamento de Partos — formulário Parto com as crias já registradas na lista (Cria número 1 e Cria número 2, ambas Vivo), após o cadastro pelo aplicativo.">
+        <img class="slide__bg" src="assets/reproducao/slide-114-bg.webp?v=4" alt="Lançamento de Partos — formulário Parto com as crias já registradas na lista (Cria número 1 e Cria número 2, ambas Vivo), após o cadastro pelo aplicativo.">
       </section>
 
-      <!-- ===================== SLIDE 26 — Vacinação de Animais (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <!-- ===================== SLIDE 108 — Vacinação de Animais (detalhe / protótipo, sem interação no tablet) ===================== -->
       <section class="slide" data-slide="108" data-screen-label="108" aria-label="Slide 108 — Vacinação de Animais">
-        <img class="slide__bg" src="assets/reproducao/slide-108-bg.webp?v=3" alt="Vacinação de Animais — Rotinas de Manejo Salvas, tipo Zoossanitário. Permite realizar o lançamento de vacinas nos animais via aplicativo. Protótipo do app MB IATF com o formulário Vacinação (vacina Febre Aftosa, dose, unidade de uso, data de validade, fabricante e responsável).">
+        <img class="slide__bg" src="assets/reproducao/slide-108-bg.webp?v=4" alt="Vacinação de Animais — Rotinas de Manejo Salvas, tipo Zoossanitário. Permite realizar o lançamento de vacinas nos animais via aplicativo. Protótipo do app MB IATF com o formulário Vacinação (vacina Febre Aftosa, dose, unidade de uso, data de validade, fabricante e responsável).">
       </section>
 
-      <!-- ===================== SLIDE 19 — Controle Perda de Implante (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <!-- ===================== SLIDE 111 — Controle Perda de Implante (detalhe / protótipo, sem interação no tablet) ===================== -->
       <section class="slide" data-slide="111" data-screen-label="111" aria-label="Slide 111 — Controle Perda de Implante">
-        <img class="slide__bg" src="assets/reproducao/slide-111-bg.webp?v=3" alt="Controle Perda de Implante — Rotinas de Manejo Salvas, tipo Reprodução. Permite lançar os animais que perderam o implante no momento do manejo de retirada do mesmo no protocolo de sincronização. Protótipo do app MB IATF com o formulário Perda de Implante (perdeu? e responsável) para o animal REC_T06.">
+        <img class="slide__bg" src="assets/reproducao/slide-111-bg.webp?v=4" alt="Controle Perda de Implante — Rotinas de Manejo Salvas, tipo Reprodução. Permite lançar os animais que perderam o implante no momento do manejo de retirada do mesmo no protocolo de sincronização. Protótipo do app MB IATF com o formulário Perda de Implante (perdeu? e responsável) para o animal REC_T06.">
       </section>
 
-      <!-- ===================== SLIDE 24 — Pesagem de Animais (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <!-- ===================== SLIDE 109 — Pesagem de Animais (detalhe / protótipo, sem interação no tablet) ===================== -->
       <section class="slide" data-slide="109" data-screen-label="109" aria-label="Slide 109 — Pesagem de Animais">
-        <img class="slide__bg" src="assets/reproducao/slide-109-bg.webp?v=3" alt="Pesagem de Animais — Rotinas de Manejo Salvas, tipo Controle Ponderal. Permite realizar o lançamento de pesagem dos animais via aplicativo. Protótipo do app MB IATF com o formulário Pesagem (peso e balança conectada) para o animal REC_T06.">
+        <img class="slide__bg" src="assets/reproducao/slide-109-bg.webp?v=4" alt="Pesagem de Animais — Rotinas de Manejo Salvas, tipo Controle Ponderal. Permite realizar o lançamento de pesagem dos animais via aplicativo. Protótipo do app MB IATF com o formulário Pesagem (peso e balança conectada) para o animal REC_T06.">
       </section>
 
-      <!-- ===================== SLIDE 20 — Aplicação de Protocolo IATF (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <!-- ===================== SLIDE 115 — Aplicação de Protocolo IATF (detalhe / protótipo, sem interação no tablet) ===================== -->
       <section class="slide" data-slide="115" data-screen-label="115" aria-label="Slide 115 — Aplicação de Protocolo IATF">
-        <img class="slide__bg" src="assets/reproducao/slide-115-bg.webp?v=3" alt="Aplicação de Protocolo IATF (Edição do Protocolo de IATF) — Rotinas de Manejo Salvas, tipo Reprodução. Permite alterar tipo de hormônio, marca e dosagem durante o lançamento do protocolo de IATF. Protótipo do app MB IATF com o protocolo IATF 2024 - Novilhas e os eventos D0, D8 e D9.">
+        <img class="slide__bg" src="assets/reproducao/slide-115-bg.webp?v=4" alt="Aplicação de Protocolo IATF (Edição do Protocolo de IATF) — Rotinas de Manejo Salvas, tipo Reprodução. Permite alterar tipo de hormônio, marca e dosagem durante o lançamento do protocolo de IATF. Protótipo do app MB IATF com o protocolo IATF 2024 - Novilhas e os eventos D0, D8 e D9.">
       </section>
 
-      <!-- ===================== SLIDE 21 — Aplicação de Tratamento IATF (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <!-- ===================== SLIDE 118 — Aplicação de Tratamento IATF (detalhe / protótipo, sem interação no tablet) ===================== -->
       <section class="slide" data-slide="118" data-screen-label="118" aria-label="Slide 118 — Aplicação de Tratamento IATF">
-        <img class="slide__bg" src="assets/reproducao/slide-118-bg.webp?v=3" alt="Aplicação de Tratamento IATF — Rotinas de Manejo Salvas, tipo Reprodução. Utilizado como possibilidade de aplicar tratamentos específicos de IATF em alguns animais. Protótipo do app MB IATF com o formulário Aplicação de Tratamento (tratamento, quantidade/DS e responsável).">
+        <img class="slide__bg" src="assets/reproducao/slide-118-bg.webp?v=4" alt="Aplicação de Tratamento IATF — Rotinas de Manejo Salvas, tipo Reprodução. Utilizado como possibilidade de aplicar tratamentos específicos de IATF em alguns animais. Protótipo do app MB IATF com o formulário Aplicação de Tratamento (tratamento, quantidade/DS e responsável).">
       </section>
 
-      <!-- ===================== SLIDE 23 — Inseminação Artificial (detalhe / protótipo, sem interação no tablet) ===================== -->
+      <!-- ===================== SLIDE 116 — Inseminação Artificial (detalhe / protótipo, sem interação no tablet) ===================== -->
       <section class="slide" data-slide="116" data-screen-label="116" aria-label="Slide 116 — Inseminação Artificial">
-        <img class="slide__bg" src="assets/reproducao/slide-116-bg.webp?v=3" alt="Inseminação Artificial — Rotinas de Manejo Salvas, tipo Reprodução. Permite lançar as informações de sexagem da Inseminação Artificial nas fêmeas via aplicativo. Protótipo do app MB IATF com o formulário Inseminação artificial (cio, macho, partida, dose, tipo do sêmen, sêmen sexado, proprietário do sêmen e responsável).">
+        <img class="slide__bg" src="assets/reproducao/slide-116-bg.webp?v=4" alt="Inseminação Artificial — Rotinas de Manejo Salvas, tipo Reprodução. Permite lançar as informações de sexagem da Inseminação Artificial nas fêmeas via aplicativo. Protótipo do app MB IATF com o formulário Inseminação artificial (cio, macho, partida, dose, tipo do sêmen, sêmen sexado, proprietário do sêmen e responsável).">
       </section>
 
-      <!-- ===================== SLIDE 22 — Conferência de Lote "Animais Faltantes" (Reprodução) ===================== -->
+      <!-- ===================== SLIDE 110 — Conferência de Lote "Animais Faltantes" (Reprodução) ===================== -->
       <section class="slide" data-slide="110" data-screen-label="110" aria-label="Slide 110 — Conferência de Lote: Animais Faltantes">
-        <img class="slide__bg" src="assets/reproducao/slide-110-bg.webp?v=3" alt="Conferência de Lote Animais Faltantes — tipo Reprodução. Permite identificar animais faltantes, transferidos e entreveros dos lotes processados no curral. Protótipo com resumo do dia (compareceram 389, entreveros 14, total 403) e detalhamento por lote.">
+        <img class="slide__bg" src="assets/reproducao/slide-110-bg.webp?v=4" alt="Conferência de Lote Animais Faltantes — tipo Reprodução. Permite identificar animais faltantes, transferidos e entreveros dos lotes processados no curral. Protótipo com resumo do dia (compareceram 389, entreveros 14, total 403) e detalhamento por lote.">
       </section>
 
-      <!-- ===================== SLIDE 25 — Aplicação de Tratamento (Doenças) (Zoosanitário) ===================== -->
+      <!-- ===================== SLIDE 117 — Aplicação de Tratamento (Doenças) (Zoosanitário) ===================== -->
       <section class="slide" data-slide="117" data-screen-label="117" aria-label="Slide 117 — Aplicação de Tratamento (Doenças)">
-        <img class="slide__bg" src="assets/reproducao/slide-117-bg.webp?v=3" alt="Aplicação de Tratamento (Doenças) — tipo Zoosanitário. Permite aplicar tratamentos para doenças específicas em todo o lote ou em determinados animais. Protótipo com ficha do animal MB001 e formulário de doença, tratamentos e responsável.">
+        <img class="slide__bg" src="assets/reproducao/slide-117-bg.webp?v=4" alt="Aplicação de Tratamento (Doenças) — tipo Zoosanitário. Permite aplicar tratamentos para doenças específicas em todo o lote ou em determinados animais. Protótipo com ficha do animal MB001 e formulário de doença, tratamentos e responsável.">
       </section>
 
     </div>
@@ -421,7 +820,7 @@
 
   <script>
     const TOTAL = 118;                      // total de páginas do PDF de Reprodução e Cria Comercial
-    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 15, 16, 17, 18, 19, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118]; // slides já construídos (os demais são placeholders)
+    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118]; // slides já construídos (os demais são placeholders)
 
     const STORE = 'multsoft_repro_slide';
     const deck = document.getElementById('deck');
@@ -509,9 +908,20 @@
       }
       current = n;
       try{ localStorage.setItem(STORE, String(n)); }catch(e){}
+      updateVideos();
       updateChrome();
     }
     window.goToSlide = goToSlide;
+
+    /* ---- Vídeos incorporados: carrega só ao entrar no slide e descarrega ao sair.
+       Evita baixar o player do YouTube em toda visita e interrompe o áudio ao navegar. ---- */
+    function updateVideos(){
+      document.querySelectorAll('iframe[data-src]').forEach(fr => {
+        const ativo = fr.closest('.slide').classList.contains('is-active');
+        if(ativo && !fr.getAttribute('src'))       fr.setAttribute('src', fr.dataset.src);
+        else if(!ativo && fr.getAttribute('src'))  fr.removeAttribute('src');
+      });
+    }
 
     function updateChrome(){
       document.getElementById('prev').disabled = current === 1;
