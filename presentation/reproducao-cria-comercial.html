@@ -53,16 +53,97 @@
   }
   .dash-grid{
     display:grid;grid-template-columns:repeat(3,1fr);
-    gap:1.04% 1.55%;padding:1.17%;
+    gap:10px;padding:10px;position:relative;
   }
+  /* Véu: escurece só o interior do container quando um drilldown/dropdown abre.
+     Fica abaixo da janela aberta (z-index 5) e acima dos cards. */
+  .dash-veu{
+    position:absolute;top:0;bottom:0;left:5px;right:5px;   /* 5px de recuo lateral: encaixa na moldura do container */
+    z-index:4;background:rgba(0,0,0,.6);
+    opacity:0;pointer-events:none;transition:opacity .18s ease-in;
+  }
+  .dash-veu.is-open{opacity:1;pointer-events:auto;transition:opacity .26s ease-out;}
+  @media (prefers-reduced-motion:reduce){ .dash-veu{transition:none;} }
+
+  /* ---- Vistas do painel: a principal e as telas que a substituem ---- */
+  .dash-vista[hidden]{display:none;}
+  .dash-vista{animation:vistaEntra .3s ease-out both;}
+  @keyframes vistaEntra{from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:none;}}
+  /* Trilha de navegação da sub-tela, no padrão do sistema */
+  .dash-trilha{
+    grid-column:1/-1;display:flex;align-items:center;gap:.9em;
+    background:#eaefe6;border-radius:.5vh;padding:1.1vh 1.6vh;
+    font:600 1.9vh/1 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .dash-trilha button{
+    background:none;border:0;padding:0;cursor:pointer;color:#4a7c3f;
+    font:inherit;text-decoration:none;
+  }
+  .dash-trilha button:hover{text-decoration:underline;}
+  .dash-trilha span{color:#6b7a66;}
+  .dash-trilha strong{color:#3f5c39;font-weight:600;}
+  @media (prefers-reduced-motion:reduce){ .dash-vista{animation:none;} }
   .dash-grid img{width:100%;height:auto;display:block;border-radius:.6vh;}
   .dash-grid .dash--largo{grid-column:span 2;}
-  /* barra de rolagem discreta, no tom do sistema */
+
+  /* ---- Drilldown: janela que abre ao clicar num link do card ----
+     Posicionada em % do próprio card, então acompanha a escala da grade. */
+  .dash-card{position:relative;}
+  .dash-card > img{width:100%;height:auto;display:block;border-radius:.6vh;}
+  .dash-drill > img{width:100%;height:auto;display:block;}
+  .dash-hot{
+    position:absolute;padding:0;border:0;background:transparent;cursor:pointer;
+    border-radius:3px;-webkit-tap-highlight-color:transparent;
+  }
+  .dash-hot:focus-visible{outline:2px solid #1e8ea0;outline-offset:2px;}
+  .dash-drill{
+    position:absolute;display:block;z-index:5;width:auto;border-radius:0;
+    opacity:0;transform:translateY(-9px);pointer-events:none;
+    transition:opacity .16s ease-in, transform .16s ease-in;   /* fechar: sai rápido */
+  }
+  .dash-drill.is-open{
+    opacity:1;transform:none;pointer-events:auto;
+    transition:opacity .28s cubic-bezier(.16,.84,.44,1),
+               transform .28s cubic-bezier(.16,.84,.44,1);      /* abrir: desacelera ao estacionar */
+  }
+  @media (prefers-reduced-motion:reduce){
+    .dash-drill,.dash-drill.is-open{transition:none;transform:none;}
+  }
+
+  /* ---- Modal do sistema: escurece o slide e destaca a imagem ---- */
+  .modal-fundo{
+    position:absolute;inset:0;z-index:20;background:rgba(0,0,0,.6);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;transition:opacity .2s ease-in;
+  }
+  .modal-fundo.is-open{opacity:1;pointer-events:auto;transition:opacity .3s ease-out;}
+  .modal-caixa{
+    position:relative;width:88%;
+    transform:translateY(-14px) scale(.985);
+    transition:transform .2s ease-in;
+  }
+  .modal-fundo.is-open .modal-caixa{
+    transform:none;transition:transform .34s cubic-bezier(.16,.84,.44,1);
+  }
+  .modal-caixa > img{width:100%;height:auto;display:block;}
+  .modal-caixa--media{width:76%;}
+  .modal-caixa--larga{width:84%;}
+  .modal-caixa .modal-hot{
+    position:absolute;padding:0;border:0;background:transparent;cursor:pointer;
+    border-radius:6px;-webkit-tap-highlight-color:transparent;
+  }
+  .modal-caixa .modal-hot:hover{background:rgba(255,255,255,.18);}
+  .modal-caixa .modal-hot:focus-visible{outline:2px solid #fff;outline-offset:2px;}
+  @media (prefers-reduced-motion:reduce){
+    .modal-fundo,.modal-caixa{transition:none;transform:none;}
+  }
+  /* Barra de rolagem fina, sobreposta à faixa de 10px para não roubar largura
+     dos cards nem desequilibrar a margem direita. */
   .slide__dash{scrollbar-width:thin;scrollbar-color:#c3cdd6 transparent;}
-  .slide__dash::-webkit-scrollbar{width:10px;}
+  .slide__dash::-webkit-scrollbar{width:8px;}
   .slide__dash::-webkit-scrollbar-track{background:transparent;}
-  .slide__dash::-webkit-scrollbar-thumb{background:#c3cdd6;border-radius:99px;border:3px solid #f6f7fb;}
-  .slide__dash::-webkit-scrollbar-thumb:hover{background:#a9b6c2;}
+  .slide__dash::-webkit-scrollbar-thumb{background:#c3cdd6;border-radius:99px;border:2px solid transparent;background-clip:content-box;}
+  .slide__dash::-webkit-scrollbar-thumb:hover{background:#a9b6c2;background-clip:content-box;}
 
   /* ---- Indicador de área clicável: um cometa percorre o contorno do botão ----
      O gradiente cônico gira dentro da caixa; a máscara deixa visível só a moldura,
@@ -986,24 +1067,154 @@
       <!-- ===================== SLIDE 68 — Monitoramento e Análises — Estação de Monta ===================== -->
       <section class="slide" data-slide="68" data-screen-label="68" aria-label="Slide 68 — Monitoramento e Análises — Estação de Monta">
         <img class="slide__bg" src="assets/reproducao/slide-68-bg.webp?v=5" alt="Monitoramento e Análises — Estação de Monta — tela do sistema MB Web. As áreas destacadas levam às telas seguintes do fluxo e de volta aos menus.">
+        <button class="hotspot s2-hot hotspot--cometa" type="button" data-abre-modal="modal-fazendas"
+                title="FAZENDA BOA FORTUNA — trocar de fazenda" aria-label="FAZENDA BOA FORTUNA — trocar de fazenda"
+                style="left:42.19%;top:12.50%;width:13.28%;height:3.47%;"></button>
         <div class="slide__dash" style="left:0.88%;top:24.05%;width:98.54%;height:74.39%;">
-          <div class="dash-grid">
-            <img src="assets/reproducao/dashboards/card-estacao-monta.webp?v=5" alt="Estação Monta — previsão e realizado de fêmeas inseminadas, inseminações, prenhez, taxas e perdas gestacionais." loading="lazy">
-            <img src="assets/reproducao/dashboards/card-aptas.webp?v=5" alt="Aptas — velocímetro em 103,30%, com inseminadas, a inseminar e total de aptas." loading="lazy">
+          <div class="dash-grid dash-vista" data-vista="painel">
+            <div class="dash-veu" aria-hidden="true"></div>
+            <div class="dash-card">
+              <img src="assets/reproducao/dashboards/card-estacao-monta.webp?v=5" alt="Estação Monta — previsão e realizado de fêmeas inseminadas, inseminações, prenhez, taxas e perdas gestacionais." loading="lazy">
+              <button class="dash-hot hotspot--cometa" type="button" data-drill="drill-fem-insem"
+                      title="Fêmeas Inseminadas — abrir detalhamento" aria-label="Fêmeas Inseminadas — abrir detalhamento"
+                      aria-expanded="false" aria-controls="drill-fem-insem"
+                      style="left:1.77%;top:30.23%;width:19.53%;height:6.11%;"></button>
+              <div id="drill-fem-insem" class="dash-drill" style="left:1.52%;top:35.69%;width:42.17%;">
+                <img src="assets/reproducao/dashboards/drill-femeas-inseminadas.webp?v=5"
+                     alt="Detalhamento de Fêmeas Inseminadas: Fêmeas Inseminadas 0, Fêmeas Protocoladas 6124, IA por Fêmeas sem valor.">
+                <button class="dash-hot hotspot--cometa" type="button" data-abre-modal="modal-protocolos"
+                        title="Fêmeas Protocoladas — ver Protocolos Realizados"
+                        aria-label="Fêmeas Protocoladas — ver Protocolos Realizados"
+                        style="left:5.39%;top:43.32%;width:43.51%;height:15.67%;"></button>
+              </div>
+              <button class="dash-hot hotspot--cometa" type="button" data-drill="drill-taxa-prenhez"
+                      title="Taxa de Prenhez — abrir detalhamento" aria-label="Taxa de Prenhez — abrir detalhamento"
+                      aria-expanded="false" aria-controls="drill-taxa-prenhez"
+                      style="left:1.68%;top:51.77%;width:15.82%;height:6.27%;"></button>
+              <button class="dash-hot hotspot--cometa" type="button"
+                      title="Resumo Estação de Monta" aria-label="Resumo Estação de Monta"
+                      style="left:53.87%;top:86.01%;width:29.04%;height:9.81%;border-radius:999px;"
+                      onclick="goToSlide(73)"></button>
+              <button class="dash-hot hotspot--cometa" type="button" data-abre-modal="modal-prenhez60"
+                      title="Prenhez 60 Dias" aria-label="Prenhez 60 Dias"
+                      style="left:17.09%;top:86.01%;width:19.61%;height:9.81%;border-radius:999px;"></button>
+              <div id="drill-taxa-prenhez" class="dash-drill" style="left:1.52%;top:57.88%;width:70.79%;">
+                <img src="assets/reproducao/dashboards/drill-taxa-prenhez.webp?v=5"
+                     alt="Detalhamento de Taxa de Prenhez, por % em 60 dias, % acima de 60 dias e % total: Prenhe IA 0,00; Prenhe Repasse 0,00; Prenhe Touro Desconhecido 0,00; Fêmeas Diagnosticadas 0.">
+              </div>
+              <button class="dash-hot hotspot--cometa" type="button" data-drill="drill-menu-em"
+                      title="Menu do card Estação Monta" aria-label="Menu do card Estação Monta"
+                      aria-expanded="false" aria-controls="drill-menu-em"
+                      style="left:93.69%;top:3.70%;width:3.70%;height:6.27%;"></button>
+              <img id="drill-menu-em" class="dash-drill" src="assets/reproducao/dashboards/drill-menu-estacao-monta.webp?v=5"
+                   alt="Menu do card Estação Monta: Lotes E.M, Cronograma IATF, Manejo de IATF, Planejamento da E.M, Estoque Sêmen, Resumo Produção, Configura E.M. – IA, Exportar Dados Reprodutivos (View) e Estação Monta MC."
+                   style="left:56.65%;top:9.32%;width:40.74%;height:83.12%;">
+            </div>
+            <div class="dash-card">
+              <img src="assets/reproducao/dashboards/card-aptas.webp?v=5" alt="Aptas — velocímetro em 103,30%, com inseminadas, a inseminar e total de aptas." loading="lazy">
+              <button class="dash-hot hotspot--cometa" type="button" data-abre-vista="aptas"
+                      title="Aptas — abrir detalhamento" aria-label="Aptas — abrir detalhamento"
+                      style="left:29.12%;top:21.38%;width:41.41%;height:41.64%;"></button>
+            </div>
             <img src="assets/reproducao/dashboards/dias-perdidos.webp?v=5" alt="Dias Perdidos — fêmeas em descanso, descanso acima de 40 dias e DG acima de 30 dias." loading="lazy">
-            <img class="dash--largo" src="assets/reproducao/dashboards/card-estacao-monta-grid.webp?v=5" alt="Estação Monta — tabela de serviços por IA, com DG inicial, DG final e perdas." loading="lazy">
+            <div class="dash-card dash--largo">
+              <img src="assets/reproducao/dashboards/card-estacao-monta-grid.webp?v=5" alt="Estação Monta — tabela de serviços por IA, com DG inicial, DG final e perdas." loading="lazy">
+              <button class="dash-hot hotspot--cometa" type="button" data-drill="drill-prenhe-ia"
+                      title="Gest 19 — abrir detalhamento" aria-label="Coluna Gest, valor 19 — abrir detalhamento"
+                      aria-expanded="false" aria-controls="drill-prenhe-ia"
+                      style="left:26.46%;top:41.16%;width:2.51%;height:6.11%;"></button>
+              <div id="drill-prenhe-ia" class="dash-drill" style="left:26.62%;top:46.95%;width:20.58%;">
+                <img src="assets/reproducao/dashboards/drill-prenhe-ia.webp?v=5"
+                     alt="Detalhamento da coluna Gest: Prenhe IA 1, Prenhe IA Outros 18, Prenhe Repasse 0 e Prenhes Desconhecida 0.">
+              </div>
+            </div>
             <img src="assets/reproducao/dashboards/card-partos.webp?v=5" alt="Partos — partos, bezerros nascidos e a nascer, previsão de nascimentos, perdas gestacionais e morte de gestante." loading="lazy">
             <img class="dash--largo" src="assets/reproducao/dashboards/card-estoque-atual-reprod.webp?v=5" alt="Estoque Atual de Reprodutores — prenha, servida e vazia por categoria, de novilha precoce a multípara." loading="lazy">
-            <img src="assets/reproducao/dashboards/card-estoque-descartadas.webp?v=5" alt="Estoque de Descartadas — paridas, solteiras, total e peso médio por tempo pós descarte." loading="lazy">
+            <div class="dash-card">
+              <img src="assets/reproducao/dashboards/card-estoque-descartadas.webp?v=5" alt="Estoque de Descartadas — paridas, solteiras, total e peso médio por tempo pós descarte." loading="lazy">
+              <button class="dash-hot hotspot--cometa" type="button" data-abre-modal="modal-acima12"
+                      title="Acima de 12 Meses — abrir detalhamento" aria-label="Acima de 12 Meses — abrir detalhamento"
+                      style="left:1.68%;top:66.56%;width:16.50%;height:5.31%;"></button>
+            </div>
             <img src="assets/reproducao/dashboards/card-desmame.webp?v=5" alt="Desmame — bezerros desmamados e a desmamar, idade e peso médios, ganho de peso diário e mortes na maternidade." loading="lazy">
             <img src="assets/reproducao/dashboards/card-monitoramento-reg-animais.webp?v=5" alt="Monitoramento de Registros de Animais — coberturas e nascimentos sem comunicação e registros pendentes." loading="lazy">
             <img src="assets/reproducao/dashboards/card-resumo-atividades.webp?v=5" alt="Resumo de Atividades — entrada de animais, entrada em lote EM, aplicação de protocolo, score, IA, repasse e diagnóstico de gestação." loading="lazy">
+          </div>
+
+          <div class="dash-grid dash-vista" data-vista="aptas" hidden>
+            <nav class="dash-trilha" aria-label="Trilha de navegação">
+              <button type="button" data-abre-vista="painel">Dashboard</button>
+              <span aria-hidden="true">&rsaquo;</span>
+              <strong>Aptas</strong>
+            </nav>
+            <img src="assets/reproducao/dashboards/card-aptas-femeas-aptas.webp?v=5" loading="lazy"
+                 alt="Fêmeas Aptas — período de partos de 08/2020 até 01/2021, com quantidade, inseminadas e percentual por categoria: novilhas, paridas, gestantes, solteiras, total, descartadas/retiradas e fêmeas fora da E.M.">
+            <img src="assets/reproducao/dashboards/card-aptas-retiradas-antesIA.webp?v=5" loading="lazy"
+                 alt="Aptas Retiradas Antes da IA — por tipo de retirada (mortes, descarte, venda, transferência e outras saídas), separadas em novilha, gestante, solteira e parida; total de 132 retiradas, 2,08%.">
+            <img src="assets/reproducao/dashboards/card-aptas-retiradas-aposIA.webp?v=5" loading="lazy"
+                 alt="Aptas Retiradas Após a IA — por tipo de retirada, separadas em novilha, solteira e parida; total de 42 retiradas, 0,66%.">
           </div>
         </div>
         <button class="hotspot foot-hot" type="button" title="Menu Monitoramento e Análises" aria-label="Menu Monitoramento e Análises" style="left:72.27%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(11)"></button>
         <button class="hotspot foot-hot" type="button" title="Menu Monitoramento e Análises" aria-label="Menu Monitoramento e Análises" style="left:78.52%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(11)"></button>
         <button class="hotspot foot-hot" type="button" title="Menu principal" aria-label="Menu principal" style="left:84.86%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(2)"></button>
         <button class="hotspot foot-hot" type="button" title="Próximo slide" aria-label="Próximo slide" style="left:91.26%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(69)"></button>
+        <!-- Modal do sistema: fecha no X, no botão FECHAR ou com Esc -->
+        <div class="modal-fundo" id="modal-acima12" role="dialog" aria-modal="true"
+             aria-label="Acima de 12 Meses">
+          <div class="modal-caixa">
+            <img src="assets/reproducao/dashboards/modal-acima-12-meses.webp?v=5"
+                 alt="Acima de 12 Meses — relação de animais descartados há mais de doze meses, com ID usual, raça, tipo, ordem, situação, última cobertura, touro, DG inicial, último DG, resultado e ocorrência; 78 registros paginados.">
+            <button class="modal-hot" type="button" data-fecha-modal="modal-acima12"
+                    title="Fechar" aria-label="Fechar"
+                    style="left:96.56%;top:1.09%;width:2.80%;height:5.39%;border-radius:50%;"></button>
+            <button class="modal-hot" type="button" data-fecha-modal="modal-acima12"
+                    title="Fechar" aria-label="Fechar"
+                    style="left:91.96%;top:91.73%;width:7.07%;height:6.35%;"></button>
+          </div>
+        </div>
+
+        <!-- Modal do sistema: fecha no X, no botão FECHAR ou com Esc -->
+        <div class="modal-fundo" id="modal-prenhez60" role="dialog" aria-modal="true"
+             aria-label="Prenhez 60 Dias">
+          <div class="modal-caixa modal-caixa--larga">
+            <img src="assets/reproducao/dashboards/modal-prenhez-60dias.webp?v=5"
+                 alt="Prenhez 60 Dias — Prenhas Primeiros Dias por Categoria: novilha precoce, novilha, primípara, secundípara e multípara, com quantidade de fêmeas, diagnosticadas, prenhas, taxa de prenhez, serviços, serviços com DG e taxa de concepção IA; total de 6074 fêmeas e 69,07% de prenhez.">
+            <button class="modal-hot" type="button" data-fecha-modal="modal-prenhez60"
+                    title="Fechar" aria-label="Fechar"
+                    style="left:94.84%;top:1.73%;width:4.20%;height:8.57%;border-radius:50%;"></button>
+            <button class="modal-hot" type="button" data-fecha-modal="modal-prenhez60"
+                    title="Fechar" aria-label="Fechar"
+                    style="left:87.99%;top:86.94%;width:10.56%;height:10.10%;"></button>
+          </div>
+        </div>
+
+        <!-- Modal do sistema: só o X fecha (esta não tem botão FECHAR) -->
+        <div class="modal-fundo" id="modal-fazendas" role="dialog" aria-modal="true"
+             aria-label="Escolha uma fazenda para administrar">
+          <div class="modal-caixa modal-caixa--media">
+            <img src="assets/reproducao/dashboards/modal-fazendas.webp?v=5"
+                 alt="Escolha uma fazenda para administrar — tabela com Nome, Razão social, INCRA/NIRF/CNPJ e Proprietário/Cliente, listando Fazenda Boa Fortuna, Fazenda Floresta, Fazenda Gado Manso e Fazenda Santa Rita (Controlada); 4 registros.">
+            <button class="modal-hot" type="button" data-fecha-modal="modal-fazendas"
+                    title="Fechar" aria-label="Fechar"
+                    style="left:96.06%;top:4.05%;width:2.58%;height:5.56%;"></button>
+          </div>
+        </div>
+
+        <!-- Modal do sistema: fecha no X, no botão FECHAR ou com Esc -->
+        <div class="modal-fundo" id="modal-protocolos" role="dialog" aria-modal="true"
+             aria-label="Protocolos Realizados">
+          <div class="modal-caixa">
+            <img src="assets/reproducao/dashboards/modal-protocolos-realizados.webp?v=5"
+                 alt="Protocolos Realizados, de 01/11/2020 até 15/03/2021 — tabela com ID usual, data do protocolo, tipo e protocolo aplicado; 12901 registros paginados.">
+            <button class="modal-hot" type="button" data-fecha-modal="modal-protocolos"
+                    title="Fechar" aria-label="Fechar"
+                    style="left:96.70%;top:1.16%;width:2.70%;height:5.23%;border-radius:50%;"></button>
+            <button class="modal-hot" type="button" data-fecha-modal="modal-protocolos"
+                    title="Fechar" aria-label="Fechar"
+                    style="left:92.03%;top:91.86%;width:6.94%;height:6.14%;"></button>
+          </div>
+        </div>
       </section>
 
       <!-- ===================== SLIDE 69 — Monitoramento e Análises — Estação de Monta ===================== -->
@@ -1053,11 +1264,11 @@
       <!-- ===================== SLIDE 73 — Monitoramento e Análises — Estação de Monta ===================== -->
       <section class="slide" data-slide="73" data-screen-label="73" aria-label="Slide 73 — Monitoramento e Análises — Estação de Monta">
         <img class="slide__bg" src="assets/reproducao/slide-73-bg.webp?v=5" alt="Monitoramento e Análises — Estação de Monta — tela do sistema MB Web. As áreas destacadas levam às telas seguintes do fluxo e de volta aos menus.">
-        <button class="hotspot foot-hot" type="button" title="Voltar para o slide 68" aria-label="Voltar para o slide 68" style="left:72.27%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(68)"></button>
+        <button class="hotspot foot-hot" type="button" title="Voltar ao painel de dashboards" aria-label="Voltar ao painel de dashboards" style="left:72.27%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(68)"></button>
         <button class="hotspot foot-hot" type="button" title="Menu Monitoramento e Análises" aria-label="Menu Monitoramento e Análises" style="left:78.52%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(11)"></button>
         <button class="hotspot foot-hot" type="button" title="Menu principal" aria-label="Menu principal" style="left:84.86%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(2)"></button>
         <button class="hotspot foot-hot" type="button" title="Próximo slide" aria-label="Próximo slide" style="left:91.26%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(74)"></button>
-        <button class="hotspot s2-hot hotspot--cometa" type="button" title="Próximo slide" aria-label="Próximo slide" style="left:3.52%;top:88.34%;width:12.33%;height:5.69%;" onclick="goToSlide(74)"></button>
+        <button class="hotspot s2-hot hotspot--cometa" type="button" title="Gerar Relatório" aria-label="Gerar Relatório" style="left:3.52%;top:88.34%;width:12.33%;height:5.69%;" onclick="goToSlide(74)"></button>
       </section>
 
       <!-- ===================== SLIDE 74 — Monitoramento e Análises — Estação de Monta ===================== -->
@@ -1563,6 +1774,64 @@
       updateChrome();
     }
     window.goToSlide = goToSlide;
+
+    /* ---- Drilldowns do painel: abrem no clique do link e fecham ao clicar fora ---- */
+    function sincronizaVeu(){
+      const aberto = !!document.querySelector('.dash-drill.is-open');
+      document.querySelectorAll('.dash-veu').forEach(v => v.classList.toggle('is-open', aberto));
+    }
+    function fecharDrills(exceto){
+      document.querySelectorAll('.dash-drill.is-open').forEach(d => {
+        if(d === exceto) return;
+        d.classList.remove('is-open');
+        const g = document.querySelector('.dash-hot[data-drill="'+d.id+'"]');
+        if(g) g.setAttribute('aria-expanded','false');
+      });
+      sincronizaVeu();
+    }
+    document.addEventListener('click', (e) => {
+      const gatilho = e.target.closest('.dash-hot[data-drill]');
+      if(gatilho){
+        const alvo = document.getElementById(gatilho.dataset.drill);
+        fecharDrills(alvo);
+        if(alvo){
+          const abriu = alvo.classList.toggle('is-open');
+          gatilho.setAttribute('aria-expanded', abriu ? 'true' : 'false');
+        }
+        sincronizaVeu();
+        return;
+      }
+      if(!e.target.closest('.dash-drill')) fecharDrills();   // clique fora fecha
+    });
+    /* ---- Modais do sistema: abrem por gatilho e fecham no X, no FECHAR ou com Esc ---- */
+    function fecharModais(){
+      document.querySelectorAll('.modal-fundo.is-open').forEach(m => m.classList.remove('is-open'));
+    }
+    document.addEventListener('click', (e) => {
+      const fecha = e.target.closest('[data-fecha-modal]');
+      if(fecha){ document.getElementById(fecha.dataset.fechaModal)?.classList.remove('is-open'); return; }
+      const abre = e.target.closest('[data-abre-modal]');
+      if(abre){
+        fecharDrills();
+        document.getElementById(abre.dataset.abreModal)?.classList.add('is-open');
+        return;
+      }
+      /* Troca de vista do painel: uma tela substitui a outra dentro do container */
+      const vista = e.target.closest('[data-abre-vista]');
+      if(vista){
+        fecharDrills();
+        const painel = vista.closest('.slide__dash');
+        painel.querySelectorAll('.dash-vista').forEach(v => {
+          v.hidden = (v.dataset.vista !== vista.dataset.abreVista);
+        });
+        painel.scrollTop = 0;
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if(e.key !== 'Escape') return;
+      if(document.querySelector('.modal-fundo.is-open')) fecharModais(); else fecharDrills();
+    });
 
     /* ---- Vídeos incorporados: carrega só ao entrar no slide e descarrega ao sair.
        Evita baixar o player do YouTube em toda visita e interrompe o áudio ao navegar. ---- */
