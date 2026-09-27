@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Integração ERP Senior e Plataforma MultBovinos — MultSoft</title>
+<style>
+  :root{
+    /* ---- Padrão tipográfico dos slides ----
+       Medidas da prancheta de design (1280x720); o deck é o dobro.
+       Conversão: <pt> / 720 * 100 = cqh, então o tipo escala com o palco.
+         título de menu  30pt   rótulo de card 26pt   legenda 20pt/30pt
+       Entreletras -50 do design = -0.05em. */
+    --ms-fonte:"Montserrat",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --ms-cor:#0a6f79;
+    --ms-track:-.05em;
+    --ms-titulo:4.17cqh;    /* 30pt */
+    --ms-rotulo:3.61cqh;    /* 26pt */
+    --ms-legenda:2.78cqh;   /* 20pt */
+    --ms-entrelinha:1.5;    /* 30pt sobre 20pt */
+
+    --mb-green:#236209;
+    --mb-olive:#94a853;
+    --ms-teal:#038595;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;}
+  body{
+    background:#000;
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    overflow:hidden;
+  }
+
+  /* ---- Palco: encaixa o deck 16:9 sobre fundo preto ---- */
+  .stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+  .deck{
+    position:relative;
+    width:100vw;height:56.25vw;      /* 16:9 */
+    max-width:177.7778vh;max-height:100vh;
+    overflow:hidden;
+    background:#fff;
+    container-type:size;
+  }
+
+  /* ---- Slides ---- */
+  .slide{
+    position:absolute;inset:0;
+    opacity:0;visibility:hidden;
+    transform:translateX(var(--x,0));
+    transition:opacity .42s ease, transform .52s cubic-bezier(.22,.78,.28,1);
+  }
+  .slide.is-active{opacity:1;visibility:visible;}
+  /* mantém o slide à vista enquanto ele desliza para fora */
+  .slide.is-saindo{visibility:visible;}
+  .slide__bg{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* ---- Área clicável genérica ---- */
+  .hotspot{
+    position:absolute;
+    padding:0;border:0;background:transparent;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .hotspot:focus-visible{outline:3px solid #fff;outline-offset:3px;}
+
+  /* ---- Capa: o slide inteiro avança ---- */
+  .cover-hot{inset:0;width:100%;height:100%;}
+
+  /* ---- Cards e botões do menu ---- */
+  .s2-hot{
+    border-radius:clamp(6px,1.1vw,22px);
+    transition:background .16s ease, box-shadow .16s ease;
+  }
+  .s2-hot:hover{
+    background:rgba(255,255,255,.14);
+    box-shadow:inset 0 0 0 max(2px,.18vw) rgba(255,255,255,.85),
+               0 0 0 max(2px,.18vw) rgba(3,133,149,.35);
+  }
+  .s2-hot:active{background:rgba(255,255,255,.06);}
+  .pill-hot{border-radius:999px;}
+
+  @media (prefers-reduced-motion:reduce){
+    .slide,.s2-logo,.s2-intro,.s2-prosseguir,.s2-menu-tit,.s2-card{transition:none;}
+    .s2:not(.is-active) .s2-logo,.s2:not(.is-active) .s2-intro,
+    .s2:not(.is-active) .s2-prosseguir,.s2:not(.is-active) .s2-menu-tit,
+    .s2:not(.is-active) .s2-card{opacity:1;translate:none;}
+  }
+
+  /* ---- Slides ainda não construídos ---- */
+  .stub{
+    background:radial-gradient(125% 125% at 82% 8%, #2c7a0e 0%, var(--mb-green) 46%, #143a05 100%);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .stub::before{
+    content:"";position:absolute;inset:0;opacity:.07;pointer-events:none;
+    background-image:radial-gradient(#fff 1.3px,transparent 1.3px);background-size:2.2vw 2.2vw;
+  }
+  .stub__card{position:relative;text-align:center;color:#fff;padding:0 6%;}
+  .stub__eyebrow{font-size:1.7vh;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#9ff0e6;}
+  .stub__n{font-size:11vh;font-weight:800;letter-spacing:-.03em;line-height:1;margin-top:1vh;}
+  .stub__n span{color:#7df0e6;}
+  .stub__t{margin-top:1.6vh;font-size:2.6vh;font-weight:600;color:rgba(255,255,255,.92);}
+  .stub__s{margin-top:1vh;font-size:1.7vh;color:rgba(255,255,255,.62);}
+  .stub__btns{margin-top:4vh;display:flex;gap:1.4vh;justify-content:center;flex-wrap:wrap;}
+  .stub__btn{
+    display:inline-flex;align-items:center;gap:.6em;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);
+    color:#fff;font-size:1.8vh;font-weight:600;padding:1.2vh 2.6vh;border-radius:999px;cursor:pointer;
+    transition:background .15s ease;
+  }
+  .stub__btn:hover{background:rgba(255,255,255,.24);}
+  .stub__btn--solid{background:#7df0e6;color:#0a3b34;border-color:#7df0e6;}
+  .stub__btn--solid:hover{background:#9ff5ed;}
+
+
+  /* ================= SLIDE 2 — elementos em HTML/CSS =================
+     Medidas em % do deck; tipos em cqh, que acompanham a altura do palco.
+     O deck declara container-type:size, então cqw/cqh valem aqui. */
+  .s2 *{font-family:var(--ms-fonte);}
+  .s2-logo{position:absolute;left:3.87%;top:4.86%;width:25.55%;height:auto;display:block;}
+
+  .s2-intro{
+    /* 20pt/30pt e tracking -50 da prancheta de 720 de altura; largura folgada
+       para as quebras seguirem os <br>, sem requebra do navegador */
+    position:absolute;left:35.17%;top:18.54%;width:24%;
+    text-align:center;color:var(--ms-cor);
+    font-size:var(--ms-legenda);font-weight:500;line-height:var(--ms-entrelinha);letter-spacing:var(--ms-track);
+  }
+  .s2-intro p{margin:0;}
+  .s2-intro p + p{margin-top:var(--ms-entrelinha)em;}
+  .s2-intro u{text-underline-offset:.18em;}
+  .s2-intro b{font-weight:700;}
+
+  .s2-prosseguir{
+    position:absolute;left:41.29%;top:47.57%;width:11.95%;height:4.24%;
+    border:0;cursor:pointer;
+    background:url("assets/erp-senior/btn-prosseguir.webp?v=1") no-repeat center/100% 100%;
+    display:flex;align-items:center;justify-content:center;gap:.8em;
+    /* recuo inferior sobe o conteúdo para 42,4% da altura, compensando a aresta 3D */
+    padding:0 0 .64cqh 0;
+    color:#fff;font-size:1.88cqh;font-weight:600;letter-spacing:var(--ms-track);
+  }
+  .s2-prosseguir svg{width:1.21em;height:1.21em;flex:0 0 auto;}
+
+  .s2-menu-tit{
+    position:absolute;left:66.05%;top:4.55%;
+    margin:0;display:flex;align-items:center;gap:.42em;
+    color:var(--ms-cor);font-size:var(--ms-titulo);font-weight:700;
+    letter-spacing:var(--ms-track);white-space:nowrap;
+  }
+  .s2-menu-tit img{width:1.05em;height:1.05em;display:block;}
+
+  .s2-card{
+    position:absolute;left:63.95%;width:32.34%;height:19.58%;
+    border:0;padding:0;cursor:pointer;background:transparent;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .s2-card::before{
+    content:"";position:absolute;inset:0;
+    background:url("assets/erp-senior/card-menu.webp?v=1") no-repeat center/100% 100%;
+  }
+  .s2-card__body{
+    /* Faixa onde o rótulo se centraliza. 55% coloca o centro do texto a 27,5%
+       da altura do card — medido na composição original, não centrado no corpo. */
+    position:absolute;left:0;right:0;top:0;height:55%;
+    display:flex;align-items:center;
+    padding:0 4% 0 8.8%;
+  }
+  .s2-card__rot{
+    color:#fff;font-size:var(--ms-rotulo);font-weight:600;letter-spacing:var(--ms-track);
+    text-align:left;line-height:1.18;
+    text-shadow:0 .12cqh .3cqh rgba(0,60,50,.18);
+  }
+
+  /* ---- Entrada dos elementos: cada peça chega à posição, em cascata ----
+     A entrada anima "translate" e o hover anima "scale". Sendo propriedades
+     separadas, cada uma tem sua própria duração: a entrada é lenta e
+     encadeada, o hover entra e volta rápido. */
+  .s2-logo,.s2-intro,.s2-menu-tit{
+    transition:opacity .5s ease var(--d,0s),
+               translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s);
+  }
+  .s2-card,.s2-prosseguir{
+    transition:opacity .5s ease var(--d,0s),
+               translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s),
+               scale .15s cubic-bezier(.2,.8,.3,1),
+               filter .15s ease;
+  }
+  .s2:not(.is-active) .s2-logo{opacity:0;translate:0 -22%;}
+  .s2:not(.is-active) .s2-intro,
+  .s2:not(.is-active) .s2-prosseguir{opacity:0;translate:-14% 0;}
+  .s2:not(.is-active) .s2-menu-tit,
+  .s2:not(.is-active) .s2-card{opacity:0;translate:16% 0;}
+  .s2.is-active .s2-logo,
+  .s2.is-active .s2-intro,
+  .s2.is-active .s2-prosseguir,
+  .s2.is-active .s2-menu-tit,
+  .s2.is-active .s2-card{opacity:1;translate:none;}
+
+  /* ---- Hover: mais contraste e o botão cresce ---- */
+  .s2.is-active .s2-card:hover{
+    scale:1.035;
+    filter:brightness(1.1) saturate(1.18) drop-shadow(0 .7cqh 1.4cqh rgba(0,85,90,.3));
+  }
+  .s2.is-active .s2-card:active{scale:1.005;}
+  .s2.is-active .s2-prosseguir:hover{
+    scale:1.06;
+    filter:brightness(1.12) saturate(1.2) drop-shadow(0 .5cqh 1cqh rgba(0,85,90,.32));
+  }
+  .s2.is-active .s2-prosseguir:active{scale:1.01;}
+  .s2-card:focus-visible{outline:3px solid #00707a;outline-offset:4px;border-radius:1.4cqh;}
+
+
+  /* ================= SLIDE 3 — Institucional =================
+     Posições medidas por pixel no slide 3 do PPTX (1672x941). A faixa do
+     título encosta na borda do card branco do fundo (6,82%). */
+  .s3 *{font-family:var(--ms-fonte);}
+  .s3{--s3-texto:#385438;}
+
+  .s3-faixa{
+    position:absolute;left:6.82%;top:37.09%;width:28.89%;height:12.75%;
+    background:#068390;
+    display:flex;align-items:center;padding-left:5.56cqw;
+  }
+  .s3-faixa h2{
+    margin:0;color:#fff;font-size:6.98cqh;font-weight:700;
+    letter-spacing:-.03em;white-space:nowrap;line-height:1;
+  }
+
+  .s3-selo{position:absolute;left:24.28%;top:59.51%;width:11.36%;height:auto;display:block;}
+
+  .s3-chamada{
+    position:absolute;left:42.82%;top:34.5%;margin:0;
+    color:var(--s3-texto);font-size:4.86cqh;font-weight:700;line-height:1.18;
+    letter-spacing:var(--ms-track);white-space:nowrap;
+  }
+  .s3-texto{
+    position:absolute;left:42.72%;margin:0;
+    color:var(--s3-texto);font-size:3.63cqh;font-weight:500;line-height:1.18;
+    letter-spacing:-.035em;white-space:nowrap;
+  }
+
+  .s3-bandeiras{
+    position:absolute;left:42.58%;top:80.55%;margin:0;padding:0;list-style:none;
+    display:flex;gap:.72cqw;
+  }
+  .s3-bandeiras li{
+    width:2.39cqw;height:4.14cqh;border-radius:.75cqh;overflow:hidden;
+    box-shadow:0 .15cqh .35cqh rgba(0,0,0,.22);
+  }
+  .s3-bandeiras svg{display:block;width:100%;height:100%;}
+
+  .s3-logo{left:83.07%;top:90.8%;width:7%;}
+
+  /* ---- Entrada: faixa e selo pela esquerda, textos pela direita,
+     bandeiras sobem em cascata ---- */
+  .s3-faixa,.s3-selo,.s3-chamada,.s3-texto,.s3-bandeiras li{
+    transition:opacity .5s ease var(--d,0s),
+               translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s),
+               scale .58s cubic-bezier(.22,.78,.28,1) var(--d,0s);
+  }
+  .s3:not(.is-active) .s3-faixa{opacity:0;translate:-22% 0;}
+  .s3:not(.is-active) .s3-selo{opacity:0;scale:.82;}
+  .s3:not(.is-active) .s3-chamada,
+  .s3:not(.is-active) .s3-texto{opacity:0;translate:8% 0;}
+  .s3:not(.is-active) .s3-bandeiras li{opacity:0;translate:0 60%;}
+  .s3.is-active :is(.s3-faixa,.s3-selo,.s3-chamada,.s3-texto,.s3-bandeiras li){
+    opacity:1;translate:none;scale:none;
+  }
+  @media (prefers-reduced-motion:reduce){
+    .s3 :is(.s3-faixa,.s3-selo,.s3-chamada,.s3-texto,.s3-bandeiras li){
+      transition:none;opacity:1;translate:none;scale:none;
+    }
+  }
+
+
+  /* ================= SLIDE 4 — MultSoft em Números =================
+     Posições medidas por pixel no slide 4 do PPTX (1672x941). Cada coluna
+     centraliza número e legenda sobre a barra verde do fundo. */
+  .s4 *{font-family:var(--ms-fonte);}
+  .s4{--s4-texto:#416040;}
+
+  .s4-titulo{
+    position:absolute;left:8.91%;top:8.55%;margin:0;
+    color:#01909e;font-size:7.29cqh;font-weight:800;line-height:1.02;
+    letter-spacing:-.04em;white-space:nowrap;
+  }
+  .s4-intro{
+    position:absolute;left:44.38%;top:9.62%;margin:0;
+    color:#456346;font-size:3.8cqh;font-weight:500;line-height:1.18;
+    letter-spacing:-.038em;white-space:nowrap;
+  }
+
+  .s4-num{
+    position:absolute;top:35.33%;width:30%;margin:0;
+    translate:-50% 0;text-align:center;
+  }
+  .s4-num b{
+    /* --nx: no original o número não fica exatamente centrado na barra */
+    display:block;position:relative;left:var(--nx,0);color:var(--s4-texto);
+    font-size:11.1cqh;font-weight:800;line-height:1;letter-spacing:-.07em;
+  }
+  .s4-num span{
+    display:block;margin-top:2.25cqh;color:var(--s4-texto);
+    font-size:4.1cqh;font-weight:500;line-height:1.16;letter-spacing:-.045em;
+  }
+
+  .s4-logo{left:90.37%;top:94.16%;width:7.18%;}
+
+  /* ---- Entrada: título e texto descem, números sobem em cascata ---- */
+  .s4-titulo,.s4-intro,.s4-num{
+    transition:opacity .5s ease var(--d,0s),
+               translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s);
+  }
+  .s4:not(.is-active) .s4-titulo{opacity:0;translate:-10% 0;}
+  .s4:not(.is-active) .s4-intro{opacity:0;translate:8% 0;}
+  .s4:not(.is-active) .s4-num{opacity:0;translate:-50% 25%;}
+  .s4.is-active .s4-titulo,.s4.is-active .s4-intro{opacity:1;translate:none;}
+  .s4.is-active .s4-num{opacity:1;translate:-50% 0;}
+  @media (prefers-reduced-motion:reduce){
+    .s4 :is(.s4-titulo,.s4-intro,.s4-num){transition:none;opacity:1;}
+    .s4 :is(.s4-titulo,.s4-intro){translate:none;}
+    .s4 .s4-num{translate:-50% 0;}
+  }
+
+
+  /* ================= SLIDE 5 — Gestão Precisa e Descomplicada =================
+     Posições medidas no slide 5 do PPTX (fundo 1920x1080 + caixas do XML).
+     No PPTX, uma caixa de texto acrescenta "/ Senior" à lista de ERPs da
+     roda; aqui ele é texto sobre a roda. Logos e apps ocupam a faixa
+     de 48,5% a 82% da altura, posição ajustada a pedido. */
+  .s5{background:#fff;}
+  .s5 *{font-family:var(--ms-fonte);}
+
+  .s5-titulo{
+    position:absolute;left:4.74%;top:5.4%;margin:0;
+    color:#008a95;font-size:7.41cqh;font-weight:800;line-height:1;
+    letter-spacing:-.048em;white-space:nowrap;
+  }
+  .s5-sub{
+    position:absolute;left:5.05%;top:31.73%;margin:0;
+    color:#446146;font-size:2.91cqh;font-weight:500;line-height:1.15;
+    letter-spacing:-.015em;white-space:nowrap;
+  }
+
+  /* logos completos, com a assinatura; escalas escolhidas para os dois
+     ícones terem a mesma altura (e os dois logos, a mesma altura total) */
+  .s5-marca{position:absolute;top:48.5%;height:auto;display:block;}
+  .s5-multbovinos{left:5.47%;width:14.01%;}
+  .s5-multagricola{left:23.34%;width:15.04%;}
+
+  /* apps alinhados pela base; escala 0,62 do arquivo (o PPTX usa 0,68), para o
+     MB Curral, mais largo que o MB IATF original, caber com folga na fileira */
+  .s5-apps{
+    position:absolute;left:5.47%;width:33.33%;bottom:18%;margin:0;padding:0;list-style:none;
+    display:flex;align-items:flex-end;justify-content:space-between;
+  }
+  .s5-apps img{display:block;width:auto;}
+
+  /* A roda leva junto o "/ Senior", que gira e entra com ela */
+  .s5-roda{position:absolute;left:46.82%;top:3.98%;width:50.42%;aspect-ratio:968/971;}
+  .s5-roda img{display:block;width:100%;height:100%;}
+  .s5-senior{
+    /* caixa do PPTX: 9,09% x 4,19% do slide, girada 46,69° no centro;
+       recuo interno padrão do PowerPoint (0,1" x 0,05") */
+    position:absolute;left:24.88%;top:82.6%;width:18.03%;height:4.19cqh;
+    translate:-50% -50%;rotate:46.69deg;
+    padding:.89cqh 1cqw;box-sizing:border-box;
+    color:#fff;font-size:1.85cqh;font-weight:700;line-height:1.22;
+    letter-spacing:0;white-space:nowrap;
+  }
+
+  .s5-logo{left:86.04%;top:93.95%;width:11.95%;}
+
+  /* ---- Entrada: textos pela esquerda, logos sobem, a roda gira até o lugar ---- */
+  .s5-titulo,.s5-sub,.s5-marca,.s5-apps li{
+    transition:opacity .5s ease var(--d,0s),
+               translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s);
+  }
+  .s5-roda{
+    transition:opacity .6s ease var(--d,0s),
+               rotate .9s cubic-bezier(.22,.78,.28,1) var(--d,0s),
+               scale .9s cubic-bezier(.22,.78,.28,1) var(--d,0s);
+  }
+  .s5:not(.is-active) .s5-titulo,
+  .s5:not(.is-active) .s5-sub{opacity:0;translate:-8% 0;}
+  .s5:not(.is-active) .s5-marca,
+  .s5:not(.is-active) .s5-apps li{opacity:0;translate:0 30%;}
+  .s5:not(.is-active) .s5-roda{opacity:0;rotate:-24deg;scale:.9;}
+  .s5.is-active :is(.s5-titulo,.s5-sub,.s5-marca,.s5-apps li){opacity:1;translate:none;}
+  .s5.is-active .s5-roda{opacity:1;rotate:none;scale:none;}
+  @media (prefers-reduced-motion:reduce){
+    .s5 :is(.s5-titulo,.s5-sub,.s5-marca,.s5-apps li,.s5-roda){
+      transition:none;opacity:1;translate:none;rotate:none;scale:none;
+    }
+  }
+
+
+  /* ================= SLIDE 6 — Grandes Contas =================
+     Textos medidos no slide 6 do PPTX (1920x1080). Os 36 logos de clientes
+     foram recortados do mesmo slide (miolo de cada card); a borda e o
+     canto arredondado dos cards são CSS. */
+  .s6{background:#fff;}
+  .s6 *{font-family:var(--ms-fonte);}
+
+  .s6-titulo{
+    position:absolute;left:4.9%;top:6.17%;margin:0;
+    color:#008a95;font-size:7.5cqh;font-weight:800;line-height:.988;
+    letter-spacing:-.057em;white-space:nowrap;
+  }
+  .s6-sub{
+    position:absolute;left:5.05%;top:26.15%;margin:0;
+    color:#446146;font-size:5.55cqh;font-weight:700;line-height:1;
+    letter-spacing:-.05em;white-space:nowrap;
+  }
+  .s6-texto{
+    position:absolute;left:5%;top:41.18%;margin:0;
+    color:#446146;font-size:3.7cqh;font-weight:400;line-height:1.2;
+    letter-spacing:-.011em;white-space:nowrap;
+  }
+
+  /* reduzida a pedido (era 38,33%, a largura do PPTX); segue presa ao canto superior direito */
+  .s6-foto{position:absolute;right:0;top:0;width:34%;height:auto;display:block;}
+
+  /* grade 12 x 3; card de 143x93 com 10 px de vão, na base 1920x1080 */
+  .s6-clientes{
+    position:absolute;left:2.45%;top:61.11%;width:95.1%;margin:0;padding:0;list-style:none;
+    display:grid;grid-template-columns:repeat(12,1fr);gap:.926cqh .52cqw;
+  }
+  .s6-clientes li{
+    height:8.61cqh;background:#fff;
+    border:.278cqh solid #a4f6fe;border-radius:.83cqh;overflow:hidden;
+  }
+  .s6-clientes img{display:block;width:100%;height:100%;}
+
+  /* ---- Entrada: textos pela esquerda, foto pela direita, logos em onda ---- */
+  .s6-titulo,.s6-sub,.s6-texto,.s6-foto,.s6-clientes li{
+    transition:opacity .5s ease var(--d,0s),
+               translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s),
+               scale .5s cubic-bezier(.22,.78,.28,1) var(--d,0s);
+  }
+  .s6:not(.is-active) :is(.s6-titulo,.s6-sub,.s6-texto){opacity:0;translate:-8% 0;}
+  .s6:not(.is-active) .s6-foto{opacity:0;translate:12% 0;}
+  .s6:not(.is-active) .s6-clientes li{opacity:0;translate:0 35%;scale:.92;}
+  .s6.is-active :is(.s6-titulo,.s6-sub,.s6-texto,.s6-foto,.s6-clientes li){opacity:1;translate:none;scale:none;}
+  @media (prefers-reduced-motion:reduce){
+    .s6 :is(.s6-titulo,.s6-sub,.s6-texto,.s6-foto,.s6-clientes li){
+      transition:none;opacity:1;translate:none;scale:none;
+    }
+  }
+
+
+  /* ================= Rodapé comum (slides 3 em diante) =================
+     Três botões redondos (voltar, menu, avançar) e o logo MultSoft.
+     Posição de cada um vai no style do elemento. */
+  .ms-nav{
+    position:absolute;
+    border:0;padding:0;cursor:pointer;border-radius:999px;
+    background:linear-gradient(180deg,#6be2ea 0%,#34c6d2 55%,#22b4c2 100%);
+    box-shadow:inset 0 -.45cqh 0 rgba(0,110,122,.28),
+               0 .55cqh 1.1cqh rgba(0,90,100,.3);
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .ms-nav svg{width:2.25cqw;height:auto;display:block;}
+  .ms-nav:focus-visible{outline:3px solid #00707a;outline-offset:3px;}
+  .ms-logo{position:absolute;height:auto;display:block;}
+  /* o logo em branco é o mesmo arquivo, recolorido */
+  .ms-logo--branco{filter:brightness(0) invert(1);}
+
+  .ms-logo{
+    transition:opacity .5s ease var(--d,0s),
+               translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s);
+  }
+  .ms-nav{
+    transition:opacity .5s ease var(--d,0s),
+               translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s),
+               scale .15s cubic-bezier(.2,.8,.3,1),
+               filter .15s ease;
+  }
+  .slide:not(.is-active) :is(.ms-nav,.ms-logo){opacity:0;translate:0 60%;}
+  .slide.is-active :is(.ms-nav,.ms-logo){opacity:1;translate:none;}
+  .slide.is-active .ms-nav:hover{
+    scale:1.08;
+    filter:brightness(1.08) saturate(1.2) drop-shadow(0 .5cqh 1cqh rgba(0,85,90,.3));
+  }
+  .slide.is-active .ms-nav:active{scale:1.01;}
+  @media (prefers-reduced-motion:reduce){
+    .ms-nav,.ms-logo{transition:none;}
+    .slide :is(.ms-nav,.ms-logo){opacity:1;translate:none;}
+  }
+
+  /* ---- Controles que se escondem sozinhos ---- */
+  .controls{
+    position:fixed;left:18px;bottom:18px;right:auto;transform:none;
+    display:flex;align-items:center;gap:14px;
+    background:rgba(15,25,12,.62);backdrop-filter:blur(6px);
+    padding:8px 14px;border-radius:999px;
+    opacity:0;transition:opacity .3s ease;pointer-events:none;
+    z-index:50;
+  }
+  .controls.show{opacity:1;pointer-events:auto;}
+  .controls button, .controls a{
+    width:30px;height:30px;border:0;border-radius:50%;
+    background:rgba(255,255,255,.14);color:#fff;cursor:pointer;text-decoration:none;
+    display:inline-flex;align-items:center;justify-content:center;font-size:15px;
+    transition:background .15s ease;
+  }
+  .controls button:hover:not(:disabled), .controls a:hover{background:rgba(255,255,255,.3);}
+  .controls button:disabled{opacity:.3;cursor:default;}
+
+  /* ---- Dica visual: pisca os botões ao clicar fora deles ---- */
+  @keyframes ccHintPulse{
+    0%,50%,100%{ box-shadow:0 0 0 0 rgba(38,132,255,0); background-color:rgba(38,132,255,0); }
+    25%,75%{ box-shadow:0 0 0 .55vw rgba(38,132,255,.4); background-color:rgba(38,132,255,.24); }
+  }
+  .cc-hint{ animation:ccHintPulse 1s ease both; border-radius:inherit; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="deck" id="deck">
+
+      <!-- ===================== SLIDE 1 — Capa ===================== -->
+      <section class="slide is-active" data-slide="1" data-screen-label="01" aria-label="Slide 1 — Integração ERP Senior e Plataforma MultBovinos">
+        <img class="slide__bg" src="assets/erp-senior/slide-01-bg.webp?v=1" alt="Senior + MultBovinos, desenvolvido por MultSoft — O ganho do Produto Rural por detrás dessa integração. A integração estratégica para Confinamento, Ciclo Completo e Integração Lavoura Pecuária (ILP). Ao fundo, vista aérea de uma fazenda com confinamento e sede.">
+        <!-- A capa não tem botão desenhado: o slide inteiro avança -->
+        <button class="hotspot cover-hot" type="button" title="Iniciar — ir para o menu" aria-label="Iniciar — ir para o menu" onclick="goToSlide(2)"></button>
+      </section>
+
+      <!-- ===================== SLIDE 2 — Opções de Menu (elementos em HTML) ===================== -->
+      <section class="slide s2" data-slide="2" data-screen-label="02" aria-label="Slide 2 — Opções de Menu">
+        <img class="slide__bg" src="assets/erp-senior/s2-fundo.webp?v=1" alt="" aria-hidden="true">
+        <img class="s2-logo" src="assets/erp-senior/logo-mb-multsoft.webp?v=1" alt="MB | MultSoft" style="--d:.06s">
+
+        <div class="s2-intro" style="--d:.20s">
+          <p>Esta apresentação MultSoft<br>é dinâmica e interativa.</p>
+          <p>Para avançar, <u>clique</u> nas<br>opções de menu da tela ou<br>no <b>botão Prosseguir</b>.</p>
+        </div>
+
+        <button class="s2-prosseguir" type="button" style="--d:.40s" onclick="goToSlide(3)">
+          PROSSEGUIR
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <h2 class="s2-menu-tit" style="--d:.12s">
+          <img src="assets/erp-senior/icone-menu.webp?v=1" alt="" aria-hidden="true">
+          Opções de Menu:
+        </h2>
+
+        <button class="s2-card" type="button" style="top:14.38%;--d:0.22s" onclick="goToSlide(3)"
+                aria-label="Institucional">
+          <span class="s2-card__body">
+            <span class="s2-card__rot">Institucional</span>
+          </span>
+        </button>
+        <button class="s2-card" type="button" style="top:34.03%;--d:0.30s" onclick="goToSlide(4)"
+                aria-label="Gestão à Vista MB Recria">
+          <span class="s2-card__body">
+            <span class="s2-card__rot">Gestão à Vista MB Recria</span>
+          </span>
+        </button>
+        <button class="s2-card" type="button" style="top:55.07%;--d:0.38s" onclick="goToSlide(5)"
+                aria-label="App MS Task">
+          <span class="s2-card__body">
+            <span class="s2-card__rot">App MS Task</span>
+          </span>
+        </button>
+        <button class="s2-card" type="button" style="top:74.65%;--d:0.46s" onclick="goToSlide(6)"
+                aria-label="Integrações com ERPs">
+          <span class="s2-card__body">
+            <span class="s2-card__rot">Integrações com ERPs</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- ===================== SLIDE 3 — Institucional (elementos em HTML) ===================== -->
+      <section class="slide s3" data-slide="3" data-screen-label="03" aria-label="Slide 3 — A MultSoft">
+        <img class="slide__bg" src="assets/erp-senior/s3-fundo.webp?v=1" alt="" aria-hidden="true">
+
+        <!-- estrela de 5 pontas (raio 1) usada nas bandeiras -->
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+          <defs>
+            <polygon id="s3-estrela" points="0,-1 .225,-.309 .951,-.309 .363,.118 .588,.809 0,.382 -.588,.809 -.363,.118 -.951,-.309 -.225,-.309"/>
+            <pattern id="s3-eua-estrelas" width="3" height="3.4" patternUnits="userSpaceOnUse">
+              <circle cx="1.5" cy="1.7" r=".62" fill="#fff"/>
+            </pattern>
+            <clipPath id="s3-uk-clip"><rect width="20" height="19"/></clipPath>
+          </defs>
+        </svg>
+
+        <div class="s3-faixa" style="--d:.06s"><h2>A MultSoft</h2></div>
+        <img class="s3-selo" src="assets/erp-senior/s3-40anos.webp?v=1" alt="40 anos" style="--d:.30s">
+
+        <p class="s3-chamada" style="--d:.14s">40 anos criando soluções<br>para a melhoria da Gestão e<br>rentabilidade no Agro Business.</p>
+        <p class="s3-texto" style="top:57.56%;--d:.24s">Empresa líder de mercado no<br>desenvolvimento e implantação<br>de Softwares Agropecuários.</p>
+        <p class="s3-texto" style="top:74.56%;--d:.32s">Presente em todo Brasil e mais 6 países.</p>
+
+        <ul class="s3-bandeiras" aria-label="Brasil, Paraguai, Colômbia, Bolívia, Panamá, Estados Unidos e Austrália">
+          <li style="--d:.40s" title="Brasil"><svg viewBox="0 0 40 38" aria-hidden="true">
+            <rect width="40" height="38" fill="#229e45"/>
+            <polygon points="20,5 36,19 20,33 4,19" fill="#f8d90f"/>
+            <circle cx="20" cy="19" r="7.4" fill="#2b49a3"/>
+            <path d="M12.8 17.6q7.6-1.6 14.3 2.6" fill="none" stroke="#fff" stroke-width="1.3"/>
+          </svg></li>
+          <li style="--d:.45s" title="Paraguai"><svg viewBox="0 0 40 38" aria-hidden="true">
+            <rect width="40" height="38" fill="#fff"/>
+            <rect width="40" height="12.7" fill="#d52b1e"/>
+            <rect y="25.3" width="40" height="12.7" fill="#0038a8"/>
+            <circle cx="20" cy="19" r="3.4" fill="none" stroke="#0038a8" stroke-width="1"/>
+            <circle cx="20" cy="19" r="1.3" fill="#e8b000"/>
+          </svg></li>
+          <li style="--d:.50s" title="Colômbia"><svg viewBox="0 0 40 38" aria-hidden="true">
+            <rect width="40" height="38" fill="#fcd116"/>
+            <rect y="19" width="40" height="9.5" fill="#003893"/>
+            <rect y="28.5" width="40" height="9.5" fill="#ce1126"/>
+          </svg></li>
+          <li style="--d:.55s" title="Bolívia"><svg viewBox="0 0 40 38" aria-hidden="true">
+            <rect width="40" height="38" fill="#f9e300"/>
+            <rect width="40" height="12.7" fill="#d52b1e"/>
+            <rect y="25.3" width="40" height="12.7" fill="#007934"/>
+            <circle cx="20" cy="19" r="3.3" fill="#c8801a"/>
+            <circle cx="20" cy="18.4" r="1.5" fill="#d52b1e"/>
+          </svg></li>
+          <li style="--d:.60s" title="Panamá"><svg viewBox="0 0 40 38" aria-hidden="true">
+            <rect width="40" height="38" fill="#fff"/>
+            <rect x="20" width="20" height="19" fill="#da121a"/>
+            <rect y="19" width="20" height="19" fill="#072357"/>
+            <use href="#s3-estrela" fill="#072357" transform="translate(10 9.5) scale(4.2)"/>
+            <use href="#s3-estrela" fill="#da121a" transform="translate(30 28.5) scale(4.2)"/>
+          </svg></li>
+          <li style="--d:.65s" title="Estados Unidos"><svg viewBox="0 0 40 38" aria-hidden="true">
+            <rect width="40" height="38" fill="#fff"/>
+            <path d="M0 0h40v2.92H0zM0 5.85h40v2.92H0zM0 11.69h40v2.92H0zM0 17.54h40v2.92H0zM0 23.38h40v2.92H0zM0 29.23h40v2.92H0zM0 35.08h40V38H0z" fill="#c8102e"/>
+            <rect width="18" height="20.46" fill="#3c3b6e"/>
+            <rect width="18" height="20.46" fill="url(#s3-eua-estrelas)"/>
+          </svg></li>
+          <li style="--d:.70s" title="Austrália"><svg viewBox="0 0 40 38" aria-hidden="true">
+            <rect width="40" height="38" fill="#012169"/>
+            <g clip-path="url(#s3-uk-clip)">
+              <path d="M0 0 20 19M20 0 0 19" stroke="#fff" stroke-width="3.8"/>
+              <path d="M0 0 20 19M20 0 0 19" stroke="#c8102e" stroke-width="1.3"/>
+              <path d="M10 0v19M0 9.5h20" stroke="#fff" stroke-width="6"/>
+              <path d="M10 0v19M0 9.5h20" stroke="#c8102e" stroke-width="3.4"/>
+            </g>
+            <g fill="#fff">
+              <use href="#s3-estrela" transform="translate(10 28.5) scale(4.2)"/>
+              <use href="#s3-estrela" transform="translate(30 31) scale(2.6)"/>
+              <use href="#s3-estrela" transform="translate(24.5 17.5) scale(2.6)"/>
+              <use href="#s3-estrela" transform="translate(30 6.5) scale(2.6)"/>
+              <use href="#s3-estrela" transform="translate(35 14.5) scale(2.6)"/>
+              <use href="#s3-estrela" transform="translate(32.2 20.5) scale(1.5)"/>
+            </g>
+          </svg></li>
+        </ul>
+
+        <button class="ms-nav" type="button" style="top:88.84%;width:5.14%;height:5.9%;left:39.53%;--d:.44s" onclick="goToSlide(2)" aria-label="Voltar" title="Voltar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:88.84%;width:5.14%;height:5.9%;left:45.87%;--d:.50s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:88.84%;width:5.14%;height:5.9%;left:52.03%;--d:.56s" onclick="goToSlide(4)" aria-label="Avançar" title="Avançar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M15 4l6 6-6 6"/></svg>
+        </button>
+
+        <img class="ms-logo s3-logo" src="assets/erp-senior/logo-multsoft.webp?v=1" alt="MultSoft" style="--d:.62s">
+      </section>
+
+      <!-- ===================== SLIDE 4 — MultSoft em Números (elementos em HTML) ===================== -->
+      <section class="slide s4" data-slide="4" data-screen-label="04" aria-label="Slide 4 — MultSoft em Números">
+        <img class="slide__bg" src="assets/erp-senior/s4-fundo.webp?v=1" alt="" aria-hidden="true">
+
+        <h2 class="s4-titulo" style="--d:.06s">MultSoft em<br>Números</h2>
+        <p class="s4-intro" style="--d:.16s">Somos a plataforma mais relevante no<br>provimento de informações agropecuárias para<br>análises inteligentes e tomadas de decisão.</p>
+
+        <p class="s4-num" style="left:14.02%;--nx:.33cqw;--d:.26s"><b>1.1K+</b><span>Clientes<br>atendidos</span></p>
+        <p class="s4-num" style="left:36.9%;--d:.34s"><b>5K+</b><span>Fazendas<br>cadastradas</span></p>
+        <p class="s4-num" style="left:61.36%;--nx:-.3cqw;--d:.42s"><b>400M+</b><span>Animais<br>na base</span></p>
+        <p class="s4-num" style="left:84.5%;--nx:.9cqw;--d:.50s"><b>10M+</b><span>Animais<br>ativos</span></p>
+
+        <button class="ms-nav" type="button" style="top:91.71%;width:5.32%;height:6.1%;left:40.43%;--d:.44s" onclick="goToSlide(3)" aria-label="Voltar" title="Voltar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:91.71%;width:5.32%;height:6.1%;left:46.95%;--d:.50s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:91.71%;width:5.32%;height:6.1%;left:53.47%;--d:.56s" onclick="goToSlide(5)" aria-label="Avançar" title="Avançar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M15 4l6 6-6 6"/></svg>
+        </button>
+
+        <img class="ms-logo ms-logo--branco s4-logo" src="assets/erp-senior/logo-multsoft.webp?v=1" alt="MultSoft" style="--d:.62s">
+      </section>
+
+      <!-- ===================== SLIDE 5 — Gestão Precisa e Descomplicada (elementos em HTML) ===================== -->
+      <section class="slide s5" data-slide="5" data-screen-label="05" aria-label="Slide 5 — Gestão Precisa e Descomplicada da sua Fazenda">
+        <img class="slide__bg" src="assets/erp-senior/fundo-claro.webp?v=1" alt="" aria-hidden="true">
+        <h2 class="s5-titulo" style="--d:.06s">Gestão Precisa e<br>Descomplicada<br>da sua Fazenda.</h2>
+        <p class="s5-sub" style="--d:.16s">A plataforma de soluções agropecuárias<br>mais ampla e completa do mercado.</p>
+
+        <img class="s5-marca s5-multbovinos" src="assets/erp-senior/logo-multbovinos.webp?v=2" alt="MultBovinos — Gestão Integrada da Pecuária" style="--d:.26s">
+        <img class="s5-marca s5-multagricola" src="assets/erp-senior/logo-multagricola.webp?v=1" alt="MultAgrícola — Gestão Integrada da Agricultura" style="--d:.32s">
+
+        <ul class="s5-apps" aria-label="Aplicativos">
+          <li style="--d:.34s"><img src="assets/erp-senior/app-mb-tratos.webp?v=1" alt="MB Tratos" style="height:10.39cqh"></li>
+          <li style="--d:.40s"><img src="assets/erp-senior/app-mb-curral.webp?v=1" alt="MB Curral" style="height:10.68cqh"></li>
+          <li style="--d:.46s"><img src="assets/erp-senior/app-mb-ivf.webp?v=1" alt="MB IVF" style="height:10.45cqh"></li>
+          <li style="--d:.52s"><img src="assets/erp-senior/app-ms-task.webp?v=1" alt="MS Task" style="height:10.39cqh"></li>
+        </ul>
+
+        <div class="s5-roda" style="--d:.12s">
+          <img src="assets/erp-senior/s5-roda.webp?v=1" alt="Roda de soluções MultSoft. Plataforma MultBovinos: Reprodução (IA, MC, TE, FIV), Recria e Engorda (controle de pastagens e gestão nutricional), Confinamento (automação de fabricação e fornecimento de tratos), Elite + PMG (ABCZ, PMGZ, Cia Paint, Gensys, Deltagen e outros), Adm (financeiro, LCDPR, ativo fixo); rastreabilidade e custo pecuário. MultAgrícola: Adm Agrícola (planejamento e custo de produção). Integração com ERP: Totvs (Protheus e RM), DataSul, SAP, Sankhya, Senior e outros. Integração com equipamentos: balanças eletrônicas, leitores de identificação eletrônica e de código de barras. Serviços: implantação e suporte.">
+          <span class="s5-senior" aria-hidden="true">/ Senior</span>
+        </div>
+
+        <button class="ms-nav" type="button" style="top:91.76%;width:5.4%;height:6.4%;left:40.66%;--d:.44s" onclick="goToSlide(4)" aria-label="Voltar" title="Voltar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:91.76%;width:5.4%;height:6.4%;left:47.19%;--d:.50s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:91.76%;width:5.4%;height:6.4%;left:53.73%;--d:.56s" onclick="goToSlide(6)" aria-label="Avançar" title="Avançar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M15 4l6 6-6 6"/></svg>
+        </button>
+
+        <img class="ms-logo s5-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="--d:.62s">
+      </section>
+
+      <!-- ===================== SLIDE 6 — Grandes Contas (elementos em HTML) ===================== -->
+      <section class="slide s6" data-slide="6" data-screen-label="06" aria-label="Slide 6 — Grandes Contas, Cases de Sucesso">
+        <img class="slide__bg" src="assets/erp-senior/fundo-claro.webp?v=1" alt="" aria-hidden="true">
+        <img class="s6-foto" src="assets/erp-senior/s6-foto.webp?v=1" alt="Produtor rural sorridente com um notebook, no pasto, com o rebanho de gado nelore ao fundo" style="--d:.10s">
+
+        <h2 class="s6-titulo" style="--d:.06s">Grandes Contas<br>Cases de Sucesso</h2>
+        <p class="s6-sub" style="--d:.14s">Nossa maior conquista, é o<br>sucesso de nossos clientes.</p>
+        <p class="s6-texto" style="--d:.22s">Conquistamos a confiança de grandes<br>clientes com a qualidade de nossas<br>soluções e primor no atendimento.</p>
+
+        <ul class="s6-clientes" aria-label="Clientes">
+          <li style="--d:0.30s"><img src="assets/erp-senior/clientes/01.webp?v=1" alt="Rancho da Matinha"></li>
+          <li style="--d:0.33s"><img src="assets/erp-senior/clientes/02.webp?v=1" alt="Naviraí Zebu do Brasil"></li>
+          <li style="--d:0.37s"><img src="assets/erp-senior/clientes/03.webp?v=1" alt="Bom Futuro"></li>
+          <li style="--d:0.41s"><img src="assets/erp-senior/clientes/04.webp?v=1" alt="Rima Agropecuária"></li>
+          <li style="--d:0.44s"><img src="assets/erp-senior/clientes/05.webp?v=1" alt="Casa Branca Agropastoril"></li>
+          <li style="--d:0.47s"><img src="assets/erp-senior/clientes/06.webp?v=1" alt="Nelore Machadinho"></li>
+          <li style="--d:0.51s"><img src="assets/erp-senior/clientes/07.webp?v=1" alt="KS"></li>
+          <li style="--d:0.55s"><img src="assets/erp-senior/clientes/08.webp?v=1" alt="Casa do Pica-Pau"></li>
+          <li style="--d:0.58s"><img src="assets/erp-senior/clientes/09.webp?v=1" alt="Nelore Paraná"></li>
+          <li style="--d:0.61s"><img src="assets/erp-senior/clientes/10.webp?v=1" alt="Agropecuária Jacarezinho"></li>
+          <li style="--d:0.65s"><img src="assets/erp-senior/clientes/11.webp?v=1" alt="Genética Aditiva"></li>
+          <li style="--d:0.69s"><img src="assets/erp-senior/clientes/12.webp?v=1" alt="AgroSB"></li>
+          <li style="--d:0.36s"><img src="assets/erp-senior/clientes/13.webp?v=1" alt="Agro Maripá"></li>
+          <li style="--d:0.39s"><img src="assets/erp-senior/clientes/14.webp?v=1" alt="ABS"></li>
+          <li style="--d:0.43s"><img src="assets/erp-senior/clientes/15.webp?v=1" alt="HVP Agropecuária"></li>
+          <li style="--d:0.47s"><img src="assets/erp-senior/clientes/16.webp?v=1" alt="AFB Agropecuária"></li>
+          <li style="--d:0.50s"><img src="assets/erp-senior/clientes/17.webp?v=1" alt="Natter"></li>
+          <li style="--d:0.53s"><img src="assets/erp-senior/clientes/18.webp?v=1" alt="Nelore Cometa"></li>
+          <li style="--d:0.57s"><img src="assets/erp-senior/clientes/19.webp?v=1" alt="AgroPorto"></li>
+          <li style="--d:0.60s"><img src="assets/erp-senior/clientes/20.webp?v=1" alt="Bella Aliança Agropecuária"></li>
+          <li style="--d:0.64s"><img src="assets/erp-senior/clientes/21.webp?v=1" alt="Mafra Agropecuária"></li>
+          <li style="--d:0.68s"><img src="assets/erp-senior/clientes/22.webp?v=1" alt="Fazenda Brasília — Quagliato"></li>
+          <li style="--d:0.71s"><img src="assets/erp-senior/clientes/23.webp?v=1" alt="J&F"></li>
+          <li style="--d:0.75s"><img src="assets/erp-senior/clientes/24.webp?v=1" alt="Equipe DS — Davi Soutinho"></li>
+          <li style="--d:0.42s"><img src="assets/erp-senior/clientes/25.webp?v=1" alt="Marfrig"></li>
+          <li style="--d:0.45s"><img src="assets/erp-senior/clientes/26.webp?v=1" alt="JBJ Agropecuária"></li>
+          <li style="--d:0.49s"><img src="assets/erp-senior/clientes/27.webp?v=1" alt="Fazenda Santa Otília"></li>
+          <li style="--d:0.53s"><img src="assets/erp-senior/clientes/28.webp?v=1" alt="Lage — Grupo Otávio Lage"></li>
+          <li style="--d:0.56s"><img src="assets/erp-senior/clientes/29.webp?v=1" alt="CF / Grupo Jangada"></li>
+          <li style="--d:0.59s"><img src="assets/erp-senior/clientes/30.webp?v=1" alt="Agropecuária Jatobazinho"></li>
+          <li style="--d:0.63s"><img src="assets/erp-senior/clientes/31.webp?v=1" alt="BrPec"></li>
+          <li style="--d:0.67s"><img src="assets/erp-senior/clientes/32.webp?v=1" alt="Brooks Agropecuária"></li>
+          <li style="--d:0.70s"><img src="assets/erp-senior/clientes/33.webp?v=1" alt="Jotabasso"></li>
+          <li style="--d:0.73s"><img src="assets/erp-senior/clientes/34.webp?v=1" alt="Astra"></li>
+          <li style="--d:0.77s"><img src="assets/erp-senior/clientes/35.webp?v=1" alt="SSA — São Salvador Alimentos"></li>
+          <li style="--d:0.81s"><img src="assets/erp-senior/clientes/36.webp?v=1" alt="Frigol"></li>
+        </ul>
+
+        <!-- fim da sequência Institucional: sem "Avançar"; os dois botões centrados na página -->
+        <button class="ms-nav" type="button" style="top:91.76%;width:5.4%;height:6.4%;left:44.04%;--d:.44s" onclick="goToSlide(5)" aria-label="Voltar" title="Voltar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:91.76%;width:5.4%;height:6.4%;left:50.57%;--d:.50s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
+        </button>
+
+        <img class="ms-logo s6-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:86.04%;top:93.95%;width:11.95%;--d:.62s">
+      </section>
+
+    </div>
+  </div>
+
+  <div class="controls" id="controls">
+    <a id="inicio" href="../index.html" target="_blank" rel="noopener" aria-label="Início — abrir apresentações (nova aba)" title="Início — apresentações">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+      </svg>
+    </a>
+    <button id="home" type="button" aria-label="Voltar ao menu" title="Menu">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18"/>
+      </svg>
+    </button>
+    <button id="prev" type="button" aria-label="Slide anterior">‹</button>
+    <button id="next" type="button" aria-label="Próximo slide">›</button>
+    <button id="fs" type="button" aria-label="Tela cheia" title="Tela cheia">
+      <svg id="fs-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/>
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    /* Total provisório: 1 a 6 construídos; 7 em diante ainda em construção. Ao receber o restante, ajustar TOTAL e BUILT. */
+    const TOTAL = 7;
+    const BUILT = [1, 2, 3, 4, 5, 6];
+
+    const STORE = 'multsoft_erpsenior_slide';
+    const deck = document.getElementById('deck');
+
+    /* ---- Gera os placeholders dos slides ainda não construídos ---- */
+    function buildPlaceholders(){
+      for(let n=1;n<=TOTAL;n++){
+        if(BUILT.includes(n)) continue;
+        const sec = document.createElement('section');
+        sec.className = 'slide stub';
+        sec.dataset.slide = n;
+        sec.dataset.screenLabel = String(n).padStart(2,'0');
+        sec.setAttribute('aria-label', 'Slide ' + n + ' — em construção');
+        sec.innerHTML =
+          '<div class="stub__card">' +
+            '<div class="stub__eyebrow">Integração ERP Senior</div>' +
+            '<div class="stub__n">Slide <span>' + String(n).padStart(2,'0') + '</span></div>' +
+            '<div class="stub__t">Em construção</div>' +
+            '<div class="stub__s">Este slide será criado na sequência. A navegação e os links já estão ativos.</div>' +
+            '<div class="stub__btns">' +
+              '<button class="stub__btn stub__btn--solid" type="button" onclick="goToSlide(2)">Voltar ao menu</button>' +
+              '<button class="stub__btn" type="button" onclick="goToSlide(1)">Ir à capa</button>' +
+            '</div>' +
+          '</div>';
+        deck.appendChild(sec);
+      }
+    }
+    buildPlaceholders();
+
+    /* ---- Navegação por data-slide ---- */
+    const slideEls = {};
+    document.querySelectorAll('.slide').forEach(s => { slideEls[+s.dataset.slide] = s; });
+    let current = 1;
+
+    function clamp(n){ return Math.max(1, Math.min(TOTAL, n)); }
+
+    const DESLOC = 6;                     // % que o slide desliza na troca
+
+    function goToSlide(n){
+      n = clamp(n);
+      const de = current, mudou = (n !== de), frente = (n > de);
+
+      /* o slide que sai desliza para o lado oposto ao da entrada */
+      if(mudou && slideEls[de]){
+        const saindo = slideEls[de];
+        saindo.classList.add('is-saindo');
+        saindo.style.setProperty('--x', (frente ? -DESLOC : DESLOC) + '%');
+        clearTimeout(saindo._limpa);
+        saindo._limpa = setTimeout(()=>{
+          saindo.classList.remove('is-saindo');
+          saindo.style.removeProperty('--x');
+        }, 560);
+      }
+
+      for(let i=1;i<=TOTAL;i++){
+        const el = slideEls[i];
+        if(!el) continue;
+        const active = (i === n);
+        if(active && mudou) el.style.setProperty('--x', (frente ? DESLOC : -DESLOC) + '%');
+        el.classList.toggle('is-active', active);
+        el.querySelectorAll('button, a').forEach(elx => { elx.tabIndex = active ? 0 : -1; });
+      }
+
+      /* aplica a posição inicial e só então anima até o lugar */
+      if(mudou && slideEls[n]){
+        void slideEls[n].offsetWidth;
+        slideEls[n].style.setProperty('--x','0%');
+      }
+
+      current = n;
+      try{ localStorage.setItem(STORE, String(n)); }catch(e){}
+      updateChrome();
+    }
+    window.goToSlide = goToSlide;
+
+    function updateChrome(){
+      document.getElementById('prev').disabled = current === 1;
+      document.getElementById('next').disabled = current === TOTAL;
+    }
+
+    /* ---- Teclado ---- */
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'ArrowRight' || e.key === 'PageDown'){ goToSlide(current+1); }
+      else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ goToSlide(current-1); }
+      else if(e.key === 'Home'){ goToSlide(1); }
+      else if(e.key === 'End'){ goToSlide(TOTAL); }
+      else if(e.key === 'f' || e.key === 'F'){ toggleFs(); }
+    });
+
+    document.getElementById('prev').addEventListener('click', ()=> goToSlide(current-1));
+    document.getElementById('next').addEventListener('click', ()=> goToSlide(current+1));
+    document.getElementById('home').addEventListener('click', ()=> goToSlide(2));
+
+    /* ---- Tela cheia ---- */
+    const fsBtn = document.getElementById('fs');
+    function isFs(){ return document.fullscreenElement || document.webkitFullscreenElement; }
+    function toggleFs(){
+      if(isFs()){
+        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      } else {
+        const el = document.documentElement;
+        (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+      }
+    }
+    function updateFsIcon(){
+      const on = !!isFs();
+      fsBtn.title = on ? 'Sair da tela cheia' : 'Tela cheia';
+      fsBtn.setAttribute('aria-label', fsBtn.title);
+      document.getElementById('fs-icon').innerHTML = on
+        ? '<path d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3"/>'
+        : '<path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/>';
+    }
+    fsBtn.addEventListener('click', toggleFs);
+    document.addEventListener('fullscreenchange', updateFsIcon);
+    document.addEventListener('webkitfullscreenchange', updateFsIcon);
+
+    /* ---- Controles que se escondem sozinhos ---- */
+    const controls = document.getElementById('controls');
+    let hideT;
+    const HOT_MARGIN = 110;
+    function show(){
+      controls.classList.add('show');
+      clearTimeout(hideT);
+      hideT = setTimeout(()=> controls.classList.remove('show'), 1100);
+    }
+    function nearControls(x, y){
+      const r = controls.getBoundingClientRect();
+      return x >= r.left - HOT_MARGIN && x <= r.right + HOT_MARGIN &&
+             y >= r.top  - HOT_MARGIN && y <= r.bottom + HOT_MARGIN;
+    }
+    window.addEventListener('mousemove', (e)=>{ if(nearControls(e.clientX, e.clientY)) show(); });
+    window.addEventListener('click',     (e)=>{ if(nearControls(e.clientX, e.clientY)) show(); });
+    controls.addEventListener('mouseenter', ()=>{ controls.classList.add('show'); clearTimeout(hideT); });
+    controls.addEventListener('mouseleave', show);
+
+    /* ---- Clique fora de botão: pisca os botões interativos do slide ---- */
+    function flashHints(){
+      const active = document.querySelector('.slide.is-active');
+      if(!active) return;
+      active.querySelectorAll('.hotspot, button, a').forEach(el=>{
+        el.classList.remove('cc-hint');
+        void el.offsetWidth;
+        el.classList.add('cc-hint');
+        setTimeout(()=> el.classList.remove('cc-hint'), 1050);
+      });
+    }
+    deck.addEventListener('click', (e)=>{
+      if(e.target.closest('.hotspot, button, a')) return;
+      flashHints();
+    });
+
+    /* ---- Restaura último slide visto ---- */
+    let start = 1;
+    try{ const saved = parseInt(localStorage.getItem(STORE),10); if(saved) start = clamp(saved); }catch(e){}
+    goToSlide(start);
+    show();
+  </script>
+</body>
+</html>

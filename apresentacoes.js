@@ -81,15 +81,14 @@ const MULTSOFT_APRESENTACOES = [
     thumb: "presentation/assets/reproducao/thumb.webp?v=2",
   },
   {
-    id: "representantes-comerciais",
-    titulo: "Material para Representantes Comerciais",
-    categorias: ["representantes-comerciais", "institucional"],
+    id: "integracao-erp-senior",
+    titulo: "Integração ERP Senior e Plataforma MultBovinos",
+    categorias: ["integracao-erps", "representantes-comerciais", "institucional"],
     descricao:
-      "Apoio de vendas e argumentário comercial para a rede de representantes.",
-    atualizadoEm: "—",
-    // quando estiver pronta: arquivo: "presentation/representantes-comerciais.html"
-    arquivo: null,
-    thumb: null,
+      "O ganho do Produto Rural por trás da integração Senior + MultBovinos: estratégia para Confinamento, Ciclo Completo e Integração Lavoura Pecuária (ILP).",
+    atualizadoEm: "26/09/2026",
+    arquivo: "presentation/integracao-erp-senior.html",
+    thumb: "presentation/assets/erp-senior/thumb.webp",
   },
   {
     id: "integracao-erps",
