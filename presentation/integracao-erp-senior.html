@@ -353,8 +353,8 @@
   /* logos completos, com a assinatura; escalas escolhidas para os dois
      ícones terem a mesma altura (e os dois logos, a mesma altura total) */
   .s5-marca{position:absolute;top:48.5%;height:auto;display:block;}
-  .s5-multbovinos{left:5.47%;width:14.01%;}
-  .s5-multagricola{left:23.34%;width:15.04%;}
+  /* centralizado sobre a fileira dos 4 apps (5,47% + 33,33%/2 = 22,14%) */
+  .s5-multbovinos{left:15.13%;width:14.01%;}
 
   /* apps alinhados pela base; escala 0,62 do arquivo (o PPTX usa 0,68), para o
      MB Curral, mais largo que o MB IATF original, caber com folga na fileira */
@@ -497,9 +497,9 @@
 
 
   /* ================= SLIDE 7 — As DORES do Produtor Rural =================
-     Fundo com a faixa do cabeçalho (10,21% da altura). Seis perguntas em
-     2 colunas x 3 linhas; cada número abre o box com a solução SeniorMB.
-     O espaço do box fica reservado, então abrir não empurra o layout. */
+     Fundo com a faixa do cabeçalho (10,21% da altura). Seis perguntas: uma
+     em foco no centro e as demais recolhidas ao redor, ou todas na grade
+     (ABRIR TODOS). */
   .s7 *{font-family:var(--ms-fonte);}
   .s7{--s7-texto:#1f4d58;--s7-verde:#2e7d32;}
 
@@ -519,18 +519,27 @@
     color:#446146;font-size:2.75cqh;font-weight:500;letter-spacing:-.02em;white-space:nowrap;
   }
 
-  /* grade 3 x 2. Cada item (36cqh de altura): bolas do ícone e do número
-     no topo; card branco com o tema (pílula verde-clara na borda) e a
-     pergunta; atrás dele, a faixa verde-escura com VER SOLUÇÃO, que cresce
-     para baixo mostrando a solução. A altura da linha já reserva a faixa
-     aberta, então abrir não empurra nada. */
-  .s7-grade{
-    position:absolute;left:3%;top:19%;width:94%;margin:0;padding:0;list-style:none;
-    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-    grid-auto-rows:36cqh;gap:2.5cqh 2cqw;
+  /* Dois modos, cada card com posição absoluta (base 1920x1080):
+     - FOCO (padrão): um card no centro, ampliado e com a solução aberta; os
+       outros cinco ficam recolhidos (chips quadrados: número, ícone e tema)
+       na sua vaga fixa, numa elipse em volta do centro (1-3 à esquerda, 4-6
+       à direita). Clicar num chip leva-o ao centro e devolve o atual à vaga.
+     - TODOS (ABRIR TODOS): a grade 3 x 2 com todas as soluções abertas.
+     Vagas por card em variáveis: --hx/--hy (chip) e --gx/--gy (grade). */
+  .s7-grade{position:absolute;inset:0;margin:0;padding:0;list-style:none;pointer-events:none;}
+  .s7-item{
+    position:absolute;pointer-events:auto;
+    left:var(--hx);top:var(--hy);width:19cqh;height:19cqh;
+    transform-origin:50% 0;
+    --s7-mov:.62s cubic-bezier(.4,.05,.2,1);
   }
-  .s7-item{position:relative;}
+  /* card aberto, mais quadrado: 25% x 50cqh, ampliado 1,2x a partir do topo */
+  .s7-item.is-centro{left:37.5%;top:25.5%;width:25%;height:50cqh;scale:1.2;z-index:5;}
+  .s7.modo-todos .s7-item{left:var(--gx);top:var(--gy);width:30%;height:36cqh;scale:1;z-index:auto;}
 
+  /* chip recolhido: só número, ícone e tema; o card inteiro é clicável */
+  .s7:not(.modo-todos) .s7-item:not(.is-centro){cursor:pointer;}
+  .s7:not(.modo-todos) .s7-item:not(.is-centro):hover{filter:brightness(1.04) drop-shadow(0 .8cqh 1.4cqh rgba(20,70,40,.18));}
   .s7-card{
     position:absolute;left:0;right:0;top:7cqh;height:17.3cqh;z-index:1;
     background:#fff;
@@ -539,7 +548,7 @@
     padding:5.2cqh 2.4cqh 1.6cqh;
   }
   .s7-tema{
-    position:absolute;right:2.2cqh;top:0;translate:0 -50%;
+    position:absolute;left:calc(100% - 2.2cqh);top:0;translate:-100% -50%;
     min-width:52%;height:4.6cqh;padding:0 2.2cqh;border-radius:999px;
     background:#67ad5b;color:#fff;
     font-size:2.5cqh;font-weight:600;letter-spacing:.01em;
@@ -604,11 +613,50 @@
     transition:opacity .25s ease,translate .3s ease,visibility 0s linear .3s;
   }
   .s7-solucao b{font-weight:700;color:#fff;}
+  .s7-solucao .s7-rotulo{color:#b9e89a;letter-spacing:.03em;}
   .s7-item.is-aberto .s7-ver{opacity:0;visibility:hidden;transition:opacity .15s ease,visibility 0s linear .15s;}
   .s7-item.is-aberto .s7-solucao{
     opacity:1;translate:none;visibility:visible;
     transition:opacity .35s ease .15s,translate .4s cubic-bezier(.22,.78,.28,1) .15s,visibility 0s;
   }
+
+  /* ---- chip recolhido (quadrado 19 x 19cqh): número e ícone lado a lado,
+     tema embaixo ---- */
+  .s7-card,.s7-tema,.s7-num,.s7-icone,.s7-sol{
+    transition:top var(--s7-mov),left var(--s7-mov),width var(--s7-mov),height var(--s7-mov),
+               min-width var(--s7-mov),font-size var(--s7-mov),padding var(--s7-mov),border-width var(--s7-mov),
+               translate var(--s7-mov),opacity .3s ease,visibility 0s,scale .15s cubic-bezier(.2,.8,.3,1),filter .15s ease;
+  }
+  .s7:not(.modo-todos) .s7-item:not(.is-centro) .s7-card{top:0;height:19cqh;}
+  .s7:not(.modo-todos) .s7-item:not(.is-centro) .s7-num{
+    top:2cqh;left:1.8cqh;width:7.6cqh;height:7.6cqh;font-size:4.2cqh;border-width:.4cqh;
+  }
+  .s7:not(.modo-todos) .s7-item:not(.is-centro) .s7-icone{top:1.6cqh;left:9.2cqh;width:8.4cqh;height:8.4cqh;}
+  .s7:not(.modo-todos) .s7-item:not(.is-centro) .s7-tema{
+    left:50%;top:14.4cqh;translate:-50% -50%;min-width:0;height:auto;min-height:3.8cqh;max-width:17cqh;
+    padding:.5cqh 1.4cqh;font-size:1.75cqh;line-height:1.1;white-space:normal;text-align:center;justify-content:center;
+  }
+  .s7:not(.modo-todos) .s7-item:not(.is-centro) .s7-pergunta{opacity:0;visibility:hidden;transition:opacity .12s ease,visibility 0s linear .12s;}
+  .s7:not(.modo-todos) .s7-item:not(.is-centro) .s7-sol{opacity:0;visibility:hidden;transition:opacity .12s ease,visibility 0s linear .12s,height var(--s7-mov);}
+
+  /* ---- card aberto no centro: mais alto, para a pergunta e a solução
+     caberem na largura menor ---- */
+  .s7:not(.modo-todos) .s7-item.is-centro .s7-card{height:24cqh;}
+  /* tema mais compacto no centro, para temas longos não encostarem no ícone */
+  .s7:not(.modo-todos) .s7-item.is-centro .s7-tema{min-width:0;padding:0 1.4cqh;font-size:1.75cqh;}
+  .s7:not(.modo-todos) .s7-item.is-centro .s7-sol{top:28.8cqh;}
+  .s7:not(.modo-todos) .s7-item.is-centro.is-aberto .s7-sol{height:21cqh;}
+  /* folga lateral e inferior para o texto da solução no centro */
+  .s7:not(.modo-todos) .s7-item.is-centro .s7-solucao{padding:1.6cqh 2.8cqh 1.6cqh;}
+  .s7:not(.modo-todos) .s7-item.is-centro .s7-card{padding-left:2.8cqh;padding-right:2.8cqh;}
+
+  /* anel tracejado por onde os chips se distribuem (só no modo foco) */
+  .s7-anel{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;transition:opacity .5s ease;}
+  .s7.modo-todos .s7-anel,.s7:not(.is-active) .s7-anel{opacity:0;}
+
+  /* chegando ao centro: a pergunta aparece depois do card assentar */
+  .s7-pergunta{transition:opacity .35s ease .45s,visibility 0s;}
+  .s7-item.is-centro .s7-sol,.s7.modo-todos .s7-sol{transition:height .45s cubic-bezier(.22,.78,.28,1) .35s,opacity .3s ease .4s,visibility 0s,filter .15s ease;}
 
   /* rodapé: ABRIR TODOS pequeno à esquerda */
   .s7-todos{
@@ -625,16 +673,22 @@
   .s7-todos:focus-visible{outline:3px solid #00707a;outline-offset:3px;}
 
   /* ---- Entrada: cabeçalho desce, itens sobem em cascata, faixa entra pela direita ---- */
-  .s7-topo,.s7-sub,.s7-item,.s7-todos{
+  .s7-topo,.s7-sub,.s7-todos{
     transition:opacity .5s ease var(--d,0s),
                translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s);
   }
-  .s7:not(.is-active) .s7-topo{opacity:0;translate:0 -40%;}
+  .s7-item{
+    transition:opacity .5s ease var(--d,0s),
+               translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s),
+               left var(--s7-mov),top var(--s7-mov),width var(--s7-mov),height var(--s7-mov),scale var(--s7-mov),
+               filter .15s ease;
+  }
+  .s7:not(.is-active) .s7-topo{opacity:0;translate:-12% 0;}   /* título entra da esquerda */
   .s7:not(.is-active) .s7-sub{opacity:0;translate:-6% 0;}
   .s7:not(.is-active) :is(.s7-item,.s7-todos){opacity:0;translate:0 25%;}
   .s7.is-active :is(.s7-topo,.s7-sub,.s7-item,.s7-todos){opacity:1;translate:none;}
   @media (prefers-reduced-motion:reduce){
-    .s7 :is(.s7-topo,.s7-sub,.s7-item,.s7-todos,.s7-solucao,.s7-ver){transition:none;}
+    .s7 :is(.s7-topo,.s7-sub,.s7-item,.s7-todos,.s7-solucao,.s7-ver,.s7-card,.s7-tema,.s7-num,.s7-icone,.s7-pergunta){transition:none;}
     .s7 :is(.s7-topo,.s7-sub,.s7-item,.s7-todos){opacity:1;translate:none;}
     .s7 .s7-sol{transition:none;}
   }
@@ -677,14 +731,15 @@
     display:flex;align-items:center;gap:1.6cqh;color:#fff;
   }
   .cad-painel--mb .cad-cab{background:linear-gradient(90deg,#2f6f2f 0%,#4f8f35 100%);}
-  .cad-painel--sr .cad-cab{background:linear-gradient(90deg,#1d5f6e 0%,#2f8596 100%);justify-content:center;}
+  .cad-painel--sr .cad-cab{background:linear-gradient(90deg,#1d5f6e 0%,#2f8596 100%);}
+  /* símbolo da Senior em branco, na mesma altura do ícone MB do painel verde */
+  .cad-cab__simbolo{height:6cqh;width:auto;display:block;filter:brightness(0) invert(1) drop-shadow(0 .2cqh .4cqh rgba(0,0,0,.25));}
   .cad-cab__icone{height:6cqh;width:auto;display:block;filter:drop-shadow(0 .2cqh .4cqh rgba(0,0,0,.25));}
   .cad-cab__txt{display:flex;flex-direction:column;gap:.5cqh;}
   .cad-cab__marca{height:3.1cqh;width:auto;display:block;filter:brightness(0) invert(1);}
   .cad-cab__senior{display:flex;align-items:center;gap:1.2cqh;font-size:3.6cqh;font-weight:600;letter-spacing:-.02em;line-height:1;}
   .cad-cab__senior i{font-style:normal;font-size:2.6cqh;font-weight:500;padding-left:1.2cqh;border-left:.2cqh solid rgba(255,255,255,.7);}
   .cad-cab__foco{font-size:1.55cqh;font-weight:600;letter-spacing:.03em;opacity:.95;}
-  .cad-painel--sr .cad-cab__txt{align-items:center;}
 
   .cad-linhas{margin:0;padding:1.2cqh;list-style:none;display:flex;flex-direction:column;gap:1cqh;}
   .cad-linha{
@@ -726,18 +781,6 @@
   .cad--redig .cad-seta--dir{color:var(--cad-verde2);align-self:flex-start;margin-left:2%;}
   .cad--redig .cad-seta--esq{color:var(--cad-azul2);align-self:flex-end;margin-right:2%;}
 
-  /* slide 9: seta para cada lado a partir do banco de dados, rótulo abaixo */
-  .cad--api .cad-meio li{flex-wrap:wrap;row-gap:.8cqh;}
-  .cad--api .cad-seta{width:30%;}
-  .cad--api .cad-seta--esq{color:var(--cad-verde2);margin-right:2.4cqh;}
-  .cad--api .cad-seta--dir{color:var(--cad-azul2);margin-left:2.4cqh;}
-  .cad-db{
-    width:6.4cqh;height:6.4cqh;border-radius:1.4cqh;background:#fff;color:var(--cad-azul);
-    border:.3cqh solid var(--cad-azul);box-shadow:0 .4cqh 1cqh rgba(20,60,70,.15);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .cad-db svg{width:60%;height:60%;}
-  .cad--api .cad-rot{flex-basis:100%;text-align:center;}
 
   /* ---- rodapé: alerta, ciclo, objetivo ---- */
   .cad-box{
@@ -798,7 +841,7 @@
                translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s);
   }
   .cad-seta,.cad-liga{transition:scale .6s cubic-bezier(.22,.78,.28,1) var(--d,0s);}
-  .cad:not(.is-active) .cad-topo{opacity:0;translate:0 -40%;}
+  .cad:not(.is-active) .cad-topo{opacity:0;translate:-12% 0;}   /* título entra da esquerda */
   .cad:not(.is-active) .cad-sub{opacity:0;translate:-4% 0;}
   .cad:not(.is-active) .cad-painel--mb{opacity:0;translate:-8% 0;}
   .cad:not(.is-active) .cad-painel--sr{opacity:0;translate:8% 0;}
@@ -925,7 +968,7 @@
 
   /* escolha */
   .int-escolha{
-    position:absolute;left:2.08%;top:24.35%;width:10.94%;height:36.11%;
+    position:absolute;left:2.08%;top:31.76%;width:10.94%;height:43.52%;
     background:#fff;border-radius:1.8cqh;overflow:hidden;
     box-shadow:0 .8cqh 2.2cqh rgba(20,50,60,.12);border:1px solid #d8e4ea;
     display:flex;flex-direction:column;
@@ -964,7 +1007,7 @@
 
   /* desgaste */
   .int-desg{
-    position:absolute;left:80.73%;top:18.98%;width:17.19%;height:49.54%;
+    position:absolute;left:80.73%;top:24.81%;width:17.19%;height:57.41%;
     background:#fff;border:.3cqh solid #c62828;border-radius:1.8cqh;overflow:hidden;
     box-shadow:0 .8cqh 2.2cqh rgba(120,20,20,.12);display:flex;flex-direction:column;
   }
@@ -1191,6 +1234,25 @@
   }
 
 
+  /* ================= SLIDE 12 — Definições iniciais (7 etapas) =================
+     Reaproveita o card das etapas do slide 10 em tamanho de slide inteiro:
+     linha do tempo de 7 colunas, ícone grande no topo e número da etapa. */
+  .def .def-passos{top:29%;left:3%;width:94%;height:44%;gap:0 2.2cqw;}
+  .def .def-passos li{
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    padding:3.4cqh 1.6cqh 2.6cqh;border-radius:2cqh;
+  }
+  .def .def-passos li + li::before{left:calc(-1.1cqw - 1.1cqh);top:9.6cqh;}
+  .def .int-passo__cab{flex-direction:column;gap:1.8cqh;margin-bottom:1.8cqh;}
+  .def .int-passo__cab span{width:9cqh;height:9cqh;box-shadow:0 .5cqh 1.2cqh rgba(20,60,30,.25);}
+  .def .def-passos h4{font-size:2.05cqh;min-height:5cqh;display:flex;align-items:center;justify-content:center;}
+  .def .def-passos p{font-size:1.9cqh;line-height:1.35;}
+  .def .def-n{
+    position:absolute;top:1.2cqh;left:1.6cqh;
+    color:#2e7d32;font-size:2.6cqh;font-weight:800;opacity:.4;
+  }
+
+
   /* ================= Rodapé comum (slides 3 em diante) =================
      Três botões redondos (voltar, menu, avançar) e o logo MultSoft.
      Posição de cada um vai no style do elemento. */
@@ -1264,7 +1326,7 @@
 
       <!-- ===================== SLIDE 1 — Capa ===================== -->
       <section class="slide is-active" data-slide="1" data-screen-label="01" aria-label="Slide 1 — Integração ERP Senior e Plataforma MultBovinos">
-        <img class="slide__bg" src="assets/erp-senior/slide-01-bg.webp?v=1" alt="Senior + MultBovinos, desenvolvido por MultSoft — O ganho do Produto Rural por detrás dessa integração. A integração estratégica para Confinamento, Ciclo Completo e Integração Lavoura Pecuária (ILP). Ao fundo, vista aérea de uma fazenda com confinamento e sede.">
+        <img class="slide__bg" src="assets/erp-senior/slide-01-bg.webp?v=2" alt="Senior + MultBovinos, desenvolvido por MultSoft — O ganho do Produtor Rural por trás dessa integração. A integração estratégica para Confinamento, Ciclo Completo e Integração Lavoura Pecuária (ILP). Ao fundo, vista aérea de uma fazenda com confinamento e sede.">
         <!-- A capa não tem botão desenhado: o slide inteiro avança -->
         <button class="hotspot cover-hot" type="button" title="Iniciar — ir para o menu" aria-label="Iniciar — ir para o menu" onclick="goToSlide(2)"></button>
       </section>
@@ -1296,15 +1358,15 @@
           </span>
         </button>
         <button class="s2-card" type="button" style="top:34.03%;--d:0.30s" onclick="goToSlide(7)"
-                aria-label="Principais dificuldades do Produtor Rural">
-          <span class="s2-card__body s2-card__body--2l">
-            <span class="s2-card__rot">Principais dificuldades<br>do Produtor Rural</span>
+                aria-label="Etapas da Integração">
+          <span class="s2-card__body">
+            <span class="s2-card__rot">Etapas da Integração</span>
           </span>
         </button>
-        <button class="s2-card" type="button" style="top:55.07%;--d:0.38s" onclick="goToSlide(11)"
-                aria-label="Detalhes da Integração">
-          <span class="s2-card__body">
-            <span class="s2-card__rot">Detalhes da Integração</span>
+        <button class="s2-card" type="button" style="top:55.07%;--d:0.38s" onclick="goToSlide(13)"
+                aria-label="Retornos Sobre Investimento (ROI)">
+          <span class="s2-card__body s2-card__body--2l">
+            <span class="s2-card__rot">Retornos Sobre<br>Investimento (ROI)</span>
           </span>
         </button>
         <button class="s2-card" type="button" style="top:74.65%;--d:0.46s" onclick="goToSlide(14)"
@@ -1440,7 +1502,6 @@
         <p class="s5-sub" style="--d:.16s">A plataforma de soluções agropecuárias<br>mais ampla e completa do mercado.</p>
 
         <img class="s5-marca s5-multbovinos" src="assets/erp-senior/logo-multbovinos.webp?v=2" alt="MultBovinos — Gestão Integrada da Pecuária" style="--d:.26s">
-        <img class="s5-marca s5-multagricola" src="assets/erp-senior/logo-multagricola.webp?v=1" alt="MultAgrícola — Gestão Integrada da Agricultura" style="--d:.32s">
 
         <ul class="s5-apps" aria-label="Aplicativos">
           <li style="--d:.34s"><img src="assets/erp-senior/app-mb-tratos.webp?v=1" alt="MB Tratos" style="height:10.39cqh"></li>
@@ -1527,104 +1588,106 @@
       </section>
 
       <!-- ===================== SLIDE 7 — As DORES do Produtor Rural (interativo) ===================== -->
-      <section class="slide s7" data-slide="7" data-screen-label="07" aria-label="Slide 7 — As dores do Produtor Rural em utilizar 2 sistemas">
+      <section class="slide s7" data-slide="7" data-screen-label="07" aria-label="Slide 7 — As dores do Produtor Rural em utilizar 2 ou mais sistemas">
         <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
 
         <h2 class="s7-topo" style="--d:.04s">
           <img src="assets/erp-senior/icone-mb.webp?v=1" alt="" aria-hidden="true">
-          <span>As <mark>DORES</mark> do Produtor Rural em utilizar 2 sistemas</span>
+          <span>As <mark>DORES</mark> do Produtor Rural em utilizar 2 ou + sistemas</span>
         </h2>
         <p class="s7-sub" style="--d:.12s">Entenda como o MB Senior resolve os principais desafios da operação e da gestão da sua fazenda.</p>
 
+        <svg class="s7-anel" viewBox="0 0 1920 1080" fill="none" aria-hidden="true"><ellipse cx="960" cy="577" rx="720" ry="300" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="3 10" opacity=".35"/></svg>
+
         <ul class="s7-grade" aria-label="Principais dificuldades e as soluções MB Senior">
-          <li class="s7-item" style="--d:0.20s">
+          <li class="s7-item is-centro is-aberto" style="--hx:20.55%;--hy:22.65%;--gx:3%;--gy:19%;--d:0.20s">
             <span class="s7-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="15" height="14" rx="2"/><path d="M3 9.5h15M7 3v4M14 3v4M6.5 12.5h1.5M9.8 12.5h1.5M6.5 15.5h1.5"/><circle cx="17.5" cy="17" r="4.3" fill="#e8f3f2"/><path d="M17.5 15v2.2l1.5 1"/></svg></span>
-            <button class="s7-num" type="button" aria-expanded="false" aria-controls="s7-sol-1" aria-label="Pergunta 1: ver a solução MB Senior" onclick="s7Alternar(this)">1</button>
+            <button class="s7-num" type="button" aria-expanded="true" aria-controls="s7-sol-1" aria-label="1 — Manejo: ver a pergunta e a solução MB Senior">1</button>
             <div class="s7-card">
               <span class="s7-tema">MANEJO</span>
-              <p class="s7-pergunta">Hoje, quantos dias levam entre um manejo no curral e esse dado estar disponível para a gestão ver?</p>
+              <p class="s7-pergunta">Hoje, quantos dias se passam entre um manejo no curral e o momento em que esse dado fica disponível para a gestão?</p>
             </div>
-            <div class="s7-sol" onclick="s7Alternar(this)">
-              <button class="s7-ver" type="button" aria-expanded="false" aria-controls="s7-sol-1">
+            <div class="s7-sol">
+              <button class="s7-ver" type="button" aria-expanded="true" aria-controls="s7-sol-1">
                 VER SOLUÇÃO
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
               </button>
-              <p class="s7-solucao" id="s7-sol-1"><b>MB Senior</b> proporciona agilidade e <b>visibilidade</b> dos dados em tempo real.</p>
+              <p class="s7-solucao" id="s7-sol-1"><b class="s7-rotulo">SOLUÇÃO:</b> <b>MB Senior</b> proporciona agilidade e <b>visibilidade</b> dos dados em tempo real.</p>
             </div>
           </li>
-          <li class="s7-item" style="--d:0.27s">
+          <li class="s7-item" style="--hx:7.16%;--hy:43.93%;--gx:35%;--gy:19%;--d:0.27s">
             <span class="s7-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h8l4 4v5"/><path d="M5 3v17h6"/><path d="M13 3v4h4"/><path d="M8 8.5h3M8 11.5h5M8 14.5h2"/><rect x="13" y="13" width="8" height="8.5" rx="1.3"/><path d="M15 15.5h4M15 18h.01M17 18h.01M19 18h.01M15 20h.01M17 20h.01M19 20h.01"/></svg></span>
-            <button class="s7-num" type="button" aria-expanded="false" aria-controls="s7-sol-2" aria-label="Pergunta 2: ver a solução MB Senior" onclick="s7Alternar(this)">2</button>
+            <button class="s7-num" type="button" aria-expanded="false" aria-controls="s7-sol-2" aria-label="2 — Contabilidade: ver a pergunta e a solução MB Senior">2</button>
             <div class="s7-card">
               <span class="s7-tema">CONTABILIDADE</span>
-              <p class="s7-pergunta">O CPC 29 (contabilização do rebanho como ativo biológico) é tratado manualmente na contabilidade de vocês? Quantas horas/mês isso consome?</p>
+              <p class="s7-pergunta">O CPC 29 (contabilização do rebanho como ativo biológico) ainda é feito manualmente na sua contabilidade? Quantas horas por mês isso consome?</p>
             </div>
-            <div class="s7-sol" onclick="s7Alternar(this)">
+            <div class="s7-sol">
               <button class="s7-ver" type="button" aria-expanded="false" aria-controls="s7-sol-2">
                 VER SOLUÇÃO
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
               </button>
-              <p class="s7-solucao" id="s7-sol-2"><b>MB Senior</b> automatiza e integra o <b>CPC 29</b>, reduzindo o tempo da contabilidade.</p>
+              <p class="s7-solucao" id="s7-sol-2"><b class="s7-rotulo">SOLUÇÃO:</b> <b>MB Senior</b> automatiza e integra o <b>CPC 29</b>, reduzindo o tempo da contabilidade.</p>
             </div>
           </li>
-          <li class="s7-item" style="--d:0.34s">
+          <li class="s7-item" style="--hx:20.55%;--hy:65.20%;--gx:67%;--gy:19%;--d:0.34s">
             <span class="s7-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 3.2A8.8 8.8 0 1 0 11 20.7"/><path d="M11 7v5l2.5 1.5"/><circle cx="17.5" cy="14.2" r="2.5"/><path d="M13.3 21.2c.6-2.2 2.3-3.4 4.2-3.4s3.6 1.2 4.2 3.4"/></svg></span>
-            <button class="s7-num" type="button" aria-expanded="false" aria-controls="s7-sol-3" aria-label="Pergunta 3: ver a solução MB Senior" onclick="s7Alternar(this)">3</button>
+            <button class="s7-num" type="button" aria-expanded="false" aria-controls="s7-sol-3" aria-label="3 — Retrabalho: ver a pergunta e a solução MB Senior">3</button>
             <div class="s7-card">
               <span class="s7-tema">RETRABALHO</span>
-              <p class="s7-pergunta">Quanto do seu tempo, ou do tempo do seu financeiro, é gasto hoje digitando dados que já nasceram em outro lugar?</p>
+              <p class="s7-pergunta">Quanto tempo você ou sua equipe financeira gastam hoje redigitando dados que já foram lançados em outro sistema?</p>
             </div>
-            <div class="s7-sol" onclick="s7Alternar(this)">
+            <div class="s7-sol">
               <button class="s7-ver" type="button" aria-expanded="false" aria-controls="s7-sol-3">
                 VER SOLUÇÃO
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
               </button>
-              <p class="s7-solucao" id="s7-sol-3"><b>MB Senior</b> reduz o <b>RETRABALHO</b> e a <b>PERDA DE TEMPO</b> com redigitações (a mesma informação sendo lançada em mais de um software).</p>
+              <p class="s7-solucao" id="s7-sol-3"><b class="s7-rotulo">SOLUÇÃO:</b> <b>MB Senior</b> reduz o <b>RETRABALHO</b> e a <b>PERDA DE TEMPO</b> com redigitações (a mesma informação sendo lançada em mais de um software).</p>
             </div>
           </li>
-          <li class="s7-item" style="--d:0.41s">
+          <li class="s7-item" style="--hx:68.76%;--hy:22.65%;--gx:3%;--gy:57.52%;--d:0.41s">
             <span class="s7-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8 7.5 9.5 4.4-1.5 7.5-4.9 7.5-9.5V6z"/><path d="m8.6 12 2.4 2.4 4.6-4.8"/></svg></span>
-            <button class="s7-num" type="button" aria-expanded="false" aria-controls="s7-sol-4" aria-label="Pergunta 4: ver a solução MB Senior" onclick="s7Alternar(this)">4</button>
+            <button class="s7-num" type="button" aria-expanded="false" aria-controls="s7-sol-4" aria-label="4 — Dados incorretos: ver a pergunta e a solução MB Senior">4</button>
             <div class="s7-card">
-              <span class="s7-tema">DADOS</span>
-              <p class="s7-pergunta">Qual o nível de erros de digitação e inconsistências dos dados coletados?</p>
+              <span class="s7-tema">DADOS INCORRETOS</span>
+              <p class="s7-pergunta">Com que frequência aparecem erros de digitação e inconsistências nos dados coletados?</p>
             </div>
-            <div class="s7-sol" onclick="s7Alternar(this)">
+            <div class="s7-sol">
               <button class="s7-ver" type="button" aria-expanded="false" aria-controls="s7-sol-4">
                 VER SOLUÇÃO
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
               </button>
-              <p class="s7-solucao" id="s7-sol-4"><b>MB Senior</b> reduz o <b>RISCO DE ERROS</b> e <b>INCONSISTÊNCIAS</b> (a redigitação permite lançamentos de dados errados que podem gerar inconsistências entre os softwares e perda de confiabilidade).</p>
+              <p class="s7-solucao" id="s7-sol-4"><b class="s7-rotulo">SOLUÇÃO:</b> <b>MB Senior</b> reduz o <b>RISCO DE ERROS</b> e <b>INCONSISTÊNCIAS</b> (a redigitação permite lançamentos de dados errados que podem gerar inconsistências entre os softwares e perda de confiabilidade).</p>
             </div>
           </li>
-          <li class="s7-item" style="--d:0.48s">
+          <li class="s7-item" style="--hx:82.16%;--hy:43.93%;--gx:35%;--gy:57.52%;--d:0.48s">
             <span class="s7-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="10" cy="5.5" rx="6.5" ry="2.5"/><path d="M3.5 5.5v11c0 1.4 2.9 2.5 6.5 2.5M16.5 5.5V9M3.5 11c0 1.4 2.9 2.5 6.5 2.5"/><circle cx="16.5" cy="15.5" r="3.6"/><path d="m19.2 18.2 2.6 2.6"/></svg></span>
-            <button class="s7-num" type="button" aria-expanded="false" aria-controls="s7-sol-5" aria-label="Pergunta 5: ver a solução MB Senior" onclick="s7Alternar(this)">5</button>
+            <button class="s7-num" type="button" aria-expanded="false" aria-controls="s7-sol-5" aria-label="5 — Estoque: ver a pergunta e a solução MB Senior">5</button>
             <div class="s7-card">
               <span class="s7-tema">ESTOQUE</span>
-              <p class="s7-pergunta">Quando acontece uma divergência entre o estoque de gado que a fazenda declara e o que o financeiro consegue levantar, quanto tempo leva para conciliar?</p>
+              <p class="s7-pergunta">Quando o estoque de gado informado pela fazenda não bate com o levantado pelo financeiro, quanto tempo leva para conciliar os números?</p>
             </div>
-            <div class="s7-sol" onclick="s7Alternar(this)">
+            <div class="s7-sol">
               <button class="s7-ver" type="button" aria-expanded="false" aria-controls="s7-sol-5">
                 VER SOLUÇÃO
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
               </button>
-              <p class="s7-solucao" id="s7-sol-5"><b>MB Senior</b> reduz o número de <b>INFORMAÇÕES DESENCONTRADAS</b> (necessidade de conferir e ajustar constantemente os dados impacta diretamente na qualidade das análises e decisões).</p>
+              <p class="s7-solucao" id="s7-sol-5"><b class="s7-rotulo">SOLUÇÃO:</b> <b>MB Senior</b> reduz o número de <b>INFORMAÇÕES DESENCONTRADAS</b> (necessidade de conferir e ajustar constantemente os dados impacta diretamente na qualidade das análises e decisões).</p>
             </div>
           </li>
-          <li class="s7-item" style="--d:0.55s">
+          <li class="s7-item" style="--hx:68.76%;--hy:65.20%;--gx:67%;--gy:57.52%;--d:0.55s">
             <span class="s7-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.5h11v10h-11z"/><path d="M13.5 10h4l3 3.3v3.2h-7"/><circle cx="6.5" cy="17.5" r="1.9"/><circle cx="16.8" cy="17.5" r="1.9"/><path d="M5 10.2c.8-.9 2-1 3-.6l1.8-.9.6.9-.9.6v2.1H5.8l-.8 1"/></svg></span>
-            <button class="s7-num" type="button" aria-expanded="false" aria-controls="s7-sol-6" aria-label="Pergunta 6: ver a solução MB Senior" onclick="s7Alternar(this)">6</button>
+            <button class="s7-num" type="button" aria-expanded="false" aria-controls="s7-sol-6" aria-label="6 — Vendas: ver a pergunta e a solução MB Senior">6</button>
             <div class="s7-card">
               <span class="s7-tema">VENDAS</span>
-              <p class="s7-pergunta">Na venda de animais, acontece de o que foi embarcado divergir do pedido de venda? Como essa conferência é feita hoje?</p>
+              <p class="s7-pergunta">Na venda de animais, o que foi embarcado às vezes diverge do pedido de venda? Como essa conferência é feita hoje?</p>
             </div>
-            <div class="s7-sol" onclick="s7Alternar(this)">
+            <div class="s7-sol">
               <button class="s7-ver" type="button" aria-expanded="false" aria-controls="s7-sol-6">
                 VER SOLUÇÃO
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
               </button>
-              <p class="s7-solucao" id="s7-sol-6"><b>MB Senior</b> garante a <b>conferência automática de embarques e pedidos</b>, com mais precisão na comercialização.</p>
+              <p class="s7-solucao" id="s7-sol-6"><b class="s7-rotulo">SOLUÇÃO:</b> <b>MB Senior</b> garante a <b>conferência automática de embarques e pedidos</b>, com mais precisão na comercialização.</p>
             </div>
           </li>
         </ul>
@@ -1699,6 +1762,7 @@
         </div>
         <div class="cad-painel cad-painel--sr" style="--d:0.24s">
           <div class="cad-cab">
+            <img class="cad-cab__simbolo" src="assets/erp-senior/simbolo-senior.webp?v=1" alt="" aria-hidden="true">
             <div class="cad-cab__txt">
               <span class="cad-cab__senior">Senior <i>ERP</i></span>
               <span class="cad-cab__foco">FOCO: FINANCEIRO, CONTÁBIL E FISCAL</span>
@@ -1730,11 +1794,6 @@
           <li style="top:70.3%;--d:0.74s"><span class="cad-seta cad-seta--dir"></span><b class="cad-rot">REDIGITAÇÃO</b><span class="cad-seta cad-seta--esq"></span></li>
         </ul>
 
-        <div class="cad-box cad-box--alerta" style="--d:.80s">
-          <svg class="cad-box__ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 22.4 20.6H1.6z" fill="#c62828" stroke="#c62828" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 9v5.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17.4" r="1.3" fill="#fff"/></svg>
-          <div><h3>O DESGASTE</h3><ul><li>Retrabalho e perda de tempo</li><li>Risco de erros e inconsistências</li><li>Informações desencontradas</li><li>Impacto nas análises e decisões</li></ul></div>
-        </div>
-        <span class="cad-liga cad-liga--esq" style="--d:1.05s" aria-hidden="true"></span>
         <div class="cad-ciclo" style="--d:.86s">
           <svg class="cad-ciclo__giro" viewBox="0 0 100 100" fill="none" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M8.65 34.95A44 44 0 0 1 65.05 8.65" stroke="#4f8f35"/><path d="M60.38 2.48L65.05 8.65L57.50 10.38" stroke="#4f8f35" stroke-linejoin="round"/><path d="M91.35 65.05A44 44 0 0 1 34.95 91.35" stroke="#2f8596"/><path d="M39.62 97.52L34.95 91.35L42.50 89.62" stroke="#2f8596" stroke-linejoin="round"/></svg>
           <div class="cad-ciclo__bola cad-ciclo__bola--mb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="6.5" r="2.6"/><path d="M3.5 19v-3.2a4.5 4.5 0 0 1 9 0V19"/><rect x="13.5" y="8.5" width="7.5" height="5.5" rx=".8"/><path d="M12 19h10M17.2 14v5"/></svg><b>LANÇA NO<br>MULTBOVINOS</b></div>
@@ -1748,8 +1807,8 @@
         </div>
       </section>
 
-      <!-- ===================== SLIDE 9 — Cadência de Lançamento de Dados (integração por APIs) ===================== -->
-      <section class="slide cad cad--api" data-slide="9" data-screen-label="09" aria-label="Slide 9 — Cadência de Lançamento de Dados: integração por APIs">
+      <!-- ===================== SLIDE 9 — Integração MultBovinos + Senior ERP (infinito) ===================== -->
+      <section class="slide cad inf" data-slide="9" data-screen-label="09" aria-label="Slide 9 — Cadência de Lançamento de Dados: vamos integrar o ERP Senior com o MB">
         <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
 
         <h2 class="cad-topo" style="--d:.04s">
@@ -1757,110 +1816,14 @@
           <span>Cadência de Lançamento de Dados</span>
         </h2>
         <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:0.20s" onclick="goToSlide(8)" aria-label="Voltar" title="Voltar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:.20s" onclick="goToSlide(8)" aria-label="Voltar" title="Voltar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
         </button>
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:0.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
         </button>
         <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(10)" aria-label="Avançar" title="Avançar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M15 4l6 6-6 6"/></svg>
-        </button>
-
-        <p class="cad-sub" style="--d:.12s">Faça a <b>integração do MultBovinos com o Senior</b> por meio de <b>APIs</b> para eliminar retrabalhos e acelerar o fluxo de informações.</p>
-
-        <div class="cad-painel cad-painel--mb" style="--d:0.20s">
-          <div class="cad-cab">
-            <img class="cad-cab__icone" src="assets/erp-senior/icone-mb.webp?v=1" alt="" aria-hidden="true">
-            <div class="cad-cab__txt">
-              <img class="cad-cab__marca" src="assets/erp-senior/logo-multbovinos-nome.webp?v=1" alt="MultBovinos">
-              <span class="cad-cab__foco">Gestão Completa da Pecuária</span>
-            </div>
-          </div>
-          <ul class="cad-linhas">
-            <li class="cad-linha" style="--d:0.30s">
-              <span class="cad-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 4.5c0 2 1.3 3.2 3 3.3M17.5 4.5c0 2-1.3 3.2-3 3.3"/><path d="M4 9.2l4-.6M20 9.2l-4-.6"/><path d="M8 8h8v6a4 4 0 0 1-8 0z"/><path d="M10 15.6h4"/><circle cx="10.3" cy="11" r=".4" fill="currentColor"/><circle cx="13.7" cy="11" r=".4" fill="currentColor"/></svg></span>
-              <div><h3>ENTRADA DE ANIMAIS</h3><p>Cadastro, compras, saídas,<br>movimentação e histórico.</p></div>
-            </li>
-            <li class="cad-linha" style="--d:0.37s">
-              <span class="cad-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 3.5h7l-1.6 3.2h-3.8z"/><path d="M10.1 6.7C6.7 8.6 5 11.7 5 15c0 3.3 2.4 5.5 7 5.5s7-2.2 7-5.5c0-3.3-1.7-6.4-5.1-8.3"/><path d="M9.8 16.3c0-2.3 1.7-3.9 4.4-3.9 0 2.5-1.8 4.3-4.4 4.3M9.8 16.7l2.3-2.2"/></svg></span>
-              <div><h3>ESTOQUE DE INSUMOS</h3><p>Compras, uso, consumo e<br>controle de validade.</p></div>
-            </li>
-            <li class="cad-linha" style="--d:0.44s">
-              <span class="cad-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4.5" width="14" height="16.5" rx="2"/><path d="M9 4.5V3h6v1.5"/><path d="m8 10 1.2 1.2L11.5 9M13.5 10.2H16M8 15.5l1.2 1.2 2.3-2.2M13.5 15.7H16"/></svg></span>
-              <div><h3>OBJETO PECUÁRIA</h3><p>Atributos, ciclo de vida, atividades,<br>app de campo e rebanho.</p></div>
-            </li>
-            <li class="cad-linha" style="--d:0.51s">
-              <span class="cad-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21H11"/><path d="M13.5 3 18 7.5V10"/><path d="M13.5 3v4.5H18"/><path d="M8 11h5M8 14h3"/><circle cx="17" cy="17" r="1.7"/><path d="M17 12.8v1.3M17 19.9v1.3M21.2 17h-1.3M14.1 17h-1.3M20 14l-.9.9M14.9 19.1l-.9.9M20 20l-.9-.9M14.9 14.9l-.9-.9"/></svg></span>
-              <div><h3>CPC 29 – ATIVOS BIOLÓGICOS</h3><p>Apurações, mensurações,<br>reclassificações e relatórios.</p></div>
-            </li>
-          </ul>
-        </div>
-        <div class="cad-painel cad-painel--sr" style="--d:0.24s">
-          <div class="cad-cab">
-            <div class="cad-cab__txt">
-              <span class="cad-cab__senior">Senior <i>ERP</i></span>
-              <span class="cad-cab__foco">Soluções completas para sua empresa</span>
-            </div>
-          </div>
-          <ul class="cad-linhas">
-            <li class="cad-linha" style="--d:0.34s">
-              <span class="cad-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 4.5c0 2 1.3 3.2 3 3.3M17.5 4.5c0 2-1.3 3.2-3 3.3"/><path d="M4 9.2l4-.6M20 9.2l-4-.6"/><path d="M8 8h8v6a4 4 0 0 1-8 0z"/><path d="M10 15.6h4"/><circle cx="10.3" cy="11" r=".4" fill="currentColor"/><circle cx="13.7" cy="11" r=".4" fill="currentColor"/></svg></span>
-              <div><h3>ENTRADA DE ANIMAIS</h3><p>Cadastro, compras, saídas,<br>movimentação e histórico.</p></div>
-            </li>
-            <li class="cad-linha" style="--d:0.41s">
-              <span class="cad-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 20 7.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/><path d="M8 5.3l8 4.5"/></svg></span>
-              <div><h3>ESTOQUE DE INSUMOS</h3><p>Compras, uso, consumo e<br>controle de validade.</p></div>
-            </li>
-            <li class="cad-linha" style="--d:0.48s">
-              <span class="cad-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21H11"/><path d="M13.5 3 18 7.5V10"/><path d="M13.5 3v4.5H18"/><path d="M8 11h5M8 14h3"/><circle cx="17" cy="17" r="1.7"/><path d="M17 12.8v1.3M17 19.9v1.3M21.2 17h-1.3M14.1 17h-1.3M20 14l-.9.9M14.9 19.1l-.9.9M20 20l-.9-.9M14.9 14.9l-.9-.9"/></svg></span>
-              <div><h3>OBJETO PECUÁRIA</h3><p>Atributos, ciclo de vida, atividades,<br>app de campo e rebanho.</p></div>
-            </li>
-            <li class="cad-linha" style="--d:0.55s">
-              <span class="cad-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="13" r="8"/><circle cx="11" cy="13" r="4.6"/><circle cx="11" cy="13" r="1.3" fill="currentColor"/><path d="M11 13 19.5 4.5M16.5 4.5h3v3"/></svg></span>
-              <div><h3>CPC 29 – ATIVOS BIOLÓGICOS</h3><p>Apurações, mensurações,<br>reclassificações e relatórios.</p></div>
-            </li>
-          </ul>
-        </div>
-        <ul class="cad-meio" aria-hidden="true">
-          <li style="top:35.5%;--d:0.50s"><span class="cad-seta cad-seta--esq"></span><span class="cad-db"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"/><path d="M5 5.5v13c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-13"/><path d="M5 10c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6M5 14.3c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"/></svg></span><span class="cad-seta cad-seta--dir"></span><b class="cad-rot">RESTRIÇÃO</b></li>
-          <li style="top:47.1%;--d:0.58s"><span class="cad-seta cad-seta--esq"></span><span class="cad-db"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"/><path d="M5 5.5v13c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-13"/><path d="M5 10c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6M5 14.3c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"/></svg></span><span class="cad-seta cad-seta--dir"></span><b class="cad-rot">RESTRIÇÃO</b></li>
-          <li style="top:58.7%;--d:0.66s"><span class="cad-seta cad-seta--esq"></span><span class="cad-db"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"/><path d="M5 5.5v13c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-13"/><path d="M5 10c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6M5 14.3c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"/></svg></span><span class="cad-seta cad-seta--dir"></span><b class="cad-rot">RESTRIÇÃO</b></li>
-          <li style="top:70.3%;--d:0.74s"><span class="cad-seta cad-seta--esq"></span><span class="cad-db"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"/><path d="M5 5.5v13c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-13"/><path d="M5 10c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6M5 14.3c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"/></svg></span><span class="cad-seta cad-seta--dir"></span><b class="cad-rot">RESTRIÇÃO</b></li>
-        </ul>
-
-        <div class="cad-box cad-box--alerta" style="--d:.80s">
-          <svg class="cad-box__ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 22.4 20.6H1.6z" fill="#c62828" stroke="#c62828" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 9v5.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17.4" r="1.3" fill="#fff"/></svg>
-          <div><h3>RESTRIÇÃO</h3><ul><li>Não é possível realizar a leitura automática dos dados entre os sistemas.</li><li>A integração não permite o envio automático das informações.</li></ul></div>
-        </div>
-        <span class="cad-liga cad-liga--esq" style="--d:1.05s" aria-hidden="true"></span>
-        <div class="cad-ciclo" style="--d:.86s">
-          <svg class="cad-ciclo__giro" viewBox="0 0 100 100" fill="none" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M8.65 34.95A44 44 0 0 1 65.05 8.65" stroke="#4f8f35"/><path d="M60.38 2.48L65.05 8.65L57.50 10.38" stroke="#4f8f35" stroke-linejoin="round"/><path d="M91.35 65.05A44 44 0 0 1 34.95 91.35" stroke="#2f8596"/><path d="M39.62 97.52L34.95 91.35L42.50 89.62" stroke="#2f8596" stroke-linejoin="round"/></svg>
-          <div class="cad-ciclo__bola cad-ciclo__bola--mb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="1.6"/><path d="M9 20.5h6M12 16.5v4"/><path d="M8 12.8v-2.6l1.4-1.4h4.4l1.8-1.2 1.2.6-.6 1.2.6.8-.9 1h-1.1v1.6"/></svg><b>MULTBOVINOS<small>(origem dos dados)</small></b></div>
-          <p class="cad-ciclo__centro">FLUXO<br>RESTRITO</p>
-          <div class="cad-ciclo__bola cad-ciclo__bola--sr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"/><path d="M5 5.5v13c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-13"/><path d="M5 10c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6M5 14.3c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"/></svg><b>ERP SENIOR<small>(destino dos dados)</small></b></div>
-        </div>
-        <span class="cad-liga cad-liga--dir" style="--d:1.05s" aria-hidden="true"></span>
-        <div class="cad-box cad-box--meta" style="--d:.92s">
-          <svg class="cad-box__ic" viewBox="0 0 24 24" fill="none" stroke="#1d5f6e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="13" r="8"/><circle cx="11" cy="13" r="4.6"/><circle cx="11" cy="13" r="1.3" fill="currentColor"/><path d="M11 13 19.5 4.5M16.5 4.5h3v3"/></svg>
-          <div><h3>O BENEFÍCIO</h3><ul><li>Redução de retrabalho e cadência de lançamentos.</li><li>Mais agilidade, precisão e controle nas informações.</li></ul></div>
-        </div>
-      </section>
-
-      <!-- ===================== SLIDE 10 — Integração MultBovinos + Senior ERP (infinito) ===================== -->
-      <section class="slide cad inf" data-slide="10" data-screen-label="10" aria-label="Slide 10 — Cadência de Lançamento de Dados: vamos integrar o ERP Senior com o MB">
-        <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
-
-        <h2 class="cad-topo" style="--d:.04s">
-          <img src="assets/erp-senior/icone-mb.webp?v=1" alt="" aria-hidden="true">
-          <span>Cadência de Lançamento de Dados</span>
-        </h2>
-        <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.20s" onclick="goToSlide(9)" aria-label="Voltar" title="Voltar">
-          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
-        </button>
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
-          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
         </button>
 
         <p class="cad-sub" style="--d:.12s">Então vamos <b>integrar o ERP Senior com MB!</b></p>
@@ -1961,8 +1924,8 @@
         <p class="inf-box">Transformação instantânea de eventos físicos (peso/ração) em registros financeiros (R$/arroba). <b>Sem retrabalho.</b></p>
       </section>
 
-      <!-- ===================== SLIDE 11 — É só Integrar? (Detalhes da Integração) ===================== -->
-      <section class="slide cad int" data-slide="11" data-screen-label="11" aria-label="Slide 11 — É só Integrar?">
+      <!-- ===================== SLIDE 10 — É só Integrar? (Detalhes da Integração) ===================== -->
+      <section class="slide cad int" data-slide="10" data-screen-label="10" aria-label="Slide 10 — É só Integrar?">
         <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
 
         <h2 class="cad-topo" style="--d:.04s">
@@ -1970,19 +1933,21 @@
           <span>É só Integrar?</span>
         </h2>
         <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:.20s" onclick="goToSlide(2)" aria-label="Voltar" title="Voltar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:.20s" onclick="goToSlide(9)" aria-label="Voltar" title="Voltar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
         </button>
         <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
         </button>
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(12)" aria-label="Avançar" title="Avançar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(11)" aria-label="Avançar" title="Avançar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M15 4l6 6-6 6"/></svg>
         </button>
 
         <p class="cad-sub int-sub" style="--d:.12s">Começam as reuniões entre os departamentos das empresas <b class="int-f">Fazenda</b> • <b class="int-m">MultSoft</b> • <b class="int-s">Senior</b> para as definições iniciais para implantação da integração.</p>
 
         <svg class="int-svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">
+          <!-- conjunto deslocado 120 px para baixo, centrado na área livre -->
+          <g transform="translate(0 120)">
           <path class="int-seta" d="M264 445 H281 V429 L301 458 L281 487 V471 H264 Z" fill="url(#int-g-verde)" stroke="url(#int-g-verde)" stroke-width="9" stroke-linejoin="round"/>
           <path class="int-seta" d="M1500 445 H1519 V429 L1539 458 L1519 487 V471 H1500 Z" fill="url(#int-g-verm)" stroke="url(#int-g-verm)" stroke-width="9" stroke-linejoin="round"/>
           <defs>
@@ -1994,13 +1959,14 @@
             <circle cx="900" cy="458" r="152" stroke="#4f9a3f" stroke-width="1.4" stroke-dasharray="3 12" opacity=".5"/>
           </g>
           <g stroke="#4f9a3f" stroke-width="2" fill="#4f9a3f">
-            <path class="int-lig" style="--d:0.70s" d="M660 318 L779.1 387.5" pathLength="100"/><circle class="int-pt" style="--d:1.10s" cx="779.1" cy="387.5" r="5"/><path class="int-lig" style="--d:0.70s" d="M1140 318 L1020.9 387.5" pathLength="100"/><circle class="int-pt" style="--d:1.10s" cx="1020.9" cy="387.5" r="5"/><path class="int-lig" style="--d:0.80s" d="M660 458 L760.0 458.0" pathLength="100"/><circle class="int-pt" style="--d:1.20s" cx="760.0" cy="458.0" r="5"/><path class="int-lig" style="--d:0.80s" d="M1140 458 L1040.0 458.0" pathLength="100"/><circle class="int-pt" style="--d:1.20s" cx="1040.0" cy="458.0" r="5"/><path class="int-lig" style="--d:0.90s" d="M660 598 L779.1 528.5" pathLength="100"/><circle class="int-pt" style="--d:1.30s" cx="779.1" cy="528.5" r="5"/><path class="int-lig" style="--d:0.90s" d="M1140 598 L1020.9 528.5" pathLength="100"/><circle class="int-pt" style="--d:1.30s" cx="1020.9" cy="528.5" r="5"/><path class="int-lig" style="--d:1.0s" d="M900 598 V644" pathLength="100"/><circle class="int-pt" style="--d:1.3s" cx="900" cy="598" r="5"/>
+            <path class="int-lig" style="--d:0.70s" d="M660 273 L789.1 372.5" pathLength="100"/><circle class="int-pt" style="--d:1.10s" cx="789.1" cy="372.5" r="5"/><path class="int-lig" style="--d:0.70s" d="M1140 273 L1010.9 372.5" pathLength="100"/><circle class="int-pt" style="--d:1.10s" cx="1010.9" cy="372.5" r="5"/><path class="int-lig" style="--d:0.80s" d="M660 458 L760.0 458.0" pathLength="100"/><circle class="int-pt" style="--d:1.20s" cx="760.0" cy="458.0" r="5"/><path class="int-lig" style="--d:0.80s" d="M1140 458 L1040.0 458.0" pathLength="100"/><circle class="int-pt" style="--d:1.20s" cx="1040.0" cy="458.0" r="5"/><path class="int-lig" style="--d:0.90s" d="M660 643 L789.1 543.5" pathLength="100"/><circle class="int-pt" style="--d:1.30s" cx="789.1" cy="543.5" r="5"/><path class="int-lig" style="--d:0.90s" d="M1140 643 L1010.9 543.5" pathLength="100"/><circle class="int-pt" style="--d:1.30s" cx="1010.9" cy="543.5" r="5"/><path class="int-lig" style="--d:1.0s" d="M900 598 V686" pathLength="100"/><circle class="int-pt" style="--d:1.3s" cx="900" cy="598" r="5"/>
           </g>
           <g class="int-mesa">
             <circle cx="900" cy="458" r="86" fill="#eef5f2" stroke="#c9ddd5" stroke-width="2"/>
             <circle cx="900" cy="458" r="58" stroke="#d9e8e2" stroke-width="1.2" stroke-dasharray="2 6"/>
             <g transform="rotate(0.0 900 458)"><path d="M876 362 Q900 334 924 362" stroke="#2f7a3a" stroke-width="14" stroke-linecap="round"/><circle cx="900" cy="340" r="12" fill="#2f7a3a"/><rect x="889" y="386" width="22" height="16" rx="2" fill="#fff" stroke="#c9d9d3" stroke-width="1.2" transform="rotate(-12 900 394)"/></g><g transform="rotate(51.4 900 458)"><path d="M876 362 Q900 334 924 362" stroke="#1d5f6e" stroke-width="14" stroke-linecap="round"/><circle cx="900" cy="340" r="12" fill="#1d5f6e"/><rect x="889" y="386" width="22" height="16" rx="2" fill="#fff" stroke="#c9d9d3" stroke-width="1.2" transform="rotate(0 900 394)"/></g><g transform="rotate(102.9 900 458)"><path d="M876 362 Q900 334 924 362" stroke="#2c4a6e" stroke-width="14" stroke-linecap="round"/><circle cx="900" cy="340" r="12" fill="#2c4a6e"/><rect x="889" y="386" width="22" height="16" rx="2" fill="#fff" stroke="#c9d9d3" stroke-width="1.2" transform="rotate(12 900 394)"/></g><g transform="rotate(154.3 900 458)"><path d="M876 362 Q900 334 924 362" stroke="#4f8f35" stroke-width="14" stroke-linecap="round"/><circle cx="900" cy="340" r="12" fill="#4f8f35"/><rect x="889" y="386" width="22" height="16" rx="2" fill="#fff" stroke="#c9d9d3" stroke-width="1.2" transform="rotate(-12 900 394)"/></g><g transform="rotate(205.7 900 458)"><path d="M876 362 Q900 334 924 362" stroke="#1d5f6e" stroke-width="14" stroke-linecap="round"/><circle cx="900" cy="340" r="12" fill="#1d5f6e"/><rect x="889" y="386" width="22" height="16" rx="2" fill="#fff" stroke="#c9d9d3" stroke-width="1.2" transform="rotate(0 900 394)"/></g><g transform="rotate(257.1 900 458)"><path d="M876 362 Q900 334 924 362" stroke="#2c4a6e" stroke-width="14" stroke-linecap="round"/><circle cx="900" cy="340" r="12" fill="#2c4a6e"/><rect x="889" y="386" width="22" height="16" rx="2" fill="#fff" stroke="#c9d9d3" stroke-width="1.2" transform="rotate(12 900 394)"/></g><g transform="rotate(308.6 900 458)"><path d="M876 362 Q900 334 924 362" stroke="#2f7a3a" stroke-width="14" stroke-linecap="round"/><circle cx="900" cy="340" r="12" fill="#2f7a3a"/><rect x="889" y="386" width="22" height="16" rx="2" fill="#fff" stroke="#c9d9d3" stroke-width="1.2" transform="rotate(-12 900 394)"/></g>
           </g>
+                  </g>
         </svg>
 
         <div class="int-escolha" style="--d:.22s">
@@ -2012,33 +1978,31 @@
           </div>
         </div>
 
-        <span class="int-pilula" style="left:46.88%;top:24.35%;--d:.3s">REUNIÕES ENTRE DEPARTAMENTOS</span>
+        <span class="int-pilula" style="left:46.88%;top:31.76%;--d:.3s">REUNIÕES ENTRE DEPARTAMENTOS</span>
         <!-- estágios 1-2-3: escolha, reuniões, desgaste -->
-        <span class="int-estagio int-estagio--1" style="left:7.55%;top:24.35%;--d:.5s" aria-label="Estágio 1">1</span>
-        <span class="int-estagio int-estagio--2" style="left:46.88%;top:24.35%;--d:.6s" aria-label="Estágio 2">2</span>
-        <span class="int-estagio int-estagio--3" style="left:89.32%;top:18.98%;--d:.9s" aria-label="Estágio 3">3</span>
-                <div class="int-dep int-dep--e" style="left:16.46%;top:24.35%;--d:0.45s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.6M12 18.6v2.6M21.2 12h-2.6M5.4 12H2.8M18.5 5.5l-1.8 1.8M7.3 16.7l-1.8 1.8M18.5 18.5l-1.8-1.8M7.3 7.3 5.5 5.5"/><circle cx="12" cy="12" r="6.6"/></svg></span><h3>OPERACIONAL</h3><p>Processos da fazenda, rotinas, produção, rebanho, insumos.</p></div>
-        <div class="int-dep int-dep--e" style="left:16.46%;top:37.31%;--d:0.53s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="3.6"/><path d="M4.5 20.5c.6-4 3.6-6.4 7.5-6.4s6.9 2.4 7.5 6.4"/><path d="m12 14.3-1 2.7 1 3.5 1-3.5z"/></svg></span><h3>ADMINISTRATIVO</h3><p>Cadastros, contratos, documentos, procedimentos.</p></div>
-        <div class="int-dep int-dep--e" style="left:16.46%;top:50.28%;--d:0.61s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.8" width="14" height="18.4" rx="2"/><path d="M8 6.5h8M8.3 11h.01M12 11h.01M15.7 11h.01M8.3 14.5h.01M12 14.5h.01M15.7 14.5h.01M8.3 18h.01M12 18h.01M15.7 18h.01"/></svg></span><h3>CONTADOR</h3><p>Plano de contas, fiscal, impostos, obrigações.</p></div>
-        <div class="int-dep int-dep--d" style="left:61.35%;top:24.35%;--d:0.49s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6.5v11M15 9c-.5-1-1.7-1.5-3-1.5-1.8 0-3 .9-3 2.2 0 3 6 1.6 6 4.6 0 1.3-1.3 2.2-3 2.2-1.4 0-2.6-.6-3.1-1.6"/></svg></span><h3>FINANCEIRO</h3><p>Contas a pagar/receber, fluxo de caixa, conciliações.</p></div>
-        <div class="int-dep int-dep--d" style="left:61.35%;top:37.31%;--d:0.57s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><path d="M6.5 16.5v-3M10.5 16.5v-6M14.5 16.5v-4.5M18.5 16.5V8"/><path d="m5 10.5 5-4.5 3.5 3L19 4"/><path d="M15.6 4H19v3.4"/></svg></span><h3>CONTROLADORIA</h3><p>Centro de custos, rateios, análises, indicadores.</p></div>
-        <div class="int-dep int-dep--d" style="left:61.35%;top:50.28%;--d:0.65s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="4.6" rx="1"/><rect x="3" y="16.4" width="6" height="4.6" rx="1"/><rect x="15" y="16.4" width="6" height="4.6" rx="1"/><path d="M12 7.6v4.4M6 16.4V12h12v4.4"/></svg></span><h3>PROCESSOS</h3><p>Mapeamentos, regras de negócio, melhorias.</p></div>
-        <div class="int-dep int-dep--d int-dep--tec" style="left:39.17%;top:59.26%;height:9.26cqh;--d:.75s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="3.8" width="18.4" height="12.8" rx="1.6"/><path d="M8.5 20.5h7M12 16.6v3.9"/><path d="m9.5 8.2-2.2 2 2.2 2M14.5 8.2l2.2 2-2.2 2M12.8 7.4l-1.6 5.6"/></svg></span><h3>TECNOLOGIA</h3><p>Ambiente, acessos, integrações, conectores, segurança.</p></div>
+        <span class="int-estagio int-estagio--1" style="left:7.55%;top:31.76%;--d:.5s" aria-label="Estágio 1">1</span>
+        <span class="int-estagio int-estagio--2" style="left:46.88%;top:31.76%;--d:.6s" aria-label="Estágio 2">2</span>
+        <span class="int-estagio int-estagio--3" style="left:89.32%;top:24.81%;--d:.9s" aria-label="Estágio 3">3</span>
+                <div class="int-dep int-dep--e" style="left:16.46%;top:31.30%;--d:0.45s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.6M12 18.6v2.6M21.2 12h-2.6M5.4 12H2.8M18.5 5.5l-1.8 1.8M7.3 16.7l-1.8 1.8M18.5 18.5l-1.8-1.8M7.3 7.3 5.5 5.5"/><circle cx="12" cy="12" r="6.6"/></svg></span><h3>OPERACIONAL</h3><p>Processos da fazenda, rotinas, produção, rebanho, insumos.</p></div>
+        <div class="int-dep int-dep--e" style="left:16.46%;top:48.43%;--d:0.53s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="3.6"/><path d="M4.5 20.5c.6-4 3.6-6.4 7.5-6.4s6.9 2.4 7.5 6.4"/><path d="m12 14.3-1 2.7 1 3.5 1-3.5z"/></svg></span><h3>ADMINISTRATIVO</h3><p>Cadastros, contratos, documentos, procedimentos.</p></div>
+        <div class="int-dep int-dep--e" style="left:16.46%;top:65.56%;--d:0.61s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.8" width="14" height="18.4" rx="2"/><path d="M8 6.5h8M8.3 11h.01M12 11h.01M15.7 11h.01M8.3 14.5h.01M12 14.5h.01M15.7 14.5h.01M8.3 18h.01M12 18h.01M15.7 18h.01"/></svg></span><h3>CONTADOR</h3><p>Plano de contas, fiscal, impostos, obrigações.</p></div>
+        <div class="int-dep int-dep--d" style="left:61.35%;top:31.30%;--d:0.49s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6.5v11M15 9c-.5-1-1.7-1.5-3-1.5-1.8 0-3 .9-3 2.2 0 3 6 1.6 6 4.6 0 1.3-1.3 2.2-3 2.2-1.4 0-2.6-.6-3.1-1.6"/></svg></span><h3>FINANCEIRO</h3><p>Contas a pagar/receber, fluxo de caixa, conciliações.</p></div>
+        <div class="int-dep int-dep--d" style="left:61.35%;top:48.43%;--d:0.57s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><path d="M6.5 16.5v-3M10.5 16.5v-6M14.5 16.5v-4.5M18.5 16.5V8"/><path d="m5 10.5 5-4.5 3.5 3L19 4"/><path d="M15.6 4H19v3.4"/></svg></span><h3>CONTROLADORIA</h3><p>Centro de custos, rateios, análises, indicadores.</p></div>
+        <div class="int-dep int-dep--d" style="left:61.35%;top:65.56%;--d:0.65s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="4.6" rx="1"/><rect x="3" y="16.4" width="6" height="4.6" rx="1"/><rect x="15" y="16.4" width="6" height="4.6" rx="1"/><path d="M12 7.6v4.4M6 16.4V12h12v4.4"/></svg></span><h3>PROCESSOS</h3><p>Mapeamentos, regras de negócio, melhorias.</p></div>
+        <div class="int-dep int-dep--d int-dep--tec" style="left:39.17%;top:75.00%;height:9.26cqh;--d:.75s"><span class="int-dep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="3.8" width="18.4" height="12.8" rx="1.6"/><path d="M8.5 20.5h7M12 16.6v3.9"/><path d="m9.5 8.2-2.2 2 2.2 2M14.5 8.2l2.2 2-2.2 2M12.8 7.4l-1.6 5.6"/></svg></span><h3>TECNOLOGIA</h3><p>Ambiente, acessos, integrações, conectores, segurança.</p></div>
 
         <div class="int-desg" style="--d:.8s">
           <h3>É AÍ QUE VEM<br><em>O DESGASTE…</em></h3>
           <ul><li class="" style="--d:0.90s"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="7.5" r="2.6"/><circle cx="16" cy="7.5" r="2.6"/><path d="M3.2 17c.4-3 2.3-4.8 4.8-4.8s4.4 1.8 4.8 4.8M11.2 17c.4-3 2.3-4.8 4.8-4.8s4.4 1.8 4.8 4.8"/><path d="M3 20h18"/></svg></span>Muitas reuniões e alinhamentos</li><li class="" style="--d:0.97s"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12.5" r="8.3"/><path d="M12 7.5v5l3.2 2"/><path d="M4.5 4.2 7 2.8M19.5 4.2 17 2.8"/></svg></span>Divergências entre áreas</li><li class="" style="--d:1.04s"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2 21.5 19.8H2.5z"/><path d="M12 9.5v4.8"/><circle cx="12" cy="16.9" r=".5" fill="currentColor"/></svg></span>Retrabalho e ajustes constantes</li><li class="" style="--d:1.11s"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="13" height="18" rx="1.8"/><path d="m7 8 1.2 1.2L10.6 7M12.5 8.3H15M7 13l1.2 1.2 2.4-2.2M12.5 13.3H15"/><circle cx="17.5" cy="17.5" r="3.2"/><path d="m16.2 17.5.9.9 1.7-1.8"/></svg></span>Dependência de informações e aprovações</li><li class="" style="--d:1.18s"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><path d="M7.5 13h.01M11 13h.01M14.5 13h.01M7.5 16.5h.01M11 16.5h.01M14.5 16.5h.01"/></svg></span>Impacto na rotina das equipes</li><li class="" style="--d:1.25s"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3.5V20h16.5"/><path d="M7 16.5v-2M10.5 16.5v-4M14 16.5v-1.5"/><path d="m6.5 6 4 3.5 3-2.5 5.5 6"/><path d="M19 9.8V13h-3.2"/></svg></span>Atrasos no cronograma e aumento de custos</li><li class="is-final" style="--d:1.32s"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.2 16.5c1-1.4 2.3-2 3.8-2s2.8.6 3.8 2"/><circle cx="9" cy="10" r=".6" fill="currentColor"/><circle cx="15" cy="10" r=".6" fill="currentColor"/></svg></span>Desgaste de todos os envolvidos</li></ul>
         </div>
 
-        <span class="int-pilula int-pilula--passos" style="left:50%;top:72.41%;--d:1.1s">DEFINIÇÕES INICIAIS PARA A IMPLANTAÇÃO DA INTEGRAÇÃO</span>
-        <ol class="int-passos" aria-label="Definições iniciais para a implantação da integração"><li style="--d:1.20s"><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5h16M4 12h16M4 17.5h16"/><circle cx="8.5" cy="6.5" r="2" fill="#fff"/><circle cx="15.5" cy="12" r="2" fill="#fff"/><circle cx="10" cy="17.5" r="2" fill="#fff"/></svg></span><h4>PARÂMETROS</h4></div><p>Regras de negócio, cadastros, tabelas, contas, impostos, filiais etc.</p></li><li style="--d:1.29s"><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.6-6-10.5a6 6 0 0 1 12 0C18 15.4 12 21 12 21z"/><circle cx="12" cy="10.3" r="2.3"/></svg></span><h4>MAPEAMENTO</h4></div><p>Levantamento dos processos e pontes entre os sistemas.</p></li><li style="--d:1.38s"><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"/><path d="M5 5.5v13c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-13"/><path d="M5 10c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6M5 14.3c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"/></svg></span><h4>CARGA INICIAL</h4></div><p>Migração e carga de dados mestres e históricos.</p></li><li style="--d:1.47s"><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h14.5M15 4.5 18.5 8 15 11.5"/><path d="M20 16H5.5M9 12.5 5.5 16 9 19.5"/></svg></span><h4>REGRAS DE INTEGRAÇÃO</h4></div><p>Definição de eventos, fluxos, validações e periodicidade.</p></li><li style="--d:1.56s"><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m7.8 12.3 2.8 2.8 5.6-5.8"/></svg></span><h4>TESTES E VALIDAÇÕES</h4></div><p>Testes integrados, cenários e conferências.</p></li><li style="--d:1.65s"><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="6" r="2.4"/><path d="M3.5 20v-6.5a3.5 3.5 0 0 1 7 0V20"/><path d="M10.5 11.5 20 7"/><rect x="13" y="12.5" width="8" height="5.5" rx=".8"/><path d="M17 18v2.5"/></svg></span><h4>TREINAMENTOS</h4></div><p>Capacitação das equipes para uso e acompanhamento.</p></li><li style="--d:1.74s"><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4.2c2.6-.8 4.7-.8 5.3-.2s.6 2.7-.2 5.3c-.9 3-3.5 6-6.7 7.8l-3.9-3.9c1.8-3.2 4.8-5.8 7.8-6.7z"/><circle cx="15" cy="9" r="1.6"/><path d="M9 13.2 6 12.8 8.3 9.5l3.3-.4M10.8 15l.4 3 3.3-2.3.4-3.3M6.2 17.8c-1 .5-1.8 1.5-2.2 3.2 1.7-.4 2.7-1.2 3.2-2.2"/></svg></span><h4>GO LIVE</h4></div><p>Entrada em produção e acompanhamento.</p></li></ol>
 
-        <!-- logo no rodapé, logo abaixo da fileira de etapas (que termina em 1020 px) -->
-        <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:86.04%;top:95.5%;width:11.95%;--d:1.5s">
+
+        <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:86.04%;top:93.95%;width:11.95%;--d:1.5s">
       </section>
 
-      <!-- ===================== SLIDE 12 — A Solução (engrenagens) ===================== -->
-      <section class="slide cad eng" data-slide="12" data-screen-label="12" aria-label="Slide 12 — A Solução: MB Senior">
+      <!-- ===================== SLIDE 11 — A Solução (engrenagens) ===================== -->
+      <section class="slide cad eng" data-slide="11" data-screen-label="11" aria-label="Slide 11 — A Solução: MB Senior">
         <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
 
         <h2 class="cad-topo" style="--d:.04s">
@@ -2046,13 +2010,13 @@
           <span>A Solução!!!</span>
         </h2>
         <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:.20s" onclick="goToSlide(11)" aria-label="Voltar" title="Voltar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:.20s" onclick="goToSlide(10)" aria-label="Voltar" title="Voltar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
         </button>
         <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
         </button>
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(13)" aria-label="Avançar" title="Avançar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(12)" aria-label="Avançar" title="Avançar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M15 4l6 6-6 6"/></svg>
         </button>
 
@@ -2117,6 +2081,29 @@
         <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:86.04%;top:93.95%;width:11.95%;--d:1s">
       </section>
 
+      <!-- ===================== SLIDE 12 — Definições iniciais para a implantação ===================== -->
+      <section class="slide cad int def" data-slide="12" data-screen-label="12" aria-label="Slide 12 — Definições iniciais para a implantação da integração">
+        <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
+
+        <h2 class="cad-topo" style="--d:.04s">
+          <img src="assets/erp-senior/icone-mb.webp?v=1" alt="" aria-hidden="true">
+          <span>Definições Iniciais da Implantação</span>
+        </h2>
+        <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.20s" onclick="goToSlide(11)" aria-label="Voltar" title="Voltar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
+        </button>
+
+        <p class="cad-sub" style="--d:.12s">As <b>7 etapas</b> para a implantação da integração entre <b>MultBovinos</b> e <b>Senior</b>.</p>
+
+        <ol class="int-passos def-passos" aria-label="Definições iniciais para a implantação da integração"><li style="--d:0.34s"><b class="def-n">1</b><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5h16M4 12h16M4 17.5h16"/><circle cx="8.5" cy="6.5" r="2" fill="#fff"/><circle cx="15.5" cy="12" r="2" fill="#fff"/><circle cx="10" cy="17.5" r="2" fill="#fff"/></svg></span><h4>PARÂMETROS</h4></div><p>Regras de negócio, cadastros, tabelas, contas, impostos, filiais etc.</p></li><li style="--d:0.43s"><b class="def-n">2</b><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.6-6-10.5a6 6 0 0 1 12 0C18 15.4 12 21 12 21z"/><circle cx="12" cy="10.3" r="2.3"/></svg></span><h4>MAPEAMENTO</h4></div><p>Levantamento dos processos e pontes entre os sistemas.</p></li><li style="--d:0.52s"><b class="def-n">3</b><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"/><path d="M5 5.5v13c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-13"/><path d="M5 10c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6M5 14.3c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"/></svg></span><h4>CARGA INICIAL</h4></div><p>Migração e carga de dados mestres e históricos.</p></li><li style="--d:0.61s"><b class="def-n">4</b><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h14.5M15 4.5 18.5 8 15 11.5"/><path d="M20 16H5.5M9 12.5 5.5 16 9 19.5"/></svg></span><h4>REGRAS DE INTEGRAÇÃO</h4></div><p>Definição de eventos, fluxos, validações e periodicidade.</p></li><li style="--d:0.70s"><b class="def-n">5</b><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m7.8 12.3 2.8 2.8 5.6-5.8"/></svg></span><h4>TESTES E VALIDAÇÕES</h4></div><p>Testes integrados, cenários e conferências.</p></li><li style="--d:0.79s"><b class="def-n">6</b><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="6" r="2.4"/><path d="M3.5 20v-6.5a3.5 3.5 0 0 1 7 0V20"/><path d="M10.5 11.5 20 7"/><rect x="13" y="12.5" width="8" height="5.5" rx=".8"/><path d="M17 18v2.5"/></svg></span><h4>TREINAMENTOS</h4></div><p>Capacitação das equipes para uso e acompanhamento.</p></li><li style="--d:0.88s"><b class="def-n">7</b><div class="int-passo__cab"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4.2c2.6-.8 4.7-.8 5.3-.2s.6 2.7-.2 5.3c-.9 3-3.5 6-6.7 7.8l-3.9-3.9c1.8-3.2 4.8-5.8 7.8-6.7z"/><circle cx="15" cy="9" r="1.6"/><path d="M9 13.2 6 12.8 8.3 9.5l3.3-.4M10.8 15l.4 3 3.3-2.3.4-3.3M6.2 17.8c-1 .5-1.8 1.5-2.2 3.2 1.7-.4 2.7-1.2 3.2-2.2"/></svg></span><h4>GO LIVE</h4></div><p>Entrada em produção e acompanhamento.</p></li></ol>
+
+        <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:86.04%;top:93.95%;width:11.95%;--d:1s">
+      </section>
+
       <!-- ===================== SLIDE 13 — Integrações ERPs > Visão Geral ===================== -->
       <section class="slide cad vg" data-slide="13" data-screen-label="13" aria-label="Slide 13 — Integrações ERPs: Visão Geral">
         <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
@@ -2126,7 +2113,7 @@
           <span>Integrações ERPs &gt; Visão Geral</span>
         </h2>
         <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.20s" onclick="goToSlide(12)" aria-label="Voltar" title="Voltar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.20s" onclick="goToSlide(2)" aria-label="Voltar" title="Voltar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
         </button>
         <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
@@ -2192,7 +2179,7 @@
   </div>
 
   <script>
-    /* Total provisório: 1 a 13 construídos (11 a 13 = Detalhes da Integração);
+    /* Total provisório: 1 a 12 construídos (7-12 = Etapas da Integração, 13 = ROI);
        14 (Benefícios do MB Senior) ainda em construção. Ao receber o restante, ajustar TOTAL e BUILT. */
     const TOTAL = 14;
     const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
@@ -2271,41 +2258,58 @@
     }
     window.goToSlide = goToSlide;
 
-    /* ---- Slide 7: o número e a faixa verde (VER SOLUÇÃO) abrem/fecham a
-       solução; ABRIR TODOS abre tudo
-       (e vira FECHAR TODOS). Ao entrar no slide, tudo recomeça fechado. ---- */
+    /* ---- Slide 7: modo FOCO (um card no centro, os demais recolhidos) e
+       modo TODOS (grade com todas as soluções). Clicar num card recolhido
+       leva-o ao centro; no centro ou na grade, o número e a faixa verde
+       abrem/fecham a solução. Ao entrar no slide, recomeça no card 1. ---- */
     const s7 = document.querySelector('.s7');
-    function s7Sincronizar(){
-      const itens = s7.querySelectorAll('.s7-item');
-      const todos = [...itens].every(li => li.classList.contains('is-aberto'));
-      const bt = s7.querySelector('.s7-todos');
-      bt.setAttribute('aria-pressed', String(todos));
-      bt.querySelector('span').textContent = todos ? 'FECHAR TODOS' : 'ABRIR TODOS';
-    }
+    const s7Itens = [...s7.querySelectorAll('.s7-item')];
+    const s7Bt = s7.querySelector('.s7-todos');
     function s7Abrir(li, aberto){
       li.classList.toggle('is-aberto', aberto);
       li.querySelectorAll('.s7-num, .s7-ver').forEach(bt => bt.setAttribute('aria-expanded', String(aberto)));
     }
-    window.s7Alternar = function(bt){
-      const li = bt.closest('.s7-item');
-      s7Abrir(li, !li.classList.contains('is-aberto'));
-      s7Sincronizar();
-    };
-    window.s7Todos = function(bt){
-      const abrir = bt.getAttribute('aria-pressed') !== 'true';
-      s7.querySelectorAll('.s7-item').forEach((li, i) => {
-        /* em cascata, na ordem dos números */
-        setTimeout(() => s7Abrir(li, abrir), abrir ? i * 90 : 0);
-      });
-      setTimeout(s7Sincronizar, abrir ? 6 * 90 : 0);
-      bt.setAttribute('aria-pressed', String(abrir));
-      bt.querySelector('span').textContent = abrir ? 'FECHAR TODOS' : 'ABRIR TODOS';
-    };
-    new MutationObserver(() => {
-      if(!s7.classList.contains('is-active')){
-        s7.querySelectorAll('.s7-item').forEach(li => s7Abrir(li, false));
-        s7Sincronizar();
+    function s7Rotulo(){
+      const todos = s7.classList.contains('modo-todos');
+      s7Bt.setAttribute('aria-pressed', String(todos));
+      s7Bt.querySelector('span').textContent = todos ? 'FECHAR TODOS' : 'ABRIR TODOS';
+    }
+    function s7Focar(li){
+      s7Itens.forEach(x => { if(x !== li){ x.classList.remove('is-centro'); s7Abrir(x, false); } });
+      li.classList.add('is-centro');
+      s7Abrir(li, true);
+    }
+    s7.querySelector('.s7-grade').addEventListener('click', (e)=>{
+      const li = e.target.closest('.s7-item');
+      if(!li) return;
+      const todos = s7.classList.contains('modo-todos');
+      if(!todos && !li.classList.contains('is-centro')){ s7Focar(li); return; }
+      if(e.target.closest('.s7-num, .s7-sol')) s7Abrir(li, !li.classList.contains('is-aberto'));
+    });
+    window.s7Todos = function(){
+      const todos = !s7.classList.contains('modo-todos');
+      s7.classList.toggle('modo-todos', todos);
+      if(todos){
+        /* soluções abrem em cascata, depois que os cards chegam à grade */
+        s7Itens.forEach((li, i) => setTimeout(() => s7Abrir(li, true), 350 + i * 90));
+      } else {
+        s7Focar(s7.querySelector('.s7-item.is-centro') || s7Itens[0]);
       }
+      s7Rotulo();
+    };
+    function s7Reiniciar(){
+      /* só mexe na classe se ela existir: classList.remove regrava o atributo
+         mesmo sem mudança, o que redispararia o observer em laço infinito */
+      if(s7.classList.contains('modo-todos')) s7.classList.remove('modo-todos');
+      s7Focar(s7Itens[0]);
+      s7Rotulo();
+    }
+    let s7Ativo = s7.classList.contains('is-active');
+    new MutationObserver(() => {
+      const ativo = s7.classList.contains('is-active');
+      if(ativo === s7Ativo) return;          /* reage só à troca de slide */
+      s7Ativo = ativo;
+      if(!ativo) s7Reiniciar();
     }).observe(s7, {attributes:true, attributeFilter:['class']});
 
     function updateChrome(){
@@ -2380,7 +2384,7 @@
       });
     }
     deck.addEventListener('click', (e)=>{
-      if(e.target.closest('.hotspot, button, a')) return;
+      if(e.target.closest('.hotspot, button, a, .s7-item')) return;
       flashHints();
     });
 
