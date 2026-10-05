@@ -86,7 +86,7 @@ const MULTSOFT_APRESENTACOES = [
     categorias: ["integracao-erps", "representantes-comerciais", "institucional"],
     descricao:
       "O ganho do Produto Rural por trás da integração Senior + MultBovinos: estratégia para Confinamento, Ciclo Completo e Integração Lavoura Pecuária (ILP).",
-    atualizadoEm: "01/10/2026",
+    atualizadoEm: "05/10/2026",
     arquivo: "presentation/integracao-erp-senior.html",
     thumb: "presentation/assets/erp-senior/thumb.webp",
   },

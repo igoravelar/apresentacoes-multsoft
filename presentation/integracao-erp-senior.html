@@ -130,7 +130,8 @@
     font-size:var(--ms-legenda);font-weight:500;line-height:var(--ms-entrelinha);letter-spacing:var(--ms-track);
   }
   .s2-intro p{margin:0;}
-  .s2-intro p + p{margin-top:var(--ms-entrelinha)em;}
+  /* espaço entre os dois parágrafos; o 2º fica mais perto do botão Prosseguir */
+  .s2-intro p + p{margin-top:1.6em;}
   .s2-intro u{text-underline-offset:.18em;}
   .s2-intro b{font-weight:700;}
 
@@ -216,6 +217,23 @@
   }
   .s2.is-active .s2-prosseguir:active{scale:1.01;}
   .s2-card:focus-visible{outline:3px solid #00707a;outline-offset:4px;border-radius:1.4cqh;}
+  /* ---- tooltip dos cards do menu: lista o conteúdo de cada opção ----
+     Abre à esquerda do card, com uma setinha apontando para ele. */
+  .s2-tip{
+    position:absolute;right:calc(100% + 2.2cqh);top:50%;translate:1.5cqh -50%;width:21cqw;z-index:10;
+    padding:1.8cqh 2.2cqh;border-radius:1.6cqh;background:#fff;text-align:left;
+    box-shadow:0 1cqh 3cqh rgba(0,60,70,.22),0 0 0 .15cqh rgba(10,111,121,.18);
+    color:#2f4a52;font-family:var(--ms-fonte);pointer-events:none;
+    opacity:0;visibility:hidden;transition:opacity .15s ease,translate .2s ease,visibility 0s linear .2s;
+  }
+  .s2-tip::after{content:"";position:absolute;left:100%;top:50%;translate:0 -50%;
+    border:1.2cqh solid transparent;border-left-color:#fff;filter:drop-shadow(.3cqh 0 .2cqh rgba(0,60,70,.1));}
+  .s2-tip b{display:block;margin-bottom:1cqh;color:#0a6f79;font-size:2.05cqh;font-weight:800;letter-spacing:-.01em;}
+  .s2-tip ul{margin:0;padding:0;list-style:none;}
+  .s2-tip li{position:relative;padding:.4cqh 0 .4cqh 2cqh;font-size:1.75cqh;font-weight:500;line-height:1.3;}
+  .s2-tip li::before{content:"";position:absolute;left:0;top:1.05cqh;width:.9cqh;height:.9cqh;border-radius:50%;background:#5aa64a;}
+  .s2.is-active .s2-card:is(:hover,:focus-visible) .s2-tip{opacity:1;visibility:visible;translate:0 -50%;transition:opacity .15s ease,translate .2s ease,visibility 0s;}
+
 
 
   /* ================= SLIDE 3 — Institucional =================
@@ -1369,7 +1387,7 @@
   /* 3: ciclo GPD x Conversão x Custo */
   .roi-ciclo{position:relative;width:100%;max-width:38cqh;aspect-ratio:300/260;margin-inline:auto;}
   .roi-ciclo__setas{position:absolute;inset:0;width:100%;height:100%;}
-  .roi-ciclo__boi{position:absolute;left:50.3%;top:57.7%;width:20%;translate:-50% -50%;border-radius:1.2cqh;box-shadow:0 .4cqh 1cqh rgba(0,0,0,.2);}
+  .roi-ciclo__boi{position:absolute;left:50.3%;top:58.1%;width:20%;translate:-50% -50%;border-radius:1.2cqh;box-shadow:0 .4cqh 1cqh rgba(0,0,0,.2);}
   .roi-no{
     position:absolute;width:12.5cqh;height:12.5cqh;translate:-50% -50%;border-radius:50%;color:#fff;text-align:center;
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3cqh;
@@ -1399,7 +1417,9 @@
   /* ---- entrada: cards sobem em cascata ---- */
   .roi-card{transition:opacity .5s ease var(--d,0s),translate .6s cubic-bezier(.22,.78,.28,1) var(--d,0s);}
   .roi:not(.is-active) .roi-card{opacity:0;translate:0 8%;}
-  .roi.is-active .roi-ciclo__setas{animation:infGiro 40s linear infinite;transform-origin:50.3% 57.7%;}
+  /* setas fixas entre as bolas, tangentes ao círculo do ciclo; só um pulso leve */
+  .roi.is-active .roi-ciclo__setas{animation:roiCiclo 2.8s ease-in-out infinite;}
+  @keyframes roiCiclo{50%{opacity:.6;}}
   @media (prefers-reduced-motion:reduce){
     .roi *{animation:none !important;transition:none !important;}
     .roi .roi-card{opacity:1;translate:none;}
@@ -1669,6 +1689,101 @@
   }
 
 
+  /* ================= SLIDE 19 — Benefícios Comprovados =================
+     Roda de 7 segmentos proporcionais aos percentuais (base 1920x1080).
+     Os segmentos crescem a partir do centro; ícone na borda de cada um e
+     rótulo ligado por uma linha guia. O texto de apoio aparece ao passar o
+     mouse (ou focar) no rótulo, no ícone ou no segmento. */
+  .bc *{font-family:var(--ms-fonte);}
+  .bc-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+  .bc-fatia{pointer-events:auto;transform-box:view-box;transform-origin:960px 590px;
+    transition:scale .7s cubic-bezier(.22,.9,.3,1.05) var(--d,0s),opacity .4s ease var(--d,0s),filter .2s ease;}
+  .bc-pct{fill:#fff;font-family:var(--ms-fonte);font-weight:800;pointer-events:none;transition:opacity .4s ease var(--d,0s);}
+  .bc-centro{position:absolute;left:50%;top:54.63%;translate:-50% -50%;display:flex;flex-direction:column;align-items:center;gap:2cqh;
+    transition:opacity .6s ease .15s,scale .6s cubic-bezier(.22,.78,.28,1) .15s;}
+  .bc-centro__sr{height:6.2cqh;width:auto;display:block;}
+  .bc-centro__mb{display:flex;align-items:center;gap:1cqh;}
+  .bc-centro__mb img{height:2.5cqh;width:auto;display:block;}
+  .bc-centro__mb img:first-child{height:4.2cqh;border-radius:.5cqh;}
+
+  .bc-ic{position:absolute;translate:-50% -50%;width:8.2cqh;height:8.2cqh;border-radius:50%;padding:1.5cqh;
+    background:var(--cor);color:#fff;border:.45cqh solid #fff;box-shadow:0 .6cqh 1.4cqh rgba(0,0,0,.22);cursor:default;
+    transition:opacity .4s ease var(--d,0s),scale .45s cubic-bezier(.3,1.6,.5,1) var(--d,0s);}
+  .bc-ic svg{width:100%;height:100%;display:block;}
+
+  .bc-rot{position:absolute;width:23%;outline:none;cursor:default;padding:1cqh 1.4cqh;margin:-1cqh -1.4cqh;border-radius:1.4cqh;z-index:1;
+    transition:opacity .45s ease var(--d,0s),translate .55s cubic-bezier(.22,.78,.28,1) var(--d,0s);}
+  .bc-rot--e{text-align:right;}
+  .bc-rot h3{margin:0;color:#14262c;font-size:2.6cqh;font-weight:800;line-height:1.15;letter-spacing:-.015em;transition:color .2s ease;}
+  .bc-rot h3 span{font-weight:500;}
+  .bc-rot p{margin:.8cqh 0 0;color:#2f3f44;font-size:2.05cqh;font-weight:500;line-height:1.35;
+    opacity:0;translate:0 -.8cqh;transition:opacity .25s ease,translate .3s ease;pointer-events:none;}
+  .bc-dica{position:absolute;left:3.5%;top:95.4%;margin:0;color:#5f7a73;font-size:1.7cqh;font-weight:500;font-style:italic;transition:opacity .5s ease var(--d,0s);}
+
+  /* destaque ao passar o mouse */
+  .bc .is-foco.bc-rot p{opacity:1;translate:none;}
+  .bc .is-foco.bc-rot{z-index:6;background:rgba(255,255,255,.96);box-shadow:0 .8cqh 2.4cqh rgba(20,60,50,.16);}
+  .bc.bc-tem-foco .bc-rot:not(.is-foco){opacity:.3;}
+  .bc .is-foco.bc-rot h3{color:var(--cor);}
+  .bc .is-foco.bc-ic{scale:1.12;}
+  .bc .bc-fatia.is-foco{scale:1.04;filter:brightness(1.08);}
+  .bc.bc-tem-foco .bc-fatia:not(.is-foco){opacity:.55;}
+  /* depois da entrada, o destaque responde na hora: sem os atrasos da cascata */
+  .bc.bc-pronto :is(.bc-rot,.bc-fatia,.bc-ic){transition-delay:0s !important;transition-duration:.15s !important;}
+  .bc.bc-pronto .bc-rot p{transition-duration:.12s;}
+
+  /* ---- entrada: segmentos crescem do centro ---- */
+  .bc:not(.is-active) .bc-fatia{scale:0;opacity:0;}
+  .bc:not(.is-active) :is(.bc-pct,.bc-dica){opacity:0;}
+  .bc:not(.is-active) .bc-centro{opacity:0;scale:.8;}
+  .bc:not(.is-active) .bc-ic{opacity:0;scale:.3;}
+  .bc:not(.is-active) .bc-rot--d{opacity:0;translate:4% 0;}
+  .bc:not(.is-active) .bc-rot--e{opacity:0;translate:-4% 0;}
+  @media (prefers-reduced-motion:reduce){
+    .bc *{transition:none !important;}
+    .bc :is(.bc-fatia,.bc-pct,.bc-dica,.bc-centro,.bc-ic,.bc-rot){opacity:1;scale:1;translate:none;}
+  }
+
+
+  /* ================= SLIDE 20 — Fim (Obrigado + contato do vendedor) =================
+     Foto (com o notebook) à direita, recortada da arte; textos e logos em
+     HTML. Para outro vendedor, basta trocar o bloco <address>. */
+  .fim{background:#fff;}
+  .fim *{font-family:var(--ms-fonte);}
+  .fim-foto{position:absolute;right:0;top:0;height:100%;width:auto;display:block;}
+  .fim-multsoft{position:absolute;left:4.2%;top:6%;width:26.5%;height:auto;display:block;}
+  .fim-obrigado{position:absolute;left:3.9%;top:20.5%;margin:0;color:#3f5a3c;font-size:9.6cqh;font-weight:800;letter-spacing:-.02em;line-height:1;}
+  .fim-contato{position:absolute;left:3.9%;top:33.5%;display:flex;flex-direction:column;gap:.6cqh;
+    font-style:italic;color:#3f5a3c;font-size:3.1cqh;font-weight:600;line-height:1.2;}
+  .fim-contato b{font-size:4.2cqh;font-weight:600;margin-bottom:.6cqh;}
+  .fim-contato a{color:inherit;text-decoration:none;}
+  .fim-contato a:hover{text-decoration:underline;text-underline-offset:.2em;}
+  .fim-mb{position:absolute;left:5.6%;top:57.5%;width:19.6%;height:auto;display:block;}
+
+  /* entrada: foto desliza da direita, textos sobem */
+  .fim-foto{transition:opacity .7s ease .05s,translate .8s cubic-bezier(.22,.78,.28,1) .05s;}
+  .fim-multsoft,.fim-obrigado,.fim-contato,.fim-mb{transition:opacity .5s ease var(--d,0s),translate .6s cubic-bezier(.22,.78,.28,1) var(--d,0s);}
+  .fim-multsoft{--d:.25s;} .fim-obrigado{--d:.35s;} .fim-contato{--d:.5s;} .fim-mb{--d:.65s;}
+  .fim:not(.is-active) .fim-foto{opacity:0;translate:6% 0;}
+  .fim:not(.is-active) :is(.fim-multsoft,.fim-obrigado,.fim-contato,.fim-mb){opacity:0;translate:0 12%;}
+  @media (prefers-reduced-motion:reduce){
+    .fim *{transition:none !important;}
+    .fim :is(.fim-foto,.fim-multsoft,.fim-obrigado,.fim-contato,.fim-mb){opacity:1;translate:none;}
+  }
+
+  /* botão FIM do menu (slide 2), pequeno, abaixo do último card */
+  .s2-fim{
+    position:absolute;left:64.4%;top:93.47%;height:3.6%;padding:0 2.4cqh;   /* 10 px acima (base 1080) */
+    border:0;border-radius:999px;cursor:pointer;background:#fff;color:#0a6f79;
+    box-shadow:inset 0 0 0 .2cqh #0a6f79,0 .3cqh .8cqh rgba(0,60,70,.15);
+    font-family:var(--ms-fonte);font-size:1.6cqh;font-weight:800;letter-spacing:.12em;
+    transition:background .15s ease,color .15s ease,scale .15s ease,opacity .5s ease .54s;
+  }
+  .s2-fim:hover{background:#0a6f79;color:#fff;scale:1.06;}
+  .s2-fim:focus-visible{outline:3px solid #00707a;outline-offset:3px;}
+  .s2:not(.is-active) .s2-fim{opacity:0;}
+
+
   /* ================= Rodapé comum (slides 3 em diante) =================
      Três botões redondos (voltar, menu, avançar) e o logo MultSoft.
      Posição de cada um vai no style do elemento. */
@@ -1768,29 +1883,38 @@
         </h2>
 
         <button class="s2-card" type="button" style="top:14.38%;--d:0.22s" onclick="goToSlide(3)"
-                aria-label="Institucional">
+                aria-label="Institucional" aria-describedby="s2-tip-1">
           <span class="s2-card__body">
             <span class="s2-card__rot">Institucional</span>
           </span>
+
+          <span class="s2-tip" id="s2-tip-1" role="tooltip"><b>Conheça a MultSoft</b><ul><li>A MultSoft: 40 anos no agro</li><li>MultSoft em Números</li><li>Gestão Precisa: a plataforma MultBovinos</li><li>Grandes Contas e Cases de Sucesso</li></ul></span>
         </button>
         <button class="s2-card" type="button" style="top:34.03%;--d:0.30s" onclick="goToSlide(7)"
-                aria-label="Etapas da Integração">
+                aria-label="Etapas da Integração" aria-describedby="s2-tip-2">
           <span class="s2-card__body">
             <span class="s2-card__rot">Etapas da Integração</span>
           </span>
+
+          <span class="s2-tip" id="s2-tip-2" role="tooltip"><b>Do problema à solução</b><ul><li>As dores de usar 2 ou + sistemas</li><li>Cadência de lançamento de dados</li><li>Integração ERP Senior + MB</li><li>É só integrar? Reuniões e desgastes</li><li>A Solução: MB Senior</li><li>Visão Geral e Visão de Custeio</li><li>Definições iniciais da implantação</li></ul></span>
         </button>
         <button class="s2-card" type="button" style="top:55.07%;--d:0.38s" onclick="goToSlide(15)"
-                aria-label="Retornos Sobre Investimento (ROI)">
+                aria-label="Retornos Sobre Investimento (ROI)" aria-describedby="s2-tip-3">
           <span class="s2-card__body s2-card__body--2l">
             <span class="s2-card__rot">Retornos Sobre<br>Investimento (ROI)</span>
           </span>
+
+          <span class="s2-tip" id="s2-tip-3" role="tooltip"><b>O retorno da integração</b><ul><li>Retorno Operacional</li><li>Retorno Comercial</li><li>Retorno de Capital</li><li>Implantação mais fluida</li></ul></span>
         </button>
         <button class="s2-card" type="button" style="top:74.65%;--d:0.46s" onclick="goToSlide(19)"
-                aria-label="Benefícios do MB Senior">
+                aria-label="Benefícios Comprovados" aria-describedby="s2-tip-4">
           <span class="s2-card__body">
-            <span class="s2-card__rot">Benefícios do MB Senior</span>
+            <span class="s2-card__rot">Benefícios Comprovados</span>
           </span>
+
+          <span class="s2-tip" id="s2-tip-4" role="tooltip"><b>Ganhos medidos no setor</b><ul><li>Os 7 benefícios da integração, com percentuais e fontes: hedge, crédito, custo por arroba, abate, lotes, estoques e eficiência</li></ul></span>
         </button>
+        <button class="s2-fim" type="button" onclick="goToSlide(20)" aria-label="Entre em contato" title="Entre em contato">ENTRE EM CONTATO</button>
       </section>
 
       <!-- ===================== SLIDE 3 — Institucional (elementos em HTML) ===================== -->
@@ -2706,10 +2830,8 @@
             <p class="roi-txt">O cruzamento das informações de GPD × Conversão Alimentar × Custo financeiro <em>alocado permite descartar compras ineficientes.</em></p>
             <div class="roi-ilu roi-ciclo">
               <svg class="roi-ciclo__setas" viewBox="0 0 300 260" fill="none" aria-hidden="true">
-                <path d="M78 150 A92 92 0 0 1 112 66" stroke="#2f7a3a" stroke-width="3" stroke-linecap="round"/><path d="M103 69l10-4 2 11" stroke="#2f7a3a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M190 66 A92 92 0 0 1 224 150" stroke="#1d5f6e" stroke-width="3" stroke-linecap="round"/><path d="M215 146l9 5 4-11" stroke="#1d5f6e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M196 214 A92 92 0 0 1 106 214" stroke="#1d5f6e" stroke-width="3" stroke-linecap="round"/><path d="M114 207l-9 7 9 6" stroke="#1d5f6e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="151" cy="150" r="46" stroke="#8cc46a" stroke-width="10" opacity=".55"/>
+                <path d="M208.0 66.4A102 102 0 0 1 252.3 139.1" stroke="#1d5f6e" stroke-width="3.2" stroke-linecap="round"/><path d="M258.0 127.4L252.3 139.1L244.1 129.0" stroke="#1d5f6e" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M200.0 240.5A102 102 0 0 1 102.0 240.5" stroke="#2f7a3a" stroke-width="3.2" stroke-linecap="round"/><path d="M108.3 251.9L102.0 240.5L115.0 239.6" stroke="#2f7a3a" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M49.7 139.1A102 102 0 0 1 94.0 66.4" stroke="#1d5f6e" stroke-width="3.2" stroke-linecap="round"/><path d="M80.9 66.8L94.0 66.4L88.8 78.4" stroke="#1d5f6e" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="151" cy="151" r="46" stroke="#8cc46a" stroke-width="10" opacity=".55"/>
               </svg>
               <img class="roi-ciclo__boi" src="assets/erp-senior/icone-mb.webp?v=1" alt="" aria-hidden="true">
               <div class="roi-no roi-no--gpd"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20.5h16"/><rect x="5" y="14" width="3" height="5.5" rx=".5"/><rect x="10.5" y="10.5" width="3" height="9" rx=".5"/><rect x="16" y="12.5" width="3" height="7" rx=".5"/><path d="m4.5 10 5-4.5 3.5 2.5 6.5-5"/><path d="M16.3 3h3.2v3.2"/></svg><b>GPD</b><small>(Ganho de Peso)</small></div>
@@ -2760,11 +2882,6 @@
         </button>
 
         <p class="cad-sub" style="--d:.12s">Informação, controle e decisão para maximizar seus resultados.</p>
-        <div class="rc-marcas rc-marcas--centro" style="--d:.18s">
-          <span class="rc-mb"><img class="rc-mb__boi" src="assets/erp-senior/icone-mb.webp?v=1" alt=""><img src="assets/erp-senior/logo-multbovinos-nome.webp?v=1" alt="MultBovinos"></span>
-          <b>+</b>
-          <img src="assets/erp-senior/logo-senior.webp?v=1" alt="Senior">
-        </div>
 
         <ol class="rc-cards" aria-label="Retorno comercial da integração">
           <li class="rc-card" style="--d:0.25s">
@@ -2944,6 +3061,96 @@
         <ul class="im-ben" aria-label="Benefícios"><li style="--d:1.30s"><span class="im-ben__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 16a8.5 8.5 0 1 1 17 0"/><path d="m12 16 4-5"/><circle cx="12" cy="16" r="1.4"/><path d="M6 13.5l1 .6M12 7.5v1.2M18 13.5l-1 .6"/></svg></span><span>Implantação<br>mais ágil</span></li><li style="--d:1.40s"><span class="im-ben__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 4.5 5.8v5.6c0 4.7 3.1 8.2 7.5 9.8 4.4-1.6 7.5-5.1 7.5-9.8V5.8z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span><span>Menos riscos<br>e retrabalho</span></li><li style="--d:1.50s"><span class="im-ben__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3"/><circle cx="5.5" cy="9" r="2.3"/><circle cx="18.5" cy="9" r="2.3"/><path d="M6.5 20v-2a5.5 5.5 0 0 1 11 0v2"/><path d="M1.8 19v-1.2A3.8 3.8 0 0 1 6 14M22.2 19v-1.2A3.8 3.8 0 0 0 18 14"/></svg></span><span>Equipes mais<br>alinhadas</span></li><li style="--d:1.60s"><span class="im-ben__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20.5h16"/><rect x="5" y="14" width="3" height="5.5" rx=".5"/><rect x="10.5" y="10.5" width="3" height="9" rx=".5"/><rect x="16" y="12.5" width="3" height="7" rx=".5"/><path d="m4.5 10 5-4.5 3.5 2.5 6.5-5"/><path d="M16.3 3h3.2v3.2"/></svg></span><span>Resultados<br>mais rápidos</span></li></ul>
       </section>
 
+      <!-- ===================== SLIDE 19 — Benefícios Comprovados ===================== -->
+      <section class="slide cad bc" data-slide="19" data-screen-label="19" aria-label="Slide 19 — Benefícios Comprovados">
+        <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
+
+        <h2 class="cad-topo" style="--d:.04s">
+          <img src="assets/erp-senior/icone-mb.webp?v=1" alt="" aria-hidden="true">
+          <span>Benefícios Comprovados</span>
+        </h2>
+        <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.20s" onclick="goToSlide(2)" aria-label="Voltar" title="Voltar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
+        </button>
+
+        <svg class="bc-svg" viewBox="0 0 1920 1080" fill="none" aria-hidden="true">
+          <defs><filter id="bc-sombra" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#10301f" flood-opacity=".2"/></filter></defs>
+          <g filter="url(#bc-sombra)"><path class="bc-fatia" data-k="0" style="--d:0.25s" d="M856.2 255.7A350 350 0 0 1 1307.2 634.2L1163.4 615.9A205 205 0 0 0 899.2 394.2Z" fill="#4caf63"/><path class="bc-fatia" data-k="1" style="--d:0.37s" d="M1306.6 638.4A350 350 0 0 1 872.7 928.9L908.8 788.5A205 205 0 0 0 1163.0 618.4Z" fill="#3a6db5"/><path class="bc-fatia" data-k="2" style="--d:0.49s" d="M868.5 927.8A350 350 0 0 1 620.9 676.7L761.4 640.8A205 205 0 0 0 906.4 787.9Z" fill="#4caf63"/><path class="bc-fatia" data-k="3" style="--d:0.61s" d="M619.9 672.6A350 350 0 0 1 627.2 481.6L765.1 526.5A205 205 0 0 0 760.8 638.4Z" fill="#3a6db5"/><path class="bc-fatia" data-k="4" style="--d:0.73s" d="M628.6 477.5A350 350 0 0 1 705.1 350.2L810.7 449.5A205 205 0 0 0 765.9 524.1Z" fill="#4caf63"/><path class="bc-fatia" data-k="5" style="--d:0.85s" d="M708.0 347.1A350 350 0 0 1 811.3 273.2L872.9 404.4A205 205 0 0 0 812.4 447.7Z" fill="#1d3566"/><path class="bc-fatia" data-k="6" style="--d:0.97s" d="M815.1 271.4A350 350 0 0 1 852.1 257.0L896.8 395.0A205 205 0 0 0 875.2 403.4Z" fill="#2d6b63"/></g>
+          <circle cx="960" cy="590" r="204" fill="#fff"/>
+          <circle cx="960" cy="590" r="191" stroke="#2f7a3a" stroke-width="14" opacity=".12"/>
+          <text class="bc-pct" style="--d:0.60s" x="1138.1" y="389.7" font-size="34" text-anchor="middle">32%</text><text class="bc-pct" style="--d:0.72s" x="1114.1" y="832.1" font-size="34" text-anchor="middle">27%</text><text class="bc-pct" style="--d:0.84s" x="762.8" y="796.4" font-size="34" text-anchor="middle">17%</text><text class="bc-pct" style="--d:0.96s" x="683.2" y="591.3" font-size="34" text-anchor="middle">9%</text><text class="bc-pct" style="--d:1.08s" x="722.6" y="457.1" font-size="28" text-anchor="middle">7%</text><text class="bc-pct" style="--d:1.20s" x="798.8" y="374.6" font-size="28" text-anchor="middle">6%</text><text class="bc-pct" style="--d:1.32s" x="859.8" y="339.4" font-size="22" text-anchor="middle">2%</text>
+        </svg>
+
+        <div class="bc-centro">
+          <img class="bc-centro__sr" src="assets/erp-senior/logo-senior.webp?v=1" alt="Senior">
+          <span class="bc-centro__mb"><img src="assets/erp-senior/icone-mb.webp?v=1" alt=""><img src="assets/erp-senior/logo-multbovinos-nome.webp?v=1" alt="MultBovinos"></span>
+        </div>
+<span class="bc-ic" data-k="0" style="left:61.92%;top:29.38%;--d:0.70s;--cor:#4caf63"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 4.5 5.8v5.6c0 4.7 3.1 8.2 7.5 9.8 4.4-1.6 7.5-5.1 7.5-9.8V5.8z"/><path d="M9 14.5c1-3.5 3.5-5.5 7-6-1 3.6-3.4 6-7 6zM9 14.5l2.5-2.5"/></svg></span>
+<span class="bc-ic" data-k="1" style="left:60.31%;top:82.02%;--d:0.82s;--cor:#3a6db5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M16.5 7c-.8-1.5-2.6-2.3-4.5-2.3-2.7 0-4.5 1.4-4.5 3.4 0 4.6 9 2.4 9 7 0 2-1.9 3.4-4.5 3.4-2.1 0-3.9-.9-4.7-2.4"/></svg></span>
+<span class="bc-ic" data-k="2" style="left:36.80%;top:77.77%;--d:0.94s;--cor:#4caf63"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.5 13 5-5 3.5 3.5L19 4.5"/><path d="M15.5 4.5H19V8"/><ellipse cx="8" cy="16.5" rx="3.5" ry="1.4"/><path d="M4.5 16.5v2.6c0 .8 1.6 1.4 3.5 1.4s3.5-.6 3.5-1.4v-2.6"/><ellipse cx="16.5" cy="14.5" rx="3.5" ry="1.4"/><path d="M13 14.5v4.6c0 .8 1.6 1.4 3.5 1.4s3.5-.6 3.5-1.4v-4.6"/></svg></span>
+<span class="bc-ic" data-k="3" style="left:31.47%;top:53.36%;--d:1.06s;--cor:#3a6db5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9.5h11.5a3 3 0 0 0 3-3V5.5l1.5-1M16 9.5l1.6 2.1"/><path d="M5 9.5C3.5 9.5 3 11 3 12.5v2M5.5 9.5v4.5c0 1 .5 1.5 1.5 1.5h7.5c1 0 1.5-.5 1.5-1.5V9.5"/><path d="M7 15.5V20M9.5 15.5V20M12.5 15.5V20M15 15.5V20"/></svg></span>
+<span class="bc-ic" data-k="4" style="left:34.11%;top:37.65%;--d:1.18s;--cor:#4caf63"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5h17"/><rect x="5" y="13" width="2.6" height="7.5" rx=".4"/><rect x="9.3" y="9.5" width="2.6" height="11" rx=".4"/><rect x="13.6" y="6.5" width="2.6" height="14" rx=".4"/><rect x="17.9" y="3.5" width="2.6" height="17" rx=".4"/></svg></span>
+<span class="bc-ic" data-k="5" style="left:39.21%;top:27.83%;--d:1.30s;--cor:#1d3566"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V7.5a3.5 3.5 0 0 1 7 0V21"/><path d="M4 10.5h7M4 14h7M4 17.5h7"/><path d="m13 14 4-2.2 4 2.2v4.5L17 20.8l-4-2.3z"/><path d="m13 14 4 2.2 4-2.2M17 16.2v4.6"/></svg></span>
+<span class="bc-ic" data-k="6" style="left:42.32%;top:19.41%;--d:1.42s;--cor:#2d6b63"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><path d="M11 6.5V11l3 1.8"/><circle cx="18" cy="18" r="2.4"/><path d="M18 14.6v1M18 20.4v1M21.4 18h-1M15.6 18h-1M20.4 15.6l-.7.7M16.3 19.7l-.7.7M20.4 20.4l-.7-.7M16.3 16.3l-.7-.7"/></svg></span>
+        <div class="bc-rot bc-rot--d" data-k="0" tabindex="0" style="left:65.15%;top:25.86%;--d:0.85s;--cor:#4caf63">
+          <h3>Gestão de Risco / Hedge</h3>
+          <p>Proteção de margem com custos reais. Ganhos de até 75,8% (Censo DSM).</p>
+        </div>
+        <div class="bc-rot bc-rot--d" data-k="1" tabindex="0" style="left:63.54%;top:78.50%;--d:0.97s;--cor:#3a6db5">
+          <h3>Capital e Crédito / CPR</h3>
+          <p>Acesso facilitado ao crédito com dados auditáveis. O setor movimentou R$ 1,159 trilhão (Beef Report ABIEC).</p>
+        </div>
+        <div class="bc-rot bc-rot--e" data-k="2" tabindex="0" style="right:66.43%;top:74.26%;--d:1.09s;--cor:#4caf63">
+          <h3>Controle de Custo<br>por Arroba</h3>
+          <p>Precisão no consumo e na sanidade reduz ineficiências. A alimentação é 75%–80% do custo (Ponta Agro).</p>
+        </div>
+        <div class="bc-rot bc-rot--e" data-k="3" tabindex="0" style="right:71.76%;top:49.85%;--d:1.21s;--cor:#3a6db5">
+          <h3>Ponto Ótimo<br>de Abate</h3>
+          <p>Decisões técnicas sobre o momento ideal. A modernização reduz a idade de abate (Beef Report ABIEC).</p>
+        </div>
+        <div class="bc-rot bc-rot--e" data-k="4" tabindex="0" style="right:69.12%;top:34.13%;--d:1.33s;--cor:#4caf63">
+          <h3>Alocação entre<br>Lotes / Margem</h3>
+          <p>Visão comparativa para alocar recursos. Conversão de dados de campo em estratégia (Repositório UFT).</p>
+        </div>
+        <div class="bc-rot bc-rot--e" data-k="5" tabindex="0" style="right:64.02%;top:24.31%;--d:1.45s;--cor:#1d3566">
+          <h3>Estoques e<br>Insumos</h3>
+          <p>Estoque integrado e baixas automáticas. Impacto direto do ajuste de suplementos no ROI (Revista Agries/Unitins).</p>
+        </div>
+        <div class="bc-rot bc-rot--e" data-k="6" tabindex="0" style="right:60.91%;top:15.89%;--d:1.57s;--cor:#2d6b63">
+          <h3>Eficiência<br>Administrativa</h3>
+          <p>Automação de rotinas elimina retrabalho. Fim do “feeling”, início da dinâmica empresarial (AgFeed).</p>
+        </div>
+
+        <p class="bc-dica" style="--d:1.4s">Passe o mouse sobre cada tema para ver os detalhes.</p>
+        <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:89.8%;top:94.9%;width:9%;--d:1.5s">
+      </section>
+
+      <!-- ===================== SLIDE 20 — Fim (contato do vendedor) ===================== -->
+      <section class="slide fim" data-slide="20" data-screen-label="20" aria-label="Slide 20 — Obrigado: contato">
+        <img class="fim-foto" src="assets/erp-senior/s20-fim.webp?v=1" alt="Sistema MultBovinos no notebook e gado nelore com brinco de rastreabilidade">
+
+        <img class="fim-multsoft" src="assets/erp-senior/logo-multsoft.webp?v=1" alt="MultSoft">
+        <h2 class="fim-obrigado">Obrigado.</h2>
+        <address class="fim-contato">
+          <b>José Carlos Miguel Junior</b>
+          <a href="tel:+5562982470040">62 9 8247-0040</a>
+          <a href="mailto:jose_carlos@multbovinos.com.br">jose_carlos@multbovinos.com.br</a>
+          <a href="https://www.multsoft.agr.br" target="_blank" rel="noopener">www.multsoft.agr.br</a>
+        </address>
+        <img class="fim-mb" src="assets/erp-senior/logo-multbovinos.webp?v=2" alt="MultBovinos — Gestão Integrada da Pecuária">
+
+        <button class="ms-nav" type="button" style="top:91.5%;width:4.4%;height:5.4%;left:3.9%" onclick="goToSlide(2)" aria-label="Voltar ao menu" title="Voltar ao menu">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:91.5%;width:4.4%;height:5.4%;left:9.2%" onclick="goToSlide(1)" aria-label="Ir à capa" title="Ir à capa">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
+        </button>
+      </section>
+
     </div>
   </div>
 
@@ -2969,9 +3176,9 @@
 
   <script>
     /* Total provisório: 1 a 12 construídos (7-14 = Etapas da Integração, 15-18 = ROI);
-       19 (Benefícios do MB Senior) ainda em construção. Ao receber o restante, ajustar TOTAL e BUILT. */
-    const TOTAL = 19;
-    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+       19 = Benefícios Comprovados, 20 = Fim (botão FIM no menu). */
+    const TOTAL = 20;
+    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
     const STORE = 'multsoft_erpsenior_slide';
     const deck = document.getElementById('deck');
@@ -3046,6 +3253,30 @@
       updateChrome();
     }
     window.goToSlide = goToSlide;
+
+    /* ---- Slide 19 (benefícios): destaque cruzado segmento / ícone / rótulo ---- */
+    (function(){
+      const bc = document.querySelector('.bc');
+      if(!bc) return;
+      /* marca o fim da entrada (cascata termina por volta de 1,9 s) */
+      let tPronto;
+      new MutationObserver(()=>{
+        clearTimeout(tPronto);
+        if(bc.classList.contains('is-active')){
+          if(!bc.classList.contains('bc-pronto')) tPronto = setTimeout(()=> bc.classList.add('bc-pronto'), 2000);
+        } else if(bc.classList.contains('bc-pronto')) bc.classList.remove('bc-pronto');
+      }).observe(bc, {attributes:true, attributeFilter:['class']});
+      const foco = (k)=>{
+        bc.classList.toggle('bc-tem-foco', k != null);
+        bc.querySelectorAll('[data-k]').forEach(el => el.classList.toggle('is-foco', el.dataset.k === k));
+      };
+      bc.querySelectorAll('.bc-fatia, .bc-ic, .bc-rot').forEach(el => {
+        el.addEventListener('mouseenter', ()=> foco(el.dataset.k));
+        el.addEventListener('mouseleave', ()=> foco(null));
+        el.addEventListener('focus', ()=> foco(el.dataset.k));
+        el.addEventListener('blur', ()=> foco(null));
+      });
+    })();
 
     /* ---- Slide 12 (custeio): destaque cruzado entre fatia da rosca e linha da tabela ---- */
     (function(){
