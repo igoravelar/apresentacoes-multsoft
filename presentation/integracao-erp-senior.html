@@ -1839,6 +1839,34 @@
   .mn-i{width:1.6cqh;height:1.6cqh;vertical-align:-.2cqh;margin-left:.4cqh;}
   .mn-tab td{padding:1.3cqh 2.2cqh;background:#eff1f3;color:#3d4246;font-size:1.65cqh;font-weight:700;border-bottom:.2cqh solid #dcdfe2;}
   .mn-tab td:last-child{font-size:1.9cqh;}
+  /* accordion da conta 112110: lista com rolagem própria */
+  .mn-abre{cursor:pointer;}
+  .mn-abre:hover td{background:#e6ebe6;}
+  .mn-abre td:first-child{position:relative;}
+  .sis .sis-dica--det{left:20cqh;top:50%;translate:0 -50%;}
+  .sis .sis-dica--det::before{left:auto;right:100%;bottom:auto;top:50%;translate:0 -50%;border-bottom-color:transparent;border-right-color:#f7923a;}
+  .sis.det-usado .sis-dica--det{opacity:0;}
+  .mn-det{display:none;}
+  .sis.det-aberto .mn-det{display:table-row;}
+  .mn-tab > tbody > .mn-det > td{padding:0;background:#fff;box-shadow:none;border-bottom:0;font-weight:400;}
+  .mn-tab .dt-tab td{font-weight:400;}
+  .dt-box{max-height:40cqh;overflow-y:auto;overscroll-behavior:contain;padding:0 1.6cqh;scrollbar-width:thin;scrollbar-color:#c3cdd6 transparent;}
+  .dt-tab{width:100%;border-collapse:collapse;}
+  .dt-tab th{position:sticky;top:0;z-index:1;background:#fff;text-align:left;padding:1.4cqh 1cqh 1cqh;color:#8a9096;font-size:1.6cqh;font-weight:400;border-bottom:.25cqh solid #e3e6e9;white-space:nowrap;}
+  .dt-tab td{padding:1.25cqh 1cqh;border-bottom:1px solid #e6e9ec;color:#4a4f53;font-size:1.65cqh;background:#fff !important;}
+  .dt-tab tbody tr:hover td{background:#f4f6f4 !important;}
+  .dt-tab th:nth-child(1){width:46%;}
+  .dt-tab th:nth-child(2),.dt-tab td:nth-child(2){text-align:center;width:11%;}
+  .dt-tab th:nth-child(3){width:30%;}
+  .dt-tab th:nth-child(4),.dt-tab td:nth-child(4),.dt-tab th:nth-child(5),.dt-tab td:nth-child(5){text-align:center;width:6.5%;}
+  .dt-val{width:100%;box-sizing:border-box;padding:.6cqh 1cqh;border:1px solid #e1e4e7;border-radius:.3cqh;background:#fff;color:#444;font:inherit;font-size:1.7cqh;outline:none;}
+  .dt-val:focus{border-color:#7f9f74;box-shadow:0 0 0 .2cqh rgba(127,159,116,.25);}
+  .dt-st{width:1.8cqh;height:1.8cqh;vertical-align:middle;}
+  .dt-tab tr:not(.is-calc) .dt-st--ok,.dt-tab tr.is-calc .dt-st--no{display:none;}
+  .dt-lixo{display:none;width:3.2cqh;height:3.2cqh;padding:.55cqh;border:0;border-radius:.4cqh;background:#e8664d;cursor:pointer;}
+  .dt-lixo svg{width:100%;height:100%;display:block;}
+  .dt-lixo:hover{filter:brightness(1.08);}
+  .dt-tab tr.is-calc .dt-lixo{display:inline-block;}
 
   .sis[data-tela="mensal"] .sm{opacity:1;visibility:visible;transition:opacity .25s ease,visibility 0s;}
   .sis:not(.is-active) .sis-tela{opacity:0;translate:0 4%;}
@@ -1893,6 +1921,142 @@
   .sis[data-tela="lista"]:not(.conta-usada):not(.menu-aberto) .sis-dica--conta{opacity:1;}
   .sis.conta-usada .sis-dica--conta{opacity:0;}
   .sis-hot--menu{left:.4%;top:0;width:6.6%;height:6.7%;z-index:9;}
+  /* ---- tela 8: Movimentação Contábil do Rebanho ---- */
+  .sis-hot--mov{left:52.4%;top:36.5%;width:31.7%;height:2.5%;}
+  .sis-hot--mov:hover{background:rgba(70,110,80,.12);}
+  .sis .sis-dica--item.sis-dica--mov{top:36.3%;left:98%;}
+  .sis.menu-aberto.machos-usado .sis-dica--item:not(.sis-dica--mov){opacity:0;}
+  .sis.menu-aberto:not(.machos-usado) .sis-dica--mov,.sis.mov-usado .sis-dica--mov{opacity:0 !important;}
+  .mv{position:absolute;inset:0;display:flex;flex-direction:column;background:#f7f8fa;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s;}
+  .sis[data-tela="mov"] .mv{opacity:1;visibility:visible;transition:opacity .25s ease,visibility 0s;}
+  .sis[data-tela="mov"] .sd{opacity:0;pointer-events:none;}
+  .sis .mv,.sis .mv *{font-family:Arial,Helvetica,sans-serif;}
+  .mv-rola{flex:1;min-height:0;overflow:auto;margin:1cqh 0 0;}
+  .mv-tab{border-collapse:collapse;white-space:nowrap;min-width:100%;}
+  .mv-tab th,.mv-tab td{padding:1.05cqh .75cqh;font-size:1.35cqh;text-align:center;user-select:text;}
+  .mv-tab th:first-child,.mv-tab td:first-child{text-align:left;}
+  .mv-sup th{background:#5f7f55;color:#fff;font-weight:400;padding:1.2cqh .75cqh;text-align:center !important;}
+  .mv-tab thead tr:last-child th{color:#7d8388;font-weight:400;border-bottom:.2cqh solid #e3e6e9;background:#fff;}
+  .mv-tab td{color:#3d4246;border-bottom:1px solid #e6e9ec;background:#fff;}
+  .mv-grupo td{background:#9cbf8f !important;color:#fff;}
+  .mv-ni td{background:#eef0f1 !important;}
+  .mv-div{border-left:.15cqh solid #b8bfc4;}
+  .mv-clic{position:relative;cursor:pointer;text-decoration:underline;text-decoration-color:#9db394;text-underline-offset:.3cqh;}
+  .mv-clic:hover{background:#e6efe2 !important;}
+  .sis .sis-dica--era,.sis .sis-dica--vera{left:50%;top:calc(100% + .6cqh);translate:-50% 0;z-index:3;}
+  .sis .sis-dica--era::before,.sis .sis-dica--vera::before{left:50%;translate:-50% 0;}
+  .sis .sis-dica--vera{opacity:0;}
+  .sis.era-usado .sis-dica--era{opacity:0;}
+  .sis.era-usado:not(.vera-usado):not([data-modal]) .sis-dica--vera{opacity:1;}
+  .mv-modal{position:absolute;inset:0;z-index:6;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;
+    opacity:0;visibility:hidden;transition:opacity .2s ease,visibility 0s linear .2s;}
+  .sis[data-modal="animais"] .mv-modal[data-m="animais"],.sis[data-modal="sintetica"] .mv-modal[data-m="sintetica"]{opacity:1;visibility:visible;transition:opacity .2s ease,visibility 0s;}
+  .mv-jan{width:91%;max-height:92%;display:flex;flex-direction:column;background:#f4f5f6;border-radius:.4cqh;box-shadow:0 1cqh 3cqh rgba(0,0,0,.35);overflow:hidden;}
+  .mv-jan header{display:flex;align-items:center;gap:2cqh;padding:1.8cqh 2.4cqh;background:#5f7f55;color:#fff;font-size:1.75cqh;}
+  .mv-exp{margin-left:auto;font-size:1.6cqh;}
+  .mv-x{margin-left:auto;border:0;background:none;color:#fff;font-size:3cqh;line-height:1;cursor:pointer;padding:0 .4cqh;}
+  .mv-exp + .mv-x{margin-left:0;}
+  .mv-jan__corpo{flex:1;min-height:0;overflow:auto;padding:1cqh 1.4cqh 1.2cqh;}
+  .mv-hrola{overflow-x:auto;}
+  .mv-mtab{width:100%;border-collapse:collapse;white-space:nowrap;}
+  .mv-mtab th{text-align:left;padding:1.3cqh 1cqh;color:#888;font-size:1.45cqh;font-weight:400;border-bottom:.2cqh solid #dfe6dc;}
+  .mv-mtab td{padding:1.15cqh 1cqh;color:#444;font-size:1.45cqh;border-bottom:1px solid #e3e6e8;user-select:text;}
+  .mv-mtab--larga th,.mv-mtab--larga td{padding-left:1.4cqh;padding-right:1.4cqh;}
+  .mv-jan footer{padding:1.2cqh 1.4cqh 1.6cqh;border-top:1px solid #e3e6e8;}
+  .mv-fechar{border:0;border-radius:.3cqh;background:#5f7f55;color:#fff;font-size:1.6cqh;padding:1.1cqh 2.4cqh;cursor:pointer;}
+  .mv-fechar:hover,.mv-x:hover{filter:brightness(1.12);}
+
+  /* ---- menu: submenu Estoque de Animais (imagem mais larga, 4 colunas) ---- */
+  .sis-menu2{position:absolute;left:.82%;top:6.7%;width:58%;z-index:8;opacity:0;visibility:hidden;pointer-events:none;
+    box-shadow:0 .6cqh 1.6cqh rgba(0,0,0,.25);transition:opacity .18s ease,visibility 0s linear .2s;}
+  .sis-menu2 img{display:block;width:100%;height:auto;}
+  .sis.menu-aberto.menu-estoque .sis-menu2{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .18s ease,visibility 0s;}
+  .sis.menu-estoque .sis-menu{opacity:0 !important;visibility:hidden !important;pointer-events:none !important;}
+  /* 1º nível: aparece ao abrir o Menu; o painel de Custos só com .sub-custos */
+  .sis.menu-aberto:not(.sub-custos) .sis-menu{opacity:0 !important;visibility:hidden !important;pointer-events:none !important;}
+  .sis-menu0{position:absolute;left:.82%;top:6.7%;width:14.19%;z-index:8;opacity:0;visibility:hidden;pointer-events:none;
+    box-shadow:0 .6cqh 1.6cqh rgba(0,0,0,.25);transition:opacity .18s ease,visibility 0s linear .2s;}
+  .sis-menu0 img{display:block;width:100%;height:auto;}
+  .sis.menu-aberto:not(.sub-custos):not(.menu-estoque) .sis-menu0{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .18s ease,visibility 0s;}
+  .sis-menu0 .sis-hot--estoque{left:2%;top:14.4%;width:94%;height:3.2%;}
+  .sis-menu0 .sis-hot--custos{left:2%;top:64.6%;width:94%;height:3.2%;}
+  .sis .sis-dica--n1e,.sis .sis-dica--n1c{left:103%;}
+  .sis .sis-dica--n1e{top:14.2%;} .sis .sis-dica--n1c{top:64.4%;}
+  .sis :is(.sis-dica--n1e,.sis-dica--n1c)::before{left:auto;right:100%;bottom:auto;top:50%;translate:0 -50%;border-bottom-color:transparent;border-right-color:#f7923a;}
+  .sis-hot--estoque{left:3%;top:14.4%;width:25%;height:3.2%;}
+  .sis-hot--machos{left:26.6%;top:29.4%;width:6.6%;height:2.5%;}
+  .sis-hot--custos{left:1.3%;top:47%;width:11%;height:2.6%;}
+  .sis :is(.sis-hot--estoque,.sis-hot--machos,.sis-hot--custos):hover{background:rgba(70,110,80,.12);}
+  .sis .sis-dica--estoque{left:31%;top:14.2%;opacity:0;}
+  .sis .sis-dica--machos{left:34.5%;top:29.2%;opacity:0;}
+  .sis :is(.sis-dica--estoque,.sis-dica--machos)::before{left:auto;right:100%;bottom:auto;top:50%;translate:0 -50%;border-bottom-color:transparent;border-right-color:#f7923a;}
+  .sis.menu-aberto:is(.det-usado,.combo-usado):not(.machos-usado) .sis-dica--estoque{opacity:1;}
+  .sis.menu-aberto.menu-estoque:not(.machos-usado) .sis-dica--machos{opacity:1;}
+  .sis.menu-estoque .sis-dica--item{opacity:0 !important;}
+
+  /* ---- telas 5-7: Machos, ficha (Dados) e ficha (Custos) ---- */
+  .sx,.sf,.sc{position:absolute;inset:0;display:flex;flex-direction:column;background:#f7f8fa;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s;}
+  .sf{display:block;background:#fff;}
+  .sis[data-tela="machos"] .sx,.sis[data-tela="ficha"] .sf,.sis[data-tela="custos"] .sc{opacity:1;visibility:visible;transition:opacity .25s ease,visibility 0s;}
+  .sis:is([data-tela="machos"],[data-tela="ficha"],[data-tela="custos"]) .sd{opacity:0;pointer-events:none;}
+  .sis :is(.sx,.sf,.sc),.sis :is(.sx,.sf,.sc) *{font-family:Roboto,Arial,Helvetica,sans-serif;}
+  .sx-corpo{flex:1;min-height:0;display:flex;flex-direction:column;padding:1.2cqh .8% .6cqh;}
+  .sx-busca{display:flex;align-items:center;gap:1.4cqh;margin-bottom:1cqh;}
+  .sx-busca span{flex:1;padding:1.1cqh 1.4cqh;border:1px solid #e1e4e7;background:#fff;color:#a2a7ac;font-size:1.45cqh;}
+  .sx-busca > svg{width:2.6cqh;height:2.6cqh;margin-left:-5.4cqh;margin-right:2.4cqh;}
+  .sx-busca em{font-style:normal;display:flex;flex-direction:column;align-items:center;color:#556b4e;font-size:1.45cqh;}
+  .sx-busca em svg{width:1.6cqh;height:1.6cqh;display:inline;vertical-align:-.2cqh;margin-right:.4cqh;}
+  .sx-busca small{font-size:1.05cqh;}
+  .sx-rola{flex:1;min-height:0;overflow:auto;}
+  .sx-tab{width:100%;border-collapse:collapse;white-space:nowrap;}
+  .sx-tab th{text-align:left;padding:1cqh .7cqh;color:#666;font-size:1.3cqh;font-weight:400;border-bottom:.2cqh solid #e3e6e9;}
+  .sx-tab td{padding:1.15cqh .7cqh;color:#333;font-size:1.3cqh;border-bottom:1px solid #e6e9ec;user-select:text;}
+  .sx-abre{cursor:pointer;}
+  .sx-abre:hover td{background:#eef2ef;}
+  .sx-abre td:first-child{position:relative;}
+  .sis .sis-dica--animal{left:9cqh;top:50%;translate:0 -50%;}
+  .sis :is(.sis-dica--animal,.sis-dica--ind)::before{left:auto;right:100%;bottom:auto;top:50%;translate:0 -50%;border-bottom-color:transparent;border-right-color:#f7923a;}
+  .sis.ficha-usada .sis-dica--animal{opacity:0;}
+  .sx-pag{display:flex;justify-content:center;align-items:center;gap:1.6cqh;margin-top:1cqh;color:#556b4e;font-size:1.6cqh;}
+  .sx-pag b{display:inline-flex;align-items:center;justify-content:center;width:3.6cqh;height:3.6cqh;border-radius:.4cqh;background:#5f7f55;color:#fff;font-weight:400;}
+  .sx-reg{margin:.6cqh 0 0;text-align:center;color:#444;font-size:1.35cqh;}
+  .sf-in{position:relative;width:100%;aspect-ratio:3630/1618;}
+  .sf img{display:block;width:100%;height:auto;}
+  /* rótulo da aba redesenhado (o cursor da captura cobria o texto) */
+  .sf-aba{position:absolute;left:.9%;top:18.6%;width:6.6%;height:4.3%;display:flex;align-items:center;justify-content:center;background:#fefefc;color:#555;font-size:1.25cqh;white-space:nowrap;}
+  .sf-prop{position:absolute;left:35%;top:66.9%;height:3.3%;display:flex;align-items:center;color:#333;font-size:1.38cqh;white-space:nowrap;}
+  .sf-hot--custos{left:40%;top:17.8%;width:4.5%;height:5.2%;}
+  .sf-hot--lista,.sc-hot--lista{left:83.2%;top:10.3%;width:5.5%;height:2.2%;}
+  .sc-hot--lista{top:4.8%;height:2%;}
+  .sc-hot--dados{left:0;top:9.3%;width:7.9%;height:2.3%;}
+  .sis .sis-dica--aba{left:39.8%;top:24.4%;}
+  .sis.aba-usada .sis-dica--aba{opacity:0;}
+  .sc-corpo{flex:1;min-height:0;overflow-y:auto;padding:1.6cqh 1.4% 2cqh;background:#fff;}
+  .sc-resumo{display:flex;align-items:flex-end;gap:2.4cqh;margin-bottom:2.6cqh;}
+  .sc-resumo span{display:block;font-size:1.2cqh;font-weight:700;color:#333;margin-bottom:.6cqh;}
+  .sc-resumo b{font-size:3.6cqh;font-weight:400;user-select:text;}
+  .sc-resumo em{font-style:normal;font-size:3cqh;font-weight:700;color:#333;padding-bottom:.4cqh;}
+  .sc-v1{color:#2e7d32;} .sc-v2{color:#c8771e;} .sc-v3{color:#333;}
+  .sc-tit{margin:0 0 .6cqh;padding-bottom:1cqh;border-bottom:1px solid #e6e9ec;font-size:1.95cqh;font-weight:700;color:#333;}
+  .sc-lista{margin:0;padding:0;list-style:none;}
+  .sc-lin{position:relative;width:100%;display:flex;align-items:center;gap:1cqh;padding:1.2cqh .4cqh;border:0;border-bottom:1px dashed #dfe3e6;background:none;
+    color:#2e6b2b;font-size:1.6cqh;text-align:left;}
+  .sc-lin i{width:1.5cqh;height:1.5cqh;border-radius:.2cqh;background:#555;position:relative;flex:0 0 auto;}
+  .sc-lin i::before,.sc-lin i::after{content:"";position:absolute;left:50%;top:50%;translate:-50% -50%;background:#fff;}
+  .sc-lin i::before{width:65%;height:.25cqh;} .sc-lin i::after{width:.25cqh;height:65%;}
+  .sis.ind-aberto .sc-item--ind .sc-lin i::after{display:none;}
+  .sc-lin b{margin-left:auto;font-weight:400;color:#2e6b2b;}
+  button.sc-lin{cursor:pointer;}
+  button.sc-lin:hover{background:#f2f6f1;}
+  .sis .sis-dica--ind{position:absolute;left:12cqh;top:50%;translate:0 -50%;}
+  .sis.ind-usado .sis-dica--ind{opacity:0;}
+  .sc-det{display:none;margin:0 0 1cqh;padding:1cqh 2.4cqh 1.4cqh;background:#f6f7f8;}
+  .sis.ind-aberto .sc-det{display:block;}
+  .sc-det__i{margin:0 0 .4cqh;}
+  .sc-tab{width:100%;border-collapse:collapse;}
+  .sc-tab th{text-align:left;padding:1cqh;font-size:1.45cqh;font-weight:700;color:#333;border-bottom:.2cqh solid #e3e6e9;}
+  .sc-tab td{padding:1.1cqh 1cqh;font-size:1.45cqh;color:#4a4f53;border-bottom:1px solid #e6e9ec;user-select:text;}
+
   .sis-hot--item{left:52.4%;top:12.9%;width:31.7%;height:2.5%;}
   .sis-hot--param{left:52.4%;top:56.6%;width:31.7%;height:2.5%;}
   .sis-hot--item:hover,.sis-hot--param:hover{background:rgba(70,110,80,.12);}
@@ -2958,16 +3122,112 @@
               </div>
               <table class="mn-tab">
                 <thead><tr><th>GRUPO PRINCIPAL <svg class="mn-i" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#7c9b6d"/><rect x="7" y="7" width="2" height="5" rx=".6" fill="#fff"/><circle cx="8" cy="4.6" r="1.2" fill="#fff"/></svg></th><th>GRUPO DE CONTA <svg class="mn-i" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#7c9b6d"/><rect x="7" y="7" width="2" height="5" rx=".6" fill="#fff"/><circle cx="8" cy="4.6" r="1.2" fill="#fff"/></svg></th><th>VALOR TOTAL</th></tr></thead>
-                <tbody><tr><td>CUSTO FIXO</td><td>102110 OPERAÇÕES PECUÁRIA</td><td>R$ 0,00</td></tr><tr><td>CUSTO FIXO</td><td>112110 OPERAÇÕES PECUÁRIA</td><td>R$ 1.519.976,98</td></tr><tr><td>CUSTO FIXO</td><td>113110 OPERAÇÕES PECUÁRIA</td><td>R$ 0,00</td></tr><tr><td>CUSTO FIXO</td><td>117110 OPERAÇÕES PECUÁRIA</td><td>R$ 0,00</td></tr><tr><td>CUSTO FIXO</td><td>122110 OPERAÇÕES PECUÁRIA</td><td>R$ 0,00</td></tr><tr><td>CUSTO FIXO</td><td>CUSTOS MENSAIS RATEADOS</td><td>R$ 0,00</td></tr><tr><td>CUSTO VARIÁVEL</td><td>CUSTOS ORDEM PRODUÇÃO - C002</td><td>R$ 0,00</td></tr><tr><td>CUSTO VARIÁVEL</td><td>CUSTOS ORDEM PRODUÇÃO - C012</td><td>R$ 0,00</td></tr><tr><td>CUSTO VARIÁVEL</td><td>CUSTOS ORDEM PRODUÇÃO - C017</td><td>R$ 0,00</td></tr><tr><td>CUSTO VARIÁVEL</td><td>CUSTOS ORDEM PRODUÇÃO - C022</td><td>R$ 0,00</td></tr></tbody>
+                <tbody><tr><td>CUSTO FIXO</td><td>102110 OPERAÇÕES PECUÁRIA</td><td>R$ 0,00</td></tr><tr class="mn-abre" onclick="sisDetalhe()"><td>CUSTO FIXO<span class="sis-dica sis-dica--det" aria-hidden="true">Clique aqui</span></td><td>112110 OPERAÇÕES PECUÁRIA</td><td>R$ 1.519.976,98</td></tr><tr class="mn-det"><td colspan="3"><div class="dt-box">
+                  <table class="dt-tab">
+                    <thead><tr><th>Descrição</th><th>Qnt. Animais <svg class="mn-i" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#7c9b6d"/><rect x="7" y="7" width="2" height="5" rx=".6" fill="#fff"/><circle cx="8" cy="4.6" r="1.2" fill="#fff"/></svg></th><th>Valor <svg class="mn-i" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#7c9b6d"/><rect x="7" y="7" width="2" height="5" rx=".6" fill="#fff"/><circle cx="8" cy="4.6" r="1.2" fill="#fff"/></svg></th><th>Calculado</th><th>Deleção</th></tr></thead>
+                    <tbody><tr class=""><td>31601001 CONS MAT PRIM PRO - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31601001"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31601002 CONS MAT PRIM TER - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31601002"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31601005 CONS PROD PROPRIO - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31601005"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31601011 ENT MERC ORD PRODUCAO - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31601011"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31601017 SERVICOS DE COLHE - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31601017"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31601019 SERV APLIC E SEME - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31601019"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31601020 COMISSÃO COMPRA GADO - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31601020"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31601028 ADUBAÇÃO SISTÊMICA - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31601028"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class="is-calc"><td>31601031 EXAUSTÃO DE PASTAGEM - C012</td><td>17858</td><td><input class="dt-val" type="text" value="118.730,82" aria-label="Valor de 31601031"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31601090 PEC - ALIMENTAÇÃO - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31601090"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31601091 PEC - COMPRA - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31601091"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31601092 PEC - DEFENSIVOS - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31601092"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31601095 PEC - MEDICAMENTO - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31601095"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31701006 AUI - AJUSTE TARI - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31701006"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>31701011 TRANS ALOCACAO - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 31701011"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class="is-calc"><td>32101001 ORDENADOS E SALAR - C012</td><td>17858</td><td><input class="dt-val" type="text" value="134.871,11" aria-label="Valor de 32101001"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>32101004 REMUNERAÇÃO VARIÁ - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 32101004"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>32101005 INDEN TRABALHISTA - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 32101005"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class="is-calc"><td>32101006 13 SALARIO - C012</td><td>17858</td><td><input class="dt-val" type="text" value="11.239,22" aria-label="Valor de 32101006"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class="is-calc"><td>32101007 FERIAS - C012</td><td>17858</td><td><input class="dt-val" type="text" value="14.985,68" aria-label="Valor de 32101007"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class="is-calc"><td>32101008 INSS - C012</td><td>17858</td><td><input class="dt-val" type="text" value="4.349,58" aria-label="Valor de 32101008"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class="is-calc"><td>32101009 FGTS - C012</td><td>17858</td><td><input class="dt-val" type="text" value="12.887,71" aria-label="Valor de 32101009"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class=""><td>32101011 CURSOS E TREINAM - C012</td><td>0</td><td><input class="dt-val" type="text" value="" aria-label="Valor de 32101011"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr><tr class="is-calc"><td>32101015 ASSISTENCIA MEDIC - C012</td><td>17858</td><td><input class="dt-val" type="text" value="6.614,86" aria-label="Valor de 32101015"></td><td><svg class="dt-st dt-st--ok" viewBox="0 0 16 16" aria-label="Calculado"><rect x="1" y="1" width="14" height="14" rx="2.5" fill="#2e7d32"/><path d="m4.3 8.2 2.5 2.5 5-5.3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dt-st dt-st--no" viewBox="0 0 16 16" aria-label="Não calculado"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td><td><button type="button" class="dt-lixo" title="Excluir valor" aria-label="Excluir valor"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 4.5h9M6.5 4.5V3h3v1.5M4.8 4.5l.6 8.5h5.2l.6-8.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg></button></td></tr></tbody>
+                  </table></div></td></tr><tr><td>CUSTO FIXO</td><td>113110 OPERAÇÕES PECUÁRIA</td><td>R$ 0,00</td></tr><tr><td>CUSTO FIXO</td><td>117110 OPERAÇÕES PECUÁRIA</td><td>R$ 0,00</td></tr><tr><td>CUSTO FIXO</td><td>122110 OPERAÇÕES PECUÁRIA</td><td>R$ 0,00</td></tr><tr><td>CUSTO FIXO</td><td>CUSTOS MENSAIS RATEADOS</td><td>R$ 0,00</td></tr><tr><td>CUSTO VARIÁVEL</td><td>CUSTOS ORDEM PRODUÇÃO - C002</td><td>R$ 0,00</td></tr><tr><td>CUSTO VARIÁVEL</td><td>CUSTOS ORDEM PRODUÇÃO - C012</td><td>R$ 0,00</td></tr><tr><td>CUSTO VARIÁVEL</td><td>CUSTOS ORDEM PRODUÇÃO - C017</td><td>R$ 0,00</td></tr><tr><td>CUSTO VARIÁVEL</td><td>CUSTOS ORDEM PRODUÇÃO - C022</td><td>R$ 0,00</td></tr></tbody>
               </table>
+            </div>
+          </div>
+
+          <!-- tela 5: Estoque de Animais > Machos (listagem) -->
+          <div class="sx">
+            <img class="sm-topo" src="assets/erp-senior/s14-barra-verde.webp?v=1" alt="Barra do sistema MultBovinos, Fazenda Verde.">
+            <img class="sm-topo" src="assets/erp-senior/s14-machos-strip.webp?v=1" alt="Macho > Listagem; Listar Machos, Listar Sêmen, Incluir, Exportar, Ajuda.">
+            <div class="sx-corpo">
+              <div class="sx-busca"><span>Pesquisa rápida em ID Usual, Número de Registro, Nome, RGD, ID Eletrônico, Raça, Tipo e A12</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7" fill="none" stroke="#b8bcc0" stroke-width="2"/><path d="m16 16 5 5" stroke="#b8bcc0" stroke-width="2.2" stroke-linecap="round"/></svg><em><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18l-7 8.5V19l-4 2v-8.5z" fill="#556b4e"/></svg>Filtros avançados<small>+ Exibir</small></em></div>
+              <div class="sx-rola"><table class="sx-tab"><thead><tr><th>ID Usual</th><th>Número de Registro</th><th>Nome</th><th>ID Eletrônico</th><th>Categoria</th><th>Raça</th><th>Grau de Sangue</th><th>Nascimento</th><th>Aquisição</th><th>Tipo</th><th>Situação</th><th>Localização</th><th>Peso</th><th>Lote Alimentar</th><th>Lote Avaliação</th><th>Lote Finalidade</th></tr></thead><tbody><tr class="sx-abre" onclick="sisFicha()"><td>13961780<span class="sis-dica sis-dica--animal" aria-hidden="true">Clique aqui</span></td><td>MBV 5308</td><td>75187440 FIV</td><td>982000413961780</td><td>MACHOS 0 - 12 MESES</td><td>NELORE - NE</td><td>PO</td><td>28/11/2025</td><td>28/11/2025</td><td>REPRODUTOR</td><td>ATIVO</td><td>RETIRO SUL</td><td>243</td><td>SUPLEMENTAÇÃO MINERAL 28/11/2025</td><td>DESMAMA 2026 JUNHO</td><td>PARCERIA EM PODER DE TERCEIROS</td></tr><tr><td>15734942</td><td>MBV 5380</td><td>75155270 FIV</td><td>982000415734942</td><td>MACHOS 0 - 12 MESES</td><td>NELORE - NE</td><td>PO</td><td>24/12/2025</td><td>24/12/2025</td><td>REPRODUTOR</td><td>ATIVO</td><td>RETIRO SUL</td><td>262</td><td>SUPLEMENTAÇÃO MINERAL 28/11/2025</td><td>DESMAMA JULHO 2026</td><td>ANIMAIS FAZENDA CEDRO</td></tr><tr><td>16P - CRS 143</td><td>CRS 0143</td><td></td><td>964001065260010</td><td>MACHOS + 36 MESES</td><td>NELORE - NE</td><td>PO</td><td>14/02/2023</td><td>01/06/2026</td><td>REPRODUTOR</td><td>ATIVO</td><td>PASTO 07 A</td><td>586</td><td>CONFINAMENTO</td><td>ANCP_FLT_OFICIAL</td><td>PARCERIA EM PODER DE TERCEIROS</td></tr><tr><td>16P - CRS 151</td><td>CRS 0151</td><td></td><td>964001065259995</td><td>MACHOS 12 - 24 MESES</td><td>NELORE - NE</td><td>PO</td><td>17/02/2025</td><td>01/06/2026</td><td>REPRODUTOR</td><td>ATIVO</td><td>PASTO 07 A</td><td>610</td><td>CONFINAMENTO</td><td>ANCP_FLT_OFICIAL</td><td>PARCERIA EM PODER DE TERCEIROS</td></tr><tr><td>50P - MBV 2387</td><td>MBV 2387</td><td>ABRACADABRA MBV</td><td>982000449302218</td><td>MACHOS + 36 MESES</td><td>NELORE - NE</td><td>PO</td><td>26/08/2023</td><td>26/08/2023</td><td>REPRODUTOR/SÊMEN</td><td>ATIVO</td><td>PASTO 12 C</td><td>667</td><td>PASTO</td><td>ANCP_FLT_OFICIAL</td><td>ANIMAIS FAZENDA CEDRO</td></tr><tr><td>50P - MBV 3334</td><td>MBV 3334</td><td>3334 MBV</td><td>982000477290413</td><td>MACHOS 24 - 36 MESES</td><td>NELORE - NE</td><td>PO</td><td>08/08/2024</td><td>08/08/2024</td><td>REPRODUTOR</td><td>ATIVO</td><td>CURRAL B04</td><td>626</td><td>CONFINAMENTO</td><td>ANCP_FLT_OFICIAL</td><td>ANIMAIS FAZENDA MODELO</td></tr><tr><td>75071262</td><td>MBV 5343</td><td>75071262 FIV</td><td>982000475071262</td><td>MACHOS 0 - 12 MESES</td><td>NELORE - NE</td><td>PO</td><td>03/12/2025</td><td>03/12/2025</td><td>REPRODUTOR</td><td>ATIVO</td><td>RETIRO SUL</td><td>270</td><td>SUPLEMENTAÇÃO MINERAL 28/11/2025</td><td>DESMAMA JULHO 2026</td><td>ANIMAIS FAZENDA CEDRO</td></tr><tr><td>75071264</td><td>MBV 5384</td><td>75071264 FIV</td><td>982000475071264</td><td>MACHOS 0 - 12 MESES</td><td>NELORE - NE</td><td>PO</td><td>24/12/2025</td><td>24/12/2025</td><td>REPRODUTOR</td><td>ATIVO</td><td>RETIRO SUL</td><td>268</td><td>SUPLEMENTAÇÃO MINERAL 28/11/2025</td><td>DESMAMA JULHO 2026</td><td>ANIMAIS FAZENDA CEDRO</td></tr><tr><td>75071265</td><td>MBV 5341</td><td>75071265 FIV</td><td>982000475071265</td><td>MACHOS 0 - 12 MESES</td><td>NELORE - NE</td><td>PO</td><td>03/12/2025</td><td>03/12/2025</td><td>REPRODUTOR</td><td>ATIVO</td><td>RETIRO SUL</td><td>277</td><td>SUPLEMENTAÇÃO 3G 28/11/2025</td><td>DESMAMA JULHO 2026</td><td>ANIMAIS FAZENDA CEDRO</td></tr><tr><td>75071266</td><td>MBV 5372</td><td>75071266 FIV</td><td>982000475071266</td><td>MACHOS 0 - 12 MESES</td><td>NELORE - NE</td><td>PO</td><td>19/12/2025</td><td>19/12/2025</td><td>REPRODUTOR</td><td>ATIVO</td><td>RETIRO SUL</td><td>229</td><td>SUPLEMENTAÇÃO MINERAL 28/11/2025</td><td>DESMAMA JULHO 2026</td><td>ANIMAIS FAZENDA CEDRO</td></tr></tbody></table></div>
+              <div class="sx-pag"><span>«</span><span>‹</span><b>1</b><span>2</span><span>3</span><span>›</span><span>»</span></div><p class="sx-reg">807 registros</p>
+            </div>
+          </div>
+          <!-- tela 6: ficha do animal, aba Dados do animal -->
+          <div class="sf"><div class="sf-in">
+            <img src="assets/erp-senior/s14-ficha-dados.webp?v=2" alt="Ficha do macho 037144: aba Dados do animal com ID usual, categoria Machos 25 - 36 meses, nascimento 12/12/2023, tipo Engorda, raça Nelore, localização SC04, lote finalidade ROO-266, rebanho COML e ID eletrônico.">
+            <span class="sf-prop">AGROPECUÁRIA BOA VISTA LTDA - CNPJ: 12.345.678/0001-90</span>
+            <button class="sis-hot sf-hot--custos" type="button" title="Aba Custos" onclick="sisFichaAba('custos')"></button>
+            <button class="sis-hot sf-hot--lista" type="button" title="Listar Machos" onclick="sisMachos()"></button>
+            <span class="sf-aba" aria-hidden="true">Dados do animal</span>
+            <span class="sis-dica sis-dica--aba" aria-hidden="true">Clique aqui</span>
+          </div></div>
+          <!-- tela 7: ficha do animal, aba Custos -->
+          <div class="sc">
+            <img class="sm-topo" src="assets/erp-senior/s14-ficha-custos-topo.webp?v=3" alt="Ficha do macho, Fazenda Verde: Macho > Manutenção, aba Custos selecionada.">
+            <button class="sis-hot sc-hot--dados" type="button" title="Aba Dados do animal" onclick="sisFichaAba('dados')"></button>
+            <button class="sis-hot sc-hot--lista" type="button" title="Listar Machos" onclick="sisMachos()"></button>
+            <div class="sc-corpo">
+              <div class="sc-resumo">
+                <div><span>Custos Absorvidos <svg class="mn-i" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#7c9b6d"/><rect x="7" y="7" width="2" height="5" rx=".6" fill="#fff"/><circle cx="8" cy="4.6" r="1.2" fill="#fff"/></svg></span><b class="sc-v1">R$ 6.639,40</b></div><em>-</em>
+                <div><span>Custos Transferidos <svg class="mn-i" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#7c9b6d"/><rect x="7" y="7" width="2" height="5" rx=".6" fill="#fff"/><circle cx="8" cy="4.6" r="1.2" fill="#fff"/></svg></span><b class="sc-v2">R$ 0,00</b></div><em>=</em>
+                <div><span>Custo Final Atual <svg class="mn-i" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#7c9b6d"/><rect x="7" y="7" width="2" height="5" rx=".6" fill="#fff"/><circle cx="8" cy="4.6" r="1.2" fill="#fff"/></svg></span><b class="sc-v3">R$ 6.639,40</b></div>
+              </div>
+              <h4 class="sc-tit">Custos Absorvidos</h4>
+              <ul class="sc-lista"><li class="sc-item"><div class="sc-lin"><i></i>Herdados ao Nascer<b>R$ 0,00</b></div></li><li class="sc-item"><div class="sc-lin"><i></i>Entrada<b>R$ 6.041,30</b></div></li><li class="sc-item"><div class="sc-lin"><i></i>Transferência Propriedade<b>R$ 0,00</b></div></li><li class="sc-item"><div class="sc-lin"><i></i>Nutricionais<b>R$ 427,50</b></div></li><li class="sc-item"><div class="sc-lin"><i></i>Vacinas Tratamentos<b>R$ 28,09</b></div></li><li class="sc-item sc-item--ind"><button type="button" class="sc-lin" onclick="sisIndiretos()"><i></i>Indiretos<span class="sis-dica sis-dica--ind" aria-hidden="true">Clique aqui</span><b>R$ 128,59</b></button>
+                  <div class="sc-det">
+                    <p class="sc-det__i"><svg class="mn-i" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#7c9b6d"/><rect x="7" y="7" width="2" height="5" rx=".6" fill="#fff"/><circle cx="8" cy="4.6" r="1.2" fill="#fff"/></svg></p>
+                    <table class="sc-tab"><thead><tr><th>Mês/Ano</th><th>Conta</th><th>Valor</th><th>Propriedade</th><th>Transferido para bezerro <svg class="mn-i" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#7c9b6d"/><rect x="7" y="7" width="2" height="5" rx=".6" fill="#fff"/><circle cx="8" cy="4.6" r="1.2" fill="#fff"/></svg></th></tr></thead><tbody><tr><td>09/2026</td><td>112110 OPERAÇÕES PECUÁRIA - 31601031 EXAUSTÃO DE PASTAGEM - C012</td><td>R$ 7,00</td><td>FAZENDA VERDE</td><td><svg class="dt-st" viewBox="0 0 16 16" aria-label="Não"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td></tr><tr><td>09/2026</td><td>112110 OPERAÇÕES PECUÁRIA - 32101001 ORDENADOS E SALAR - C012</td><td>R$ 7,96</td><td>FAZENDA VERDE</td><td><svg class="dt-st" viewBox="0 0 16 16" aria-label="Não"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td></tr><tr><td>09/2026</td><td>112110 OPERAÇÕES PECUÁRIA - 32101006 13 SALARIO - C012</td><td>R$ 0,66</td><td>FAZENDA VERDE</td><td><svg class="dt-st" viewBox="0 0 16 16" aria-label="Não"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td></tr><tr><td>09/2026</td><td>112110 OPERAÇÕES PECUÁRIA - 32101007 FERIAS - C012</td><td>R$ 0,88</td><td>FAZENDA VERDE</td><td><svg class="dt-st" viewBox="0 0 16 16" aria-label="Não"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td></tr><tr><td>09/2026</td><td>112110 OPERAÇÕES PECUÁRIA - 32101008 INSS - C012</td><td>R$ 0,26</td><td>FAZENDA VERDE</td><td><svg class="dt-st" viewBox="0 0 16 16" aria-label="Não"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td></tr><tr><td>09/2026</td><td>112110 OPERAÇÕES PECUÁRIA - 32101009 FGTS - C012</td><td>R$ 0,76</td><td>FAZENDA VERDE</td><td><svg class="dt-st" viewBox="0 0 16 16" aria-label="Não"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td></tr><tr><td>09/2026</td><td>112110 OPERAÇÕES PECUÁRIA - 32101015 ASSISTENCIA MEDIC - C012</td><td>R$ 0,39</td><td>FAZENDA VERDE</td><td><svg class="dt-st" viewBox="0 0 16 16" aria-label="Não"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td></tr><tr><td>09/2026</td><td>112110 OPERAÇÕES PECUÁRIA - 32101016 SERV MED OCUPACIONAL</td><td>R$ 0,09</td><td>FAZENDA VERDE</td><td><svg class="dt-st" viewBox="0 0 16 16" aria-label="Não"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td></tr><tr><td>09/2026</td><td>112110 OPERAÇÕES PECUÁRIA - 32101017 SEGURO DE VIDA - C012</td><td>R$ 0,03</td><td>FAZENDA VERDE</td><td><svg class="dt-st" viewBox="0 0 16 16" aria-label="Não"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td></tr><tr><td>09/2026</td><td>112110 OPERAÇÕES PECUÁRIA - 32101019 PREVIDENCIA PRIVADA - C012</td><td>R$ 0,02</td><td>FAZENDA VERDE</td><td><svg class="dt-st" viewBox="0 0 16 16" aria-label="Não"><circle cx="8" cy="8" r="7" fill="#c0392b"/><path d="m5.4 5.4 5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></td></tr></tbody></table>
+                    <div class="sx-pag"><span>«</span><span>‹</span><b>1</b><span>2</span><span>3</span><span>›</span><span>»</span></div><p class="sx-reg">93 registros</p>
+                  </div></li><li class="sc-item"><div class="sc-lin"><i></i>Permanência<b>R$ 0,00</b></div></li><li class="sc-item"><div class="sc-lin"><i></i>Rastreabilidade<b>R$ 0,00</b></div></li><li class="sc-item"><div class="sc-lin"><i></i>Financeiro<b>R$ 0,00</b></div></li><li class="sc-item"><div class="sc-lin"><i></i>Perdas<b>R$ 13,93</b></div></li><li class="sc-item"><div class="sc-lin"><i></i>Produtos de Uso Direcionado<b>R$ 0,00</b></div></li><li class="sc-item"><div class="sc-lin"><i></i>Custos absorvidos dos imobilizados<b>R$ 0,00</b></div></li></ul>
+            </div>
+          </div>
+          <!-- tela 8: Relatório Movimentação Contábil do Rebanho -->
+          <div class="mv">
+            <img class="sm-topo" src="assets/erp-senior/s14-mov-topo.webp?v=1" alt="Barra do sistema, Fazenda Verde. Movimentação de Estoque por Categoria e Custos; Filtro, Ajuda.">
+            <div class="mv-rola">
+              <table class="mv-tab">
+                <thead>
+                  <tr class="mv-sup"><th colspan="3">Período: 01/10/2026 até 31/10/2026</th><th colspan="12">Entradas</th><th colspan="8" class="mv-div">Saídas</th></tr>
+                  <tr><th>Categoria</th><th>Anterior</th><th>Valor Anterior</th><th>Tr.Era</th><th>Valor Tr.Era</th><th>Transf</th><th>Valor Transf</th><th>Nasc.</th><th>Valor Nasc.</th><th>Compras</th><th>Valor Compras</th><th>Ajuste</th><th>Valor Ajuste</th><th>Diversos</th><th>Valor Diversos</th><th class="mv-div">Tr.Era</th><th>Valor Tr.Era</th><th>Transf</th><th>Valor Transf</th><th>Morte</th><th>Valor Morte</th><th>Venda</th><th>Valor Venda</th></tr>
+                </thead>
+                <tbody><tr class="mv-grupo"><td>FÊMEAS</td><td>3281</td><td>R$ 17.884.365,41</td><td>876</td><td>R$ 4.408.669,09</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">876</td><td>R$ 4.408.669,09</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr><td>FEMEAS 0 - 04 MESES</td><td>1</td><td>R$ 236,94</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">1</td><td>R$ 236,94</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr><td>FEMEAS 05 - 12 MESES</td><td>1454</td><td>R$ 7.350.124,40</td><td>1</td><td>R$ 236,94</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">875</td><td>R$ 4.408.432,15</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr><td>FEMEAS 13 - 24 MESES</td><td>1825</td><td>R$ 10.526.348,69</td><td class="mv-clic" onclick="sisMovModal('animais')">875<span class="sis-dica sis-dica--era" aria-hidden="true">Clique aqui</span></td><td class="mv-clic" onclick="sisMovModal('sintetica')">R$ 4.408.432,15<span class="sis-dica sis-dica--vera" aria-hidden="true">Clique aqui</span></td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr><td>FEMEAS 25 - 36 MESES</td><td>1</td><td>R$ 7.655,38</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr><td>FEMEAS +36 MESES</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr class="mv-grupo"><td>MACHOS</td><td>12978</td><td>R$ 76.044.749,91</td><td>1081</td><td>R$ 5.581.091,92</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">1081</td><td>R$ 5.581.091,92</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr><td>MACHOS 0 - 04 MESES</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr><td>MACHOS 05 - 12 MESES</td><td>1573</td><td>R$ 8.015.703,09</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">1054</td><td>R$ 5.400.486,61</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr><td>MACHOS 13 - 24 MESES</td><td>10668</td><td>R$ 63.950.596,80</td><td>1054</td><td>R$ 5.400.486,61</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">14</td><td>R$ 94.348,75</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr><td>MACHOS 25 - 36 MESES</td><td>729</td><td>R$ 4.004.936,66</td><td>14</td><td>R$ 94.348,75</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">13</td><td>R$ 86.256,56</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr><td>MACHOS +36 MESES</td><td>8</td><td>R$ 73.513,37</td><td>13</td><td>R$ 86.256,56</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr class="mv-ni"><td>NÃO IDENTIFICADO</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr><tr class="mv-grupo"><td>TOTAL</td><td>16259</td><td>R$ 93.929.115,32</td><td>1957</td><td>R$ 9.989.761,02</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td class="mv-div">1957</td><td>R$ 9.989.761,02</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td></tr></tbody>
+              </table>
+            </div>
+            <div class="mv-modal" data-m="animais" role="dialog" aria-label="Relação de animais">
+              <div class="mv-jan">
+                <header>FEMEAS 13 - 24 MESES | Entrada - Transferência de Era | Relação de animais<button type="button" class="mv-x" aria-label="Fechar" onclick="sisMovModal(null)">×</button></header>
+                <div class="mv-jan__corpo">
+                  <table class="mv-mtab"><thead><tr><th>Identificação usual</th><th>Sexo</th><th>Tipo</th><th>Nascimento</th><th>Localidade atual</th></tr></thead><tbody><tr><td>703542</td><td>FÊMEA</td><td>ENGORDA</td><td>03/09/2025</td><td>FP-27</td></tr><tr><td>703543</td><td>FÊMEA</td><td>ENGORDA</td><td>03/09/2025</td><td>FP-27</td></tr><tr><td>703544</td><td>FÊMEA</td><td>ENGORDA</td><td>03/09/2025</td><td>FP-28</td></tr><tr><td>703545n</td><td>FÊMEA</td><td>ENGORDA</td><td>03/09/2025</td><td>FP-27</td></tr><tr><td>703546</td><td>FÊMEA</td><td>ENGORDA</td><td>03/09/2025</td><td>FP-27</td></tr><tr><td>703547</td><td>FÊMEA</td><td>ENGORDA</td><td>03/09/2025</td><td>FP-28</td></tr><tr><td>703548</td><td>FÊMEA</td><td>ENGORDA</td><td>03/09/2025</td><td>FP-27</td></tr><tr><td>703549</td><td>FÊMEA</td><td>ENGORDA</td><td>03/09/2025</td><td>FP-27</td></tr><tr><td>703550</td><td>FÊMEA</td><td>ENGORDA</td><td>03/09/2025</td><td>FP-27</td></tr><tr><td>703551</td><td>FÊMEA</td><td>ENGORDA</td><td>03/09/2025</td><td>FP-28</td></tr></tbody></table>
+                  <div class="sx-pag"><span>«</span><span>‹</span><b>1</b><span>2</span><span>3</span><span>›</span><span>»</span></div><p class="sx-reg">875 registros</p>
+                </div>
+                <footer><button type="button" class="mv-fechar" onclick="sisMovModal(null)">Fechar</button></footer>
+              </div>
+            </div>
+            <div class="mv-modal" data-m="sintetica" role="dialog" aria-label="Visão sintética por mês">
+              <div class="mv-jan">
+                <header>FEMEAS 13 - 24 MESES | Entrada - Transferência de Era | Visão sintética por mês<span class="mv-exp">☁ Exportar</span><button type="button" class="mv-x" aria-label="Fechar" onclick="sisMovModal(null)">×</button></header>
+                <div class="mv-jan__corpo">
+                  <div class="mv-hrola"><table class="mv-mtab mv-mtab--larga"><thead><tr><th>Identificação usual</th><th>Mês</th><th>Herd. Nascer</th><th>Absorv. Imobil.</th><th>Absorv. Imobil. (TM)</th><th>Carga Inicial</th><th>Entrada</th><th>Nutricionais</th><th>Vacinas/Tratam.</th><th>Indiretos</th><th>Uso Direcionado</th><th>Permanência</th><th>Financeiro</th><th>Rastreabilidade</th><th>Sêmen</th><th>Transf. Bezerro</th><th>Perdas</th><th>Total</th></tr></thead><tbody><tr><td>703542</td><td>10/2026</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 2,26</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 2,26</td></tr><tr><td>703542</td><td>09/2026</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 1,94</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 1,94</td></tr><tr><td>703542</td><td>09/2026</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 2,46</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 2,46</td></tr><tr><td>703542</td><td>09/2026</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 1,87</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 1,87</td></tr><tr><td>703542</td><td>09/2026</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 7,93</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 7,93</td></tr><tr><td>703542</td><td>09/2026</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 4,33</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 4,33</td></tr><tr><td>703542</td><td>09/2026</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 3,43</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 3,43</td></tr><tr><td>703542</td><td>09/2026</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 3,37</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 3,37</td></tr><tr><td>703542</td><td>09/2026</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 3,58</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 3,58</td></tr><tr><td>703542</td><td>09/2026</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 4,11</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 0,00</td><td>R$ 4,11</td></tr></tbody></table></div>
+                  <div class="sx-pag"><span>«</span><span>‹</span><b>1</b><span>2</span><span>3</span><span>›</span><span>»</span></div><p class="sx-reg">83211 registros</p>
+                </div>
+                <footer><button type="button" class="mv-fechar" onclick="sisMovModal(null)">Fechar</button></footer>
+              </div>
             </div>
           </div>
           <button class="sis-hot sis-hot--menu" type="button" aria-expanded="false" aria-controls="sis-menu" title="Abrir o menu do sistema" onclick="sisMenu()"></button>
           <div class="sis-menu" id="sis-menu"><img src="assets/erp-senior/s14-menu.webp?v=3" alt="Menu do sistema aberto em Custos Pecuários: Principal (Cálculo mensal, Custos Indiretos por Conta, CPC 29), Relatórios e Consultas e Parâmetros."><svg viewBox="0 0 1070 1250" aria-hidden="true"><text x="563" y="781" font-family="Arial, Helvetica, sans-serif" font-size="27" fill="#77797c">Custos Indiretos - Por Animal</text></svg>
+            <button class="sis-hot sis-hot--estoque" type="button" title="Estoque de Animais" onclick="sisSubmenu('estoque')"></button>
+            <span class="sis-dica sis-dica--estoque" aria-hidden="true">Clique aqui</span>
             <button class="sis-hot sis-hot--item" type="button" title="Custos Indiretos Por Conta" onclick="sisPrincipal()"></button>
+            <button class="sis-hot sis-hot--mov" type="button" title="Movimentação Contábil do Rebanho" onclick="sisMov()"></button>
+            <span class="sis-dica sis-dica--item sis-dica--mov" aria-hidden="true">Clique aqui</span>
             <button class="sis-hot sis-hot--param" type="button" title="Custos Indiretos - Por Conta" onclick="sisListagem()"></button>
             <span class="sis-dica sis-dica--item" aria-hidden="true">Clique aqui</span>
             <span class="sis-dica sis-dica--item sis-dica--param" aria-hidden="true">Clique aqui</span>
+          </div>
+          <!-- menu fechado no 1º nível: só a lista de módulos; passar o mouse (ou clicar)
+               em Estoque de Animais ou Custos Pecuários abre o 2º nível -->
+          <div class="sis-menu0" id="sis-menu0">
+            <img src="assets/erp-senior/s14-menu-nivel1.webp?v=1" alt="Menu do sistema: lista de módulos (Gerenciamento de Tarefas, Estoque de Animais, Reprodução, ... Custos Pecuários, Integração ERP, ...).">
+            <button class="sis-hot sis-hot--estoque" type="button" title="Estoque de Animais" onclick="sisSubmenu('estoque')"></button>
+            <button class="sis-hot sis-hot--custos" type="button" title="Custos Pecuários" onclick="sisSubmenu('custos')"></button>
+            <span class="sis-dica sis-dica--n1e" aria-hidden="true">Veja aqui</span>
+            <span class="sis-dica sis-dica--n1c" aria-hidden="true">Veja aqui</span>
+          </div>
+          <div class="sis-menu2" id="sis-menu2">
+            <img src="assets/erp-senior/s14-menu-estoque.webp?v=1" alt="Menu do sistema em Estoque de Animais: Principal (Entrada de Animais, Fêmeas, Machos, Vendas, Mortes e movimentações), Relatórios e Consultas, Exportação, Tabelas e Parâmetros.">
+            <button class="sis-hot sis-hot--machos" type="button" title="Machos" onclick="sisMachos()"></button>
+            <button class="sis-hot sis-hot--custos" type="button" title="Custos Pecuários" onclick="sisSubmenu('custos')"></button>
+            <span class="sis-dica sis-dica--machos" aria-hidden="true">Clique aqui</span>
           </div>
           <span class="sis-dica sis-dica--menu" aria-hidden="true">Clique aqui</span>
         </div>
@@ -3474,6 +3734,8 @@
       window.sisMenu = function(forcar){
         const abrir = forcar ?? !sis.classList.contains('menu-aberto');
         sis.classList.toggle('menu-aberto', abrir);
+        /* reabre sempre no 1º nível */
+        if(abrir){ ['menu-estoque','sub-custos'].forEach(c => { if(sis.classList.contains(c)) sis.classList.remove(c); }); }
         sis.classList.add('menu-usado');
         bt.setAttribute('aria-expanded', String(abrir));
       };
@@ -3541,6 +3803,56 @@
         if(sis.classList.contains('conta-aberta')) window.sisConta(true);
         window.sisMenu(false);
       };
+      window.sisMov = function(){
+        sis.dataset.tela = 'mov';
+        sis.classList.add('mov-usado');
+        delete sis.dataset.modal;
+        window.sisMenu(false);
+      };
+      window.sisMovModal = function(qual){
+        if(qual){ sis.dataset.modal = qual; sis.classList.add(qual === 'animais' ? 'era-usado' : 'vera-usado'); }
+        else delete sis.dataset.modal;
+      };
+      sis.querySelectorAll('.mv-modal').forEach(m => m.addEventListener('click', e => { if(e.target === m) window.sisMovModal(null); }));
+      window.sisSubmenu = function(qual){
+        if(sis.classList.contains('menu-estoque') !== (qual === 'estoque')) sis.classList.toggle('menu-estoque', qual === 'estoque');
+        if(sis.classList.contains('sub-custos') !== (qual === 'custos')) sis.classList.toggle('sub-custos', qual === 'custos');
+      };
+      /* passar o mouse sobre Estoque de Animais / Custos Pecuários também abre o 2º nível */
+      sis.querySelectorAll('.sis-hot--estoque, .sis-hot--custos').forEach(b => b.addEventListener('mouseenter', () => {
+        if(sis.classList.contains('menu-aberto')) window.sisSubmenu(b.classList.contains('sis-hot--estoque') ? 'estoque' : 'custos');
+      }));
+      window.sisMachos = function(){
+        sis.dataset.tela = 'machos';
+        sis.classList.add('machos-usado');
+        window.sisMenu(false);
+        sis.querySelector('.sx-rola').scrollTop = 0;
+      };
+      window.sisFicha = function(){
+        sis.dataset.tela = 'ficha';
+        sis.classList.add('ficha-usada');
+      };
+      window.sisFichaAba = function(aba){
+        sis.dataset.tela = aba === 'custos' ? 'custos' : 'ficha';
+        if(aba === 'custos') sis.classList.add('aba-usada');
+      };
+      window.sisIndiretos = function(){
+        sis.classList.toggle('ind-aberto');
+        sis.classList.add('ind-usado');
+      };
+      window.sisDetalhe = function(){
+        sis.classList.toggle('det-aberto');
+        sis.classList.add('det-usado');
+      };
+      /* valores da conta 112110: digitar calcula a linha; a lixeira apaga o valor */
+      sis.querySelectorAll('.dt-tab tbody tr').forEach(tr => {
+        const inp = tr.querySelector('.dt-val'), q = tr.children[1];
+        const atualiza = () => { const tem = inp.value.trim() !== ''; tr.classList.toggle('is-calc', tem); q.textContent = tem ? '17858' : '0'; };
+        inp.addEventListener('input', atualiza);
+        tr.querySelector('.dt-lixo').addEventListener('click', () => { inp.value = ''; atualiza(); });
+        inp.addEventListener('click', e => e.stopPropagation());
+        inp.addEventListener('keydown', e => e.stopPropagation());   /* setas/espaço digitam, não trocam slide */
+      });
       window.sisManut = function(){
         sis.dataset.tela = 'manut';
         sis.classList.add('mes-usado');
@@ -3558,7 +3870,7 @@
         btc.setAttribute('aria-expanded', String(abrir));
       };
       sis.querySelector('.sis-tela').addEventListener('click', (e)=>{
-        if(!e.target.closest('.sis-hot--menu, .sis-hot--item, .sis-hot--param') && sis.classList.contains('menu-aberto')){ e.stopPropagation(); window.sisMenu(false); }
+        if(!e.target.closest('.sis-hot--menu, .sis-hot--item, .sis-hot--param, .sis-hot--estoque, .sis-hot--machos, .sis-hot--custos, .sis-hot--mov') && sis.classList.contains('menu-aberto')){ e.stopPropagation(); window.sisMenu(false); }
       });
       /* ao sair do slide, volta tudo ao início. Só reage à troca de slide:
          classList.remove regrava o atributo e redispararia o observer em laço. */
@@ -3568,8 +3880,8 @@
         if(ativo === sisAtivo) return;
         sisAtivo = ativo;
         if(!ativo){
-          ['menu-aberto','menu-usado','conta-aberta','conta-usada','combo-usado','mes-usado'].forEach(c => { if(sis.classList.contains(c)) sis.classList.remove(c); });
-          sis.dataset.tela = 'dash'; sis.querySelector('.sd-painel').scrollTop = 0;
+          ['menu-aberto','menu-usado','conta-aberta','conta-usada','combo-usado','mes-usado','det-aberto','det-usado','menu-estoque','machos-usado','ficha-usada','aba-usada','ind-aberto','ind-usado','mov-usado','era-usado','vera-usado','sub-custos'].forEach(c => { if(sis.classList.contains(c)) sis.classList.remove(c); });
+          sis.dataset.tela = 'dash'; delete sis.dataset.modal; sis.querySelector('.sd-painel').scrollTop = 0;
           bt.setAttribute('aria-expanded','false'); btc.setAttribute('aria-expanded','false'); zerarCombos();
         }
       }).observe(sis, {attributes:true, attributeFilter:['class']});
