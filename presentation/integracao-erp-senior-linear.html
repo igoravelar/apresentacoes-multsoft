@@ -1607,89 +1607,7 @@
   }
 
 
-  /* ================= SLIDE 19 — ROI: Implantação mais fluida =================
-     Esquerda: frase, os dois sistemas (MultBovinos/Senior) unidos pela
-     engrenagem e o resultado (notebook + checklist). Direita: o quadro
-     vermelho dos desgastes evitados. Rodapé: 4 benefícios. */
-  .im *{font-family:var(--ms-fonte);}
-  .im-vaca{position:absolute;left:0;top:22%;height:68%;width:auto;opacity:.9;
-    -webkit-mask:linear-gradient(90deg,#000 45%,transparent),linear-gradient(180deg,transparent,#000 22%);-webkit-mask-composite:source-in;
-    mask:linear-gradient(90deg,#000 45%,transparent) intersect,linear-gradient(180deg,transparent,#000 22%);}
-  .im-esq{position:absolute;left:11%;top:13.8%;width:44%;height:69%;display:flex;flex-direction:column;align-items:center;}
-  .im-frase{margin:0;text-align:center;color:#2f4a52;font-size:2.3cqh;font-weight:500;line-height:1.3;}
-  .im-frase b{color:#3c9a3a;font-weight:700;}
-  .im-par{margin-top:5.4cqh;display:flex;align-items:center;justify-content:center;}
-  .im-circ{
-    position:relative;width:24cqh;height:24cqh;border-radius:50%;overflow:hidden;background:#fff;
-    border:.3cqh solid #d3e8dc;box-shadow:0 .8cqh 2cqh rgba(20,70,50,.12);
-    display:flex;flex-direction:column;
-  }
-  .im-circ__marca{flex:1.2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6cqh;padding-top:1.4cqh;}
-  .im-circ__marca img{height:5.4cqh;width:auto;display:block;border-radius:.6cqh;}
-  .im-circ__marca .im-circ__nome{height:2.6cqh;border-radius:0;}
-  .im-circ__marca .im-circ__senior{height:5cqh;border-radius:0;}
-  .im-circ__marca small{color:#6b7a7e;font-size:2.2cqh;font-weight:700;line-height:1;}
-  .im-circ__info{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-    color:#fff;font-size:1.9cqh;font-weight:500;line-height:1.2;}
-  .im-circ__info b{font-weight:700;}
-  .im-circ--mb .im-circ__info{background:linear-gradient(180deg,#3f8f3a,#2b6a2b);}
-  .im-circ--sr .im-circ__info{background:linear-gradient(180deg,#2f8596,#1b5563);}
-  .im-elo{display:flex;align-items:center;margin:0 -1.2cqh;z-index:1;color:#3c9a3a;}
-  .im-elo i{font-style:normal;font-size:3.4cqh;font-weight:800;}
-  .im-elo b{width:8.4cqh;height:8.4cqh;border-radius:50%;background:radial-gradient(circle at 35% 30%,#5fae45,#2b6a2b);
-    color:#fff;padding:1.8cqh;border:.4cqh solid #fff;box-shadow:0 .5cqh 1.2cqh rgba(20,60,20,.3);}
-  .im-elo b svg{width:100%;height:100%;}
-  .im.is-active .im-elo b svg{animation:infGiro 8s linear infinite;}
-  .im-desce{width:0;height:3.4cqh;margin:1cqh 0 .4cqh;border-left:.6cqh solid #6aac4f;position:relative;}
-  .im-desce::after{content:"";position:absolute;left:-1.5cqh;bottom:-1.2cqh;border-left:1.2cqh solid transparent;border-right:1.2cqh solid transparent;border-top:1.4cqh solid #6aac4f;}
-  .im-res{margin-top:1.4cqh;display:flex;align-items:center;gap:2.6cqh;}
-  .im-note{width:28cqh;height:auto;display:block;
-    -webkit-mask:radial-gradient(ellipse 62% 62% at 50% 50%,#000 70%,transparent 100%);mask:radial-gradient(ellipse 62% 62% at 50% 50%,#000 70%,transparent 100%);}
-  .im-chk{margin:0;padding:0;list-style:none;}
-  .im-chk li{display:flex;align-items:center;gap:1.2cqh;padding:.5cqh 0;color:#2f4a52;font-size:1.9cqh;font-weight:500;}
-  .im-chk svg{flex:0 0 auto;width:2.8cqh;height:2.8cqh;padding:.45cqh;border-radius:50%;background:#2e9d4f;color:#fff;stroke-width:3;}
-
-  .im-desg{
-    position:absolute;left:57.5%;top:13.8%;width:40%;height:69.2%;display:flex;flex-direction:column;
-    background:#fff;border:.3cqh solid #c62828;border-radius:2cqh;overflow:hidden;box-shadow:0 .8cqh 2.2cqh rgba(120,20,20,.12);
-  }
-  .im-desg h3{margin:0;position:relative;padding:1.8cqh 2cqh 1.8cqh 11cqh;color:#fff;
-    background:linear-gradient(90deg,#a51f1f,#7f1414);font-size:2.6cqh;font-weight:500;letter-spacing:-.01em;}
-  .im-desg h3 b{font-weight:800;}
-  .im-desg__x{position:absolute;left:2.4cqh;top:50%;translate:0 -50%;width:6.6cqh;height:6.6cqh;border-radius:50%;
-    background:#c62828;border:.4cqh solid #fff;color:#fff;padding:1.2cqh;box-shadow:0 .4cqh 1cqh rgba(0,0,0,.25);}
-  .im-desg__x svg{width:100%;height:100%;stroke-width:3.2;}
-  .im-desg ul{flex:1;margin:0;padding:1.4cqh 1.8cqh;list-style:none;display:flex;flex-direction:column;gap:.9cqh;}
-  .im-desg li{flex:1 1 auto;display:flex;align-items:center;gap:2.2cqh;padding:.8cqh 1.8cqh;border-radius:1.2cqh;background:#fdf0ef;
-    color:#2f3a3c;font-size:1.85cqh;font-weight:500;line-height:1.3;}
-  .im-desg__ic{flex:0 0 auto;width:5.4cqh;height:5.4cqh;color:#c62828;}
-  .im-desg__ic svg{width:100%;height:100%;}
-
-  .im-ben{position:absolute;left:2.5%;top:85.2%;width:84%;height:10%;margin:0;padding:0 2cqh;list-style:none;
-    display:grid;grid-template-columns:repeat(4,1fr);align-items:center;border-radius:1.6cqh;background:rgba(222,240,226,.85);}
-  .im-ben li{display:flex;align-items:center;justify-content:center;gap:1.6cqh;color:#2f4a52;font-size:1.9cqh;font-weight:500;line-height:1.2;}
-  .im-ben li + li{border-left:.2cqh solid #b9d8c0;}
-  .im-ben__ic{flex:0 0 auto;width:6.6cqh;height:6.6cqh;border-radius:50%;background:radial-gradient(circle at 35% 30%,#4f9a3f,#1f5a2a);color:#fff;padding:1.4cqh;}
-  .im-ben__ic svg{width:100%;height:100%;}
-
-  /* ---- entrada ---- */
-  .im :is(.im-frase,.im-par,.im-desce,.im-res,.im-desg,.im-ben li,.rc-marcas){
-    transition:opacity .5s ease var(--d,0s),translate .6s cubic-bezier(.22,.78,.28,1) var(--d,0s);
-  }
-  .im-vaca{transition:opacity .8s ease .1s;}
-  .im:not(.is-active) .im-vaca{opacity:0;}
-  .im:not(.is-active) :is(.im-frase,.im-par,.im-desce,.im-res,.im-ben li){opacity:0;translate:0 12%;}
-  .im:not(.is-active) .im-desg{opacity:0;translate:6% 0;}
-  .im-desg li{transition:opacity .4s ease calc(.8s + var(--k) * .1s),translate .4s ease calc(.8s + var(--k) * .1s);}
-  .im:not(.is-active) .im-desg li{opacity:0;translate:4% 0;}
-  @media (prefers-reduced-motion:reduce){
-    .im *{transition:none !important;animation:none !important;}
-    .im :is(.im-vaca,.im-frase,.im-par,.im-desce,.im-res,.im-desg,.im-desg li,.im-ben li,.rc-marcas){opacity:1;translate:none;}
-    .im .rc-marcas--centro{translate:-50% 0;}
-  }
-
-
-  /* ================= SLIDE 20 — Benefícios Comprovados =================
+  /* ================= SLIDE 19 — Benefícios Comprovados =================
      Roda de 7 segmentos proporcionais aos percentuais (base 1920x1080).
      Os segmentos crescem a partir do centro; ícone na borda de cada um e
      rótulo ligado por uma linha guia. O texto de apoio aparece ao passar o
@@ -1745,7 +1663,7 @@
   }
 
 
-  /* ================= SLIDE 21 — Fim (Obrigado + contato do vendedor) =================
+  /* ================= SLIDE 20 — Fim (Obrigado + contato do vendedor) =================
      Foto (com o notebook) à direita, recortada da arte; textos e logos em
      HTML. Para outro vendedor, basta trocar o bloco <address>. */
   .fim{background:#fff;}
@@ -2197,9 +2115,9 @@
           <span class="s2-tip" id="s2-tip-1" role="tooltip"><b>Conheça a MultSoft</b><ul><li>A MultSoft: 40 anos no agro</li><li>MultSoft em Números</li><li>Gestão Precisa: a plataforma MultBovinos</li><li>Grandes Contas e Cases de Sucesso</li></ul></span>
         </button>
         <button class="s2-card" type="button" style="top:34.03%;--d:0.30s" onclick="goToSlide(7)"
-                aria-label="Etapas da Integração" aria-describedby="s2-tip-2">
+                aria-label="Jornada de Integração" aria-describedby="s2-tip-2">
           <span class="s2-card__body">
-            <span class="s2-card__rot">Etapas da Integração</span>
+            <span class="s2-card__rot">Jornada de Integração</span>
           </span>
 
           <span class="s2-tip" id="s2-tip-2" role="tooltip"><b>Do problema à solução</b><ul><li>As dores de usar 2 ou + sistemas</li><li>Cadência de lançamento de dados</li><li>Integração ERP Senior + MB</li><li>É só integrar? Reuniões e desgastes</li><li>A Solução: MB Senior</li><li>Visão Geral e Visão de Custeio</li><li>Custos Pecuários no sistema MB</li><li>Definições iniciais da implantação</li></ul></span>
@@ -2210,9 +2128,9 @@
             <span class="s2-card__rot">Retornos Sobre<br>Investimento (ROI)</span>
           </span>
 
-          <span class="s2-tip" id="s2-tip-3" role="tooltip"><b>O retorno da integração</b><ul><li>Retorno Operacional</li><li>Retorno Comercial</li><li>Retorno de Capital</li><li>Implantação mais fluida</li></ul></span>
+          <span class="s2-tip" id="s2-tip-3" role="tooltip"><b>O retorno da integração</b><ul><li>Retorno Operacional</li><li>Retorno Comercial</li><li>Retorno de Capital</li></ul></span>
         </button>
-        <button class="s2-card" type="button" style="top:74.65%;--d:0.46s" onclick="goToSlide(20)"
+        <button class="s2-card" type="button" style="top:74.65%;--d:0.46s" onclick="goToSlide(19)"
                 aria-label="Benefícios Comprovados" aria-describedby="s2-tip-4">
           <span class="s2-card__body">
             <span class="s2-card__rot">Benefícios Comprovados</span>
@@ -2220,7 +2138,7 @@
 
           <span class="s2-tip" id="s2-tip-4" role="tooltip"><b>Ganhos medidos no setor</b><ul><li>Os 7 benefícios da integração, com percentuais e fontes: hedge, crédito, custo por arroba, abate, lotes, estoques e eficiência</li></ul></span>
         </button>
-        <button class="s2-fim" type="button" onclick="goToSlide(21)" aria-label="Entre em contato" title="Entre em contato">ENTRE EM CONTATO</button>
+        <button class="s2-fim" type="button" onclick="goToSlide(20)" aria-label="Entre em contato" title="Entre em contato">ENTRE EM CONTATO</button>
       </section>
 
       <!-- ===================== SLIDE 3 — Institucional (elementos em HTML) ===================== -->
@@ -3437,14 +3355,11 @@
           <span>ROI - Retorno de Capital</span>
         </h2>
         <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:.20s" onclick="goToSlide(17)" aria-label="Voltar" title="Voltar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.20s" onclick="goToSlide(17)" aria-label="Voltar" title="Voltar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
         </button>
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
-        </button>
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(19)" aria-label="Avançar" title="Avançar">
-          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M15 4l6 6-6 6"/></svg>
         </button>
 
         <p class="cad-sub rk-sub" style="--d:.12s">Mais liquidez, menos risco e mais eficiência financeira.<br><span>A integração entre <b>MultBovinos</b> e <b>Senior</b> transforma dados em decisões que geram capital.</span></p>
@@ -3499,56 +3414,8 @@
         <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:89.8%;top:94.9%;width:9%;--d:1s">
       </section>
 
-      <!-- ===================== SLIDE 19 — ROI: Implantação mais fluida ===================== -->
-      <section class="slide cad im" data-slide="19" data-screen-label="19" aria-label="Slide 19 — ROI: Implantação mais fluida">
-        <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
-
-        <h2 class="cad-topo" style="--d:.04s">
-          <img src="assets/erp-senior/icone-mb.webp?v=1" alt="" aria-hidden="true">
-          <span>ROI - Implantação mais fluida!</span>
-        </h2>
-        <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.20s" onclick="goToSlide(18)" aria-label="Voltar" title="Voltar">
-          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
-        </button>
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
-          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
-        </button>
-
-
-        <img class="im-vaca" src="assets/erp-senior/s18-vaca.webp?v=1" alt="" aria-hidden="true">
-
-        <div class="im-esq">
-          <p class="im-frase" style="--d:.25s">Proporcionar que o cliente já tenha as primeiras<br><b>informações zootécnicas</b> e <b>financeiras integradas</b><br>e sendo realizadas o <b>mais rápido possível</b>.</p>
-          <div class="im-par" style="--d:.4s">
-            <div class="im-circ im-circ--mb">
-              <div class="im-circ__marca"><img src="assets/erp-senior/icone-mb.webp?v=1" alt=""><img class="im-circ__nome" src="assets/erp-senior/logo-multbovinos-nome.webp?v=1" alt="MultBovinos"></div>
-              <span class="im-circ__info">Informações<br><b>Zootécnicas</b></span>
-            </div>
-            <span class="im-elo" aria-hidden="true"><i>←</i><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3 5.6 5.6"/><circle cx="12" cy="12" r="6.2"/></svg></b><i>→</i></span>
-            <div class="im-circ im-circ--sr">
-              <div class="im-circ__marca"><img class="im-circ__senior" src="assets/erp-senior/logo-senior.webp?v=1" alt="Senior"><small>ERP</small></div>
-              <span class="im-circ__info">Informações<br><b>Financeiras</b></span>
-            </div>
-          </div>
-          <span class="im-desce" aria-hidden="true" style="--d:.8s"></span>
-          <div class="im-res" style="--d:.95s">
-            <img class="im-note" src="assets/erp-senior/s18-notebook.webp?v=1" alt="Notebook com o painel integrado de gado e indicadores">
-            <ul class="im-chk"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 12.5 4 4 8-9"/></svg>Dados integrados</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 12.5 4 4 8-9"/></svg>Processos mais ágeis</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 12.5 4 4 8-9"/></svg>Informações confiáveis</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 12.5 4 4 8-9"/></svg>Resultados mais rápidos</li></ul>
-          </div>
-        </div>
-
-        <div class="im-desg" style="--d:.5s">
-          <h3><span class="im-desg__x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg></span>Evitar os seguintes <b>DESGASTES:</b></h3>
-          <ul><li style="--k:0"><span class="im-desg__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3"/><circle cx="5.5" cy="9" r="2.3"/><circle cx="18.5" cy="9" r="2.3"/><path d="M6.5 20v-2a5.5 5.5 0 0 1 11 0v2"/><path d="M1.8 19v-1.2A3.8 3.8 0 0 1 6 14M22.2 19v-1.2A3.8 3.8 0 0 0 18 14"/></svg></span><span>Muitas reuniões e alinhamentos entre departamentos (Operacional, Administrativo, Financeiro, Contador, Tecnologia, Processos e Controladoria);</span></li><li style="--k:1"><span class="im-desg__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12.5" r="8.3"/><path d="M12 7.5v5l3.2 2"/></svg></span><span>Divergências entre áreas;</span></li><li style="--k:2"><span class="im-desg__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21H11"/><path d="M13 3l4 4v3"/><path d="M8 8h5M8 11.5h5M8 15h2.5"/><path d="M20.5 15.5a3.5 3.5 0 1 1-1.1-2.5"/><path d="M19.6 11.6v1.6h-1.6"/></svg></span><span>Retrabalhos e ajustes constantes;</span></li><li style="--k:3"><span class="im-desg__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21H11"/><path d="M13 3l4 4v3"/><path d="M8 8h5M8 11.5h5M8 15h2.5"/><circle cx="17.5" cy="17.5" r="3.6"/><path d="m16 16 3 3M19 16l-3 3"/></svg></span><span>Dependência de Informações e Aprovações;</span></li><li style="--k:4"><span class="im-desg__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3"/><circle cx="5.5" cy="9" r="2.3"/><circle cx="18.5" cy="9" r="2.3"/><path d="M6.5 20v-2a5.5 5.5 0 0 1 11 0v2"/><path d="M1.8 19v-1.2A3.8 3.8 0 0 1 6 14M22.2 19v-1.2A3.8 3.8 0 0 0 18 14"/></svg></span><span>Impacto na rotina das equipes;</span></li><li style="--k:5"><span class="im-desg__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20.5h16"/><rect x="5" y="14" width="3" height="5.5" rx=".5"/><rect x="10.5" y="10.5" width="3" height="9" rx=".5"/><rect x="16" y="12.5" width="3" height="7" rx=".5"/><path d="m4.5 10 5-4.5 3.5 2.5 6.5-5"/><path d="M16.3 3h3.2v3.2"/></svg></span><span>Atrasos no Cronograma e aumento de custos.</span></li></ul>
-        </div>
-
-        <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:89.8%;top:94.9%;width:9%;--d:1.4s">
-        <ul class="im-ben" aria-label="Benefícios"><li style="--d:1.30s"><span class="im-ben__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 16a8.5 8.5 0 1 1 17 0"/><path d="m12 16 4-5"/><circle cx="12" cy="16" r="1.4"/><path d="M6 13.5l1 .6M12 7.5v1.2M18 13.5l-1 .6"/></svg></span><span>Implantação<br>mais ágil</span></li><li style="--d:1.40s"><span class="im-ben__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 4.5 5.8v5.6c0 4.7 3.1 8.2 7.5 9.8 4.4-1.6 7.5-5.1 7.5-9.8V5.8z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span><span>Menos riscos<br>e retrabalho</span></li><li style="--d:1.50s"><span class="im-ben__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3"/><circle cx="5.5" cy="9" r="2.3"/><circle cx="18.5" cy="9" r="2.3"/><path d="M6.5 20v-2a5.5 5.5 0 0 1 11 0v2"/><path d="M1.8 19v-1.2A3.8 3.8 0 0 1 6 14M22.2 19v-1.2A3.8 3.8 0 0 0 18 14"/></svg></span><span>Equipes mais<br>alinhadas</span></li><li style="--d:1.60s"><span class="im-ben__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20.5h16"/><rect x="5" y="14" width="3" height="5.5" rx=".5"/><rect x="10.5" y="10.5" width="3" height="9" rx=".5"/><rect x="16" y="12.5" width="3" height="7" rx=".5"/><path d="m4.5 10 5-4.5 3.5 2.5 6.5-5"/><path d="M16.3 3h3.2v3.2"/></svg></span><span>Resultados<br>mais rápidos</span></li></ul>
-      </section>
-
-      <!-- ===================== SLIDE 20 — Benefícios Comprovados ===================== -->
-      <section class="slide cad bc" data-slide="20" data-screen-label="20" aria-label="Slide 20 — Benefícios Comprovados">
+      <!-- ===================== SLIDE 19 — Benefícios Comprovados ===================== -->
+      <section class="slide cad bc" data-slide="19" data-screen-label="19" aria-label="Slide 19 — Benefícios Comprovados">
         <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
 
         <h2 class="cad-topo" style="--d:.04s">
@@ -3615,8 +3482,8 @@
         <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:89.8%;top:94.9%;width:9%;--d:1.5s">
       </section>
 
-      <!-- ===================== SLIDE 21 — Fim (contato do vendedor) ===================== -->
-      <section class="slide fim" data-slide="21" data-screen-label="21" aria-label="Slide 21 — Obrigado: contato">
+      <!-- ===================== SLIDE 20 — Fim (contato do vendedor) ===================== -->
+      <section class="slide fim" data-slide="20" data-screen-label="20" aria-label="Slide 20 — Obrigado: contato">
         <img class="fim-foto" src="assets/erp-senior/s20-fim.webp?v=1" alt="Sistema MultBovinos no notebook e gado nelore com brinco de rastreabilidade">
 
         <img class="fim-multsoft" src="assets/erp-senior/logo-multsoft.webp?v=1" alt="MultSoft">
@@ -3661,10 +3528,10 @@
   </div>
 
   <script>
-    /* Total provisório: 1 a 12 construídos (7-14 = Etapas da Integração, 15-18 = ROI);
+    /* Slides: 7-15 = Jornada de Integração, 16-18 = ROI;
        19 = Benefícios Comprovados, 20 = Fim (botão FIM no menu). */
-    const TOTAL = 21;
-    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+    const TOTAL = 20;
+    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
     const STORE = 'multsoft_erpsenior_linear_slide';
     const deck = document.getElementById('deck');
