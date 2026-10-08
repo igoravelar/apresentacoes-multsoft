@@ -1792,6 +1792,10 @@
   .s7-todos,.bc-dica{display:none !important;}
   /* no slide 19 o destaque vem dos passos, não do mouse */
   .bc :is(.bc-fatia,.bc-ic,.bc-rot){pointer-events:none;}
+  /* custeio: rosca e tabela sempre neutras, sem destaque ao passar o mouse */
+  .cu :is(.cu-fatia,.cu-lin){pointer-events:none;}
+  .cu.cu-foco .cu-fatia,.cu .cu-fatia.is-foco{opacity:1 !important;scale:none !important;filter:none !important;}
+  .cu .cu-lin.is-foco{background:none !important;}
 
 
   /* ================= Rodapé comum (slides 3 em diante) =================
