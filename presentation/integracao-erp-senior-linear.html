@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
+<head><script>window.MODO_LINEAR = true;</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1994,12 +1994,36 @@
   @media (prefers-reduced-motion:reduce){.sis *{transition:none !important;animation:none !important;} .sis .sis-tela{opacity:1;translate:none;}}
 
 
+
+  /* ================= ROI em carrossel (só na versão interativa) =================
+     O JS acrescenta .carr à lista de cards (.roi-cards, .rc-cards, .rk-cards) e
+     marca cada card com data-o = distância até o card do centro (-2..2).
+     O card do centro fica inteiro; os vizinhos aparecem em parte, por trás,
+     e um clique neles traz para o centro. */
+  .carr{display:block !important;}
+  .carr > li{position:absolute !important;top:0;bottom:0;left:50%;width:var(--carr-w,32%);margin:0;
+    transform:translateX(calc(-50% + var(--carr-x,0%))) scale(var(--carr-s,1));
+    transition:transform .6s cubic-bezier(.3,.7,.25,1),opacity .45s ease,filter .4s ease,
+               translate .6s cubic-bezier(.22,.78,.28,1) var(--d,0s) !important;}
+  .carr > li[data-o="0"]{z-index:3;}
+  .carr > li[data-o="1"],.carr > li[data-o="-1"]{z-index:2;cursor:pointer;--carr-s:.84;filter:brightness(.93) saturate(.85);}
+  .carr > li[data-o="1"]{--carr-x:72%;} .carr > li[data-o="-1"]{--carr-x:-72%;}
+  .carr > li[data-o="2"],.carr > li[data-o="-2"],.carr > li[data-o="3"],.carr > li[data-o="-3"]{z-index:1;--carr-s:.7;pointer-events:none;}
+  .carr > li[data-o="2"],.carr > li[data-o="3"]{--carr-x:110%;} .carr > li[data-o="-2"],.carr > li[data-o="-3"]{--carr-x:-110%;}
+  .slide.is-active .carr > li[data-o="2"],.slide.is-active .carr > li[data-o="-2"],
+  .slide.is-active .carr > li[data-o="3"],.slide.is-active .carr > li[data-o="-3"]{opacity:0 !important;}
+  .carr > li[data-o="1"]:hover,.carr > li[data-o="-1"]:hover{filter:brightness(1) saturate(1);}
+  .roi-cards.carr{--carr-w:31%;} .rc-cards.carr{--carr-w:36%;} .rk-cards.carr{--carr-w:31%;}
+  @media (prefers-reduced-motion:reduce){ .carr > li{transition:none !important;} }
+
+
   /* ================= VERSÃO LINEAR =================
      Sem os botões voltar/menu/avançar dos slides: a apresentação avança
      sempre para o próximo (controles do canto inferior esquerdo, setas do
      teclado). Slide 7 e slide 19 avançam em passos dentro do próprio slide. */
   .ms-nav{display:none !important;}
   .s7-todos,.bc-dica,.sis .sis-dica{display:none !important;}
+  .lin-oculto{opacity:0 !important;visibility:hidden;}
   /* no slide 19 o destaque vem dos passos, não do mouse */
   .bc :is(.bc-fatia,.bc-ic,.bc-rot){pointer-events:none;}
   /* custeio: rosca e tabela sempre neutras, sem destaque ao passar o mouse */
@@ -3606,6 +3630,28 @@
       updateChrome();
     }
     window.goToSlide = goToSlide;
+    /* ---- ROI: cards em carrossel (versão interativa) ---- */
+    if(!window.MODO_LINEAR){
+      document.querySelectorAll('.roi-cards, .rc-cards, .rk-cards').forEach(lista => {
+        const cards = [...lista.children];
+        const slide = lista.closest('.slide');
+        let atual = 0;
+        lista.classList.add('carr');
+        const pos = () => cards.forEach((c, i) => {
+          const o = Math.max(-3, Math.min(3, i - atual));
+          c.dataset.o = String(o);
+          c.setAttribute('aria-current', o === 0 ? 'true' : 'false');
+        });
+        cards.forEach((c, i) => c.addEventListener('click', () => { if(i !== atual){ atual = i; pos(); } }));
+        let ativo = slide.classList.contains('is-active');
+        new MutationObserver(() => {
+          const a = slide.classList.contains('is-active');
+          if(a === ativo) return; ativo = a;
+          if(!a && atual !== 0){ atual = 0; pos(); }
+        }).observe(slide, {attributes:true, attributeFilter:['class']});
+        pos();
+      });
+    }
 
     /* ---- Slide 14 (tela do sistema): menu principal abre/fecha ---- */
     (function(){
@@ -3875,6 +3921,23 @@
 
 
 
+    /* ---- Versão linear: ROI, um card por avanço (os cards ficam na grade) ---- */
+    window.LIN_REVELA = function(sel){
+      const slide = document.querySelector(sel);
+      const cards = [...slide.querySelector('.roi-cards, .rc-cards, .rk-cards').children];
+      let passo = 0;
+      const ir = (i) => {
+        passo = i;
+        cards.forEach((c, k) => {
+          if(k > 0 && k <= i) c.style.transitionDelay = '0s';
+          c.classList.toggle('lin-oculto', k > i);
+        });
+      };
+      new MutationObserver(() => { if(!slide.classList.contains('is-active') && passo !== 0){ cards.forEach(c => c.style.transitionDelay = ''); ir(0); } })
+        .observe(slide, {attributes:true, attributeFilter:['class']});
+      ir(0);
+      return { total: cards.length, atual: () => passo, ir };
+    };
     /* ---- Versão linear: roteiro da tela do sistema (cada avanço = um passo) ---- */
     (function(){
       const sis = document.querySelector('.sis');
@@ -3882,40 +3945,24 @@
         const el = sis.querySelector('.sis-cb'); el.querySelector('.sis-cb__bt').click();
         ['REPRODUÇÃO','DOADORA','RECEPTORA'].forEach(t => { const li = [...el.querySelectorAll('.sis-cb__lst li')].find(l => l.textContent === t); if(li) li.click(); });
       };
-      window.SIS_PASSOS = [
-        () => {},                                              /* dashboard */
-        () => window.sisMenu(true),                            /* menu: 1º nível */
-        () => window.sisSubmenu('custos'),                     /* Custos Pecuários */
-        () => window.sisListagem(),                            /* Parâmetros > Custos Indiretos - Por Conta */
-        () => window.sisConta(true),                           /* conta 102110 aberta */
-        () => combo(),                                         /* combo com 3 opções marcadas */
-        () => { window.sisFecharCombos(); window.sisMenu(true); },
-        () => window.sisSubmenu('custos'),
-        () => window.sisPrincipal(),                           /* Principal > Custos Indiretos Por Conta */
-        () => window.sisManut(),                               /* linha 09/2026: Manutenção */
-        () => window.sisDetalhe(),                             /* conta 112110 aberta */
-        () => window.sisMenu(true),
-        () => window.sisSubmenu('estoque'),                    /* Estoque de Animais */
-        () => window.sisMachos(),                              /* Machos: listagem */
-        () => window.sisFicha(),                               /* ficha: Dados do animal */
-        () => window.sisFichaAba('custos'),                    /* aba Custos */
-        () => window.sisIndiretos(),                           /* Indiretos aberto */
-        () => window.sisMenu(true),
-        () => window.sisSubmenu('custos'),
-        () => window.sisMov(),                                 /* Movimentação Contábil do Rebanho */
-        () => window.sisMovModal('animais'),                   /* Tr.Era: relação de animais */
-        () => window.sisMovModal('sintetica'),                 /* Valor Tr.Era: visão sintética */
-      ];
-      let passo = 0;
-      window.sisAtual = () => passo;
-      window.sisIr = (i) => {
-        if(i === passo + 1){ window.SIS_PASSOS[i](); passo = i; return; }
-        window.sisReset();                                     /* voltar: refaz do início até o passo */
-        for(let k = 1; k <= i; k++) window.SIS_PASSOS[k]();
-        passo = i;
+      /* Na versão linear fica uma única tela do sistema: a configuração do
+         custeio (conta 102110 aberta, combo Tipo do animal com 3 opções). */
+      const montar = () => {
+        window.sisReset();
+        window.sisListagem();
+        window.sisConta(true);
+        combo();
       };
-      new MutationObserver(() => { if(!sis.classList.contains('is-active')) passo = 0; })
-        .observe(sis, {attributes:true, attributeFilter:['class']});
+      window.SIS_PASSOS = [montar];
+      window.sisAtual = () => 0;
+      window.sisIr = () => montar();
+      let ativo = false;
+      new MutationObserver(() => {
+        const a = sis.classList.contains('is-active');
+        if(a && !ativo) setTimeout(montar, 0);
+        ativo = a;
+      }).observe(sis, {attributes:true, attributeFilter:['class']});
+      if(sis.classList.contains('is-active')){ ativo = true; montar(); }
     })();
     /* ---- Versão linear: slides com passos internos ----
        As DORES: 6 passos, um card aberto no centro por vez.
@@ -3926,6 +3973,9 @@
     const PASSOS = {
       [nSlide('.s7')]:  { total: 6, atual: () => window.s7Atual(), ir: (i) => window.s7Ir(i) },
       [nSlide('.bc')]:  { total: 8, atual: () => window.bcAtual(), ir: (i) => window.bcIr(i) },
+      [nSlide('.roi')]: window.LIN_REVELA('.roi'),
+      [nSlide('.rc')]:  window.LIN_REVELA('.rc'),
+      [nSlide('.rk')]:  window.LIN_REVELA('.rk'),
       [nSlide('.sis')]: { total: window.SIS_PASSOS.length, atual: () => window.sisAtual(), ir: (i) => window.sisIr(i) },
     };
     function avancar(){
