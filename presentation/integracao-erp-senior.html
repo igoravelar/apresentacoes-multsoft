@@ -1113,7 +1113,7 @@
   }
 
 
-  /* ================= SLIDE 14 — A Solução (engrenagens) =================
+  /* ================= SLIDE 15 — A Solução (engrenagens) =================
      Três engrenagens de mesmo módulo, engrenadas de verdade: a verde
      (MultBovinos, 16 dentes) e a azul (ERP Senior, 16) giram no mesmo
      sentido; a dourada do centro (MB Senior, 14) gira ao contrário, 16/14
@@ -1256,7 +1256,7 @@
   }
 
 
-  /* ================= SLIDE 14 — Definições iniciais (7 etapas) =================
+  /* ================= SLIDE 15 — Definições iniciais (7 etapas) =================
      Reaproveita o card das etapas do slide 10 em tamanho de slide inteiro:
      linha do tempo de 7 colunas, ícone grande no topo e número da etapa. */
   .def .def-passos{top:29%;left:3%;width:94%;height:44%;gap:0 2.2cqw;}
@@ -1324,7 +1324,7 @@
   }
 
 
-  /* ================= SLIDE 15 — ROI: Retorno Operacional =================
+  /* ================= SLIDE 16 — ROI: Retorno Operacional =================
      Quatro cards (número, ícone e título; texto com destaques em verde-
      azulado; ilustração em HTML/SVG). Base 1920x1080. */
   .roi *{font-family:var(--ms-fonte);}
@@ -1426,7 +1426,7 @@
   }
 
 
-  /* ================= SLIDE 16 — ROI: Retorno Comercial =================
+  /* ================= SLIDE 17 — ROI: Retorno Comercial =================
      Três cards (número romano, título, ícone + texto e um painel ilustrado
      escuro em HTML/SVG). Base 1920x1080. */
   .rc *{font-family:var(--ms-fonte);}
@@ -1524,7 +1524,7 @@
   }
 
 
-  /* ================= SLIDE 17 — ROI: Retorno de Capital =================
+  /* ================= SLIDE 18 — ROI: Retorno de Capital =================
      Quatro cards; nos três primeiros a imagem do gado fica presa no rodapé
      do card (margin-top:auto); o quarto lista os três pilares de governança. */
   .rk *{font-family:var(--ms-fonte);}
@@ -1607,7 +1607,7 @@
   }
 
 
-  /* ================= SLIDE 18 — ROI: Implantação mais fluida =================
+  /* ================= SLIDE 19 — ROI: Implantação mais fluida =================
      Esquerda: frase, os dois sistemas (MultBovinos/Senior) unidos pela
      engrenagem e o resultado (notebook + checklist). Direita: o quadro
      vermelho dos desgastes evitados. Rodapé: 4 benefícios. */
@@ -1689,7 +1689,7 @@
   }
 
 
-  /* ================= SLIDE 19 — Benefícios Comprovados =================
+  /* ================= SLIDE 20 — Benefícios Comprovados =================
      Roda de 7 segmentos proporcionais aos percentuais (base 1920x1080).
      Os segmentos crescem a partir do centro; ícone na borda de cada um e
      rótulo ligado por uma linha guia. O texto de apoio aparece ao passar o
@@ -1745,7 +1745,7 @@
   }
 
 
-  /* ================= SLIDE 20 — Fim (Obrigado + contato do vendedor) =================
+  /* ================= SLIDE 21 — Fim (Obrigado + contato do vendedor) =================
      Foto (com o notebook) à direita, recortada da arte; textos e logos em
      HTML. Para outro vendedor, basta trocar o bloco <address>. */
   .fim{background:#fff;}
@@ -1782,6 +1782,134 @@
   .s2-fim:hover{background:#0a6f79;color:#fff;scale:1.06;}
   .s2-fim:focus-visible{outline:3px solid #00707a;outline-offset:3px;}
   .s2:not(.is-active) .s2-fim{opacity:0;}
+
+
+  /* ================= SLIDE 14 — Sistema MB > Custos Pecuários =================
+     Tela do sistema em moldura; o botão "Menu" do topo da tela abre e fecha o
+     menu principal (recorte da tela com o menu aberto, sobreposto na posição
+     exata). Clicar fora do menu também fecha. */
+  /* moldura da tela: proporção do recorte do slide 68 (2018x1002), quase toda a altura do slide */
+  .sis-tela{
+    position:absolute;left:1.5%;top:11.8%;width:97%;aspect-ratio:2018/1002;
+    border-radius:1.6cqh;overflow:hidden;background:#f5f7fb;
+    box-shadow:0 1cqh 3cqh rgba(20,60,50,.18),0 0 0 .2cqh rgba(80,110,90,.25);
+    transition:opacity .6s ease .2s,translate .7s cubic-bezier(.22,.78,.28,1) .2s;
+  }
+  /* tela 1: dashboard */
+  .sd{position:absolute;inset:0;display:flex;flex-direction:column;transition:opacity .25s ease;}
+  .sd-topo{display:block;width:100%;height:auto;flex:0 0 auto;}
+  .sd-painel{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#c3cdd6 transparent;}
+  .sd-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:1cqh;padding:1cqh 1.2cqh;}
+  .sd-grade img{display:block;width:100%;height:auto;border-radius:.6cqh;}
+  .sd-grade .sd-largo{grid-column:span 2;}
+  /* tela 2: listagem (as medidas em % continuam valendo dentro do próprio quadro) */
+  .sl{position:absolute;left:0;top:0;width:100%;aspect-ratio:3652/1672;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s;}
+  .sis[data-tela="lista"] .sl{opacity:1;visibility:visible;transition:opacity .25s ease,visibility 0s;}
+  .sis:is([data-tela="lista"],[data-tela="mensal"]) .sd{opacity:0;pointer-events:none;}
+  /* tela 3: totais mensais */
+  .sm{position:absolute;inset:0;display:flex;flex-direction:column;background:#f7f8fa;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s;}
+  .sm-topo{display:block;width:100%;height:auto;flex:0 0 auto;}
+  /* tabela em HTML: texto real (selecionável), números maiores */
+  .sm-lista{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:0 .6%;scrollbar-width:thin;scrollbar-color:#c3cdd6 transparent;}
+  .sm-tab{width:100%;border-collapse:collapse;}
+  .sis .sm-tab,.sis .sm-tab *{font-family:Arial,Helvetica,sans-serif;user-select:text;-webkit-user-select:text;cursor:text;}
+  .sm-tab th{text-align:left;padding:1.7cqh 1.2cqh 1.3cqh;color:#8a9096;font-size:1.75cqh;font-weight:400;border-bottom:.25cqh solid #e3e6e9;}
+  .sm-tab td{padding:1.15cqh 1.2cqh;color:#3d4246;font-size:2.15cqh;border-bottom:1px solid #e6e9ec;}
+  .sm-tab th:first-child,.sm-tab td:first-child{width:37.5%;}
+  .sm-tab tbody tr{cursor:pointer;}
+  .sm-tab tbody tr:hover td{background:#eef2ef;}
+  .sm-tab td:first-child{position:relative;}
+  .sis .sis-dica--mes{left:12cqh;top:50%;translate:0 -50%;}
+  .sis .sis-dica--mes::before{left:auto;right:100%;bottom:auto;top:50%;translate:0 -50%;border-bottom-color:transparent;border-right-color:#f7923a;}
+  .sis.mes-usado .sis-dica--mes{opacity:0;}
+  /* tela 4: manutenção do mês (HTML; nenhuma linha destacada) */
+  .mn{position:absolute;inset:0;display:flex;flex-direction:column;background:#f7f8fa;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s;}
+  .sis[data-tela="manut"] .mn{opacity:1;visibility:visible;transition:opacity .25s ease,visibility 0s;}
+  .sis[data-tela="manut"] .sd{opacity:0;pointer-events:none;}
+  .mn-corpo{flex:1;min-height:0;overflow-y:auto;margin:1.4cqh .6% 0;padding:1.4cqh 1.2cqh;background:#fff;border:1px solid #e6e9ec;}
+  .sis .mn,.sis .mn *{font-family:Arial,Helvetica,sans-serif;}
+  .mn-form{display:flex;gap:3cqh;margin-bottom:2.2cqh;}
+  .mn-form label{display:flex;flex-direction:column;gap:.6cqh;width:26%;color:#555;font-size:1.75cqh;}
+  .mn-campo{display:flex;align-items:center;justify-content:space-between;padding:.8cqh 1.2cqh;background:#eceef0;border:1px solid #e1e4e7;border-radius:.3cqh;color:#555;font-weight:400;font-size:1.85cqh;}
+  .mn-campo svg{width:2cqh;height:2cqh;}
+  .mn-tab{width:100%;border-collapse:separate;border-spacing:0 .55cqh;}
+  .mn-tab th{text-align:left;padding:0 2.2cqh 1cqh;color:#333;font-size:1.6cqh;font-weight:700;}
+  .mn-tab th:nth-child(1),.mn-tab td:nth-child(1){width:40%;}
+  .mn-tab th:nth-child(2),.mn-tab td:nth-child(2){width:40%;}
+  .mn-i{width:1.6cqh;height:1.6cqh;vertical-align:-.2cqh;margin-left:.4cqh;}
+  .mn-tab td{padding:1.3cqh 2.2cqh;background:#eff1f3;color:#3d4246;font-size:1.65cqh;font-weight:700;border-bottom:.2cqh solid #dcdfe2;}
+  .mn-tab td:last-child{font-size:1.9cqh;}
+
+  .sis[data-tela="mensal"] .sm{opacity:1;visibility:visible;transition:opacity .25s ease,visibility 0s;}
+  .sis:not(.is-active) .sis-tela{opacity:0;translate:0 4%;}
+  .sis-base{display:block;width:100%;height:100%;}
+  .sis-menu{
+    opacity:0;translate:0 -1.5%;visibility:hidden;pointer-events:none;
+    transition:opacity .18s ease,translate .2s ease,visibility 0s linear .2s;}
+  .sis.menu-aberto .sis-menu{opacity:1;translate:none;visibility:visible;pointer-events:auto;transition:opacity .18s ease,translate .2s ease,visibility 0s;}
+  .sis-hot{position:absolute;border:0;padding:0;background:transparent;cursor:pointer;border-radius:.6cqh;}
+  /* conta 102110: abre o "accordion" (tela com a conta expandida por cima da listagem) */
+  .sis-conta{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;visibility:hidden;
+    transition:opacity .2s ease,visibility 0s linear .2s;}
+  .sis.conta-aberta .sis-conta{opacity:1;visibility:visible;transition:opacity .2s ease,visibility 0s;}
+  .sis-menu{position:absolute;left:.82%;top:6.7%;width:29.3%;z-index:8;}
+  .sis-menu img,.sis-menu svg{display:block;width:100%;height:auto;}
+  .sis .sis-menu text{font-family:Arial,Helvetica,sans-serif;}
+  .sis-menu svg{position:absolute;inset:0;height:100%;}
+  /* combos da conta aberta (HTML por cima dos botões "Todos" da tela) */
+  .sis-combos{position:absolute;inset:0;pointer-events:none;visibility:hidden;}
+  .sis.conta-aberta .sis-combos{visibility:visible;}
+  .sis-cb{position:absolute;pointer-events:auto;font-family:Arial,Helvetica,sans-serif;}
+  .sis .sis-cb,.sis .sis-cb *{font-family:Arial,Helvetica,sans-serif;}
+  .sis-cb__bt{width:100%;height:100%;border:1px solid #e1e3e6;border-radius:.35cqh;background:#fff;cursor:pointer;
+    color:#4a4a4a;font:inherit;font-size:1.35cqh;display:flex;align-items:center;justify-content:center;gap:.35cqh;padding:0 .3cqh;white-space:nowrap;overflow:hidden;}
+  .sis-cb__bt span{overflow:hidden;text-overflow:ellipsis;}
+  .sis-cb__bt::after{content:"";flex:0 0 auto;border-left:.45cqh solid transparent;border-right:.45cqh solid transparent;border-top:.5cqh solid #555;}
+  .sis-cb__bt:hover{border-color:#b9c4bc;}
+  .sis-cb.is-aberto .sis-cb__bt{border-color:#7f9f74;box-shadow:0 0 0 .2cqh rgba(127,159,116,.25);}
+  .sis-cb__pn{position:absolute;left:0;top:calc(100% + .4cqh);width:250%;z-index:20;display:none;
+    background:#fff;border:1px solid #d9dcdf;border-radius:.4cqh;box-shadow:0 .6cqh 1.8cqh rgba(0,0,0,.18);}
+  .sis-cb--sobe .sis-cb__pn{top:auto;bottom:calc(100% + .4cqh);}
+  .sis-cb--dir .sis-cb__pn{left:auto;right:0;}
+  .sis-cb.is-aberto .sis-cb__pn{display:block;}
+  .sis-cb__sel{margin:0;padding:0;list-style:none;}
+  .sis-cb__sel:empty{display:none;}
+  .sis-cb .sis-cb__sel li{background:#7f9f74;color:#fff;}
+  .sis-cb__busca{display:block;width:calc(100% - 2.4cqh);margin:1.2cqh;padding:.7cqh 1cqh;border:1px solid #d9dcdf;border-radius:.3cqh;
+    font:inherit;font-size:1.4cqh;color:#444;outline:none;}
+  .sis-cb__busca:focus{border-color:#7f9f74;}
+  .sis-cb__sel + .sis-cb__busca{border-top-color:#d9dcdf;}
+  .sis-cb__lst{margin:0;padding:0 0 .6cqh;list-style:none;max-height:17cqh;overflow-y:auto;border-top:1px solid #eee;}
+  .sis-cb li{padding:.7cqh 1.6cqh;font-size:1.55cqh;color:#555;cursor:pointer;line-height:1.2;}
+  .sis-cb__lst li:hover{background:#eef3ec;}
+  .sis-cb__sel li:hover{background:#6f8f64;}
+  .sis-cb__vazio{color:#aaa !important;cursor:default !important;font-style:italic;}
+  .sis .sis-dica--combo{left:43.56%;top:43.35%;opacity:0;}
+  .sis.conta-aberta:not(.combo-usado) .sis-dica--combo{opacity:1;}
+  .sis-hot--conta{left:1.3%;top:24.3%;width:97.4%;height:4.8%;border-radius:.4cqh;}
+  .sis-hot--conta:hover{background:rgba(70,110,80,.10);box-shadow:inset 0 0 0 .2cqh rgba(70,110,80,.35);}
+  .sis .sis-dica--conta{left:auto;right:3%;top:30%;opacity:0;}
+  .sis .sis-dica--conta::before{left:auto;right:2.4cqh;}
+  .sis[data-tela="lista"]:not(.conta-usada):not(.menu-aberto) .sis-dica--conta{opacity:1;}
+  .sis.conta-usada .sis-dica--conta{opacity:0;}
+  .sis-hot--menu{left:.4%;top:0;width:6.6%;height:6.7%;z-index:9;}
+  .sis-hot--item{left:52.4%;top:12.9%;width:31.7%;height:2.5%;}
+  .sis-hot--param{left:52.4%;top:56.6%;width:31.7%;height:2.5%;}
+  .sis-hot--item:hover,.sis-hot--param:hover{background:rgba(70,110,80,.12);}
+  .sis-hot--menu:hover,.sis.menu-aberto .sis-hot--menu{background:rgba(255,255,255,.14);}
+  .sis-hot:focus-visible{outline:3px solid #fff;outline-offset:-4px;}
+  .sis-dica{position:absolute;left:1.2%;top:9.4%;z-index:9;padding:.6cqh 1.4cqh;border-radius:999px;
+    background:#f7923a;color:#fff;font-family:var(--ms-fonte);font-size:1.5cqh;font-weight:600;white-space:nowrap;
+    box-shadow:0 .3cqh .8cqh rgba(0,0,0,.25);pointer-events:none;transition:opacity .3s ease;}
+  .sis-dica::before{content:"";position:absolute;left:2.4cqh;bottom:100%;border:.8cqh solid transparent;border-bottom-color:#f7923a;}
+  .sis.is-active .sis-dica{animation:sisDica 1.6s ease-in-out infinite;}
+  @keyframes sisDica{50%{translate:0 .6cqh;}}
+  .sis:is(.menu-usado,.conta-usada) .sis-dica--menu{opacity:0;}
+  .sis .sis-dica--item{left:86%;top:12.6%;opacity:0;}
+  .sis .sis-dica--item::before{left:auto;right:100%;bottom:auto;top:50%;translate:0 -50%;border-bottom-color:transparent;border-right-color:#f7923a;}
+  .sis.menu-aberto .sis-dica--item{opacity:1;}
+  .sis .sis-dica--param{top:56.3%;left:94%;}
+  @media (prefers-reduced-motion:reduce){.sis *{transition:none !important;animation:none !important;} .sis .sis-tela{opacity:1;translate:none;}}
 
 
   /* ================= Rodapé comum (slides 3 em diante) =================
@@ -1896,9 +2024,9 @@
             <span class="s2-card__rot">Etapas da Integração</span>
           </span>
 
-          <span class="s2-tip" id="s2-tip-2" role="tooltip"><b>Do problema à solução</b><ul><li>As dores de usar 2 ou + sistemas</li><li>Cadência de lançamento de dados</li><li>Integração ERP Senior + MB</li><li>É só integrar? Reuniões e desgastes</li><li>A Solução: MB Senior</li><li>Visão Geral e Visão de Custeio</li><li>Definições iniciais da implantação</li></ul></span>
+          <span class="s2-tip" id="s2-tip-2" role="tooltip"><b>Do problema à solução</b><ul><li>As dores de usar 2 ou + sistemas</li><li>Cadência de lançamento de dados</li><li>Integração ERP Senior + MB</li><li>É só integrar? Reuniões e desgastes</li><li>A Solução: MB Senior</li><li>Visão Geral e Visão de Custeio</li><li>Custos Pecuários no sistema MB</li><li>Definições iniciais da implantação</li></ul></span>
         </button>
-        <button class="s2-card" type="button" style="top:55.07%;--d:0.38s" onclick="goToSlide(15)"
+        <button class="s2-card" type="button" style="top:55.07%;--d:0.38s" onclick="goToSlide(16)"
                 aria-label="Retornos Sobre Investimento (ROI)" aria-describedby="s2-tip-3">
           <span class="s2-card__body s2-card__body--2l">
             <span class="s2-card__rot">Retornos Sobre<br>Investimento (ROI)</span>
@@ -1906,7 +2034,7 @@
 
           <span class="s2-tip" id="s2-tip-3" role="tooltip"><b>O retorno da integração</b><ul><li>Retorno Operacional</li><li>Retorno Comercial</li><li>Retorno de Capital</li><li>Implantação mais fluida</li></ul></span>
         </button>
-        <button class="s2-card" type="button" style="top:74.65%;--d:0.46s" onclick="goToSlide(19)"
+        <button class="s2-card" type="button" style="top:74.65%;--d:0.46s" onclick="goToSlide(20)"
                 aria-label="Benefícios Comprovados" aria-describedby="s2-tip-4">
           <span class="s2-card__body">
             <span class="s2-card__rot">Benefícios Comprovados</span>
@@ -1914,7 +2042,7 @@
 
           <span class="s2-tip" id="s2-tip-4" role="tooltip"><b>Ganhos medidos no setor</b><ul><li>Os 7 benefícios da integração, com percentuais e fontes: hedge, crédito, custo por arroba, abate, lotes, estoques e eficiência</li></ul></span>
         </button>
-        <button class="s2-fim" type="button" onclick="goToSlide(20)" aria-label="Entre em contato" title="Entre em contato">ENTRE EM CONTATO</button>
+        <button class="s2-fim" type="button" onclick="goToSlide(21)" aria-label="Entre em contato" title="Entre em contato">ENTRE EM CONTATO</button>
       </section>
 
       <!-- ===================== SLIDE 3 — Institucional (elementos em HTML) ===================== -->
@@ -2762,8 +2890,92 @@
         <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:86.04%;top:93.95%;width:11.95%;--d:1.2s">
       </section>
 
-      <!-- ===================== SLIDE 14 — Definições iniciais para a implantação ===================== -->
-      <section class="slide cad int def" data-slide="14" data-screen-label="14" aria-label="Slide 14 — Definições iniciais para a implantação da integração">
+      <!-- ===================== SLIDE 14 — Sistema MultBovinos > Custos Pecuários (tela navegável) ===================== -->
+      <section class="slide cad sis" data-tela="dash" data-slide="14" data-screen-label="14" aria-label="Slide 14 — Custeio Pecuário no Sistema MultBovinos">
+        <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
+
+        <h2 class="cad-topo" style="--d:.04s">
+          <img src="assets/erp-senior/icone-mb.webp?v=1" alt="" aria-hidden="true">
+          <span>Custeio Pecuário no Sistema MultBovinos</span>
+        </h2>
+        <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:.20s" onclick="goToSlide(13)" aria-label="Voltar" title="Voltar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(15)" aria-label="Avançar" title="Avançar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M15 4l6 6-6 6"/></svg>
+        </button>
+
+        <!-- tela do sistema: imagem base + menu principal (abre/fecha) -->
+        <div class="sis-tela">
+          <!-- tela 1: dashboard Gestão à Vista (Estação de Monta), sem cliques além do Menu -->
+          <div class="sd" aria-label="Sistema MultBovinos, Fazenda Boa Fortuna: dashboard da Estação de Monta">
+            <img class="sd-topo" src="assets/erp-senior/s14-dash-topo.webp?v=1" alt="Barra do sistema MultBovinos: Menu, Dashboard, Indicadores, Fazenda Boa Fortuna; abas Reprodutivo, FIV, Produção, Zoossanitário, Insumos, Auditoria, Área do Cliente.">
+            <div class="sd-painel">
+              <div class="sd-grade">
+              <img src="assets/reproducao/dashboards/card-estacao-monta.webp?v=5" alt="Estação Monta — previsão e realizado de fêmeas inseminadas, inseminações, prenhez, taxas e perdas gestacionais." loading="lazy">
+              <img src="assets/reproducao/dashboards/card-aptas.webp?v=5" alt="Aptas — velocímetro em 103,30%, com inseminadas, a inseminar e total de aptas." loading="lazy">
+              <img src="assets/reproducao/dashboards/dias-perdidos.webp?v=5" alt="Dias Perdidos — fêmeas em descanso, descanso acima de 40 dias e DG acima de 30 dias." loading="lazy">
+              <img class="sd-largo" src="assets/reproducao/dashboards/card-estacao-monta-grid.webp?v=5" alt="Estação Monta — tabela de serviços por IA, com DG inicial, DG final e perdas." loading="lazy">
+              <img src="assets/reproducao/dashboards/card-partos.webp?v=5" alt="Partos — partos, bezerros nascidos e a nascer, previsão de nascimentos, perdas gestacionais e morte de gestante." loading="lazy">
+              <img class="sd-largo" src="assets/reproducao/dashboards/card-estoque-atual-reprod.webp?v=5" alt="Estoque Atual de Reprodutores — prenha, servida e vazia por categoria, de novilha precoce a multípara." loading="lazy">
+              <img src="assets/reproducao/dashboards/card-estoque-descartadas.webp?v=5" alt="Estoque de Descartadas — paridas, solteiras, total e peso médio por tempo pós descarte." loading="lazy">
+              <img src="assets/reproducao/dashboards/card-desmame.webp?v=5" alt="Desmame — bezerros desmamados e a desmamar, idade e peso médios, ganho de peso diário e mortes na maternidade." loading="lazy">
+              <img src="assets/reproducao/dashboards/card-monitoramento-reg-animais.webp?v=5" alt="Monitoramento de Registros de Animais — coberturas e nascimentos sem comunicação e registros pendentes." loading="lazy">
+              <img src="assets/reproducao/dashboards/card-resumo-atividades.webp?v=5" alt="Resumo de Atividades — entrada de animais, entrada em lote EM, aplicação de protocolo, score, IA, repasse e diagnóstico de gestação." loading="lazy">
+              </div>
+            </div>
+          </div>
+          <!-- tela 2: Custos Indiretos - Por Conta (abre pelo menu) -->
+          <div class="sl">
+          <img class="sis-base" src="assets/erp-senior/s14-sistema.webp?v=2" alt="Sistema MultBovinos, Fazenda Verde: Custos Indiretos por Conta, listagem de grupos de conta (custo fixo e variável) e se possuem definição.">
+          <img class="sis-conta" src="assets/erp-senior/s14-conta-aberta.webp?v=2" alt="Conta 102110 Operações Pecuária aberta: lista de contas contábeis com tipo do animal, rebanhos, raças, categorias, transferência para cria, forma de rateio (Diárias) e se aplica.">
+          <button class="sis-hot sis-hot--conta" type="button" aria-expanded="false" title="Abrir a conta 102110 Operações Pecuária" onclick="sisConta()"></button>
+          <span class="sis-dica sis-dica--conta" aria-hidden="true">Clique aqui</span>
+          <div class="sis-combos" aria-label="Filtros de cada conta"></div>
+          <span class="sis-dica sis-dica--combo" aria-hidden="true">Clique aqui</span>
+          </div>
+          <!-- tela 3: Custos Indiretos Por Conta (Principal) — totais por mês -->
+          <div class="sm">
+            <img class="sm-topo" src="assets/erp-senior/s14-mensal-topo.webp?v=1" alt="Barra do sistema, Fazenda Verde. Custos Indiretos Por Conta > Listagem; Lista, Incluir, Ajuda.">
+            <div class="sm-lista">
+              <table class="sm-tab">
+                <thead><tr><th>Mês/Ano</th><th>Total</th></tr></thead>
+                <tbody><tr class="sm-abre" onclick="sisManut()"><td>09/2026<span class="sis-dica sis-dica--mes" aria-hidden="true">Clique aqui</span></td><td>R$ 1.519.976,98</td></tr><tr><td>08/2026</td><td>R$ 1.275.359,53</td></tr><tr><td>07/2026</td><td>R$ 1.174.541,30</td></tr><tr><td>06/2026</td><td>R$ 1.259.460,15</td></tr><tr><td>05/2026</td><td>R$ 1.144.027,20</td></tr><tr><td>04/2026</td><td>R$ 1.028.741,56</td></tr><tr><td>03/2026</td><td>R$ 1.300.976,19</td></tr><tr><td>02/2026</td><td>R$ 1.026.206,06</td></tr><tr><td>01/2026</td><td>R$ 894.228,11</td></tr><tr><td>12/2025</td><td>R$ 35.153,49</td></tr><tr><td>11/2025</td><td>R$ 1.160.775,98</td></tr><tr><td>10/2025</td><td>R$ 1.516.835,55</td></tr><tr><td>09/2025</td><td>R$ 1.471.848,05</td></tr><tr><td>08/2025</td><td>R$ 1.122.964,04</td></tr><tr><td>07/2025</td><td>R$ 1.190.568,20</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <!-- tela 4: Custos Indiretos Por Conta > Manutenção (abre pela 1ª linha da listagem mensal) -->
+          <div class="mn">
+            <img class="sm-topo" src="assets/erp-senior/s14-manut-topo.webp?v=1" alt="Barra do sistema, Fazenda Verde. Custos Indiretos Por Conta > Manutenção; Sincronização ERP, Lista, Incluir, Ajuda.">
+            <div class="mn-corpo">
+              <div class="mn-form">
+                <label><span>Mês referência *</span><b class="mn-campo mn-campo--data">09/2026<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.2" fill="none" stroke="#8a9096" stroke-width="1.3"/><path d="M2 6.5h12M5 1.8v2.6M11 1.8v2.6" stroke="#8a9096" stroke-width="1.3"/></svg></b></label>
+                <label><span>Método de rateio</span><b class="mn-campo">Por propriedade</b></label>
+              </div>
+              <table class="mn-tab">
+                <thead><tr><th>GRUPO PRINCIPAL <svg class="mn-i" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#7c9b6d"/><rect x="7" y="7" width="2" height="5" rx=".6" fill="#fff"/><circle cx="8" cy="4.6" r="1.2" fill="#fff"/></svg></th><th>GRUPO DE CONTA <svg class="mn-i" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#7c9b6d"/><rect x="7" y="7" width="2" height="5" rx=".6" fill="#fff"/><circle cx="8" cy="4.6" r="1.2" fill="#fff"/></svg></th><th>VALOR TOTAL</th></tr></thead>
+                <tbody><tr><td>CUSTO FIXO</td><td>102110 OPERAÇÕES PECUÁRIA</td><td>R$ 0,00</td></tr><tr><td>CUSTO FIXO</td><td>112110 OPERAÇÕES PECUÁRIA</td><td>R$ 1.519.976,98</td></tr><tr><td>CUSTO FIXO</td><td>113110 OPERAÇÕES PECUÁRIA</td><td>R$ 0,00</td></tr><tr><td>CUSTO FIXO</td><td>117110 OPERAÇÕES PECUÁRIA</td><td>R$ 0,00</td></tr><tr><td>CUSTO FIXO</td><td>122110 OPERAÇÕES PECUÁRIA</td><td>R$ 0,00</td></tr><tr><td>CUSTO FIXO</td><td>CUSTOS MENSAIS RATEADOS</td><td>R$ 0,00</td></tr><tr><td>CUSTO VARIÁVEL</td><td>CUSTOS ORDEM PRODUÇÃO - C002</td><td>R$ 0,00</td></tr><tr><td>CUSTO VARIÁVEL</td><td>CUSTOS ORDEM PRODUÇÃO - C012</td><td>R$ 0,00</td></tr><tr><td>CUSTO VARIÁVEL</td><td>CUSTOS ORDEM PRODUÇÃO - C017</td><td>R$ 0,00</td></tr><tr><td>CUSTO VARIÁVEL</td><td>CUSTOS ORDEM PRODUÇÃO - C022</td><td>R$ 0,00</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <button class="sis-hot sis-hot--menu" type="button" aria-expanded="false" aria-controls="sis-menu" title="Abrir o menu do sistema" onclick="sisMenu()"></button>
+          <div class="sis-menu" id="sis-menu"><img src="assets/erp-senior/s14-menu.webp?v=3" alt="Menu do sistema aberto em Custos Pecuários: Principal (Cálculo mensal, Custos Indiretos por Conta, CPC 29), Relatórios e Consultas e Parâmetros."><svg viewBox="0 0 1070 1250" aria-hidden="true"><text x="563" y="781" font-family="Arial, Helvetica, sans-serif" font-size="27" fill="#77797c">Custos Indiretos - Por Animal</text></svg>
+            <button class="sis-hot sis-hot--item" type="button" title="Custos Indiretos Por Conta" onclick="sisPrincipal()"></button>
+            <button class="sis-hot sis-hot--param" type="button" title="Custos Indiretos - Por Conta" onclick="sisListagem()"></button>
+            <span class="sis-dica sis-dica--item" aria-hidden="true">Clique aqui</span>
+            <span class="sis-dica sis-dica--item sis-dica--param" aria-hidden="true">Clique aqui</span>
+          </div>
+          <span class="sis-dica sis-dica--menu" aria-hidden="true">Clique aqui</span>
+        </div>
+
+      </section>
+
+      <!-- ===================== SLIDE 15 — Definições iniciais para a implantação ===================== -->
+      <section class="slide cad int def" data-slide="15" data-screen-label="15" aria-label="Slide 15 — Definições iniciais para a implantação da integração">
         <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
 
         <h2 class="cad-topo" style="--d:.04s">
@@ -2771,7 +2983,7 @@
           <span>Definições Iniciais da Implantação</span>
         </h2>
         <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.20s" onclick="goToSlide(13)" aria-label="Voltar" title="Voltar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.20s" onclick="goToSlide(14)" aria-label="Voltar" title="Voltar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
         </button>
         <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
@@ -2785,8 +2997,8 @@
         <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:86.04%;top:93.95%;width:11.95%;--d:1s">
       </section>
 
-      <!-- ===================== SLIDE 15 — ROI: Retorno Operacional ===================== -->
-      <section class="slide cad roi" data-slide="15" data-screen-label="15" aria-label="Slide 15 — ROI: Retorno Operacional">
+      <!-- ===================== SLIDE 16 — ROI: Retorno Operacional ===================== -->
+      <section class="slide cad roi" data-slide="16" data-screen-label="16" aria-label="Slide 16 — ROI: Retorno Operacional">
         <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
 
         <h2 class="cad-topo" style="--d:.04s">
@@ -2800,7 +3012,7 @@
         <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
         </button>
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(16)" aria-label="Avançar" title="Avançar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(17)" aria-label="Avançar" title="Avançar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M15 4l6 6-6 6"/></svg>
         </button>
 
@@ -2862,8 +3074,8 @@
         <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:89.8%;top:94.9%;width:9%;--d:1s">
       </section>
 
-      <!-- ===================== SLIDE 16 — ROI: Retorno Comercial ===================== -->
-      <section class="slide cad rc" data-slide="16" data-screen-label="16" aria-label="Slide 16 — ROI: Retorno Comercial">
+      <!-- ===================== SLIDE 17 — ROI: Retorno Comercial ===================== -->
+      <section class="slide cad rc" data-slide="17" data-screen-label="17" aria-label="Slide 17 — ROI: Retorno Comercial">
         <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
 
         <h2 class="cad-topo" style="--d:.04s">
@@ -2871,13 +3083,13 @@
           <span>ROI - Retorno Comercial</span>
         </h2>
         <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:.20s" onclick="goToSlide(15)" aria-label="Voltar" title="Voltar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:.20s" onclick="goToSlide(16)" aria-label="Voltar" title="Voltar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
         </button>
         <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
         </button>
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(17)" aria-label="Avançar" title="Avançar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(18)" aria-label="Avançar" title="Avançar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M15 4l6 6-6 6"/></svg>
         </button>
 
@@ -2942,8 +3154,8 @@
         <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:89.8%;top:94.9%;width:9%;--d:1s">
       </section>
 
-      <!-- ===================== SLIDE 17 — ROI: Retorno de Capital ===================== -->
-      <section class="slide cad rk" data-slide="17" data-screen-label="17" aria-label="Slide 17 — ROI: Retorno de Capital">
+      <!-- ===================== SLIDE 18 — ROI: Retorno de Capital ===================== -->
+      <section class="slide cad rk" data-slide="18" data-screen-label="18" aria-label="Slide 18 — ROI: Retorno de Capital">
         <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
 
         <h2 class="cad-topo" style="--d:.04s">
@@ -2951,13 +3163,13 @@
           <span>ROI - Retorno de Capital</span>
         </h2>
         <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:.20s" onclick="goToSlide(16)" aria-label="Voltar" title="Voltar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:.20s" onclick="goToSlide(17)" aria-label="Voltar" title="Voltar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
         </button>
         <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
         </button>
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(18)" aria-label="Avançar" title="Avançar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.32s" onclick="goToSlide(19)" aria-label="Avançar" title="Avançar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M15 4l6 6-6 6"/></svg>
         </button>
 
@@ -3013,8 +3225,8 @@
         <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:89.8%;top:94.9%;width:9%;--d:1s">
       </section>
 
-      <!-- ===================== SLIDE 18 — ROI: Implantação mais fluida ===================== -->
-      <section class="slide cad im" data-slide="18" data-screen-label="18" aria-label="Slide 18 — ROI: Implantação mais fluida">
+      <!-- ===================== SLIDE 19 — ROI: Implantação mais fluida ===================== -->
+      <section class="slide cad im" data-slide="19" data-screen-label="19" aria-label="Slide 19 — ROI: Implantação mais fluida">
         <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
 
         <h2 class="cad-topo" style="--d:.04s">
@@ -3022,7 +3234,7 @@
           <span>ROI - Implantação mais fluida!</span>
         </h2>
         <!-- faixa verde no topo: navegação no canto superior direito, dentro da faixa -->
-        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.20s" onclick="goToSlide(17)" aria-label="Voltar" title="Voltar">
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:.20s" onclick="goToSlide(18)" aria-label="Voltar" title="Voltar">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
         </button>
         <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
@@ -3061,8 +3273,8 @@
         <ul class="im-ben" aria-label="Benefícios"><li style="--d:1.30s"><span class="im-ben__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 16a8.5 8.5 0 1 1 17 0"/><path d="m12 16 4-5"/><circle cx="12" cy="16" r="1.4"/><path d="M6 13.5l1 .6M12 7.5v1.2M18 13.5l-1 .6"/></svg></span><span>Implantação<br>mais ágil</span></li><li style="--d:1.40s"><span class="im-ben__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 4.5 5.8v5.6c0 4.7 3.1 8.2 7.5 9.8 4.4-1.6 7.5-5.1 7.5-9.8V5.8z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span><span>Menos riscos<br>e retrabalho</span></li><li style="--d:1.50s"><span class="im-ben__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3"/><circle cx="5.5" cy="9" r="2.3"/><circle cx="18.5" cy="9" r="2.3"/><path d="M6.5 20v-2a5.5 5.5 0 0 1 11 0v2"/><path d="M1.8 19v-1.2A3.8 3.8 0 0 1 6 14M22.2 19v-1.2A3.8 3.8 0 0 0 18 14"/></svg></span><span>Equipes mais<br>alinhadas</span></li><li style="--d:1.60s"><span class="im-ben__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20.5h16"/><rect x="5" y="14" width="3" height="5.5" rx=".5"/><rect x="10.5" y="10.5" width="3" height="9" rx=".5"/><rect x="16" y="12.5" width="3" height="7" rx=".5"/><path d="m4.5 10 5-4.5 3.5 2.5 6.5-5"/><path d="M16.3 3h3.2v3.2"/></svg></span><span>Resultados<br>mais rápidos</span></li></ul>
       </section>
 
-      <!-- ===================== SLIDE 19 — Benefícios Comprovados ===================== -->
-      <section class="slide cad bc" data-slide="19" data-screen-label="19" aria-label="Slide 19 — Benefícios Comprovados">
+      <!-- ===================== SLIDE 20 — Benefícios Comprovados ===================== -->
+      <section class="slide cad bc" data-slide="20" data-screen-label="20" aria-label="Slide 20 — Benefícios Comprovados">
         <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
 
         <h2 class="cad-topo" style="--d:.04s">
@@ -3129,8 +3341,8 @@
         <img class="ms-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="left:89.8%;top:94.9%;width:9%;--d:1.5s">
       </section>
 
-      <!-- ===================== SLIDE 20 — Fim (contato do vendedor) ===================== -->
-      <section class="slide fim" data-slide="20" data-screen-label="20" aria-label="Slide 20 — Obrigado: contato">
+      <!-- ===================== SLIDE 21 — Fim (contato do vendedor) ===================== -->
+      <section class="slide fim" data-slide="21" data-screen-label="21" aria-label="Slide 21 — Obrigado: contato">
         <img class="fim-foto" src="assets/erp-senior/s20-fim.webp?v=1" alt="Sistema MultBovinos no notebook e gado nelore com brinco de rastreabilidade">
 
         <img class="fim-multsoft" src="assets/erp-senior/logo-multsoft.webp?v=1" alt="MultSoft">
@@ -3177,8 +3389,8 @@
   <script>
     /* Total provisório: 1 a 12 construídos (7-14 = Etapas da Integração, 15-18 = ROI);
        19 = Benefícios Comprovados, 20 = Fim (botão FIM no menu). */
-    const TOTAL = 20;
-    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+    const TOTAL = 21;
+    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 
     const STORE = 'multsoft_erpsenior_slide';
     const deck = document.getElementById('deck');
@@ -3253,6 +3465,115 @@
       updateChrome();
     }
     window.goToSlide = goToSlide;
+
+    /* ---- Slide 14 (tela do sistema): menu principal abre/fecha ---- */
+    (function(){
+      const sis = document.querySelector('.sis');
+      if(!sis) return;
+      const bt = sis.querySelector('.sis-hot--menu');
+      window.sisMenu = function(forcar){
+        const abrir = forcar ?? !sis.classList.contains('menu-aberto');
+        sis.classList.toggle('menu-aberto', abrir);
+        sis.classList.add('menu-usado');
+        bt.setAttribute('aria-expanded', String(abrir));
+      };
+      const btc = sis.querySelector('.sis-hot--conta');
+      /* combos da conta aberta: múltipla escolha; selecionados sobem para o topo em verde,
+         o botão mostra "Todos", o nome (1) ou "N opções" */
+      const CB = {"W": 3634, "H": 1670, "cols": [[1583, 1748], [1822, 1987], [2060, 2227], [2299, 2464]], "top0": 626, "passo": 116.6, "alt": 68, "linhas": 9, "opc": {"Tipo do animal": ["REPRODUÇÃO", "DOADORA", "RECEPTORA", "ENGORDA-FÊMEA", "REPRODUTOR", "ENGORDA-MACHO"], "Rebanhos": ["REBANHO GERAL", "CRIA", "RECRIA", "ENGORDA", "CONFINAMENTO"], "Raças": ["NELORE", "ANGUS", "BRANGUS", "GUZERÁ", "CRUZAMENTO INDUSTRIAL"], "Categorias": ["BEZERRO", "BEZERRA", "GARROTE", "NOVILHA", "VACA", "BOI", "TOURO"]}};
+      const caixa = sis.querySelector('.sis-combos');
+      const nomes = Object.keys(CB.opc);
+      const combos = [];
+      for(let r = 0; r < CB.linhas; r++){
+        CB.cols.forEach(([x0, x1], c) => {
+          const el = document.createElement('div');
+          el.className = 'sis-cb' + (r >= 5 ? ' sis-cb--sobe' : '') + (c >= 2 ? ' sis-cb--dir' : '');
+          const y = CB.top0 + r * CB.passo;
+          el.style.cssText = `left:${(x0 - 3) / CB.W * 100}%;top:${(y - 3) / CB.H * 100}%;width:${(x1 - x0 + 6) / CB.W * 100}%;height:${(CB.alt + 6) / CB.H * 100}%`;
+          el.innerHTML = '<button type="button" class="sis-cb__bt" aria-haspopup="listbox" aria-expanded="false" aria-label="' + nomes[c] + '"><span>Todos</span></button>'
+            + '<div class="sis-cb__pn"><ul class="sis-cb__sel" role="listbox" aria-multiselectable="true"></ul>'
+            + '<input class="sis-cb__busca" type="text" placeholder="Pesquisar..." aria-label="Pesquisar">'
+            + '<ul class="sis-cb__lst" role="listbox" aria-multiselectable="true"></ul></div>';
+          el._opc = CB.opc[nomes[c]]; el._sel = [];
+          caixa.appendChild(el); combos.push(el);
+        });
+      }
+      function desenhar(el){
+        const filtro = el.querySelector('.sis-cb__busca').value.trim().toUpperCase();
+        const li = t => '<li role="option" aria-selected="' + el._sel.includes(t) + '">' + t + '</li>';
+        el.querySelector('.sis-cb__sel').innerHTML = el._sel.map(li).join('');
+        const resto = el._opc.filter(t => !el._sel.includes(t) && t.includes(filtro));
+        el.querySelector('.sis-cb__lst').innerHTML = resto.length ? resto.map(li).join('') : '<li class="sis-cb__vazio">Nenhum resultado</li>';
+        const n = el._sel.length;
+        el.querySelector('.sis-cb__bt span').textContent = n === 0 ? 'Todos' : (n === 1 ? el._sel[0] : n + ' opções');
+      }
+      function fecharCombos(exceto){
+        combos.forEach(el => { if(el !== exceto && el.classList.contains('is-aberto')){ el.classList.remove('is-aberto'); el.querySelector('.sis-cb__bt').setAttribute('aria-expanded','false'); } });
+      }
+      combos.forEach(el => {
+        desenhar(el);
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if(e.target.closest('.sis-cb__bt')){
+            const abrir = !el.classList.contains('is-aberto');
+            fecharCombos(el); el.classList.toggle('is-aberto', abrir);
+            el.querySelector('.sis-cb__bt').setAttribute('aria-expanded', String(abrir));
+            sis.classList.add('combo-usado');
+            if(abrir){ el.querySelector('.sis-cb__busca').value = ''; desenhar(el); }
+            return;
+          }
+          const item = e.target.closest('li[role="option"]');
+          if(item){
+            const t = item.textContent;
+            el._sel = el._sel.includes(t) ? el._sel.filter(x => x !== t) : el._opc.filter(x => el._sel.includes(x) || x === t);
+            desenhar(el);
+          }
+        });
+        el.querySelector('.sis-cb__busca').addEventListener('input', () => desenhar(el));
+      });
+      document.addEventListener('click', () => fecharCombos());
+      function zerarCombos(){ fecharCombos(); combos.forEach(el => { el._sel = []; desenhar(el); }); }
+
+      /* Principal > Custos Indiretos Por Conta: totais por mês.
+         Parâmetros > Custos Indiretos - Por Conta: configuração (listagem de grupos). */
+      window.sisPrincipal = function(){
+        sis.dataset.tela = 'mensal';
+        if(sis.classList.contains('conta-aberta')) window.sisConta(true);
+        window.sisMenu(false);
+      };
+      window.sisManut = function(){
+        sis.dataset.tela = 'manut';
+        sis.classList.add('mes-usado');
+      };
+      window.sisListagem = function(){
+        sis.dataset.tela = 'lista';
+        window.sisMenu(false);
+      };
+      window.sisConta = function(){
+        if(sis.classList.contains('menu-aberto') && arguments[0] !== true) return;   /* com o menu aberto, o clique só fecha o menu */
+        const abrir = !sis.classList.contains('conta-aberta');
+        sis.classList.toggle('conta-aberta', abrir);
+        if(!abrir) fecharCombos();
+        sis.classList.add('conta-usada');
+        btc.setAttribute('aria-expanded', String(abrir));
+      };
+      sis.querySelector('.sis-tela').addEventListener('click', (e)=>{
+        if(!e.target.closest('.sis-hot--menu, .sis-hot--item, .sis-hot--param') && sis.classList.contains('menu-aberto')){ e.stopPropagation(); window.sisMenu(false); }
+      });
+      /* ao sair do slide, volta tudo ao início. Só reage à troca de slide:
+         classList.remove regrava o atributo e redispararia o observer em laço. */
+      let sisAtivo = sis.classList.contains('is-active');
+      new MutationObserver(()=>{
+        const ativo = sis.classList.contains('is-active');
+        if(ativo === sisAtivo) return;
+        sisAtivo = ativo;
+        if(!ativo){
+          ['menu-aberto','menu-usado','conta-aberta','conta-usada','combo-usado','mes-usado'].forEach(c => { if(sis.classList.contains(c)) sis.classList.remove(c); });
+          sis.dataset.tela = 'dash'; sis.querySelector('.sd-painel').scrollTop = 0;
+          bt.setAttribute('aria-expanded','false'); btc.setAttribute('aria-expanded','false'); zerarCombos();
+        }
+      }).observe(sis, {attributes:true, attributeFilter:['class']});
+    })();
 
     /* ---- Slide 19 (benefícios): destaque cruzado segmento / ícone / rótulo ---- */
     (function(){
@@ -3418,7 +3739,7 @@
       });
     }
     deck.addEventListener('click', (e)=>{
-      if(e.target.closest('.hotspot, button, a, .s7-item')) return;
+      if(e.target.closest('.hotspot, button, a, .s7-item, .sis-tela')) return;
       flashHints();
     });
 
