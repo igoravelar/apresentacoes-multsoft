@@ -168,8 +168,12 @@
        da altura do card — medido na composição original, não centrado no corpo. */
     position:absolute;left:0;right:0;top:0;height:55%;
     display:flex;align-items:center;
-    padding:0 4% 0 8.8%;
+    padding:0 3% 0 21.5%;
   }
+  /* ícone à esquerda do rótulo: SVG de traço com degradê vertical branco -> verde-claro */
+  .s2-card__ic{position:absolute;left:7.4%;top:50%;translate:0 -50%;width:5.6cqh;height:5.6cqh;
+    filter:drop-shadow(0 .15cqh .3cqh rgba(0,60,50,.22));}
+  .s2-card__body--2l .s2-card__ic{top:7.7cqh;}
   /* Rótulo em duas linhas: a 1ª linha fica onde fica o rótulo de uma linha
      (centro a 27,5% do card) e a 2ª desce abaixo dela. Faixa de 55% do card
      = 10,77cqh; linha de 3,61cqh x 1,18 = 4,26cqh; recuo (10,77-4,26)/2. */
@@ -2147,7 +2151,7 @@
 
       <!-- ===================== SLIDE 2 — Opções de Menu (elementos em HTML) ===================== -->
       <section class="slide s2" data-slide="2" data-screen-label="02" aria-label="Slide 2 — Opções de Menu">
-        <img class="slide__bg" src="assets/erp-senior/s2-fundo.webp?v=1" alt="" aria-hidden="true">
+        <img class="slide__bg" src="assets/erp-senior/s2-fundo-fazenda.webp?v=2" alt="" aria-hidden="true">
         <img class="s2-logo" src="assets/erp-senior/logo-mb-multsoft.webp?v=1" alt="MB | MultSoft" style="--d:.06s">
 
         <div class="s2-intro" style="--d:.20s">
@@ -2160,6 +2164,9 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h14M12 5l7 7-7 7"/></svg>
         </button>
 
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+          <linearGradient id="s2-ic-grad" gradientUnits="userSpaceOnUse" x1="0" y1="2" x2="0" y2="22"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#c9f2c2"/></linearGradient>
+        </defs></svg>
         <h2 class="s2-menu-tit" style="--d:.12s">
           <img src="assets/erp-senior/icone-menu.webp?v=1" alt="" aria-hidden="true">
           Opções de Menu:
@@ -2168,6 +2175,7 @@
         <button class="s2-card" type="button" style="top:14.38%;--d:0.22s" onclick="goToSlide(3)"
                 aria-label="Institucional" aria-describedby="s2-tip-1">
           <span class="s2-card__body">
+            <svg class="s2-card__ic" viewBox="0 0 24 24" fill="none" stroke="url(#s2-ic-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V8.5l6-2.5v15"/><path d="M11 21V3.5l8 3V21"/><path d="M7.5 11h1M7.5 14h1M7.5 17h1M13.5 8h.01M16.5 9h.01M13.5 11.5h.01M16.5 12h.01M13.5 15h.01M16.5 15h.01"/><path d="M14 21v-3h2v3"/></svg>
             <span class="s2-card__rot">Institucional</span>
           </span>
 
@@ -2176,6 +2184,7 @@
         <button class="s2-card" type="button" style="top:34.03%;--d:0.30s" onclick="goToSlide(7)"
                 aria-label="Jornada de Integração" aria-describedby="s2-tip-2">
           <span class="s2-card__body">
+            <svg class="s2-card__ic" viewBox="0 0 24 24" fill="none" stroke="url(#s2-ic-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 14.6a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.9 2.9l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.100-1.500 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.900-2.900l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.500-1.100 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.900-2.900l.1.1a1.7 1.7 0 0 0 1.9.3h.1a1.7 1.7 0 0 0 1-1.500V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.500 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.900 2.900l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.500 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.500 1z"/></svg>
             <span class="s2-card__rot">Jornada de Integração</span>
           </span>
 
@@ -2184,6 +2193,7 @@
         <button class="s2-card" type="button" style="top:55.07%;--d:0.38s" onclick="goToSlide(16)"
                 aria-label="Retornos Sobre Investimento (ROI)" aria-describedby="s2-tip-3">
           <span class="s2-card__body s2-card__body--2l">
+            <svg class="s2-card__ic" viewBox="0 0 24 24" fill="none" stroke="url(#s2-ic-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><rect x="4.500" y="14" width="3.200" height="7" rx=".4"/><rect x="10.400" y="10.500" width="3.200" height="10.500" rx=".4"/><rect x="16.300" y="12.500" width="3.200" height="8.500" rx=".4"/><path d="m4 10 5-4.500 3.500 2.700L19.500 2.500"/><path d="M15.800 2.500h3.700v3.700"/></svg>
             <span class="s2-card__rot">Retornos Sobre<br>Investimento (ROI)</span>
           </span>
 
@@ -2191,8 +2201,9 @@
         </button>
         <button class="s2-card" type="button" style="top:74.65%;--d:0.46s" onclick="goToSlide(19)"
                 aria-label="Benefícios Comprovados" aria-describedby="s2-tip-4">
-          <span class="s2-card__body">
-            <span class="s2-card__rot">Benefícios Comprovados</span>
+          <span class="s2-card__body s2-card__body--2l">
+            <svg class="s2-card__ic" viewBox="0 0 24 24" fill="none" stroke="url(#s2-ic-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6.200"/><circle cx="12" cy="9" r="3.200"/><path d="m8.300 14.200-1.800 7.300L12 18.800l5.500 2.700-1.800-7.300"/></svg>
+            <span class="s2-card__rot">Benefícios<br>Comprovados</span>
           </span>
 
           <span class="s2-tip" id="s2-tip-4" role="tooltip"><b>Ganhos medidos no setor</b><ul><li>Os 7 benefícios da integração, com percentuais e fontes: hedge, crédito, custo por arroba, abate, lotes, estoques e eficiência</li></ul></span>
