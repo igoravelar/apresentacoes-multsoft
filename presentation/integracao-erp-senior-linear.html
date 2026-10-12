@@ -1843,8 +1843,6 @@
   .sis-hot--mov{left:52.4%;top:36.5%;width:31.7%;height:2.5%;}
   .sis-hot--mov:hover{background:rgba(70,110,80,.12);}
   .sis .sis-dica--item.sis-dica--mov{top:36.3%;left:98%;}
-  .sis.menu-aberto.machos-usado .sis-dica--item:not(.sis-dica--mov){opacity:0;}
-  .sis.menu-aberto:not(.machos-usado) .sis-dica--mov,.sis.mov-usado .sis-dica--mov{opacity:0 !important;}
   .mv{position:absolute;inset:0;display:flex;flex-direction:column;background:#f7f8fa;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s;}
   .sis[data-tela="mov"] .mv{opacity:1;visibility:visible;transition:opacity .25s ease,visibility 0s;}
   .sis[data-tela="mov"] .sd{opacity:0;pointer-events:none;}
@@ -1894,13 +1892,49 @@
   .sis.menu-aberto:not(.sub-custos) .sis-menu{opacity:0 !important;visibility:hidden !important;pointer-events:none !important;}
   .sis-menu0{position:absolute;left:.82%;top:6.7%;width:14.19%;z-index:8;opacity:0;visibility:hidden;pointer-events:none;
     box-shadow:0 .6cqh 1.6cqh rgba(0,0,0,.25);transition:opacity .18s ease,visibility 0s linear .2s;}
-  .sis-menu0 img{display:block;width:100%;height:auto;}
-  .sis.menu-aberto:not(.sub-custos):not(.menu-estoque) .sis-menu0{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .18s ease,visibility 0s;}
-  .sis-menu0 .sis-hot--estoque{left:2%;top:14.4%;width:94%;height:3.2%;}
-  .sis-menu0 .sis-hot--custos{left:2%;top:64.6%;width:94%;height:3.2%;}
-  .sis .sis-dica--n1e,.sis .sis-dica--n1c{left:103%;}
-  .sis .sis-dica--n1e{top:14.2%;} .sis .sis-dica--n1c{top:64.4%;}
-  .sis :is(.sis-dica--n1e,.sis-dica--n1c)::before{left:auto;right:100%;bottom:auto;top:50%;translate:0 -50%;border-bottom-color:transparent;border-right-color:#f7923a;}
+  /* o 1º nível em HTML fica sempre à frente: com o submenu aberto, cobre a coluna da imagem */
+  .sis.menu-aberto .sis-menu0{opacity:1;visibility:visible;pointer-events:auto;z-index:9;transition:opacity .18s ease,visibility 0s;}
+  .sis.menu-aberto:is(.sub-custos,.menu-estoque) .sis-menu0{box-shadow:none;border-right:1px solid #cfd2d4;}
+  .sis.menu-estoque .sis-menu0{aspect-ratio:.3224;background:#dddddd;}
+  .sis.sub-custos .m0-sub[data-sub="custos"],.sis.menu-estoque .m0-sub[data-sub="estoque"]{color:#6a8062;}
+  .sis:is(.sub-custos,.menu-estoque) .sis-dica--n1{opacity:0;}
+  /* 2º nível em HTML: painel à direita da lista de módulos */
+  .sis-menu{aspect-ratio:1070/1250;}
+  .sis-menu2{aspect-ratio:1933/1467;box-shadow:none !important;}
+  .sis .m1,.sis .m1 *{font-family:Arial,Helvetica,sans-serif;}
+  .m1{position:absolute;top:0;bottom:0;right:0;background:#e1e1e1;box-shadow:0 .6cqh 1.6cqh rgba(0,0,0,.25);padding:1.1cqh 1.6cqh 1.4cqh 2cqh;}
+  .m1--custos{left:48.4%;right:auto;width:max-content;min-width:51.6%;padding-right:2.4cqh;}
+  .m1--custos li{white-space:nowrap;}
+  .m1--estoque{left:24.47%;display:grid;grid-template-columns:1.02fr 1.02fr 1fr;column-gap:2.4cqh;background:#dddddd;}
+  .m1-g + .m1-g{margin-top:.9cqh;padding-top:.9cqh;border-top:1px solid #cdd0d2;}
+  .m1 h4{margin:0 0 .5cqh;color:#6a8062;font-size:1.95cqh;font-weight:700;line-height:1.25;white-space:nowrap;}
+  .m1 ul{margin:0;padding:0;list-style:none;}
+  .m1 li{position:relative;width:fit-content;max-width:100%;padding:.42cqh 0;color:#6f7275;font-size:1.4cqh;line-height:1.2;cursor:default;}
+  .m1--estoque li{font-size:1.28cqh;padding:.33cqh 0;}
+  .m1--estoque h4{font-size:1.8cqh;}
+  .m1-link{border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left;}
+  .m1-link:hover,.m1-link:focus-visible{color:#566c4e;text-shadow:.04em 0 0 currentColor;outline:none;}
+  .sis .m1 li .sis-dica.sis-dica{left:calc(100% + 1.6cqh);top:50%;translate:0 -50%;font-family:var(--ms-fonte);}
+  /* balança de lado, sem sair da linha do item */
+  .sis.is-active .m1 li .sis-dica{animation:sisDicaX 1.6s ease-in-out infinite;}
+  @keyframes sisDicaX{50%{translate:.6cqh -50%;}}
+  .sis .m1 li .sis-dica.sis-dica::before{left:auto;right:100%;bottom:auto;top:50%;translate:0 -50%;border-bottom-color:transparent;border-right-color:#f7923a;}
+  /* 1º nível em HTML (mesmas medidas da tela do sistema: Arial negrito, fundo cinza) */
+  .sis-menu0{aspect-ratio:518/1250;background:#e1e1e1;}
+  .sis .sis-menu0,.sis .sis-menu0 *{font-family:Arial,Helvetica,sans-serif;}
+  .m0-busca{position:absolute;left:5.5%;right:6%;top:1.3cqh;height:3cqh;display:flex;align-items:center;padding:0 .7cqh;
+    background:#fff;border:1px solid #9aa0a4;color:#8b9094;font-size:1.2cqh;font-weight:700;white-space:nowrap;overflow:hidden;}
+  .m0-lista{position:absolute;left:0;right:0;top:5.25cqh;margin:0;padding:0;list-style:none;border-top:1px solid #cfd2d4;}
+  .m0-lista li{position:relative;height:2.71cqh;display:flex;align-items:center;padding:0 6% 0 6.6%;
+    color:#111;font-size:1.3cqh;font-weight:700;white-space:nowrap;cursor:default;}
+  /* só Estoque de Animais e Custos Pecuários têm submenu (seta) e reagem ao mouse */
+  .m0-lista li.m0-sub{cursor:pointer;outline:none;}
+  .m0-lista li.m0-sub::after{content:"";position:absolute;right:5%;top:50%;translate:0 -50%;
+    border-top:.42cqh solid transparent;border-bottom:.42cqh solid transparent;border-left:.5cqh solid #9a9d9f;}
+  .m0-lista li.m0-sub:is(:hover,:focus-visible){color:#6a8062;background:rgba(0,0,0,.035);}
+  .sis .sis-dica--n1{left:104%;top:50%;translate:0 -50%;font-weight:600;font-family:var(--ms-fonte);}
+  .sis .sis-dica--n1::before{left:auto;right:100%;bottom:auto;top:50%;translate:0 -50%;border-bottom-color:transparent;border-right-color:#f7923a;}
+  .sis.is-active .sis-dica--n1{animation:none;}
   .sis-hot--estoque{left:3%;top:14.4%;width:25%;height:3.2%;}
   .sis-hot--machos{left:26.6%;top:29.4%;width:6.6%;height:2.5%;}
   .sis-hot--custos{left:1.3%;top:47%;width:11%;height:2.6%;}
@@ -3161,31 +3195,16 @@
             </div>
           </div>
           <button class="sis-hot sis-hot--menu" type="button" aria-expanded="false" aria-controls="sis-menu" title="Abrir o menu do sistema" onclick="sisMenu()"></button>
-          <div class="sis-menu" id="sis-menu"><img src="assets/erp-senior/s14-menu.webp?v=3" alt="Menu do sistema aberto em Custos Pecuários: Principal (Cálculo mensal, Custos Indiretos por Conta, CPC 29), Relatórios e Consultas e Parâmetros."><svg viewBox="0 0 1070 1250" aria-hidden="true"><text x="563" y="781" font-family="Arial, Helvetica, sans-serif" font-size="27" fill="#77797c">Custos Indiretos - Por Animal</text></svg>
-            <button class="sis-hot sis-hot--estoque" type="button" title="Estoque de Animais" onclick="sisSubmenu('estoque')"></button>
-            <span class="sis-dica sis-dica--estoque" aria-hidden="true">Clique aqui</span>
-            <button class="sis-hot sis-hot--item" type="button" title="Custos Indiretos Por Conta" onclick="sisPrincipal()"></button>
-            <button class="sis-hot sis-hot--mov" type="button" title="Movimentação Contábil do Rebanho" onclick="sisMov()"></button>
-            <span class="sis-dica sis-dica--item sis-dica--mov" aria-hidden="true">Clique aqui</span>
-            <button class="sis-hot sis-hot--param" type="button" title="Custos Indiretos - Por Conta" onclick="sisListagem()"></button>
-            <span class="sis-dica sis-dica--item" aria-hidden="true">Clique aqui</span>
-            <span class="sis-dica sis-dica--item sis-dica--param" aria-hidden="true">Clique aqui</span>
-          </div>
+          <!-- 2º nível em HTML: Custos Pecuários -->
+          <div class="sis-menu" id="sis-menu"><div class="m1 m1--custos" role="menu" aria-label="Custos Pecuários"><div class="m1-g"><h4>Principal</h4><ul><li>Cálculo mensal</li><li><button type="button" class="m1-link" onclick="sisPrincipal()">Custos Indiretos Por Conta</button><span class="sis-dica sis-dica--item" aria-hidden="true">Clique aqui</span></li><li>CPC 29</li></ul></div><div class="m1-g"><h4>Relatórios e Consultas</h4><ul><li>Visualizar Custos Mensais</li><li>Visualizar Custos Mensais (TM)</li><li><button type="button" class="m1-link" onclick="sisMov()">Movimentação Contábil do Rebanho</button><span class="sis-dica sis-dica--item sis-dica--mov" aria-hidden="true">Clique aqui</span></li><li>Consumo Nutricional por Animal / Dia</li><li>Auditoria de Custos</li></ul></div><div class="m1-g"><h4>Parâmetros</h4><ul><li><button type="button" class="m1-link" onclick="sisListagem()">Custos Indiretos - Por Conta</button><span class="sis-dica sis-dica--item sis-dica--param" aria-hidden="true">Clique aqui</span></li><li>Custos Indiretos - Por Animal</li><li>Conta</li><li>Grupo de Conta</li><li>Configurações</li><li>Carga Inicial</li></ul></div></div></div>
           <!-- menu fechado no 1º nível: só a lista de módulos; passar o mouse (ou clicar)
                em Estoque de Animais ou Custos Pecuários abre o 2º nível -->
-          <div class="sis-menu0" id="sis-menu0">
-            <img src="assets/erp-senior/s14-menu-nivel1.webp?v=1" alt="Menu do sistema: lista de módulos (Gerenciamento de Tarefas, Estoque de Animais, Reprodução, ... Custos Pecuários, Integração ERP, ...).">
-            <button class="sis-hot sis-hot--estoque" type="button" title="Estoque de Animais" onclick="sisSubmenu('estoque')"></button>
-            <button class="sis-hot sis-hot--custos" type="button" title="Custos Pecuários" onclick="sisSubmenu('custos')"></button>
-            <span class="sis-dica sis-dica--n1e" aria-hidden="true">Veja aqui</span>
-            <span class="sis-dica sis-dica--n1c" aria-hidden="true">Veja aqui</span>
+          <div class="sis-menu0" id="sis-menu0" role="menu" aria-label="Menu do sistema">
+            <span class="m0-busca">Digite uma funcionalidade</span>
+            <ul class="m0-lista"><li role="menuitem">Gerenciamento de Tarefas</li><li class="m0-sub" data-sub="estoque" tabindex="0" role="menuitem" aria-haspopup="true">Estoque de Animais<span class="sis-dica sis-dica--n1" aria-hidden="true">Veja aqui</span></li><li role="menuitem">Reprodução</li><li role="menuitem">Controle Ponderal</li><li role="menuitem">Zoossanitário</li><li role="menuitem">Taxa de Lotação e Tratos</li><li role="menuitem">Melhoramento Genético</li><li role="menuitem">FIV</li><li role="menuitem">Confinamento</li><li role="menuitem">Planejamento de Vendas</li><li role="menuitem">Financeiro</li><li role="menuitem">Estoque de Materiais</li><li class="m0-sub" data-sub="custos" tabindex="0" role="menuitem" aria-haspopup="true">Custos Pecuários<span class="sis-dica sis-dica--n1" aria-hidden="true">Veja aqui</span></li><li role="menuitem">Integração ERP</li><li role="menuitem">Tabelas Básicas</li><li role="menuitem">Administração</li><li role="menuitem">Curral</li><li role="menuitem">Integração ERP – Gairova</li><li role="menuitem">SISBOV</li></ul>
           </div>
-          <div class="sis-menu2" id="sis-menu2">
-            <img src="assets/erp-senior/s14-menu-estoque.webp?v=1" alt="Menu do sistema em Estoque de Animais: Principal (Entrada de Animais, Fêmeas, Machos, Vendas, Mortes e movimentações), Relatórios e Consultas, Exportação, Tabelas e Parâmetros.">
-            <button class="sis-hot sis-hot--machos" type="button" title="Machos" onclick="sisMachos()"></button>
-            <button class="sis-hot sis-hot--custos" type="button" title="Custos Pecuários" onclick="sisSubmenu('custos')"></button>
-            <span class="sis-dica sis-dica--machos" aria-hidden="true">Clique aqui</span>
-          </div>
+          <!-- 2º nível em HTML: Estoque de Animais -->
+          <div class="sis-menu2" id="sis-menu2"><div class="m1 m1--estoque" role="menu" aria-label="Estoque de Animais"><div class="m1-col"><div class="m1-g"><h4>Principal</h4><ul><li>Entrada de Animais</li><li>Entrada de Brinco Eletrônico</li><li>Cancelar Brinco Eletrônico</li><li>Entrada de Brinco Usual</li><li>Cancelar Brinco Usual</li><li>Recepção de Animais</li><li>Fêmeas</li><li><button type="button" class="m1-link" onclick="sisMachos()">Machos</button><span class="sis-dica sis-dica--machos" aria-hidden="true">Clique aqui</span></li><li>Vendas de Animais</li><li>Mortes</li><li>Movimentação entre Pastos</li><li>Movimentação entre Propriedades (Saída)</li><li>Movimentação entre Propriedades (Entrada)</li><li>Movimentação entre Lotes Avaliação</li><li>Movimentação entre Lotes Reprodutivos</li><li>Movimentação entre Lote Alimentar</li><li>Movimentação entre Lotes Finalidade</li><li>Movimentação entre Lotes Genéticos</li><li>Inventário de Animais</li><li>Cálculo Taxa de Lotação</li><li>Descarte de Reprodutores</li><li>Importação de Animais</li><li>Outras Saídas e Movimentações</li><li>Touro Múltiplo</li><li>Alteração de Animais em Grupo</li><li>Importação de Animais pós Abate</li></ul></div></div><div class="m1-col"><div class="m1-g"><h4>Relatórios e Consultas</h4><ul><li>Demonstrativo de Movimentação de Gado</li><li>Estoque por Categoria</li><li>Estoque Por Categoria e Segmentos</li><li>Estoque Por Categoria e Custos</li><li>Estoque por categoria analítico</li><li>Estoque por fazendas</li><li>Relatório de Processamento de Animais</li><li>Análise de Resultado de Vendas</li><li>Saída por Animal</li><li>Vendas por Lote</li><li>Compra de Animais</li><li>Entrada de Animais</li><li>Transferência de Animais</li><li>Produção e Custos por Animal</li><li>Animais com Advertência</li></ul></div></div><div class="m1-col"><div class="m1-g"><h4>Exportação</h4><ul><li>Gerador de Relatórios</li><li>Animais para Multbovinos Desktop</li><li>Exportar Dados dos Animais</li></ul></div><div class="m1-g"><h4>Tabelas e Parâmetros</h4><ul><li>Localidades e Embarques</li><li>Setor</li><li>Cocho Compartilhado</li><li>Lote Alimentar</li><li>Lotes de Avaliação</li><li>Lote Reprodutivo</li><li>Lote Finalidade</li><li>Lote Genético</li><li>Categorias</li><li>Raças</li><li>Grau de Sangue</li><li>Pelagens</li><li>Rebanho</li><li>Categorias GTA</li><li>Animal Genealogia</li><li>Motivo Descarte Reprodutores</li><li>Tipo de Morte</li><li>Tipo de Pastagem</li><li>Tipos de Vendas / Descartes</li><li>Condições de Venda</li><li>Unificar Dados</li><li>Configurações</li></ul></div></div></div></div>
           <span class="sis-dica sis-dica--menu" aria-hidden="true">Clique aqui</span>
         </div>
 
@@ -3747,6 +3766,9 @@
         if(sis.classList.contains('sub-custos') !== (qual === 'custos')) sis.classList.toggle('sub-custos', qual === 'custos');
       };
       /* passar o mouse sobre Estoque de Animais / Custos Pecuários também abre o 2º nível */
+      sis.querySelectorAll('.m0-sub').forEach(li => ['mouseenter','click','focus'].forEach(ev => li.addEventListener(ev, () => {
+        if(sis.classList.contains('menu-aberto')) window.sisSubmenu(li.dataset.sub);
+      })));
       sis.querySelectorAll('.sis-hot--estoque, .sis-hot--custos').forEach(b => b.addEventListener('mouseenter', () => {
         if(sis.classList.contains('menu-aberto')) window.sisSubmenu(b.classList.contains('sis-hot--estoque') ? 'estoque' : 'custos');
       }));
@@ -3798,7 +3820,7 @@
         btc.setAttribute('aria-expanded', String(abrir));
       };
       sis.querySelector('.sis-tela').addEventListener('click', (e)=>{
-        if(!e.target.closest('.sis-hot--menu, .sis-hot--item, .sis-hot--param, .sis-hot--estoque, .sis-hot--machos, .sis-hot--custos, .sis-hot--mov') && sis.classList.contains('menu-aberto')){ e.stopPropagation(); window.sisMenu(false); }
+        if(!e.target.closest('.sis-hot--menu, .sis-hot--item, .sis-hot--param, .sis-hot--estoque, .sis-hot--machos, .sis-hot--custos, .sis-hot--mov, .sis-menu0, .sis-menu, .sis-menu2') && sis.classList.contains('menu-aberto')){ e.stopPropagation(); window.sisMenu(false); }
       });
       /* ao sair do slide, volta tudo ao início. Só reage à troca de slide:
          classList.remove regrava o atributo e redispararia o observer em laço. */
