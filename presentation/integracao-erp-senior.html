@@ -274,10 +274,47 @@
     display:flex;gap:.72cqw;
   }
   .s3-bandeiras li{
-    width:2.39cqw;height:4.14cqh;border-radius:.75cqh;overflow:hidden;
+    position:relative;width:2.39cqw;height:4.14cqh;
+  }
+  .s3-bandeiras svg{
+    display:block;width:100%;height:100%;border-radius:.75cqh;overflow:hidden;
     box-shadow:0 .15cqh .35cqh rgba(0,0,0,.22);
   }
-  .s3-bandeiras svg{display:block;width:100%;height:100%;}
+  /* ---- Hover das bandeiras: a bandeira cresce rápido e volta devagar, como os
+     logos de clientes; vizinhas crescem um pouco. O balão com o nome do país
+     fica no <li>, fora da escala, para não crescer junto; abre para baixo, no vão
+     entre as bandeiras e os botões, para não cobrir o texto acima. ---- */
+  .s3 .s3-bandeiras svg{
+    transition:transform .8s cubic-bezier(.25,.7,.3,1),box-shadow .8s ease;
+  }
+  .s3 .s3-bandeiras li{transition:opacity .5s ease var(--d,0s),translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s),
+    scale .58s cubic-bezier(.22,.78,.28,1) var(--d,0s),z-index 0s linear .8s;}
+  .s3.is-active .s3-bandeiras li:hover{z-index:3;transition-delay:0s,0s,0s,0s;}
+  .s3.is-active .s3-bandeiras li:hover svg{
+    transform:scale(1.5);box-shadow:0 .8cqh 1.8cqh rgba(0,60,70,.3);
+    transition:transform .18s cubic-bezier(.2,.8,.3,1),box-shadow .18s ease;
+  }
+  .s3.is-active .s3-bandeiras li:hover + li{z-index:2;transition-delay:0s,0s,0s,0s;}
+  .s3.is-active .s3-bandeiras li:has(+ li:hover){z-index:2;transition-delay:0s,0s,0s,0s;}
+  .s3.is-active .s3-bandeiras li:hover + li svg,
+  .s3.is-active .s3-bandeiras li:has(+ li:hover) svg{
+    transform:scale(1.15);box-shadow:0 .4cqh .9cqh rgba(0,60,70,.2);
+    transition:transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s ease;
+  }
+  .s3-bandeiras li::after{
+    content:attr(data-pais);position:absolute;left:50%;top:calc(100% + 1.25cqh);translate:-50% -.6cqh;
+    background:#0a6f79;color:#fff;font-size:1.5cqh;font-weight:600;letter-spacing:-.01em;line-height:1;
+    padding:.55cqh .9cqw;border-radius:.6cqh;white-space:nowrap;
+    box-shadow:0 .3cqh .8cqh rgba(0,40,50,.25);
+    opacity:0;pointer-events:none;transition:opacity .2s ease,translate .2s ease;
+  }
+  .s3-bandeiras li::before{
+    content:"";position:absolute;left:50%;top:calc(100% + .6cqh);translate:-50% -.6cqh;
+    border:.65cqh solid transparent;border-bottom-color:#0a6f79;border-top:0;
+    opacity:0;pointer-events:none;transition:opacity .2s ease,translate .2s ease;
+  }
+  .s3.is-active .s3-bandeiras li:hover::after,
+  .s3.is-active .s3-bandeiras li:hover::before{opacity:1;translate:-50% 0;}
 
   .s3-logo{left:83.07%;top:90.8%;width:7%;}
 
@@ -300,6 +337,7 @@
     .s3 :is(.s3-faixa,.s3-selo,.s3-chamada,.s3-texto,.s3-bandeiras li){
       transition:none;opacity:1;translate:none;scale:none;
     }
+    .s3 .s3-bandeiras svg,.s3 .s3-bandeiras li::after,.s3 .s3-bandeiras li::before{transition:none;}
   }
 
 
@@ -2219,19 +2257,19 @@
         <p class="s3-texto" style="top:74.56%;--d:.32s">Presente em todo Brasil e em outros 9 países.</p>
 
         <ul class="s3-bandeiras" aria-label="Brasil, Estados Unidos, Austrália, Argentina, Colômbia, Paraguai, Bolívia, Uruguai, Gana e Zâmbia">
-          <li style="--d:0.40s" title="Brasil"><svg viewBox="0 0 40 38" aria-hidden="true">
+          <li style="--d:0.40s" data-pais="Brasil"><svg viewBox="0 0 40 38" aria-hidden="true">
             <rect width="40" height="38" fill="#229e45"/>
             <polygon points="20,5 36,19 20,33 4,19" fill="#f8d90f"/>
             <circle cx="20" cy="19" r="7.4" fill="#2b49a3"/>
             <path d="M13 17.2c4.6-1.2 9.6-.2 13.8 2.6" fill="none" stroke="#fff" stroke-width="1.1"/>
           </svg></li>
-          <li style="--d:0.44s" title="Estados Unidos"><svg viewBox="0 0 40 38" aria-hidden="true">
+          <li style="--d:0.44s" data-pais="Estados Unidos"><svg viewBox="0 0 40 38" aria-hidden="true">
             <rect width="40" height="38" fill="#fff"/>
             <path d="M0 2.9h40M0 8.8h40M0 14.6h40M0 20.5h40M0 26.3h40M0 32.1h40" stroke="#b22234" stroke-width="2.92"/>
             <rect width="18" height="20.46" fill="#3c3b6e"/>
             <rect width="18" height="20.46" fill="url(#s3-eua-estrelas)"/>
           </svg></li>
-          <li style="--d:0.48s" title="Austrália"><svg viewBox="0 0 40 38" aria-hidden="true">
+          <li style="--d:0.48s" data-pais="Austrália"><svg viewBox="0 0 40 38" aria-hidden="true">
             <rect width="40" height="38" fill="#012169"/>
             <g clip-path="url(#s3-uk-clip)">
               <path d="M0 0 20 19M20 0 0 19" stroke="#fff" stroke-width="3.6"/>
@@ -2248,45 +2286,45 @@
               <use href="#s3-estrela" transform="translate(32.2 20.5) scale(1.5)"/>
             </g>
           </svg></li>
-          <li style="--d:0.52s" title="Argentina"><svg viewBox="0 0 40 38" aria-hidden="true">
+          <li style="--d:0.52s" data-pais="Argentina"><svg viewBox="0 0 40 38" aria-hidden="true">
             <rect width="40" height="38" fill="#74acdf"/>
             <rect y="12.7" width="40" height="12.6" fill="#fff"/>
             <circle cx="20" cy="19" r="3.6" fill="#f6b40e"/>
             <circle cx="20" cy="19" r="4.9" fill="none" stroke="#f6b40e" stroke-width=".9" stroke-dasharray="1 1.4"/>
           </svg></li>
-          <li style="--d:0.56s" title="Colômbia"><svg viewBox="0 0 40 38" aria-hidden="true">
+          <li style="--d:0.56s" data-pais="Colômbia"><svg viewBox="0 0 40 38" aria-hidden="true">
             <rect width="40" height="38" fill="#fcd116"/>
             <rect y="19" width="40" height="9.5" fill="#003893"/>
             <rect y="28.5" width="40" height="9.5" fill="#ce1126"/>
           </svg></li>
-          <li style="--d:0.60s" title="Paraguai"><svg viewBox="0 0 40 38" aria-hidden="true">
+          <li style="--d:0.60s" data-pais="Paraguai"><svg viewBox="0 0 40 38" aria-hidden="true">
             <rect width="40" height="38" fill="#fff"/>
             <rect width="40" height="12.7" fill="#d52b1e"/>
             <rect y="25.3" width="40" height="12.7" fill="#0038a8"/>
             <circle cx="20" cy="19" r="3.4" fill="none" stroke="#0038a8" stroke-width="1"/>
             <circle cx="20" cy="19" r="1.3" fill="#e8b000"/>
           </svg></li>
-          <li style="--d:0.64s" title="Bolívia"><svg viewBox="0 0 40 38" aria-hidden="true">
+          <li style="--d:0.64s" data-pais="Bolívia"><svg viewBox="0 0 40 38" aria-hidden="true">
             <rect width="40" height="38" fill="#f9e300"/>
             <rect width="40" height="12.7" fill="#d52b1e"/>
             <rect y="25.3" width="40" height="12.7" fill="#007934"/>
             <circle cx="20" cy="19" r="3.3" fill="#c8801a"/>
             <circle cx="20" cy="18.4" r="1.5" fill="#d52b1e"/>
           </svg></li>
-          <li style="--d:0.68s" title="Uruguai"><svg viewBox="0 0 40 38" aria-hidden="true">
+          <li style="--d:0.68s" data-pais="Uruguai"><svg viewBox="0 0 40 38" aria-hidden="true">
             <rect width="40" height="38" fill="#fff"/>
             <path d="M0 6.3h40M0 14.8h40M0 23.2h40M0 31.7h40" stroke="#0038a8" stroke-width="4.2"/>
             <rect width="16" height="21" fill="#fff"/>
             <circle cx="8" cy="10.5" r="4" fill="#fcd116"/>
             <circle cx="8" cy="10.5" r="5.6" fill="none" stroke="#fcd116" stroke-width="1" stroke-dasharray="1.1 1.6"/>
           </svg></li>
-          <li style="--d:0.72s" title="Gana"><svg viewBox="0 0 40 38" aria-hidden="true">
+          <li style="--d:0.72s" data-pais="Gana"><svg viewBox="0 0 40 38" aria-hidden="true">
             <rect width="40" height="38" fill="#fcd116"/>
             <rect width="40" height="12.7" fill="#ce1126"/>
             <rect y="25.3" width="40" height="12.7" fill="#006b3f"/>
             <use href="#s3-estrela" fill="#000" transform="translate(20 19.4) scale(5.6)"/>
           </svg></li>
-          <li style="--d:0.76s" title="Zâmbia"><svg viewBox="0 0 40 38" aria-hidden="true">
+          <li style="--d:0.76s" data-pais="Zâmbia"><svg viewBox="0 0 40 38" aria-hidden="true">
             <rect width="40" height="38" fill="#198a00"/>
             <rect x="25" y="17" width="5" height="21" fill="#de2010"/>
             <rect x="30" y="17" width="5" height="21" fill="#000"/>
