@@ -810,6 +810,67 @@
     .s7 .s7-wifi :is(.a1,.a2,.a3){animation:none;opacity:1;}
   }
 
+  /* ================= CONECTIVIDADE (2 slides) =================
+     Fundo com a faixa verde do cabeçalho (10,21% da altura); botões de navegação
+     no canto superior direito da faixa. Posições medidas por pixel nas páginas
+     22 e 23 do PDF de Confinamento (2560x1440). */
+  .cn *{font-family:var(--ms-fonte);}
+  .cn-topo{
+    position:absolute;left:1.1%;top:0;height:10.21%;margin:0;
+    display:flex;align-items:center;gap:1.5cqw;
+    color:#fff;font-size:4.3cqh;font-weight:600;letter-spacing:-.03em;white-space:nowrap;
+  }
+  .cn-topo img{height:7.4cqh;width:auto;display:block;filter:drop-shadow(0 .3cqh .5cqh rgba(0,0,0,.25));}
+  .cn-titulo{
+    position:absolute;left:4.1%;top:15.53%;margin:0;
+    color:#0f8a95;font-size:5.45cqh;font-weight:800;line-height:1;letter-spacing:-.04em;white-space:nowrap;
+  }
+  .cn-sub{
+    position:absolute;left:3.95%;top:25.87%;margin:0;
+    color:#3f5f40;font-size:4.5cqh;font-weight:700;line-height:1.13;letter-spacing:-.03em;white-space:nowrap;
+  }
+  .cn-rotulo{
+    position:absolute;top:46.29%;margin:0;
+    color:#3f5f40;font-size:3.75cqh;font-weight:700;line-height:1;letter-spacing:-.03em;white-space:nowrap;
+  }
+  .cn-lista{position:absolute;margin:0;padding:0;list-style:none;}
+  .cn-lista li{
+    position:relative;padding-left:9.2cqw;
+    color:#4a5f4c;font-size:3.66cqh;font-weight:500;line-height:1.53;letter-spacing:-.02em;white-space:nowrap;
+  }
+  /* pílula teal à esquerda só do primeiro item de cada bloco (como no original) */
+  .cn-lista li.cn-pil::before{
+    content:"";position:absolute;left:0;top:.78em;width:5.43cqw;height:3.54cqh;border-radius:999px;background:#17b1c3;
+  }
+  .cn-foto{
+    position:absolute;overflow:hidden;display:block;
+    border-left:.9cqw solid #7cc176;box-sizing:border-box;
+  }
+  .cn-foto img{display:block;width:100%;height:100%;object-fit:cover;}
+  /* as fotos começam no topo e passam por trás da faixa do cabeçalho (recorte com alfa da faixa, z-index acima) */
+  .cn-foto--1{left:62%;top:0;width:38%;height:50.14%;border-bottom-left-radius:4.5cqw;z-index:1;}
+  .cn-foto--2{left:70.31%;top:0;width:29.69%;height:100%;z-index:1;}
+  .cn-faixa{position:absolute;left:0;top:0;width:100%;height:13.2%;display:block;z-index:2;pointer-events:none;}
+  .cn-topo{z-index:3;}
+  .cn .ms-nav{z-index:4;}
+  .cn-bt{position:absolute;left:64.34%;top:27.71%;width:3.63%;height:auto;display:block;}
+  .cn-aparelhos{position:absolute;left:52.5%;top:35%;height:63%;width:auto;display:block;z-index:1;
+    filter:drop-shadow(0 1.2cqh 2cqh rgba(0,30,40,.28));}
+  .cn-logo{left:86.07%;top:93.85%;width:11.96%;}
+
+  /* ---- Entrada: cabeçalho desce, textos pela esquerda, foto pela direita, itens em cascata ---- */
+  .cn-topo,.cn-titulo,.cn-sub,.cn-rotulo,.cn-lista li,.cn-foto,.cn-bt,.cn-aparelhos{
+    transition:opacity .5s ease var(--d,0s),translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s);
+  }
+  .cn:not(.is-active) .cn-topo{opacity:0;translate:0 -40%;}
+  .cn:not(.is-active) :is(.cn-titulo,.cn-sub,.cn-rotulo,.cn-lista li){opacity:0;translate:-6% 0;}
+  .cn:not(.is-active) :is(.cn-foto,.cn-bt){opacity:0;translate:10% 0;}
+  .cn:not(.is-active) .cn-aparelhos{opacity:0;translate:0 12%;}
+  .cn.is-active :is(.cn-topo,.cn-titulo,.cn-sub,.cn-rotulo,.cn-lista li,.cn-foto,.cn-bt,.cn-aparelhos){opacity:1;translate:none;}
+  @media (prefers-reduced-motion:reduce){
+    .cn :is(.cn-topo,.cn-titulo,.cn-sub,.cn-rotulo,.cn-lista li,.cn-foto,.cn-bt,.cn-aparelhos){transition:none;opacity:1;translate:none;}
+  }
+
   /* ---- Footer / top-right nav hotspots ---- */
   .foot-hot{
     border-radius:999px;
@@ -1939,21 +2000,73 @@
         <button class="hotspot foot-hot" type="button" title="Menu principal" aria-label="Menu principal" style="left:50.46%;top:46.28%;width:5.40%;height:6.96%;" onclick="goToSlide(2)"></button>
       </section>
 
-      <!-- ===================== SLIDE 54 — Conectividade: encaixe as peças da sua operação ===================== -->
-      <section class="slide" data-slide="54" data-screen-label="54" aria-label="Slide 54 — Conectividade: encaixe as peças da sua operação">
-        <img class="slide__bg" src="assets/reproducao/slide-54-bg.webp?v=5" alt="Conectividade — Encaixe as peças da sua operação! Temos tecnologias para integrar com outras ferramentas e automatizar processos. Máquinas e Equipamentos: Balança Eletrônica, Leitores de RFID, Leitores de Códigos de Barras, Bombas de Combustíveis, Máquinas Agrícolas e Automação de Tratos. Sistemas: ABCZ; ERPs Datasul, Protheus e outros; PMG ANCP, PAINT, Qualitas, Brazil com Z, Gensys, CIA, Promebo e outros.">
-        <!-- Cabeçalho: posições medidas no master -->
-        <button class="hotspot foot-hot" type="button" title="Voltar ao menu principal" aria-label="Voltar ao menu principal" style="left:78.52%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(2)"></button>
-        <button class="hotspot foot-hot" type="button" title="Menu principal" aria-label="Menu principal" style="left:84.86%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(2)"></button>
-        <button class="hotspot foot-hot" type="button" title="Próximo slide" aria-label="Próximo slide" style="left:91.26%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(55)"></button>
+      <!-- ===================== SLIDE 54 — Conectividade: encaixe as peças (elementos em HTML) ===================== -->
+      <section class="slide cn" data-slide="54" data-screen-label="54" aria-label="Slide 54 — Conectividade: encaixe as peças da sua operação">
+        <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
+        <img class="cn-faixa" src="assets/erp-senior/faixa-topo.webp?v=1" alt="" aria-hidden="true">
+        <h2 class="cn-topo" style="--d:.04s"><img src="assets/erp-senior/icone-mb.webp?v=1" alt="" aria-hidden="true"><span>Conectividade</span></h2>
+        <h3 class="cn-titulo" style="--d:.10s">Encaixe as peças da sua operação!</h3>
+        <p class="cn-sub" style="--d:.16s">Temos tecnologias para integrar com outras<br>ferramentas e automatizar processos.</p>
+        <figure class="cn-foto cn-foto--1" style="--d:.14s"><img src="assets/confinamento/s23-foto.webp?v=2" alt="Operador com notebook no curral fazendo a leitura eletrônica de um boi nelore no tronco de contenção"></figure>
+
+        <p class="cn-rotulo" style="left:4.1%;--d:.24s">Máquinas e Equipamentos:</p>
+        <ul class="cn-lista" style="left:4.1%;top:53.73%" aria-label="Máquinas e equipamentos">
+          <li class="cn-pil" style="--d:0.30s">Balança Eletrônica</li>
+          <li style="--d:0.35s">Leitores de RFID</li>
+          <li style="--d:0.40s">Leitores de Códigos de Barras</li>
+          <li style="--d:0.45s">Bombas de Combustíveis</li>
+          <li style="--d:0.50s">Máquinas Agrícolas</li>
+          <li style="--d:0.55s">Automação de Tratos</li>
+        </ul>
+        <p class="cn-rotulo" style="left:50.59%;--d:.28s">Sistemas:</p>
+        <ul class="cn-lista cn-lista--2" style="left:50.16%;top:54.01%" aria-label="Sistemas">
+          <li class="cn-pil" style="--d:0.34s">ABCZ</li>
+          <li style="--d:0.39s">ERPs: Senior, Totvs (Protheus e RM),</li>
+          <li style="--d:0.44s">DataSul, SAP, Sankhya, Atak,</li>
+          <li style="--d:0.49s">MyFarm e outros</li>
+          <li style="--d:0.54s">PMG: ANCP, PAINT, Qualitas, Brazil</li>
+          <li style="--d:0.59s">com Z, Gensys, CIA, Promebo e</li>
+          <li style="--d:0.64s">outros.</li>
+        </ul>
+
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:77.7%;--d:0.44s" onclick="goToSlide(2)" aria-label="Voltar" title="Voltar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:0.5s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:0.56s" onclick="goToSlide(55)" aria-label="Avançar" title="Avançar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M15 4l6 6-6 6"/></svg>
+        </button>
+        <img class="ms-logo cn-logo" src="assets/erp-senior/logo-mb-multsoft-h.webp?v=1" alt="MB | MultSoft" style="--d:.62s">
       </section>
 
-      <!-- ===================== SLIDE 55 — Conectividade: Identificação Eletrônica ===================== -->
-      <section class="slide" data-slide="55" data-screen-label="55" aria-label="Slide 55 — Conectividade: Identificação Eletrônica">
-        <img class="slide__bg" src="assets/reproducao/slide-55-bg.webp?v=5" alt="Conectividade — Trabalhe com Identificação Eletrônica. Assim, você coleta mais dados, mais rápido e sem erros: integração com as principais soluções de Identificação Eletrônica Animal do mercado; conexão via Bluetooth; simultaneamente ou separadamente. Ao lado, bastões leitores e indicador de pesagem, e um bovino com brinco eletrônico na orelha.">
-        <!-- Cabeçalho: posições medidas no master -->
-        <button class="hotspot foot-hot" type="button" title="Slide anterior" aria-label="Slide anterior" style="left:84.86%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(54)"></button>
-        <button class="hotspot foot-hot" type="button" title="Menu principal" aria-label="Menu principal" style="left:91.26%;top:1.7%;width:5.5%;height:6.8%;" onclick="goToSlide(2)"></button>
+      <!-- ===================== SLIDE 55 — Conectividade: Identificação Eletrônica (elementos em HTML) ===================== -->
+      <section class="slide cn" data-slide="55" data-screen-label="55" aria-label="Slide 55 — Conectividade: Identificação Eletrônica">
+        <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
+        <img class="cn-faixa" src="assets/erp-senior/faixa-topo.webp?v=1" alt="" aria-hidden="true">
+        <h2 class="cn-topo" style="--d:.04s"><img src="assets/erp-senior/icone-mb.webp?v=1" alt="" aria-hidden="true"><span>Conectividade</span></h2>
+        <h3 class="cn-titulo" style="--d:.10s">Trabalhe com Identificação Eletrônica</h3>
+        <p class="cn-sub" style="--d:.16s">Assim, você coleta mais dados,<br>mais rápido e sem erros.</p>
+        <figure class="cn-foto cn-foto--2" style="--d:.14s"><img src="assets/confinamento/s24-foto.webp?v=1" alt="Boi nelore branco no tronco de contenção, com brinco eletrônico na orelha"></figure>
+        <svg class="cn-bt" viewBox="0 0 48 56" aria-label="Bluetooth" style="--d:.30s"><rect width="48" height="56" rx="8" fill="#1a4fd6"/><path d="M14 18l20 20-10 10V8l10 10-20 20" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <img class="cn-aparelhos" src="assets/confinamento/s24-aparelhos.webp?v=1" alt="Bastão leitor de brincos eletrônicos e indicador de pesagem portátil" style="--d:.34s">
+
+        <ul class="cn-lista" style="left:4.1%;top:41.78%" aria-label="Identificação eletrônica">
+          <li class="cn-pil" style="--d:.24s">Integração com principais soluções</li>
+          <li style="--d:.27s">de Identificação Eletrônica Animal</li>
+          <li style="--d:.30s">do mercado;</li>
+          <li class="cn-pil" style="margin-top:1.1em;--d:.34s">Conexão via Bluetooth;</li>
+          <li class="cn-pil" style="margin-top:1.1em;--d:.38s">Simultaneamente ou</li>
+          <li style="--d:.41s">separadamente.</li>
+        </ul>
+
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:84.0%;--d:0.44s" onclick="goToSlide(54)" aria-label="Voltar" title="Voltar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:0.5s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
+        </button>
       </section>
 
       <!-- ===================== SLIDE 56 — Transição de seção (tela preta) ===================== -->

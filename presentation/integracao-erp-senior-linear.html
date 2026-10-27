@@ -393,8 +393,7 @@
 
   /* ================= SLIDE 5 — Gestão Precisa e Descomplicada =================
      Posições medidas no slide 5 do PPTX (fundo 1920x1080 + caixas do XML).
-     No PPTX, uma caixa de texto acrescenta "/ Senior" à lista de ERPs da
-     roda; aqui ele é texto sobre a roda. Logos e apps ocupam a faixa
+     Logos e apps ocupam a faixa
      de 48,5% a 82% da altura, posição ajustada a pedido. */
   .s5{background:#fff;}
   .s5 *{font-family:var(--ms-fonte);}
@@ -424,19 +423,9 @@
   }
   .s5-apps img{display:block;width:auto;}
 
-  /* A roda leva junto o "/ Senior", que gira e entra com ela */
-  .s5-roda{position:absolute;left:46.82%;top:3.98%;width:50.42%;aspect-ratio:968/971;}
+  /* A roda (mandala atualizada em 2026-10-27, já com Senior na lista de ERPs) */
+  .s5-roda{position:absolute;left:46.82%;top:3.98%;width:50.42%;aspect-ratio:1/1;}
   .s5-roda img{display:block;width:100%;height:100%;}
-  .s5-senior{
-    /* caixa do PPTX: 9,09% x 4,19% do slide, girada 46,69° no centro;
-       recuo interno padrão do PowerPoint (0,1" x 0,05") */
-    position:absolute;left:24.88%;top:82.6%;width:18.03%;height:4.19cqh;
-    translate:-50% -50%;rotate:46.69deg;
-    padding:.89cqh 1cqw;box-sizing:border-box;
-    color:#fff;font-size:1.85cqh;font-weight:700;line-height:1.22;
-    letter-spacing:0;white-space:nowrap;
-  }
-
   .s5-logo{left:86.04%;top:93.95%;width:11.95%;}
 
   /* ---- Entrada: textos pela esquerda, logos sobem, a roda gira até o lugar ---- */
@@ -2402,8 +2391,7 @@
         </ul>
 
         <div class="s5-roda" style="--d:.12s">
-          <img src="assets/erp-senior/s5-roda.webp?v=1" alt="Roda de soluções MultSoft. Plataforma MultBovinos: Reprodução (IA, MC, TE, FIV), Recria e Engorda (controle de pastagens e gestão nutricional), Confinamento (automação de fabricação e fornecimento de tratos), Elite + PMG (ABCZ, PMGZ, Cia Paint, Gensys, Deltagen e outros), Adm (financeiro, LCDPR, ativo fixo); rastreabilidade e custo pecuário. MultAgrícola: Adm Agrícola (planejamento e custo de produção). Integração com ERP: Totvs (Protheus e RM), DataSul, SAP, Sankhya, Senior e outros. Integração com equipamentos: balanças eletrônicas, leitores de identificação eletrônica e de código de barras. Serviços: implantação e suporte.">
-          <span class="s5-senior" aria-hidden="true">/ Senior</span>
+          <img src="assets/erp-senior/s5-roda.webp?v=2" alt="Roda de soluções MultSoft. Plataforma MultBovinos: Reprodução (IA, MC, TE, FIV), Recria e Engorda (controle de pastagens e gestão nutricional), Confinamento (automação de fabricação e fornecimento de tratos), Elite + PMG (ABCZ, PMGZ, Cia Paint, Gensys, Deltagen e outros), Adm (financeiro, LCDPR, ativo fixo); rastreabilidade e custo pecuário. MultAgrícola: Adm Agrícola (planejamento e custo de produção). Integração com ERP: Totvs (Protheus e RM), DataSul, SAP, Sankhya, Senior e outros. Integração com equipamentos: balanças eletrônicas, leitores de identificação eletrônica e de código de barras. Serviços: implantação e suporte.">
         </div>
 
         <button class="ms-nav" type="button" style="top:91.76%;width:5.4%;height:6.4%;left:40.66%;--d:.44s" onclick="goToSlide(4)" aria-label="Voltar" title="Voltar">

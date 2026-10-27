@@ -37,6 +37,16 @@ const CATEGORIAS = [
 
 const MULTSOFT_APRESENTACOES = [
   {
+    id: "confinamento-multbovinos",
+    titulo: "Confinamento MultBovinos",
+    categorias: ["recria-engorda-confinamento"],
+    descricao:
+      "Gestão do confinamento na plataforma MultBovinos: coleta de dados, monitoramento, MB Tratos (automação de tratos), aplicativo MS Task e conectividade.",
+    atualizadoEm: "26/10/2026",
+    arquivo: "presentation/confinamento-multbovinos.html",
+    thumb: "presentation/assets/confinamento/thumb.webp",
+  },
+  {
     id: "solucoes-plataforma-multbovinos",
     titulo: "Soluções Plataforma MultBovinos",
     categorias: [
