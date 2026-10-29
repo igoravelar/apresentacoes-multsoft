@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Confinamento MultBovinos — MultSoft</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
     /* padrão tipográfico MultSoft (o mesmo do deck ERP Senior): cqh acompanha a altura do palco */
@@ -799,6 +799,108 @@
     .ev :is(.ev-topo,.ev-sub,.ev-grupo h3,.ev-btn){transition:none;opacity:1;translate:none;}
   }
 
+  /* ================= EVENTOS COM TABLET 3D (App MB Curral) =================
+     Texto à esquerda (medidas do slide de referência 1916x1078), faixa de foto à direita e tablet em
+     perspectiva que acompanha o mouse. A tela do app é HTML dentro da moldura (container próprio). */
+  .tb{background:#fff;}
+  .tb *{font-family:var(--ms-fonte);}
+  .tb-foto{position:absolute;left:74.84%;top:0;width:25.16%;height:100%;object-fit:cover;display:block;}
+  .tb-barra-teal{position:absolute;left:74.84%;top:0;width:12.43%;height:1.86%;background:#00a7b0;}
+  .tb-eyebrow{
+    position:absolute;left:6.68%;top:6.23%;margin:0;
+    color:#9db8bc;font-size:2.85cqh;font-weight:600;line-height:1;letter-spacing:-.02em;white-space:nowrap;
+  }
+  .tb-titulo{
+    position:absolute;left:6.4%;top:10.34%;margin:0;
+    color:#008593;font-size:7.4cqh;font-weight:800;line-height:.92;letter-spacing:-.04em;white-space:nowrap;
+  }
+  .tb-tag{
+    position:absolute;left:6.52%;top:20.96%;height:3.8%;margin:0;padding:0 1.6cqw 0 1.1cqw;
+    display:flex;align-items:center;background:#8cc27c;color:#fff;
+    font-size:2.45cqh;font-weight:700;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;
+    clip-path:polygon(0 0,100% 0,calc(100% - 1.05cqw) 100%,0 100%);
+  }
+  .tb-pilula{position:absolute;left:6.63%;top:35.06%;width:7.78%;height:2.69%;border-radius:999px;background:#00aebe;}
+  .tb-texto{
+    position:absolute;left:18.06%;top:32.94%;width:40%;margin:0;
+    color:#435f47;font-size:4.45cqh;font-weight:500;line-height:1.25;letter-spacing:-.025em;
+  }
+  .tb .ms-nav{z-index:4;}
+
+  /* ---- tablet: 3D com perspectiva; camadas atrás dão a espessura ---- */
+  .tb-palco{position:absolute;left:63.36%;top:2.78%;width:34.76%;height:93.9%;perspective:170cqw;perspective-origin:50% 45%;z-index:2;}
+  .tb-giro{position:absolute;inset:0;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.22,.78,.28,1) var(--d,0s);}
+  .tb:not(.is-active) .tb-giro{transform:rotateY(42deg);}
+  .tb.is-active .tb-giro{transform:rotateY(0deg);}
+  .tb-tablet{
+    position:absolute;inset:0;transform-style:preserve-3d;
+    transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,8deg));
+  }
+  .tb-camada{position:absolute;inset:0;border-radius:7.9% / 5.2%;background:#101010;}
+  .tb-camada:last-of-type{background:#0a0a0a;box-shadow:0 2.5cqh 5cqh rgba(0,20,30,.45);}
+  .tb-moldura{position:absolute;inset:0;width:100%;height:100%;display:block;transform:translateZ(.02cqw);}
+  .tb-tela{
+    position:absolute;left:2.70%;top:2.66%;width:94.69%;height:88.84%;
+    border-radius:1.1cqw;overflow:hidden;background:#f8f8f8;transform:translateZ(.04cqw);
+    container-type:size;
+  }
+  .tb-app{position:absolute;inset:0;font-family:"Roboto","Segoe UI",Helvetica,Arial,sans-serif;color:#333;}
+  .tb-app *{font-family:inherit;box-sizing:border-box;}
+  /* barra do app */
+  .tb-appbar{position:absolute;left:0;top:0;width:100%;height:4.4cqh;background:#285519;display:flex;align-items:center;padding:0 2cqw;gap:1.6cqw;}
+  .tb-applogo{height:2.9cqh;width:auto;display:block;}
+  .tb-appdiv{width:1px;height:2.6cqh;background:#5a8a48;}
+  .tb-appfaz{color:#fff;font-size:2cqw;font-weight:700;letter-spacing:.01em;white-space:nowrap;}
+  .tb-appicos{margin-left:auto;display:flex;align-items:center;gap:1.7cqw;color:#fff;}
+  .tb-appicos svg{width:2.5cqw;height:2.5cqw;display:block;}
+  .tb-subbar{position:absolute;left:0;top:4.4cqh;width:100%;height:4.6cqh;background:#396e27;border-top:1px solid #4d8a37;display:flex;align-items:center;}
+  .tb-volta{width:6.5cqw;height:100%;border:0;margin:0;padding:0;background:#1b430e;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .tb-volta svg{width:2.6cqw;height:2.6cqw;}
+  .tb-subtxt{color:#fff;font-size:2cqw;font-weight:700;margin-left:2.5cqw;white-space:nowrap;}
+  /* páginas (telas) do app */
+  .tb-pag{position:absolute;left:0;top:9cqh;width:100%;height:91cqh;background:#f8f8f8;transition:opacity .35s ease,translate .35s ease;}
+  .tb-pag:not(.is-ativa){opacity:0;translate:6cqw 0;pointer-events:none;}
+  .tb-tit{position:absolute;left:4.2cqw;top:2.11cqh;margin:0;color:#3d7029;font-size:5.03cqw;font-weight:700;line-height:1;letter-spacing:-.01em;white-space:nowrap;display:flex;align-items:center;gap:1.2cqw;}
+  .tb-info{width:2.4cqw;height:2.4cqw;border-radius:50%;background:#6e9a62;color:#fff;font:italic 700 1.6cqw/2.4cqw Georgia,serif;text-align:center;display:inline-block;}
+  .tb-obs{position:absolute;left:4.2cqw;top:7.13cqh;margin:0;color:#9a9a9a;font-size:1.85cqw;font-style:italic;line-height:1;white-space:nowrap;}
+  .tb-campo{position:absolute;}
+  .tb-campo label{position:absolute;left:0;top:0;color:#4a4a4a;font-size:2.35cqw;font-weight:500;line-height:1;white-space:nowrap;}
+  .tb-campo label b{color:#e53935;font-weight:500;}
+  .tb-input{
+    position:absolute;left:0;top:3.05cqh;width:100%;height:5.93cqh;
+    display:flex;align-items:center;background:#fff;border:1px solid #c9c9c9;border-radius:.6cqw;overflow:hidden;
+  }
+  .tb-input span{flex:1;padding-left:2.6cqw;color:#2b2b2b;font-size:3.2cqw;line-height:1;white-space:nowrap;}
+  .tb-input--off{background:#e9e9ea;border-color:#d2d2d2;}
+  .tb-lixo{width:5.86cqw;height:100%;border:0;margin:0;padding:0;background:#7aa070;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;}
+  .tb-lixo svg{width:2.4cqw;height:2.4cqw;}
+  .tb-input--off .tb-lixo{background:#919392;cursor:default;}
+  .tb-seg{position:absolute;left:0;top:3.05cqh;width:100%;height:6.22cqh;display:flex;border:1px solid #c9c9c9;border-radius:.7cqw;overflow:hidden;background:#fff;}
+  .tb-seg button{flex:1;border:0;margin:0;padding:0;background:#fff;color:#555;font-size:2.7cqw;font-weight:400;cursor:pointer;transition:background-color .2s ease,color .2s ease;}
+  .tb-seg button.is-sel{background:#7aa070;color:#fff;}
+  .tb-avancar{
+    position:absolute;left:32.7cqw;top:82.31cqh;width:34.8cqw;height:6.28cqh;
+    border:.25cqw solid #7d9a78;border-radius:999px;background:#40603b;color:#fff;
+    font-size:2.85cqw;font-weight:700;letter-spacing:.02em;cursor:pointer;
+    box-shadow:0 .5cqh 1.2cqh rgba(0,0,0,.28);transition:scale .15s ease,filter .15s ease;
+  }
+  .tb-avancar:hover{filter:brightness(1.12);}
+  .tb-avancar:active{scale:.96;}
+
+  /* ---- Entrada: textos pela esquerda, foto pela direita, tablet em fade subindo ---- */
+  .tb-eyebrow,.tb-titulo,.tb-tag,.tb-pilula,.tb-texto,.tb-foto,.tb-barra-teal,.tb-palco{
+    transition:opacity .6s ease var(--d,0s),translate .65s cubic-bezier(.22,.78,.28,1) var(--d,0s);
+  }
+  .tb-palco{transition-duration:.8s,1s;}
+  .tb:not(.is-active) :is(.tb-eyebrow,.tb-titulo,.tb-tag,.tb-pilula,.tb-texto){opacity:0;translate:-6% 0;}
+  .tb:not(.is-active) :is(.tb-foto,.tb-barra-teal){opacity:0;translate:8% 0;}
+  .tb:not(.is-active) .tb-palco{opacity:0;translate:0 10%;}
+  .tb.is-active :is(.tb-eyebrow,.tb-titulo,.tb-tag,.tb-pilula,.tb-texto,.tb-foto,.tb-barra-teal,.tb-palco){opacity:1;translate:none;}
+  @media (prefers-reduced-motion:reduce){
+    .tb :is(.tb-eyebrow,.tb-titulo,.tb-tag,.tb-pilula,.tb-texto,.tb-foto,.tb-barra-teal,.tb-palco){transition:none;opacity:1;translate:none;}
+    .tb .tb-giro{transition:none;transform:none;}
+  }
+
   /* ================= CONECTIVIDADE (2 slides) =================
      Fundo com a faixa verde do cabeçalho (10,21% da altura); botões de navegação
      no canto superior direito da faixa. Posições medidas por pixel nas páginas
@@ -1432,7 +1534,7 @@
         <div class="ev-grupo" style="left:3.28%">
           <h3 class="ev-g0" style="--d:0.18s">Estoque de Animais</h3>
           <ul aria-label="Estoque de Animais">
-            <li><button class="ev-btn" type="button" style="top:31.25%;--d:0.21s" data-evento="Entrada de Animais">Entrada de Animais</button></li>
+            <li><button class="ev-btn" type="button" style="top:31.25%;--d:0.21s" onclick="goToSlide(15)" data-evento="Entrada de Animais">Entrada de Animais</button></li>
             <li><button class="ev-btn" type="button" style="top:38.89%;--d:0.24s" data-evento="Identificação Eletrônica">Identificação Eletrônica</button></li>
             <li><button class="ev-btn" type="button" style="top:46.53%;--d:0.27s" data-evento="Inventário">Inventário</button></li>
             <li><button class="ev-btn" type="button" style="top:54.17%;--d:0.30s" data-evento="Advertências">Advertências</button></li>
@@ -1497,6 +1599,58 @@
         </button>
         <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:90.3%;--d:0.26s" onclick="goToSlide(2)" aria-label="Menu" title="Menu">
           <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
+        </button>
+      </section>
+
+      <!-- ===================== SLIDE 15 — Rotinas de Manejo Salvas: Entrada de Animais (tablet 3D navegável) ===================== -->
+      <section class="slide tb" data-slide="15" data-screen-label="15" aria-label="Slide 15 — Rotinas de Manejo Salvas: Entrada de Animais">
+        <img class="tb-foto" src="assets/confinamento/ev-fazendeiro.webp?v=1" alt="" aria-hidden="true" style="--d:.05s">
+        <div class="tb-barra-teal" style="--d:.05s"></div>
+        <p class="tb-eyebrow" style="--d:.06s">Rotinas de Manejo Salvas</p>
+        <h2 class="tb-titulo" style="--d:.12s">Entrada de Animais</h2>
+        <p class="tb-tag" style="--d:.2s">Tipo: Estoque de Animais</p>
+        <div class="tb-pilula" style="--d:.3s"></div>
+        <p class="tb-texto" style="--d:.34s">Permite a inclusão<br>de novos animais<br>via aplicativo.</p>
+
+        <div class="tb-palco" style="--d:.18s">
+          <div class="tb-giro">
+          <div class="tb-tablet">
+            <div class="tb-camada" style="transform:translateZ(-0.14cqw)"></div><div class="tb-camada" style="transform:translateZ(-0.28cqw)"></div><div class="tb-camada" style="transform:translateZ(-0.42cqw)"></div><div class="tb-camada" style="transform:translateZ(-0.56cqw)"></div><div class="tb-camada" style="transform:translateZ(-0.70cqw)"></div><div class="tb-camada" style="transform:translateZ(-0.84cqw)"></div><div class="tb-camada" style="transform:translateZ(-0.98cqw)"></div><div class="tb-camada" style="transform:translateZ(-1.12cqw)"></div><div class="tb-camada" style="transform:translateZ(-1.26cqw)"></div><div class="tb-camada" style="transform:translateZ(-1.40cqw)"></div>
+            <img class="tb-moldura" src="assets/confinamento/tablet-moldura.webp?v=1" alt="" aria-hidden="true">
+            <div class="tb-tela">
+              <div class="tb-app">
+                <header class="tb-appbar">
+                  <img class="tb-applogo" src="assets/confinamento/logo-mb-curral-h.webp?v=1" alt="MB Curral">
+                  <span class="tb-appdiv"></span><span class="tb-appfaz">Fazenda Boa Sorte</span>
+                  <span class="tb-appicos" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c-1.5 0-2.5 1-2.5 2.5S3 10 4.5 10M20 5c1.5 0 2.5 1 2.5 2.5S21 10 19.5 10"/><path d="M6 9.5 4.5 6.5h15L18 9.5M6 9.5c0 4 1.5 7 6 7s6-3 6-7M9 16.5v3h6v-3"/><circle cx="9.5" cy="11" r=".8" fill="currentColor"/><circle cx="14.5" cy="11" r=".8" fill="currentColor"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="12" width="4" height="9" rx=".8"/><rect x="10" y="4" width="4" height="17" rx=".8"/><rect x="17" y="9" width="4" height="12" rx=".8"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><rect x="11" y="6" width="2" height="8" rx="1" fill="#285519"/><circle cx="12" cy="17" r="1.3" fill="#285519"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="5" width="18" height="2.2" rx="1"/><rect x="3" y="10.9" width="18" height="2.2" rx="1"/><rect x="3" y="16.8" width="18" height="2.2" rx="1"/></svg></span>
+                </header>
+                <div class="tb-subbar">
+                  <button class="tb-volta" type="button" aria-label="Voltar" data-acao="voltar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+                  <span class="tb-subtxt">Execução em 13/07/2023</span>
+                </div>
+          <section class="tb-pag is-ativa" data-pag="entrada" aria-label="Entrada do Animal">
+            <h3 class="tb-tit">Entrada do Animal <i class="tb-info" aria-hidden="true">i</i></h3>
+            <p class="tb-obs">Este evento é obrigatório.</p>
+            <div class="tb-campo" style="left:4.02cqw;top:10.64cqh;width:92.04cqw"><label>Sexo <b>*</b></label><div class="tb-seg" role="group" aria-label="Sexo"><button type="button" class="is-sel">Fêmea</button><button type="button">Macho</button></div></div>
+            <div class="tb-campo" style="left:4.02cqw;top:22.69cqh;width:43.4cqw"><label>Tipo <b>*</b></label><div class="tb-input"><span>Reprodução</span><button class="tb-lixo" type="button" aria-label="Limpar Tipo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6l1 2h4v2H4V5h4l1-2zm-3 6h12l-1 12H7L6 9zm4 2v8h1.6v-8H10zm2.4 0v8H14v-8h-1.6z"/></svg></button></div></div>
+            <div class="tb-campo" style="left:52.4cqw;top:22.69cqh;width:43.5cqw"><label>Ordem <b>*</b></label><div class="tb-input tb-input--off"><span>Novilha</span><button class="tb-lixo" type="button" aria-label="Limpar Ordem" disabled><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6l1 2h4v2H4V5h4l1-2zm-3 6h12l-1 12H7L6 9zm4 2v8h1.6v-8H10zm2.4 0v8H14v-8h-1.6z"/></svg></button></div></div>
+            <div class="tb-campo" style="left:4.02cqw;top:34.79cqh;width:43.4cqw"><label>Idade (Meses) <b>*</b></label><div class="tb-input tb-input--off"><span>16</span></div></div>
+            <div class="tb-campo" style="left:52.4cqw;top:34.79cqh;width:43.5cqw"><label>Estado Inicial</label><div class="tb-input tb-input--off"><span>Solteira</span><button class="tb-lixo" type="button" aria-label="Limpar Estado Inicial" disabled><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6l1 2h4v2H4V5h4l1-2zm-3 6h12l-1 12H7L6 9zm4 2v8h1.6v-8H10zm2.4 0v8H14v-8h-1.6z"/></svg></button></div></div>
+            <div class="tb-campo" style="left:4.02cqw;top:46.99cqh;width:43.4cqw"><label>Raça</label><div class="tb-input tb-input--off"><span>ABERDEEN</span></div></div>
+            <div class="tb-campo" style="left:52.4cqw;top:46.99cqh;width:43.5cqw"><label>Grau de Sangue</label><div class="tb-input"><span>PURO SANGUE</span><button class="tb-lixo" type="button" aria-label="Limpar Grau de Sangue"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6l1 2h4v2H4V5h4l1-2zm-3 6h12l-1 12H7L6 9zm4 2v8h1.6v-8H10zm2.4 0v8H14v-8h-1.6z"/></svg></button></div></div>
+            <div class="tb-campo" style="left:4.02cqw;top:58.29cqh;width:43.4cqw"><label>Rebanho</label><div class="tb-input"><span>COML</span><button class="tb-lixo" type="button" aria-label="Limpar Rebanho"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6l1 2h4v2H4V5h4l1-2zm-3 6h12l-1 12H7L6 9zm4 2v8h1.6v-8H10zm2.4 0v8H14v-8h-1.6z"/></svg></button></div></div>
+            <div class="tb-campo" style="left:52.4cqw;top:58.29cqh;width:43.5cqw"><label>Pelagem</label><div class="tb-input"><span>PRETA</span><button class="tb-lixo" type="button" aria-label="Limpar Pelagem"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6l1 2h4v2H4V5h4l1-2zm-3 6h12l-1 12H7L6 9zm4 2v8h1.6v-8H10zm2.4 0v8H14v-8h-1.6z"/></svg></button></div></div>
+            <div class="tb-campo" style="left:4.02cqw;top:70.49cqh;width:92.04cqw"><label>Produtor <b>*</b></label><div class="tb-input tb-input--off"><span>MULTBOVINOS</span><button class="tb-lixo" type="button" aria-label="Limpar Produtor" disabled><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6l1 2h4v2H4V5h4l1-2zm-3 6h12l-1 12H7L6 9zm4 2v8h1.6v-8H10zm2.4 0v8H14v-8h-1.6z"/></svg></button></div></div>
+            <button class="tb-avancar" type="button" data-acao="avancar">AVANÇAR</button>
+          </section>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+
+        <button class="ms-nav" type="button" style="top:83.9%;width:5.4%;height:6.4%;left:6.52%;--d:.44s" onclick="goToSlide(9)" aria-label="Voltar aos eventos" title="Voltar aos eventos">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
         </button>
       </section>
 
@@ -1600,7 +1754,7 @@
 
   <script>
     const TOTAL = 104;                      // 103 páginas do PDF + o slide 8 (mandala): slides 1 a 7 = páginas 1 a 7; do 9 em diante, slide N = página N-1
-    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 23, 24];   // slides já construídos (os demais são placeholders)
+    const BUILT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 15, 23, 24];   // slides já construídos (os demais são placeholders)
 
     const STORE = 'multsoft_confinamento_slide';
     const deck = document.getElementById('deck');
@@ -1739,6 +1893,38 @@
       if(e.target.closest('.hotspot, button, a')) return;  // deixa o botão agir
       flashHints();
     });
+
+    /* ---- Tablet 3D: inclina seguindo o mouse (repouso: levemente virado para a esquerda) ---- */
+    document.querySelectorAll('.slide.tb').forEach(sec => {
+      const tab = sec.querySelector('.tb-tablet'); if(!tab) return;
+      const REP = {x:0, y:8};
+      let cx = REP.x, cy = REP.y, ax = REP.x, ay = REP.y, raf = null;
+      const passo = () => {
+        cx += (ax-cx)*.1; cy += (ay-cy)*.1;
+        tab.style.setProperty('--rx', cx.toFixed(2)+'deg'); tab.style.setProperty('--ry', cy.toFixed(2)+'deg');
+        raf = (Math.abs(ax-cx)>.03 || Math.abs(ay-cy)>.03) ? requestAnimationFrame(passo) : null;
+      };
+      const anima = () => { if(!raf) raf = requestAnimationFrame(passo); };
+      sec.addEventListener('pointermove', e => {
+        const r = sec.getBoundingClientRect();
+        const px = Math.min(1, Math.max(0, (e.clientX - r.left)/r.width));
+        const py = Math.min(1, Math.max(0, (e.clientY - r.top)/r.height));
+        ay = 11 - px*22;             // mouse à esquerda: virado p/ esquerda (+11°) … à direita: p/ direita (-11°)
+        ax = (0.5 - py)*7;           // em cima inclina um pouco para trás
+        anima();
+      });
+      sec.addEventListener('pointerleave', () => { ax = REP.x; ay = REP.y; anima(); });
+      /* seletor Fêmea/Macho */
+      sec.querySelectorAll('.tb-seg').forEach(seg => seg.addEventListener('click', e => {
+        const b = e.target.closest('button'); if(!b) return;
+        seg.querySelectorAll('button').forEach(x => x.classList.toggle('is-sel', x === b));
+      }));
+    });
+    /* troca de tela dentro do tablet (usado pelos botões do app) */
+    function tabletIr(el, nome){
+      const app = el.closest('.tb-app');
+      app.querySelectorAll('.tb-pag').forEach(pg => pg.classList.toggle('is-ativa', pg.dataset.pag === nome));
+    }
 
     /* ---- Restaura último slide visto ---- */
     let start = 1;
