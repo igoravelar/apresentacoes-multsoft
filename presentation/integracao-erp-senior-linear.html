@@ -2161,7 +2161,9 @@
     0%,50%,100%{ box-shadow:0 0 0 0 rgba(38,132,255,0); background-color:rgba(38,132,255,0); }
     25%,75%{ box-shadow:0 0 0 .55vw rgba(38,132,255,.4); background-color:rgba(38,132,255,.24); }
   }
-  .cc-hint{ animation:ccHintPulse 1s ease both; border-radius:inherit; }
+  .cc-hint{ animation:ccHintPulse 1s ease both; }   /* cada botão pisca com o próprio raio de canto */
+  /* toda área ativa mostra a mãozinha */
+  .slide :is(button, a, .hotspot, input):not(:disabled){ cursor:pointer; }
   .ms-nav.cc-hint{ border-radius:999px; }   /* botões redondos continuam redondos ao piscar */
 </style>
 </head>
@@ -4136,7 +4138,7 @@
     function flashHints(){
       const active = document.querySelector('.slide.is-active');
       if(!active) return;
-      active.querySelectorAll('.hotspot, button, a').forEach(el=>{
+      active.querySelectorAll('.hotspot, button:not(:disabled), a, input:not(:disabled)').forEach(el=>{
         el.classList.remove('cc-hint');
         void el.offsetWidth;
         el.classList.add('cc-hint');
