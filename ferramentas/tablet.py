@@ -240,6 +240,8 @@ def css(p='tb'):
   .{p}-rot__cad{{background:#d9d9d9;padding:.9cqh 2.6cqw;color:#333;font-size:1.85cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}
   .{p}-fab{{position:absolute;right:3cqw;bottom:2.4cqh;width:11cqw;height:11cqw;border-radius:50%;border:.35cqw solid #b7cfab;background:#5a7d4a;color:#fff;box-shadow:0 .6cqh 1.4cqh rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;z-index:2;}}
   .{p}-fab svg{{width:5cqw;height:5cqw;}}
+  .{p}-fab:not(:disabled){{cursor:pointer;transition:background .18s ease,color .18s ease,scale .18s cubic-bezier(.3,1.4,.5,1);}}
+  .{p}-fab:not(:disabled):hover{{background:#9fd48a;border-color:#d7efc9;color:#2b5a1e;scale:1.1;}}
   .{p}-appmenu{{border:0;background:transparent;padding:0;margin:0;color:#fff;display:flex;cursor:pointer;position:relative;}}
   /* hover dos ícones da barra do app: bola verde-clara cresce por trás do ícone */
   .{p}-appmenu::before{{content:"";position:absolute;left:50%;top:50%;width:4.6cqw;height:4.6cqw;border-radius:50%;background:#8fc47a;translate:-50% -50%;scale:0;opacity:0;transition:scale .18s cubic-bezier(.3,1.4,.5,1),opacity .18s ease;z-index:0;}}
@@ -391,6 +393,27 @@ def css(p='tb'):
   .{p}-nota--erro u{{color:#d32f2f;}}
   .{p}-nota button{{border:0;background:transparent;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer;}}
   .{p}-ident span{{letter-spacing:.04em;}}
+
+  /* ===== protótipo: barra do app mais alta (≈ +20px em 1080p), logo e ícones maiores ===== */
+  .{p}--proto .{p}-appbar{{height:6.6cqh;padding:0 2.2cqw;gap:2cqw;}}
+  .{p}--proto .{p}-applogo{{height:4.3cqh;}}
+  .{p}--proto .{p}-appdiv{{height:3.8cqh;}}
+  .{p}--proto .{p}-appfaz{{font-size:2.5cqw;}}
+  .{p}--proto .{p}-appicos{{gap:2.2cqw;}}
+  .{p}--proto .{p}-appicos svg{{width:3.4cqw;height:3.4cqw;}}
+  .{p}--proto .{p}-appmenu::before{{width:6cqw;height:6cqw;}}
+  .{p}--proto .{p}-subbar{{top:6.6cqh;}}
+  .{p}--proto .{p}-corpo{{top:11.2cqh;height:88.8cqh;}}
+  /* tela inicial (fazendas): componentes um pouco maiores */
+  .{p}--proto .{p}-pag[data-pag="1"] .{p}-form{{padding-top:3.2cqh;}}
+  .{p}--proto .{p}-pag[data-pag="1"] .{p}-pergunta{{font-size:2.8cqw;margin-bottom:2cqh;}}
+  .{p}--proto .{p}-pag[data-pag="1"] .{p}-busca{{height:6.8cqh;margin-bottom:3.4cqh;}}
+  .{p}--proto .{p}-pag[data-pag="1"] .{p}-busca input{{font-size:2.9cqw;}}
+  .{p}--proto .{p}-pag[data-pag="1"] .{p}-busca svg{{width:3.2cqw;height:3.2cqw;}}
+  .{p}--proto .{p}-pag[data-pag="1"] .{p}-rotulo-lista{{font-size:2.5cqw;margin-bottom:1.8cqh;}}
+  .{p}--proto .{p}-pag[data-pag="1"] .{p}-faz{{height:6.9cqh;font-size:2.9cqw;margin-bottom:1.8cqh;padding:0 2.2cqw 0 2.4cqw;}}
+  .{p}--proto .{p}-pag[data-pag="1"] .{p}-faz svg{{width:3cqw;height:3cqw;}}
+  .{p}--proto .{p}-pag[data-pag="1"] .{p}-marca-agua{{font-size:3.9cqw;}}
 
   /* ===== slide de protótipo: faixa verde do cabeçalho, título e texto à esquerda ===== */
   .{p}--proto{{background:#fff;}}
