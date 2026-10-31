@@ -28,6 +28,23 @@ ICO = {
  'ficha': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 4h9l4 4v12H6z"/><path d="M15 4v4h4M9 12h6M9 16h6"/></svg>',
  'desfazer': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a6 6 0 0 1 0 12h-2"/></svg>',
  'ok-circulo': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.5 3 3 6-7"/></svg>',
+ 'play': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l12-7.5z"/></svg>',
+ 'editar': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H5.5A1.5 1.5 0 0 0 4 5.5v13A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V13"/><path d="m17.5 3.5 3 3L12 15H9v-3z"/></svg>',
+ 'g-inicio': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></svg>',
+ 'g-lotes': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 3 3 5.8v5.4L8 14l5-2.8V5.8zM16 9l-5 2.8v5.4L16 20l5-2.8v-5.4z"/></svg>',
+ 'g-vaca': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4c-1.5 0-2.5 1.2-2.5 2.6S2.6 9 4 9h1.2l1.3 4.5c.4 1.4 1.6 2.3 3 2.3h5c1.4 0 2.6-.9 3-2.3L18.8 9H20c1.4 0 2.5-1 2.5-2.4S21.5 4 20 4h-3l-1 2.5H8L7 4zm5.5 7.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm5 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM9 17h6v3H9z"/></svg>',
+ 'g-pastos': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5h18v3H3zm0 5.5h11v3H3zm13 0h5v3h-5zM3 16h18v3H3z"/></svg>',
+ 'g-enviar': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16V8m-3.5 3.5L12 8l3.5 3.5"/></svg>',
+ 'g-envios': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.7 2.7L16 9.5"/></svg>',
+ 'g-venda': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 6h20v12H2zm10 2.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM5 10.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>',
+ 'g-carga': '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="4.5" cy="6" r="1.8"/><circle cx="4.5" cy="12" r="1.8"/><circle cx="4.5" cy="18" r="1.8"/><path d="M8.5 4.8h12v2.4h-12zm0 6h12v2.4h-12zm0 6h12v2.4h-12z"/></svg>',
+ 'g-config': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="m19.4 13 1.9 1.5-2 3.4-2.3-.9a7 7 0 0 1-1.8 1l-.4 2.5h-4l-.4-2.5a7 7 0 0 1-1.8-1l-2.3.9-2-3.4L6.2 13a7 7 0 0 1 0-2L4.3 9.5l2-3.4 2.3.9a7 7 0 0 1 1.8-1L10.8 3.5h4l.4 2.5a7 7 0 0 1 1.8 1l2.3-.9 2 3.4-1.9 1.5a7 7 0 0 1 0 2zM12.8 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>',
+ 'g-bluetooth': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7.5 17 16l-5 4.5V3.5l5 4.5L7 16.5"/></svg>',
+ 'g-erros': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5 1.5 21h21zM11 9h2v6h-2zm0 7.5h2v2h-2z"/></svg>',
+ 'g-quebras': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1M4 4l16 16"/></svg>',
+ 'g-historico': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6M3.5 4v4.5H8M12 8v4.5l3 2"/></svg>',
+ 'g-ajuda': '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M11 10h2v7h-2zM11 6.5h2v2h-2z" fill="#4f7d3b"/></svg>',
+ 'casa': '<svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10 12 2.8l8.5 7.2M6 8.6V17.5h4.3v-4.6h3.4v4.6H18V8.6"/></svg>',
  'alca': '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="9" width="16" height="2" rx="1"/><rect x="4" y="13" width="16" height="2" rx="1"/></svg>',
  'maisb': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6z"/></svg>',
 }
@@ -125,6 +142,7 @@ def css(p='tb'):
   .{p}-caixa--alta div{{min-height:6.5cqh;}}
   .{p}-form{{flex:1;min-width:0;overflow-y:auto;scrollbar-width:none;padding:2.3cqh 3.6cqw 2cqh 4.2cqw;display:flex;flex-direction:column;}}
   .{p}-form::-webkit-scrollbar{{display:none;}}
+  .{p}-form > *{{flex-shrink:0;}}   /* o conteúdo rola, não encolhe */
   .{p}-corpo--lado .{p}-form{{padding-left:3.8cqw;}}
   .{p}-tit{{margin:0;color:#3d7029;font-size:5cqw;font-weight:700;line-height:1.15;letter-spacing:-.01em;display:flex;align-items:center;flex-wrap:wrap;gap:1.2cqw;}}
   .{p}-corpo--lado .{p}-tit{{font-size:4.5cqw;}}
@@ -176,8 +194,72 @@ def css(p='tb'):
   .{p}-var{{display:none;}}
   .{p}-app[data-sexo="f"] .{p}-var--f,.{p}-app[data-sexo="m"] .{p}-var--m{{display:contents;}}
   /* páginas internas da mesma tela (sequência de telas do app) */
-  .{p}-pag{{position:absolute;inset:0;display:none;}}
+  .{p}-pag{{position:absolute;inset:0;display:none;background:#f7f7f7;overflow:hidden;}}
   .{p}-pag.is-ativa{{display:block;}}
+  /* navegação com deslize lateral, como no app: a nova tela entra pela direita e a atual sai pela esquerda
+     (ao voltar, o contrário) */
+  .{p}-pag--sai-esq,.{p}-pag--sai-dir{{display:block;z-index:1;pointer-events:none;}}
+  .{p}-pag--entra-dir,.{p}-pag--entra-esq{{z-index:2;pointer-events:none;}}
+  .{p}-pag--entra-dir{{animation:{p}pagEntraDir .38s cubic-bezier(.25,.7,.25,1) both;}}
+  .{p}-pag--sai-esq{{animation:{p}pagSaiEsq .38s cubic-bezier(.25,.7,.25,1) both;}}
+  .{p}-pag--entra-esq{{animation:{p}pagEntraEsq .38s cubic-bezier(.25,.7,.25,1) both;}}
+  .{p}-pag--sai-dir{{animation:{p}pagSaiDir .38s cubic-bezier(.25,.7,.25,1) both;}}
+  @keyframes {p}pagEntraDir{{from{{translate:100% 0;}}to{{translate:0 0;}}}}
+  @keyframes {p}pagSaiEsq{{from{{translate:0 0;opacity:1;}}to{{translate:-28% 0;opacity:.5;}}}}
+  @keyframes {p}pagEntraEsq{{from{{translate:-28% 0;opacity:.5;}}to{{translate:0 0;opacity:1;}}}}
+  @keyframes {p}pagSaiDir{{from{{translate:0 0;}}to{{translate:100% 0;}}}}
+  /* ---- protótipo do app: fazendas e rotinas ---- */
+  .{p}-appdiv:has(+ .{p}-appfaz:empty){{display:none;}}
+  .{p}-app[data-proto] .{p}-corpo{{background:#e9e9e9;}}
+  .{p}-app[data-proto] .{p}-form{{padding:2.6cqh 3cqw 0;}}
+  .{p}-pergunta{{margin:0 0 1.6cqh;color:#333;font-size:2.3cqw;}}
+  .{p}-busca{{height:5.6cqh;display:flex;align-items:center;background:#fff;border:1px solid #cfcfcf;border-radius:.5cqw;padding:0 2cqw;margin-bottom:3cqh;}}
+  .{p}-busca{{position:relative;}}
+  .{p}-busca input{{flex:1;min-width:0;height:100%;border:0;background:transparent;padding:0;color:#2b2b2b;font-size:2.4cqw;outline:none;}}
+  .{p}-busca input::placeholder{{color:#a3a3a3;}}
+  .{p}-busca .{p}-toque{{border-radius:.5cqw;}}
+  .{p}-busca:focus-within .{p}-toque{{display:none;}}
+  .{p}-faz.is-oculta{{display:none;}}
+  .{p}-vazio{{display:none;color:#777;font-size:2.2cqw;font-style:italic;margin:1cqh 0;}}
+  .{p}-vazio.is-visivel{{display:block;}}
+  .{p}-busca svg{{width:2.6cqw;height:2.6cqw;color:#9a9a9a;}}
+  .{p}-rotulo-lista{{margin:0 0 1.4cqh;color:#333;font-size:2.1cqw;}}
+  .{p}-faz{{width:100%;height:5.6cqh;display:flex;align-items:center;background:#fff;border:1px solid #cfcfcf;border-radius:.4cqw;padding:0 1.8cqw 0 2cqw;margin:0 0 1.4cqh;color:#222;font-size:2.4cqw;text-align:left;cursor:pointer;transition:background .15s ease;}}
+  .{p}-faz:hover{{background:#f1f7ee;}}
+  .{p}-faz span{{flex:1;}}
+  .{p}-faz svg{{width:2.4cqw;height:2.4cqw;color:#6e9a62;}}
+  .{p}-marca-agua{{margin-top:auto;padding:4cqh 0;text-align:center;color:#c4c4c4;font-size:3.2cqw;font-weight:800;letter-spacing:.02em;}}
+  .{p}-marca-agua span{{font-weight:400;}}
+  .{p}-rot{{margin:0 0 2.4cqh;border-radius:.5cqw;overflow:hidden;box-shadow:0 .2cqh .5cqh rgba(0,0,0,.08);}}
+  .{p}-rot__cab{{height:7cqh;display:flex;align-items:stretch;background:#fff;}}
+  .{p}-rot__cab span{{flex:1;min-width:0;display:flex;align-items:center;padding-left:2.6cqw;color:#222;font-size:3.1cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}
+  .{p}-rot__ic{{width:11cqw;flex:0 0 auto;border:0;border-left:1px solid #dcdcdc;background:transparent;color:#6e9a62;display:flex;align-items:center;justify-content:center;padding:0;}}
+  .{p}-rot__ic svg{{width:4.1cqw;height:4.1cqw;}}
+  .{p}-rot__ic:not(:disabled){{cursor:pointer;transition:background .15s ease;}}
+  .{p}-rot__ic:not(:disabled):hover{{background:#eef5ea;}}
+  .{p}-rot__cad{{background:#d9d9d9;padding:.9cqh 2.6cqw;color:#333;font-size:1.85cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}
+  .{p}-fab{{position:absolute;right:3cqw;bottom:2.4cqh;width:11cqw;height:11cqw;border-radius:50%;border:.35cqw solid #b7cfab;background:#5a7d4a;color:#fff;box-shadow:0 .6cqh 1.4cqh rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;z-index:2;}}
+  .{p}-fab svg{{width:5cqw;height:5cqw;}}
+  .{p}-appmenu{{border:0;background:transparent;padding:0;margin:0;color:#fff;display:flex;cursor:pointer;position:relative;}}
+  /* hover dos ícones da barra do app: bola verde-clara cresce por trás do ícone */
+  .{p}-appmenu::before{{content:"";position:absolute;left:50%;top:50%;width:4.6cqw;height:4.6cqw;border-radius:50%;background:#8fc47a;translate:-50% -50%;scale:0;opacity:0;transition:scale .18s cubic-bezier(.3,1.4,.5,1),opacity .18s ease;z-index:0;}}
+  .{p}-appmenu:not(:disabled):hover::before{{scale:1;opacity:1;}}
+  .{p}-appmenu svg{{position:relative;z-index:1;}}
+  /* gaveta do menu sanduíche: escurece a tela e as opções deslizam da direita */
+  .{p}-gaveta{{position:absolute;inset:0;z-index:8;visibility:hidden;transition:visibility 0s .38s;font-family:"Roboto","Segoe UI",Helvetica,Arial,sans-serif;}}
+  .{p}-gaveta *{{font-family:inherit;}}
+  .{p}-gaveta.is-aberta{{visibility:visible;transition-delay:0s;}}
+  .{p}-gaveta__fundo{{position:absolute;inset:0;border:0;padding:0;margin:0;background:rgba(0,0,0,.62);opacity:0;transition:opacity .38s ease;cursor:pointer;}}
+  .{p}-gaveta.is-aberta .{p}-gaveta__fundo{{opacity:1;}}
+  .{p}-gaveta__painel{{position:absolute;top:0;right:0;bottom:0;width:46cqw;background:#4f7d3b;box-shadow:-.6cqw 0 2cqw rgba(0,0,0,.35);translate:100% 0;transition:translate .38s cubic-bezier(.25,.7,.25,1);overflow-y:auto;scrollbar-width:none;}}
+  .{p}-gaveta__painel::-webkit-scrollbar{{display:none;}}
+  .{p}-gaveta.is-aberta .{p}-gaveta__painel{{translate:0 0;}}
+  .{p}-gaveta__item{{width:100%;height:6.7cqh;border:0;border-bottom:1px solid #6b9a55;background:transparent;display:flex;align-items:center;gap:2.2cqw;padding:0 2.4cqw;color:#fff;font-size:2.15cqw;text-align:left;white-space:nowrap;cursor:pointer;}}
+  .{p}-gaveta__item:not(:disabled):hover{{background:#5c8c47;}}
+  .{p}-gaveta__item:disabled{{color:rgba(255,255,255,.38);cursor:not-allowed;}}
+  .{p}-gaveta__item:disabled svg{{color:rgba(191,224,163,.35);}}
+  .{p}-gaveta__item svg{{width:2.8cqw;height:2.8cqw;color:#bfe0a3;flex:0 0 auto;}}
+  .{p}-app[data-proto]::after{{content:"";position:absolute;left:0;right:0;bottom:0;height:9cqh;background:linear-gradient(180deg,rgba(233,233,233,0),#e9e9e9 85%);pointer-events:none;}}
   /* link "Ver Ficha Completa" na barra lateral */
   .{p}-ficha{{margin:1.6cqh -1.9cqw 2.4cqh -2.2cqw;padding:1.6cqh 2.2cqw;background:#2b6a1f;color:#fff;display:flex;align-items:center;gap:1.4cqw;font-size:1.9cqw;font-style:italic;text-decoration:underline;white-space:nowrap;}}
   .{p}-ficha svg{{width:2.2cqw;height:2.2cqw;flex:0 0 auto;}}
@@ -276,41 +358,166 @@ def css(p='tb'):
   .{p}-lote-tab div:last-child{{font-size:3.4cqw;color:#1f3d14;padding:1.6cqh 1cqw;}}
   .{p}-lote-tab div:last-child span{{display:flex;align-items:center;justify-content:center;gap:.6cqw;}}
   .{p}-lote-tab div:last-child span:first-child{{justify-content:flex-start;padding-left:3.6cqw;}}
-  .{p}-lote-tab div:last-child span svg{{width:2.4cqw;height:2.4cqw;color:#6e9a62;}}
+  .{p}-lote-tab div:last-child span svg{{width:3.3cqw;height:3.3cqw;color:#6e9a62;}}
   .{p}-lote-tab .{p}-vermelho{{color:#d32f2f;}}
   .{p}-lote-tab small{{font-size:2.3cqw;color:#333;margin-left:1cqw;}}
   .{p}-conf-rodape{{margin-top:auto;font-size:1.4cqw;color:#777;font-style:italic;}}
 
   /* ===== cena da Identificação Eletrônica: boi atrás do tablet e bastão leitor à esquerda ===== */
   .{p}-cena{{position:absolute;inset:0;pointer-events:none;}}
-  .{p}-boi{{position:absolute;left:var(--boi-x,47%);top:var(--boi-y,50%);width:var(--boi-w,24%);z-index:1;transform-origin:85% 90%;
-    -webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,#000 70%,transparent 100%);}}
+  .{p}-boi{{position:absolute;left:var(--boi-x,74%);top:var(--boi-y,37%);width:var(--boi-w,36%);z-index:3;transform-origin:70% 95%;}}
   .{p}-boi img{{display:block;width:100%;height:auto;}}
-  /* brinco eletrônico amarelo na orelha esquerda */
-  .{p}-brinco{{position:absolute;left:4.5%;top:33%;width:8%;aspect-ratio:.82;border-radius:18% 18% 40% 40%/14% 14% 36% 36%;background:linear-gradient(180deg,#ffe54a,#f2c21c);box-shadow:0 .2cqh .5cqh rgba(0,0,0,.35);rotate:-8deg;}}
-  .{p}-brinco::before{{content:"";position:absolute;left:38%;top:-16%;width:24%;aspect-ratio:1;border-radius:50%;background:#e0b012;}}
-  .{p}-brinco::after{{content:"412";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 .9cqh/1 Arial,sans-serif;color:#3a2e00;}}
-  .{p}-bastao{{position:absolute;left:var(--bas-x,14%);top:var(--bas-y,51%);height:var(--bas-h,38%);z-index:3;transform-origin:50% 90%;
+  .{p}-bastao{{position:absolute;left:var(--bas-x,49%);top:var(--bas-y,46%);height:var(--bas-h,50%);z-index:4;transform-origin:50% 90%;
     transition:translate 1.3s cubic-bezier(.4,0,.2,1),rotate 1.3s cubic-bezier(.4,0,.2,1);}}
   .{p}-bastao img{{display:block;height:100%;width:auto;filter:drop-shadow(0 .8cqh 1.4cqh rgba(0,0,0,.3));}}
-  .{p}-led{{position:absolute;left:33%;top:66%;width:7%;aspect-ratio:1;border-radius:50%;background:#2a2a2a;box-shadow:inset 0 0 .2cqh #000;transition:background .25s ease,box-shadow .25s ease;}}
+  .{p}-led{{position:absolute;left:31.5%;top:68.5%;width:7%;aspect-ratio:1;border-radius:50%;background:#2a2a2a;box-shadow:inset 0 0 .2cqh #000;transition:background .25s ease,box-shadow .25s ease;}}
   .{p}-cena.is-ligado .{p}-led{{background:#5dff3a;box-shadow:0 0 .8cqh .3cqh rgba(93,255,58,.85),0 0 2cqh .6cqh rgba(93,255,58,.45);}}
   .{p}-cena.is-lendo .{p}-led{{animation:{p}ledPisca .18s steps(2) 4;}}
   @keyframes {p}ledPisca{{to{{background:#2a2a2a;box-shadow:none;}}}}
-  .{p}-onda{{position:absolute;left:var(--onda-x,0);top:var(--onda-y,0);width:3cqw;aspect-ratio:1;border-radius:50%;border:.35cqw solid rgba(93,255,58,.9);translate:-50% -50%;opacity:0;z-index:4;}}
+  .{p}-onda{{position:absolute;left:var(--onda-x,0);top:var(--onda-y,0);width:3cqw;aspect-ratio:1;border-radius:50%;border:.35cqw solid rgba(93,255,58,.9);translate:-50% -50%;opacity:0;z-index:5;}}
   .{p}-cena.is-lendo .{p}-onda{{animation:{p}onda .7s ease-out 2;}}
   @keyframes {p}onda{{0%{{opacity:.9;scale:.3;}}100%{{opacity:0;scale:2.2;}}}}
-  .{p}-cena.is-lendo .{p}-boi{{animation:{p}boiBalanca .7s ease-in-out;}}
+  /* entrada: depois que o tablet estaciona, o bastão desliza da esquerda e a vaca da direita, em fade, desacelerando */
+  .{p}-boi,.{p}-bastao{{opacity:0;transition:translate 1.3s cubic-bezier(.4,0,.2,1),rotate 1.3s cubic-bezier(.4,0,.2,1);}}
+  .{p}.is-active .{p}-bastao{{opacity:1;animation:{p}entraEsq 1.1s cubic-bezier(.22,.78,.28,1) 1.5s backwards;}}
+  .{p}.is-active .{p}-boi{{opacity:1;animation:{p}entraDir 1.1s cubic-bezier(.22,.78,.28,1) 1.5s backwards;}}
+  @keyframes {p}entraEsq{{from{{opacity:0;translate:-9cqw 0;}}to{{opacity:1;translate:0 0;}}}}
+  @keyframes {p}entraDir{{from{{opacity:0;translate:9cqw 0;}}to{{opacity:1;translate:0 0;}}}}
+  .{p}-cena.is-lendo .{p}-boi{{animation:{p}entraDir 1.1s cubic-bezier(.22,.78,.28,1) 1.5s backwards,{p}boiBalanca .7s ease-in-out;}}
   @keyframes {p}boiBalanca{{0%,100%{{rotate:0deg;}}25%{{rotate:-3deg;}}55%{{rotate:2.5deg;}}80%{{rotate:-1.2deg;}}}}
   .{p}-cena.is-no-boi .{p}-bastao{{translate:var(--bas-dx,0) var(--bas-dy,0);rotate:var(--bas-rot,0deg);}}
-  /* entrada: a cena aparece depois que o tablet estaciona */
-  .{p}-boi,.{p}-bastao{{opacity:0;transition:opacity .6s ease 1.5s,translate 1.3s cubic-bezier(.4,0,.2,1),rotate 1.3s cubic-bezier(.4,0,.2,1);}}
-  .{p}.is-active :is(.{p}-boi,.{p}-bastao){{opacity:1;}}
   /* estado do bastão na tela do app */
   .{p}-nota--erro{{color:#d32f2f;}}
   .{p}-nota--erro u{{color:#d32f2f;}}
   .{p}-nota button{{border:0;background:transparent;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer;}}
   .{p}-ident span{{letter-spacing:.04em;}}
+
+  /* ===== slide de protótipo: faixa verde do cabeçalho, título e texto à esquerda ===== */
+  .{p}--proto{{background:#fff;}}
+  .{p}-faixa{{position:absolute;left:0;top:0;width:100%;height:13.2%;display:block;z-index:2;pointer-events:none;}}
+  .{p}-topo{{
+    position:absolute;left:1.1%;top:0;height:10.21%;margin:0;z-index:3;
+    display:flex;align-items:center;gap:1.5cqw;
+    color:#fff;font-size:4.3cqh;font-weight:600;letter-spacing:-.03em;white-space:nowrap;
+  }}
+  .{p}-topo img{{height:7.4cqh;width:auto;display:block;filter:drop-shadow(0 .3cqh .5cqh rgba(0,0,0,.25));}}
+  .{p}-ptit{{position:absolute;left:4.9%;top:{top(17.8,5.2,1.05)}%;margin:0;color:#3f5f40;font-size:5.2cqh;font-weight:800;line-height:1.05;letter-spacing:-.03em;white-space:nowrap;}}
+  .{p}-ppil{{position:absolute;left:5.1%;top:36%;width:3.6%;height:2.9%;border-radius:999px;background:#2a8fa0;}}
+  .{p}-ptexto{{position:absolute;left:11.6%;top:{top(36,3.7,1.5)}%;width:40%;margin:0;color:#435f47;font-size:3.7cqh;font-weight:500;line-height:1.5;letter-spacing:-.02em;}}
+  /* blocos de texto à esquerda: cada tela do protótipo pode trocar o texto (data-texto); sem texto próprio, volta ao padrão */
+  .{p}-pbloco{{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s ease;}}
+  .{p}-pbloco.is-ativo{{opacity:1;}}
+  .{p}-pb-tit{{position:absolute;left:4.3%;top:{top(16.8,4.9,1)}%;margin:0;color:#3f5f40;font-size:4.9cqh;font-weight:800;line-height:1;letter-spacing:-.03em;white-space:nowrap;}}
+  .{p}-pb-item{{position:absolute;margin:0;color:#435f47;font-weight:500;letter-spacing:-.02em;}}
+  .{p}-pb-item--g{{left:13.2%;font-size:4.1cqh;line-height:1.35;}}
+  .{p}-pb-item--p{{left:12.9%;font-size:3.7cqh;line-height:1.2;}}
+  .{p}-pb-pil{{position:absolute;height:2.7%;border-radius:999px;}}
+  .{p}-pb-pil--g{{left:4.4%;width:5.2%;}}
+  .{p}-pb-pil--p{{left:7.5%;width:2.2%;}}
+  .{p}-pb-caixa{{position:absolute;left:4.3%;top:88%;height:5.5%;margin:0;padding-right:1.6%;background:#c9edc0;color:#3f5f40;font-size:3.4cqh;font-weight:500;display:flex;align-items:center;padding-left:1.4%;letter-spacing:-.02em;white-space:nowrap;}}
+  /* janela suspensa (detalhe do lote), ao lado do tablet */
+  .{p}-popup{{position:absolute;left:44.2%;top:31%;width:18.2%;height:53%;z-index:5;display:flex;flex-direction:column;
+    background:#f2f2f2;border-radius:1.2cqh;box-shadow:0 1.2cqh 3cqh rgba(0,0,0,.32);overflow:hidden;
+    font-family:"Roboto","Segoe UI",Helvetica,Arial,sans-serif;color:#333;opacity:0;scale:.92;pointer-events:none;transform-origin:100% 25%;transition:opacity .3s ease,scale .3s ease;}}
+  .{p}-popup *{{font-family:inherit;box-sizing:border-box;}}
+  .{p}-popup.is-aberto{{opacity:1;scale:1;pointer-events:auto;}}
+  .{p}-popup__seta{{position:absolute;right:-1.2cqh;top:24%;width:0;height:0;border:1.2cqh solid transparent;border-left-color:#dcdcdc;border-right:0;}}
+  .{p}-popup__cab{{flex:0 0 auto;padding:2.2cqh 1.3cqw 1.6cqh;background:linear-gradient(180deg,#ececec,#d6d6d6);font-size:2.2cqh;color:#333;}}
+  .{p}-popup__corpo{{flex:1;min-height:0;padding:1.8cqh 1cqw 1cqh;display:flex;flex-direction:column;}}
+  .{p}-popup__n{{margin:0 0 1.6cqh;font-size:2.5cqh;}}
+  .{p}-popup table{{width:100%;border-collapse:collapse;font-size:1.85cqh;}}
+  .{p}-popup th{{font-weight:500;font-size:2cqh;padding:.5cqh 0 .7cqh;border-bottom:.15cqh solid #444;text-align:center;}}
+  .{p}-popup td{{padding:.75cqh 0;text-align:center;color:#444;}}
+  .{p}-popup tr:nth-child(even) td{{background:#e6e6e6;}}
+  .{p}-popup__rod{{flex:0 0 auto;padding:1.4cqh 1cqw 1.6cqh;background:linear-gradient(180deg,#d8d8d8,#c8c8c8);}}
+  .{p}-popup__rod label{{display:block;font-size:1.9cqh;margin-bottom:.8cqh;color:#333;}}
+  .{p}-popup__rod label b{{color:#d32f2f;font-weight:400;}}
+  .{p}-popup__linha{{display:flex;align-items:center;background:#fff;border-radius:.9cqh;padding:.5cqh .5cqh .5cqh 1.2cqh;}}
+  .{p}-popup__linha span{{flex:1;color:#b5b5b5;font-size:2.3cqh;}}
+  .{p}-popup__linha button{{border:0;border-radius:999px;background:#3f6b3a;color:#fff;font-size:1.9cqh;padding:1.1cqh 1.4cqw;cursor:default;}}
+  /* janela modal dentro do app (ex.: detalhe dos faltantes): fundo escuro, barra de título e X */
+  .{p}-janela{{position:absolute;left:11cqw;top:16cqh;width:78cqw;max-height:70cqh;background:#f2f2f2;border-radius:.6cqw;box-shadow:0 1cqh 3cqh rgba(0,0,0,.45);display:flex;flex-direction:column;overflow:hidden;}}
+  .{p}-janela__topo{{flex:0 0 auto;height:4.6cqh;background:#2e6b1f;color:#fff;display:flex;align-items:center;padding-left:2.2cqw;font-size:2cqw;font-weight:700;}}
+  .{p}-janela__x{{margin-left:auto;width:6.5cqw;height:100%;border:0;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}}
+  .{p}-janela__x:hover{{background:rgba(255,255,255,.14);}}
+  .{p}-janela__x svg{{width:2.4cqw;height:2.4cqw;}}
+  .{p}-janela__corpo{{padding:1.8cqh 2.4cqw 1.2cqh;overflow-y:auto;scrollbar-width:none;}}
+  .{p}-janela__corpo::-webkit-scrollbar{{display:none;}}
+  .{p}-janela__lote{{margin:0 0 1.4cqh;font-size:2.4cqw;color:#333;}}
+  .{p}-janela__n{{margin:0 0 1.2cqh;font-size:2.7cqw;color:#222;}}
+  .{p}-janela table{{width:100%;border-collapse:collapse;font-size:2.1cqw;}}
+  .{p}-janela th{{font-weight:500;font-size:2.2cqw;padding:.6cqh 0 .8cqh;border-bottom:.15cqh solid #444;text-align:center;}}
+  .{p}-janela td{{padding:.9cqh 0;text-align:center;color:#444;}}
+  .{p}-janela tr:nth-child(even) td{{background:#e4e4e4;}}
+  .{p}-janela__rod{{flex:0 0 auto;padding:1.4cqh 2.4cqw 1.8cqh;background:linear-gradient(180deg,#dcdcdc,#cdcdcd);}}
+  .{p}-janela__rod label{{display:block;font-size:2.1cqw;margin-bottom:.8cqh;color:#333;}}
+  .{p}-janela__rod label b{{color:#d32f2f;font-weight:400;}}
+  .{p}-janela__linha{{display:flex;align-items:center;background:#fff;border-radius:.9cqh;padding:.6cqh .6cqh .6cqh 1.6cqw;}}
+  .{p}-janela__linha span{{flex:1;color:#b5b5b5;font-size:2.5cqw;}}
+  .{p}-janela__linha button{{border:0;border-radius:999px;background:#3f6b3a;color:#fff;font-size:2.1cqw;padding:1.2cqh 2.6cqw;cursor:default;}}
+  /* ---- seleção de eventos (nova rotina) ---- */
+  .{p}-grupo{{margin:1.2cqh 0 0;}}
+  .{p}-grupo.is-oculta{{display:none;}}
+  .{p}-grupo__t{{margin:0;padding:1cqh 0 .8cqh;font-size:2.1cqw;color:#333;border-bottom:1px solid #c9c9c9;}}
+  .{p}-evt{{width:100%;height:5.9cqh;border:0;border-bottom:1px solid #d0d0d0;background:transparent;display:flex;align-items:center;gap:2.2cqw;padding:0 .6cqw;color:#222;font-size:2.55cqw;text-align:left;white-space:nowrap;cursor:pointer;transition:background .15s ease;}}
+  .{p}-evt.is-oculta{{display:none;}}
+  .{p}-evt i{{width:3cqw;height:3cqw;border:.16cqw solid #8a8a8a;border-radius:.4cqw;background:#fff;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;color:#fff;}}
+  .{p}-evt i svg{{width:2cqw;height:2cqw;opacity:0;}}
+  .{p}-evt.is-marcado{{background:#d8ecc6;}}
+  .{p}-evt.is-marcado i{{background:#6e9a62;border-color:#6e9a62;}}
+  .{p}-evt.is-marcado i svg{{opacity:1;}}
+  .{p}-continuar{{font-weight:500;}}
+  .{p}-continuar:disabled{{opacity:.45;}}
+  .{p}-continuar:not(:disabled){{background:#2b5a1e;}}
+  /* ---- edição da rotina: título e slots de eventos ---- */
+  .{p}-busca input.{p}-titulo-input{{width:100%;height:6cqh;border:1px solid #9cc48f;border-radius:.6cqw;background:#fff;padding:0 2.6cqw;font-size:3.2cqw;color:#2b2b2b;outline:none;margin-bottom:2.2cqh;}}
+  .{p}-busca input.{p}-titulo-input::placeholder{{color:#b9b9b9;}}
+  .{p}-slot{{display:flex;background:#fff;border-radius:.6cqw;box-shadow:0 .3cqh 1cqh rgba(0,0,0,.14);margin-bottom:2.2cqh;position:relative;}}
+  .{p}-slot.is-arrastando{{box-shadow:0 1.2cqh 2.6cqh rgba(0,0,0,.32);scale:1.02;z-index:3;}}
+  .{p}-slot__alca{{width:7cqw;flex:0 0 auto;background:#efefef;border-radius:.6cqw 0 0 .6cqw;display:flex;align-items:center;justify-content:center;color:#9a9a9a;cursor:grab;touch-action:none;user-select:none;}}
+  .{p}-slot__alca:active{{cursor:grabbing;}}
+  .{p}-slot__alca svg{{width:3.2cqw;height:3.2cqw;}}
+  .{p}-slot__conteudo{{flex:1;min-width:0;padding:1.8cqh 2.4cqw 2cqh;}}
+  .{p}-slot__cab{{display:flex;align-items:center;gap:.8cqw;font-size:2.5cqw;font-weight:500;color:#222;margin-bottom:1.6cqh;}}
+  .{p}-slot__lixo{{margin-left:auto;border:0;background:transparent;padding:0;color:#222;display:flex;cursor:pointer;}}
+  .{p}-slot__lixo svg{{width:2.8cqw;height:2.8cqw;}}
+  .{p}-info-v{{width:2.2cqw;height:2.2cqw;border-radius:50%;background:#6e9a62;color:#fff;font:italic 700 1.4cqw/2.2cqw Georgia,serif;text-align:center;display:inline-block;}}
+  .{p}-slot__grade{{display:grid;grid-template-columns:1fr 1fr;gap:1.4cqh 2cqw;}}
+  .{p}-slot__grade--4{{grid-template-columns:repeat(4,1fr);}}
+  .{p}-slot__grade .{p}-chip--largo{{grid-column:1 / -1;}}
+  .{p}-chip--amarelo{{background:#eeeab8;border-color:#d9d08a;}}
+  .{p}-chip--vazio{{background:#fff;border:.16cqw dashed #bdbdbd;display:flex;align-items:center;}}
+  .{p}-chip--vazio b{{color:#9a9a9a;font-size:2.3cqw;}}
+  .{p}-chip b{{white-space:normal;}}
+  .{p}-slot__sub{{margin:0 0 1.2cqh;font-size:2.3cqw;font-weight:500;color:#333;}}
+  .{p}-slot__link{{display:inline-block;margin-top:1.6cqh;font-size:2.3cqw;color:#333;text-decoration:underline;}}
+  .{p}-fixo{{position:absolute;left:0;right:0;bottom:0;padding:5cqh 3cqw 2cqh;display:flex;justify-content:flex-end;gap:1.6cqw;background:linear-gradient(180deg,rgba(247,247,247,0),#f7f7f7 45%);z-index:2;pointer-events:none;}}
+  .{p}-fixo button{{pointer-events:auto;height:6cqh;padding:0 3.4cqw;border:.25cqw solid #7d9a78;border-radius:999px;background:#40603b;color:#fff;font-size:2.8cqw;display:flex;align-items:center;gap:1cqw;cursor:pointer;box-shadow:0 .5cqh 1.2cqh rgba(0,0,0,.28);}}
+  .{p}-fixo button svg{{width:2.4cqw;height:2.4cqw;}}
+  .{p}-fixo button:not(:disabled):hover{{filter:brightness(1.12);}}
+  .{p}-fixo button:disabled{{background:#9a9a9a;border-color:#c4c4c4;color:#f0f0f0;cursor:default;box-shadow:none;}}
+  /* ---- lotes de IATF: acordeão por propriedade com grade de lotes ---- */
+  .{p}-acc{{border-bottom:1px solid #b7d4a6;margin:0 -3.6cqw 0 -4.2cqw;padding:0 3.6cqw 0 4.2cqw;}}
+  .{p}-acc__cab{{width:100%;border:0;background:transparent;display:flex;align-items:center;gap:1.6cqw;padding:2cqh 0 1.8cqh .4cqw;color:#222;font-size:2.5cqw;text-align:left;cursor:pointer;white-space:nowrap;}}
+  .{p}-acc__cab b{{font-weight:500;}}
+  .{p}-acc__cab svg{{width:2.2cqw;height:2.2cqw;color:#6e9a62;flex:0 0 auto;rotate:-90deg;transition:rotate .25s ease;}}
+  .{p}-acc.is-aberto .{p}-acc__cab svg{{rotate:0deg;}}
+  .{p}-acc__corpo{{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s ease;}}
+  .{p}-acc__corpo > div{{overflow:hidden;}}
+  .{p}-acc.is-aberto .{p}-acc__corpo{{grid-template-rows:1fr;}}
+  .{p}-lotes{{border:1px solid #c9c9c9;border-radius:.5cqw;overflow:hidden;background:#fff;margin:0 0 2.4cqh;}}
+  .{p}-lotes div{{display:grid;grid-template-columns:2.7fr 1.3fr 1fr .9fr .9fr 1.15fr .6fr;align-items:center;padding:0 1cqw 0 2.2cqw;height:5.6cqh;border-top:1px solid #e3e3e3;font-size:2.15cqw;color:#222;}}
+  .{p}-lotes div:first-child{{background:#ececec;border-top:0;color:#333;}}
+  .{p}-lotes span{{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}
+  .{p}-lotes .{p}-lupa{{justify-self:end;}}
+  .{p}-lotes .{p}-lupa svg{{width:2.8cqw;height:2.8cqw;}}
+  .{p}-lupa{{border:0;background:transparent;padding:0;margin:0;color:#6e9a62;display:inline-flex;cursor:pointer;}}
+  .{p}-lupa svg{{width:3.3cqw;height:3.3cqw;}}
+  .{p}-lupa:hover svg{{color:#3d7029;scale:1.15;}}
+  .{p}-topo,.{p}-ptit,.{p}-ppil,.{p}-ptexto{{transition:opacity .5s ease var(--d,0s),translate .58s cubic-bezier(.22,.78,.28,1) var(--d,0s);}}
+  .{p}:not(.is-active) .{p}-topo{{opacity:0;translate:0 -40%;}}
+  .{p}:not(.is-active) :is(.{p}-ptit,.{p}-ppil,.{p}-ptexto){{opacity:0;translate:-6% 0;}}
+  .{p}.is-active :is(.{p}-topo,.{p}-ptit,.{p}-ppil,.{p}-ptexto){{opacity:1;translate:none;}}
 
   /* ---- Entrada: textos pela esquerda, foto pela direita, tablet em fade subindo com giro ---- */
   .{p}-eyebrow,.{p}-titulo,.{p}-tag,.{p}-pilula,.{p}-texto,.{p}-foto,.{p}-barra-teal,.{p}-palco{{
@@ -404,7 +611,7 @@ def obs(p, t='Este evento é obrigatório.'):
 def avancar(p):
     return f'<button class="{p}-avancar" type="button" data-acao="avancar">AVANÇAR</button>'
 
-def app(p, fazenda, sub, corpo, lado_html='', modal='', attrs=''):
+def app(p, fazenda, sub, corpo, lado_html='', modal='', attrs='', gaveta=False, vaca=None):
     """monta a tela completa. sub: ('execucao', data) | ('titulo', texto, acoes_html)."""
     volta = f'<button class="{p}-volta" type="button" aria-label="Voltar">{ICO["chevron"]}</button>'
     if sub[0] == 'execucao':
@@ -417,12 +624,13 @@ def app(p, fazenda, sub, corpo, lado_html='', modal='', attrs=''):
     return (f'<div class="{p}-app"{attrs}>'
             f'<header class="{p}-appbar"><img class="{p}-applogo" src="assets/confinamento/logo-mb-curral-h.webp?v=2" alt="MB Curral">'
             f'<span class="{p}-appdiv"></span><span class="{p}-appfaz">{fazenda}</span>'
-            f'<span class="{p}-appicos" aria-hidden="true">{ICO["vaca"]}{ICO["grafico"]}{ICO["alerta"]}{ICO["menu"]}</span></header>'
+            f'<span class="{p}-appicos">' + (f'<button class="{p}-appmenu" type="button" data-acao="{vaca}" aria-label="Animais Faltantes">{ICO["vaca"]}</button>' if vaca else ICO['vaca']) + f'{ICO["grafico"]}{ICO["alerta"]}'
+            + (f'<button class="{p}-appmenu" type="button" data-acao="gaveta" aria-label="Menu">{ICO["menu"]}</button>' if gaveta else ICO['menu']) + '</span></header>'
             f'<div class="{p}-subbar">{subbar}</div>'
             f'<div class="{cl}">{lado_html}<div class="{p}-form">{corpo}</div></div>{modal}</div>')
 
 # ======================================================================= slide
-ACOES = ('ir:', 'fechar', 'remover', 'abrir-cria', 'fechar-cria', 'salvar-cria', 'tocar-peso', 'reconectar')
+ACOES = ('ir:', 'nav:', 'nav-volta:', 'popup:', 'focar', 'evt-toggle', 'evt-continuar', 'slot-excluir', 'slot-excluir-sim', 'rotina-salvar', 'rotina-editar', 'rotina-nova', 'gaveta', 'gaveta-fechar', 'gaveta-inicio', 'gaveta-ir:', 'acordeao', 'fechar', 'remover', 'abrir-cria', 'fechar-cria', 'salvar-cria', 'tocar-peso', 'reconectar')
 
 def desativa_sem_acao(tela_html):
     """Botões da tela do app sem comportamento programado ficam disabled: não piscam, não mostram a mãozinha
@@ -470,7 +678,51 @@ def html(p, n, ev, tela_html, voltar):
 
 '''
 
+def html_proto(p, n, d, tela_html, voltar, menu=2, casa=9):
+    """Slide de protótipo: faixa verde com título, texto à esquerda e o tablet 3D; nav Voltar/Menu à esquerda do tablet."""
+    tela_html = desativa_sem_acao(tela_html)
+    nn = str(n).zfill(2)
+    camadas = ''.join(f'<div class="{p}-camada" style="transform:translateZ(-{k*0.14:.2f}cqw)"></div>' for k in range(1, 11))
+    return f'''      <!-- ===================== SLIDE {n} — {d['aria']} (protótipo, tablet 3D navegável) ===================== -->
+      <section class="slide {p} {p}--proto" data-slide="{n}" data-screen-label="{nn}" aria-label="Slide {n} — {d['aria']}">
+        <img class="slide__bg" src="assets/erp-senior/fundo-claro-topo.webp?v=1" alt="" aria-hidden="true">
+        <img class="{p}-faixa" src="assets/erp-senior/faixa-topo.webp?v=1" alt="" aria-hidden="true">
+        <h2 class="{p}-topo" style="--d:.04s"><img src="assets/erp-senior/icone-mb.webp?v=1" alt="" aria-hidden="true">{d['topo']}</h2>
+        <div class="{p}-pbloco is-ativo" data-texto="padrao">
+          <h3 class="{p}-ptit" style="--d:.12s">{d['titulo']}</h3>
+          <div class="{p}-ppil" style="--d:.24s"></div>
+          <p class="{p}-ptexto" style="--d:.28s">{d['texto']}</p>
+        </div>
+{d.get('blocos', '')}{d.get('popups', '')}
+
+        <div class="{p}-palco" style="--d:.18s">
+          <div class="{p}-giro">
+          <div class="{p}-tablet">
+            {camadas}
+            <img class="{p}-moldura" src="assets/confinamento/tablet-moldura.webp?v=1" alt="" aria-hidden="true">
+            <div class="{p}-tela">
+              {tela_html}
+            </div>
+          </div>
+          </div>
+        </div>
+
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:44.3%;--d:.2s" onclick="goToSlide({voltar})" aria-label="Voltar" title="Voltar">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 3 7l4 4M3 7h12.5a4.5 4.5 0 0 1 0 9H12"/></svg>
+        </button>
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:50.6%;--d:.23s" onclick="goToSlide({casa})" aria-label="Coleta de Dados" title="Coleta de Dados">
+          {ICO['casa']}
+        </button>
+        <button class="ms-nav" type="button" style="top:2%;width:5.2%;height:6.2%;left:56.9%;--d:.26s" onclick="goToSlide({menu})" aria-label="Menu" title="Menu">
+          <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="8.2"/><path d="M8.8 6.9h6.4M8.8 10h6.4M8.8 13.1h6.4"/></svg>
+        </button>
+      </section>
+
+'''
+
 def js(p='tb'):
+    import json as _j
+    ALCA_JSON, LIXO_JSON, EDITAR_JSON, PLAY_JSON = (_j.dumps(ICO[k]) for k in ('alca', 'lixo', 'editar', 'play'))
     return f'''    /* ---- Tablet 3D: inclina seguindo o mouse (repouso: levemente virado para a esquerda) ----
        Gerado por ferramentas/aplica_eventos.py — não editar à mão. */
     document.querySelectorAll('.slide.{p}').forEach(sec => {{
@@ -497,6 +749,88 @@ def js(p='tb'):
 
       /* ---- interações dentro do app ---- */
       const tela = sec.querySelector('.{p}-tela');
+      /* título da rotina: Salvar só habilita com texto no campo */
+      tela.querySelectorAll('[data-titulo-rotina]').forEach(inp => inp.addEventListener('input', () => tela.querySelectorAll('[data-acao="rotina-salvar"]').forEach(x => x.disabled = !inp.value.trim())));
+      const mostraTexto = pg => sec.querySelectorAll('.{p}-pbloco').forEach(b => b.classList.toggle('is-ativo', b.dataset.texto === (pg.dataset.texto || 'padrao')));
+      const fechaPopups = () => sec.querySelectorAll('.{p}-popup.is-aberto').forEach(x => x.classList.remove('is-aberto'));
+      sec.addEventListener('click', e => {{ if(!e.target.closest('.{p}-popup, [data-acao^="popup:"]')) fechaPopups(); }});
+      const ICONE_ALCA = {ALCA_JSON}, ICONE_LIXO = {LIXO_JSON}, ICONE_EDITAR = {EDITAR_JSON}, ICONE_PLAY = {PLAY_JSON};
+      const irPara = (dest, volta, nome) => {{
+        const hist = tela._hist = tela._hist || [];
+        const atual = tela.querySelector('.{p}-pag.is-ativa');
+        if(volta){{ if(!dest) dest = hist.pop() || '1'; else if(hist.length && hist[hist.length-1] === dest) hist.pop(); }}
+        else if(atual && atual.dataset.pag !== dest) hist.push(atual.dataset.pag);
+        const prox = tela.querySelector('.{p}-pag[data-pag="' + dest + '"]');
+        if(!prox || prox === atual || tela.dataset.animando) return;
+        if(nome) tela.querySelectorAll('[data-fazenda-nome]').forEach(x => x.textContent = nome);
+        tela.dataset.animando = '1'; mostraTexto(prox); fechaPopups();
+        prox.classList.add('is-ativa', volta ? '{p}-pag--entra-esq' : '{p}-pag--entra-dir');
+        atual.classList.add(volta ? '{p}-pag--sai-dir' : '{p}-pag--sai-esq');
+        setTimeout(() => {{
+          atual.classList.remove('is-ativa', '{p}-pag--sai-dir', '{p}-pag--sai-esq');
+          prox.classList.remove('{p}-pag--entra-esq', '{p}-pag--entra-dir');
+          prox.querySelectorAll('.{p}-form').forEach(f => f.scrollTop = 0);
+          delete tela.dataset.animando;
+        }}, 400);
+      }};
+      /* ---- criação de rotina: seleção de eventos, slots ordenáveis, exclusão e salvamento ---- */
+      const norm2 = s => s.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase();
+      const marcados = () => [...tela.querySelectorAll('.{p}-evt.is-marcado')].map(x => x.dataset.nome);
+      const atualizaContinuar = () => tela.querySelectorAll('[data-acao="evt-continuar"]').forEach(x => x.disabled = marcados().length === 0);
+      const renumera = () => tela.querySelectorAll('[data-slots]').forEach(l => [...l.querySelectorAll('.{p}-slot')].forEach((s, i) => s.querySelector('[data-ordem]').textContent = (i + 1) + '°'));
+      const montaSlots = () => {{
+        const lista = tela.querySelector('[data-slots]'); if(!lista) return;
+        const campos = JSON.parse(tela.querySelector('[data-slot-campos]').textContent);
+        const nomes = marcados();
+        [...lista.querySelectorAll('.{p}-slot')].forEach(s => {{ if(!nomes.includes(s.dataset.nome) && tela.querySelector('.{p}-evt[data-nome="' + CSS.escape(s.dataset.nome) + '"]')) s.remove(); }});
+        nomes.forEach(n => adicionaSlot(lista, campos, n));
+        renumera();
+      }};
+      const adicionaSlot = (lista, campos, n) => {{
+        if(lista.querySelector('.{p}-slot[data-nome="' + CSS.escape(n) + '"]')) return;
+        const c = campos[n] || campos['*'];
+        lista.insertAdjacentHTML('beforeend', '<div class="{p}-slot" data-nome="' + n + '"><div class="{p}-slot__alca">' + ICONE_ALCA + '</div><div class="{p}-slot__conteudo">'
+          + '<div class="{p}-slot__cab"><span data-ordem>1°</span> ' + n + (c.info ? ' <i class="{p}-info-v">i</i>' : '') + '<button class="{p}-slot__lixo" type="button" data-acao="slot-excluir" aria-label="Excluir evento">' + ICONE_LIXO + '</button></div>'
+          + c.html + '</div></div>');
+      }};
+      const limpaRotina = () => {{
+        tela.querySelectorAll('.{p}-evt.is-marcado').forEach(x => x.classList.remove('is-marcado')); atualizaContinuar();
+        tela.querySelectorAll('[data-slots] .{p}-slot').forEach(s => s.remove());
+        const inp = tela.querySelector('[data-titulo-rotina]'); if(inp) inp.value = '';
+        tela.querySelectorAll('[data-acao="rotina-salvar"]').forEach(x => x.disabled = true); tela._rotinaEditando = null;
+      }};
+      tela.querySelectorAll('[data-filtro-evt]').forEach(inp => inp.addEventListener('input', () => {{
+        const q = norm2(inp.value.trim()); const pag = inp.closest('.{p}-pag');
+        pag.querySelectorAll('.{p}-evt').forEach(f => f.classList.toggle('is-oculta', !!q && !norm2(f.textContent).includes(q)));
+        pag.querySelectorAll('.{p}-grupo').forEach(g => {{ const vis = [...g.querySelectorAll('.{p}-evt')].some(f => !f.classList.contains('is-oculta')); g.classList.toggle('is-oculta', !vis); }});
+      }}));
+      /* arrastar pelo friso para reordenar os slots */
+      tela.querySelectorAll('[data-slots]').forEach(lista => {{
+        let drag = null;
+        lista.addEventListener('pointerdown', e => {{
+          const alca = e.target.closest('.{p}-slot__alca'); if(!alca) return;
+          drag = alca.closest('.{p}-slot'); drag.classList.add('is-arrastando'); alca.setPointerCapture(e.pointerId); e.preventDefault(); e.stopPropagation();
+        }});
+        lista.addEventListener('pointermove', e => {{
+          if(!drag) return; e.stopPropagation();
+          for(const o of [...lista.querySelectorAll('.{p}-slot')].filter(s => s !== drag)){{
+            const r = o.getBoundingClientRect(); if(e.clientY < r.top || e.clientY > r.bottom) continue;
+            if(e.clientY < r.top + r.height/2){{ if(o.previousElementSibling !== drag) lista.insertBefore(drag, o); }}
+            else if(o.nextElementSibling !== drag) lista.insertBefore(drag, o.nextElementSibling);
+            break;
+          }}
+          renumera();
+        }});
+        const fim = e => {{ if(!drag) return; drag.classList.remove('is-arrastando'); drag = null; e.stopPropagation(); }};
+        lista.addEventListener('pointerup', fim); lista.addEventListener('pointercancel', fim);
+      }});
+      /* busca de fazendas: filtra a lista enquanto digita (sem acentos, sem maiúsculas) */
+      const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      tela.querySelectorAll('[data-filtro]').forEach(inp => inp.addEventListener('input', () => {{
+        const q = norm(inp.value.trim()); const pag = inp.closest('.{p}-pag') || tela; let n = 0;
+        pag.querySelectorAll('.{p}-faz').forEach(f => {{ const ok = !q || norm(f.textContent).includes(q); f.classList.toggle('is-oculta', !ok); if(ok) n++; }});
+        pag.querySelectorAll('.{p}-vazio').forEach(v => v.classList.toggle('is-visivel', n === 0));
+      }}));
       /* campo de peso: começa vazio e, ao receber o clique, preenche com o valor de demonstração */
       tela.querySelectorAll('[data-peso]').forEach(inp => {{
         const preenche = () => {{ if(!inp.value.trim()) inp.value = inp.dataset.sugestao || ''; }};
@@ -523,6 +857,23 @@ def js(p='tb'):
           return;
         }}
         const acao = b.dataset.acao;
+        if(acao && acao.startsWith('popup:')){{   // janela suspensa ao lado do tablet
+          const jan = tela.querySelector('.{p}-modal[data-popup="' + acao.slice(6) + '"]');
+          if(jan){{
+            if(b.dataset.lupa){{   // cada lupa preenche a janela com o seu lote, título e lista de animais
+              const d = JSON.parse(tela.querySelector('[data-lupas]').textContent)[b.dataset.lupa];
+              jan.querySelector('[data-j-titulo]').textContent = d.titulo; jan.querySelector('[data-j-lote]').textContent = 'Lote: ' + d.lote;
+              jan.querySelector('[data-j-n]').textContent = d.rotulo + ': ' + d.qtd;
+              let linhas = ''; for(let i = 0; i < d.qtd; i++) linhas += '<tr><td>' + d.prefixo + (d.inicio + i) + '</td><td>' + d.sexo + '</td></tr>';
+              jan.querySelector('[data-j-linhas]').innerHTML = linhas; jan.querySelector('.{p}-janela__corpo').scrollTop = 0;
+            }}
+            jan.classList.toggle('is-aberto'); return;
+          }}
+          const pp = sec.querySelector('.{p}-popup[data-popup="' + acao.slice(6) + '"]'); if(pp) pp.classList.toggle('is-aberto'); return;
+        }}
+        if(acao && (acao.startsWith('nav:') || acao.startsWith('nav-volta:'))){{   // troca de tela com deslize lateral
+          irPara(acao.split(':')[1], acao.startsWith('nav-volta:'), b.dataset.nome); return;
+        }}
         if(acao && acao.startsWith('ir:')){{   // troca de página dentro do tablet
           const dest = acao.slice(3);
           const peso = tela.querySelector('[data-peso]');
@@ -547,6 +898,51 @@ def js(p='tb'):
           return;
         }}
         if(acao === 'fechar'){{ b.closest('.{p}-modal').classList.remove('is-aberto'); return; }}
+        if(acao === 'gaveta'){{ tela.querySelector('.{p}-gaveta').classList.add('is-aberta'); return; }}
+        if(acao === 'gaveta-fechar'){{ tela.querySelector('.{p}-gaveta').classList.remove('is-aberta'); return; }}
+        if(acao === 'acordeao'){{   // abre a propriedade clicada e fecha as outras
+          const acc = b.closest('.{p}-acc'), abrir = !acc.classList.contains('is-aberto');
+          acc.parentElement.querySelectorAll('.{p}-acc').forEach(x => x.classList.remove('is-aberto')); if(abrir) acc.classList.add('is-aberto'); return;
+        }}
+        if(acao && acao.startsWith('gaveta-ir:')){{ tela.querySelector('.{p}-gaveta').classList.remove('is-aberta'); irPara(acao.slice(10), false); return; }}
+        if(acao === 'gaveta-inicio'){{   // Início: fecha o menu e volta à escolha da fazenda
+          tela.querySelector('.{p}-gaveta').classList.remove('is-aberta');
+          const atual = tela.querySelector('.{p}-pag.is-ativa'), ini = tela.querySelector('.{p}-pag[data-pag="1"]');
+          tela._hist = []; fechaPopups();
+          if(atual && ini && atual !== ini && !tela.dataset.animando){{
+            tela.dataset.animando = '1'; mostraTexto(ini);
+            ini.classList.add('is-ativa', '{p}-pag--entra-esq'); atual.classList.add('{p}-pag--sai-dir');
+            setTimeout(() => {{ atual.classList.remove('is-ativa', '{p}-pag--sai-dir'); ini.classList.remove('{p}-pag--entra-esq'); delete tela.dataset.animando; }}, 400);
+          }}
+          return;
+        }}
+        if(acao === 'evt-toggle'){{ b.classList.toggle('is-marcado'); atualizaContinuar(); return; }}
+        if(acao === 'evt-continuar'){{ montaSlots(); irPara('5', false); return; }}
+        if(acao === 'slot-excluir'){{ tela._slotExcluir = b.closest('.{p}-slot'); app.querySelector('.{p}-modal[data-popup="excluir"]').classList.add('is-aberto'); return; }}
+        if(acao === 'slot-excluir-sim'){{
+          const s = tela._slotExcluir; if(s){{ const ev = tela.querySelector('.{p}-evt[data-nome="' + CSS.escape(s.dataset.nome) + '"]'); if(ev) ev.classList.remove('is-marcado'); s.remove(); renumera(); atualizaContinuar(); }}
+          app.querySelector('.{p}-modal[data-popup="excluir"]').classList.remove('is-aberto'); return;
+        }}
+        if(acao === 'rotina-salvar'){{   // nova rotina entra no topo das Rotinas Salvas e volta para a lista
+          const titulo = (tela.querySelector('[data-titulo-rotina]').value || '').trim() || 'Nova Rotina';
+          const cadeia = [...tela.querySelectorAll('[data-slots] .{p}-slot')].map(s => s.dataset.nome).join(' &gt; ');
+          const alvo = tela.querySelector('[data-rotinas]'), ed = tela._rotinaEditando;
+          if(ed && ed.isConnected){{ ed.querySelector('.{p}-rot__cab span').textContent = titulo; ed.querySelector('.{p}-rot__cad').innerHTML = cadeia; }}
+          else alvo.insertAdjacentHTML('afterbegin', '<div class="{p}-rot"><div class="{p}-rot__cab"><span>' + titulo + '</span><button class="{p}-rot__ic" type="button" data-acao="rotina-editar" aria-label="Editar">' + ICONE_EDITAR + '</button><button class="{p}-rot__ic" type="button" disabled>' + ICONE_PLAY + '</button></div><div class="{p}-rot__cad">' + cadeia + '</div></div>');
+          limpaRotina(); tela._hist = []; irPara('2', true); return;
+        }}
+        if(acao === 'rotina-nova'){{ limpaRotina(); irPara('4', false); return; }}
+        if(acao === 'rotina-editar'){{   // abre a edição com o título e os eventos da rotina escolhida
+          limpaRotina(); const card = b.closest('.{p}-rot'); tela._rotinaEditando = card;
+          const titulo = card.querySelector('.{p}-rot__cab span').textContent.trim();
+          const nomes = card.querySelector('.{p}-rot__cad').textContent.split('>').map(s => s.trim()).filter(Boolean);
+          tela.querySelectorAll('.{p}-evt').forEach(e => e.classList.toggle('is-marcado', nomes.includes(e.dataset.nome))); atualizaContinuar();
+          tela.querySelector('[data-titulo-rotina]').value = titulo; tela.querySelectorAll('[data-acao="rotina-salvar"]').forEach(x => x.disabled = false);
+          const lista = tela.querySelector('[data-slots]'), campos = JSON.parse(tela.querySelector('[data-slot-campos]').textContent);
+          nomes.forEach(n => adicionaSlot(lista, campos, n)); renumera();
+          irPara('5', false); return;
+        }}
+        if(acao === 'focar'){{ const inp = b.parentElement.querySelector('input'); if(inp) inp.focus(); return; }}
         if(acao === 'reconectar'){{   // Identificação Eletrônica: liga o LED, leva o bastão ao brinco, o boi estranha, lê e preenche o campo
           const cena = sec.querySelector('.{p}-cena'), nota = b.closest('.{p}-nota'), campo = app.querySelector('[data-ident]');
           if(!cena || cena.dataset.ocupado) return;
@@ -556,8 +952,8 @@ def js(p='tb'):
           cena.classList.add('is-ligado');
           // posiciona a ponta do bastão sobre o brinco (medido na tela, em pixels do slide)
           const r = sec.getBoundingClientRect(), bas = cena.querySelector('.{p}-bastao').getBoundingClientRect(), boi = cena.querySelector('.{p}-boi').getBoundingClientRect();
-          const ponta = {{x: bas.left + bas.width*.86, y: bas.top + bas.height*.03}};
-          const brinco = {{x: boi.left + boi.width*.085, y: boi.top + boi.height*.39}};
+          const ponta = {{x: bas.left + bas.width*.86, y: bas.top + bas.height*.025}};
+          const brinco = {{x: boi.left + boi.width*0.137, y: boi.top + boi.height*0.359}};
           cena.style.setProperty('--bas-dx', (brinco.x - ponta.x + r.width*.012) + 'px'); cena.style.setProperty('--bas-dy', (brinco.y - ponta.y + r.height*.03) + 'px'); cena.style.setProperty('--bas-rot', '-6deg');
           cena.style.setProperty('--onda-x', (brinco.x - r.left) + 'px'); cena.style.setProperty('--onda-y', (brinco.y - r.top) + 'px');
           setTimeout(() => cena.classList.add('is-no-boi'), 450);

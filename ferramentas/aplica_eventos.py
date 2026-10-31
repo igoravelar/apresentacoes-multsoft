@@ -10,8 +10,8 @@ P = 'tb'
 DECKS = [
   dict(arquivo='presentation/reproducao-cria-comercial.html', voltar=15,
        slides=[(103, 'entrada', 'f'), (104, 'entrada', 'm')] + EA.SEQUENCIA, destinos=None),
-  dict(arquivo='presentation/confinamento-multbovinos.html', voltar=9,
-       slides=[(15, 'entrada', 'f')] + EA.SEQUENCIA,
+  dict(arquivo='presentation/confinamento-multbovinos.html', voltar=13,
+       slides=[(15, 'entrada', 'f')] + EA.SEQUENCIA + [(124, 'prototipo', '')],
        destinos={'Entrada de Animais': 15, 'Pesagens': 109, 'Vacinação': 108, 'Venda com Pesagens': 106,
                  'Movimentação Por Localidade': 105, 'Confer. Por Lote Estação de Monta': 110, 'Tratamentos - Protocolo': 115, 'Desmame': 119, 'Diagnóstico de Gestação': 120, 'Sexagem': 121, 'Inventário': 122, 'Identificação Eletrônica': 123}),
 ]
@@ -54,7 +54,7 @@ for d in DECKS:
         t, p0 = remove_secao(t, n)
         if p0 is not None and (pos is None or p0 < pos): pos = p0
     if pos is None: pos = t.index('    </div>\n  </div>\n\n  <!-- Auto-hiding navigation -->')
-    html = ''.join(tablet.html(P, n, EA.EVENTOS[ev], EA.EVENTOS[ev]['tela'](P, est), d['voltar']) for n, ev, est in d['slides'])
+    html = ''.join((tablet.html_proto if EA.EVENTOS[ev].get('proto') else tablet.html)(P, n, EA.EVENTOS[ev], EA.EVENTOS[ev]['tela'](P, est), 9 if EA.EVENTOS[ev].get('proto') else d['voltar']) for n, ev, est in d['slides'])
     t = t[:pos] + M['html'][0] + html + M['html'][1] + t[pos:]
     # --- JS (remove o bloco antigo do Confinamento, sem marcadores)
     a = t.find('    /* ---- Tablet 3D: inclina seguindo o mouse')
