@@ -45,6 +45,9 @@ ICO = {
  'g-historico': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6M3.5 4v4.5H8M12 8v4.5l3 2"/></svg>',
  'g-ajuda': '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M11 10h2v7h-2zM11 6.5h2v2h-2z" fill="#4f7d3b"/></svg>',
  'casa': '<svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10 12 2.8l8.5 7.2M6 8.6V17.5h4.3v-4.6h3.4v4.6H18V8.6"/></svg>',
+ 'enviar': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 11.5 21 3l-4.5 18-5.5-6.5zM11 14.5l2.3 2.7L17.6 6z"/></svg>',
+ 'doc': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h9l5 5v15H6zm8 1.5V8h4.5zM8 11h8v1.6H8zm0 3.5h8v1.6H8zm0 3.5h5v1.6H8z"/></svg>',
+ 'ajuda': '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="11"/><path d="M11 10h2v7h-2zM11 6.5h2v2h-2z" fill="#396e27"/></svg>',
  'alca': '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="9" width="16" height="2" rx="1"/><rect x="4" y="13" width="16" height="2" rx="1"/></svg>',
  'maisb': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6z"/></svg>',
 }
@@ -188,7 +191,7 @@ def css(p='tb'):
     font-size:2.85cqw;font-weight:700;letter-spacing:.02em;cursor:pointer;
     box-shadow:0 .5cqh 1.2cqh rgba(0,0,0,.28);transition:scale .15s ease,filter .15s ease;
   }}
-  .{p}-avancar:not(:disabled):hover{{filter:brightness(1.12);}}
+  .{p}-avancar:not(:disabled):hover{{background:#9fd48a;border-color:#d7efc9;color:#2b5a1e;}}
   .{p}-avancar:not(:disabled):active{{scale:.96;}}
   /* variantes de uma mesma tela (ex.: Entrada do Animal, fêmea/macho) */
   .{p}-var{{display:none;}}
@@ -253,14 +256,14 @@ def css(p='tb'):
   .{p}-gaveta.is-aberta{{visibility:visible;transition-delay:0s;}}
   .{p}-gaveta__fundo{{position:absolute;inset:0;border:0;padding:0;margin:0;background:rgba(0,0,0,.62);opacity:0;transition:opacity .38s ease;cursor:pointer;}}
   .{p}-gaveta.is-aberta .{p}-gaveta__fundo{{opacity:1;}}
-  .{p}-gaveta__painel{{position:absolute;top:0;right:0;bottom:0;width:46cqw;background:#4f7d3b;box-shadow:-.6cqw 0 2cqw rgba(0,0,0,.35);translate:100% 0;transition:translate .38s cubic-bezier(.25,.7,.25,1);overflow-y:auto;scrollbar-width:none;}}
+  .{p}-gaveta__painel{{position:absolute;top:0;right:0;bottom:0;width:51cqw;background:#4f7d3b;box-shadow:-.6cqw 0 2cqw rgba(0,0,0,.35);translate:100% 0;transition:translate .38s cubic-bezier(.25,.7,.25,1);overflow-y:auto;scrollbar-width:none;}}
   .{p}-gaveta__painel::-webkit-scrollbar{{display:none;}}
   .{p}-gaveta.is-aberta .{p}-gaveta__painel{{translate:0 0;}}
-  .{p}-gaveta__item{{width:100%;height:6.7cqh;border:0;border-bottom:1px solid #6b9a55;background:transparent;display:flex;align-items:center;gap:2.2cqw;padding:0 2.4cqw;color:#fff;font-size:2.15cqw;text-align:left;white-space:nowrap;cursor:pointer;}}
+  .{p}-gaveta__item{{width:100%;height:7cqh;border:0;border-bottom:1px solid #6b9a55;background:transparent;display:flex;align-items:center;gap:2.6cqw;padding:0 2.6cqw;color:#fff;font-size:2.65cqw;text-align:left;white-space:nowrap;cursor:pointer;}}
   .{p}-gaveta__item:not(:disabled):hover{{background:#5c8c47;}}
   .{p}-gaveta__item:disabled{{color:rgba(255,255,255,.38);cursor:not-allowed;}}
   .{p}-gaveta__item:disabled svg{{color:rgba(191,224,163,.35);}}
-  .{p}-gaveta__item svg{{width:2.8cqw;height:2.8cqw;color:#bfe0a3;flex:0 0 auto;}}
+  .{p}-gaveta__item svg{{width:3.5cqw;height:3.5cqw;color:#bfe0a3;flex:0 0 auto;}}
   .{p}-app[data-proto]::after{{content:"";position:absolute;left:0;right:0;bottom:0;height:9cqh;background:linear-gradient(180deg,rgba(233,233,233,0),#e9e9e9 85%);pointer-events:none;}}
   /* link "Ver Ficha Completa" na barra lateral */
   .{p}-ficha{{margin:1.6cqh -1.9cqw 2.4cqh -2.2cqw;padding:1.6cqh 2.2cqw;background:#2b6a1f;color:#fff;display:flex;align-items:center;gap:1.4cqw;font-size:1.9cqw;font-style:italic;text-decoration:underline;white-space:nowrap;}}
@@ -438,6 +441,18 @@ def css(p='tb'):
   .{p}-pb-pil--g{{left:4.4%;width:5.2%;}}
   .{p}-pb-pil--p{{left:7.5%;width:2.2%;}}
   .{p}-pb-caixa{{position:absolute;left:4.3%;top:88%;height:5.5%;margin:0;padding-right:1.6%;background:#c9edc0;color:#3f5f40;font-size:3.4cqh;font-weight:500;display:flex;align-items:center;padding-left:1.4%;letter-spacing:-.02em;white-space:nowrap;}}
+  /* etapas da rotina em execução (bloco de texto à esquerda) */
+  .{p}-et-tit{{position:absolute;left:4.9%;top:{top(17.8,5.2,1.05)}%;margin:0;color:#3f5f40;font-size:5.2cqh;font-weight:800;line-height:1.05;letter-spacing:-.03em;white-space:nowrap;}}
+  .{p}-et-pil{{position:absolute;left:5.1%;top:36.4%;width:3.6%;height:2.9%;border-radius:999px;background:#2a8fa0;}}
+  .{p}-et-sub{{position:absolute;left:11.6%;top:{top(36.2,3.9,1.5)}%;margin:0;color:#435f47;font-size:3.9cqh;font-weight:500;line-height:1.5;letter-spacing:-.02em;white-space:nowrap;}}
+  .{p}-et-sub b{{font-weight:800;color:#3f5f40;}}
+  .{p}-etapas{{position:absolute;left:11.6%;top:50.5%;margin:0;padding:0;list-style:none;}}
+  .{p}-etapas li{{display:flex;align-items:center;gap:2.2cqw;height:6.1cqh;color:#b9b9b9;font-size:3.4cqh;font-weight:500;letter-spacing:-.02em;white-space:nowrap;transition:color .3s ease;}}
+  .{p}-etapas li i{{width:2.1cqh;height:2.1cqh;border-radius:50%;border:.22cqh solid #8a8a8a;box-sizing:border-box;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;transition:border-color .3s ease;}}
+  .{p}-etapas li.is-atual{{color:#3f5f40;}}
+  .{p}-etapas li.is-atual i{{border-color:#5a9a4e;}}
+  .{p}-etapas li.is-atual i::after{{content:"";width:.95cqh;height:.95cqh;border-radius:50%;background:#5a9a4e;}}
+  .{p}-etapas li.is-feita{{color:#3f5f40;text-decoration:line-through;text-decoration-thickness:.25cqh;}}
   /* janela suspensa (detalhe do lote), ao lado do tablet */
   .{p}-popup{{position:absolute;left:44.2%;top:31%;width:18.2%;height:53%;z-index:5;display:flex;flex-direction:column;
     background:#f2f2f2;border-radius:1.2cqh;box-shadow:0 1.2cqh 3cqh rgba(0,0,0,.32);overflow:hidden;
@@ -507,6 +522,7 @@ def css(p='tb'):
   .{p}-info-v{{width:2.2cqw;height:2.2cqw;border-radius:50%;background:#6e9a62;color:#fff;font:italic 700 1.4cqw/2.2cqw Georgia,serif;text-align:center;display:inline-block;}}
   .{p}-slot__grade{{display:grid;grid-template-columns:1fr 1fr;gap:1.4cqh 2cqw;}}
   .{p}-slot__grade--4{{grid-template-columns:repeat(4,1fr);}}
+  .{p}-slot__grade--3{{grid-template-columns:repeat(3,1fr);}}
   .{p}-slot__grade .{p}-chip--largo{{grid-column:1 / -1;}}
   .{p}-chip--amarelo{{background:#eeeab8;border-color:#d9d08a;}}
   .{p}-chip--vazio{{background:#fff;border:.16cqw dashed #bdbdbd;display:flex;align-items:center;}}
@@ -534,6 +550,127 @@ def css(p='tb'):
   .{p}-lotes span{{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}
   .{p}-lotes .{p}-lupa{{justify-self:end;}}
   .{p}-lotes .{p}-lupa svg{{width:2.8cqw;height:2.8cqw;}}
+  /* ---- execução da rotina: leitura do animal (elementos grandes) ---- */
+  .{p}-ler{{text-align:center;margin:3.4cqh 0 4.6cqh;}}
+  .{p}-ler small{{display:block;font-size:2.7cqw;color:#555;}}
+  .{p}-ler b{{display:block;font-size:5.4cqw;color:#3d7029;font-weight:700;margin-top:.6cqh;letter-spacing:-.01em;}}
+  .{p}-leitura-cab{{display:flex;align-items:center;margin:0 7cqw 1.3cqh;}}
+  .{p}-leitura-cab label{{font-size:3cqw;color:#333;display:flex;align-items:center;gap:1cqw;}}
+  .{p}-leitura-cab label b{{color:#e53935;font-weight:400;}}
+  .{p}-leitura-cab label .{p}-info-v{{width:2.8cqw;height:2.8cqw;font-size:1.8cqw;line-height:2.8cqw;}}
+  .{p}-alterar{{margin-left:auto;border:0;background:transparent;color:#555;font-size:2.3cqw;text-decoration:underline;display:flex;align-items:center;gap:.7cqw;cursor:pointer;padding:0;}}
+  .{p}-alterar svg{{width:2.4cqw;height:2.4cqw;}}
+  .{p}-leitura-campo{{position:relative;margin:0 7cqw 3.2cqh;height:7.8cqh;display:flex;border:1px solid #c9c9c9;border-radius:.6cqw;overflow:hidden;background:#fff;flex:0 0 auto;}}
+  .{p}-leitura-campo.is-preenchido{{border-color:#8fbf7f;}}
+  .{p}-leitura-campo input{{flex:1;min-width:0;border:0;padding-left:2.6cqw;font-size:3.7cqw;color:#2b2b2b;outline:none;background:transparent;}}
+  .{p}-leitura-campo input::placeholder{{color:#b9b9b9;}}
+  .{p}-leitura-campo .{p}-bt{{width:8.4cqw;}}
+  .{p}-leitura-campo .{p}-bt svg{{width:3.4cqw;height:3.4cqw;}}
+  .{p}-leitura-campo .{p}-toque{{right:8.4cqw;}}
+  .{p}-check{{display:flex;align-items:center;gap:1.6cqw;border:0;background:transparent;font-size:2.9cqw;color:#333;margin:0 auto 6cqh;cursor:pointer;padding:0;flex:0 0 auto;}}
+  .{p}-check i{{width:3.8cqw;height:3.8cqw;border:.2cqw solid #8a8a8a;border-radius:.5cqw;background:#fff;display:inline-flex;align-items:center;justify-content:center;color:#fff;box-sizing:border-box;}}
+  .{p}-check i svg{{width:2.6cqw;height:2.6cqw;opacity:0;}}
+  .{p}-check.is-marcado i{{background:#6e9a62;border-color:#6e9a62;}}
+  .{p}-check.is-marcado i svg{{opacity:1;}}
+  .{p}-iniciar{{align-self:center;width:44cqw;height:9.2cqh;border:.3cqw solid #7d9a78;border-radius:999px;background:#40603b;color:#fff;font-size:4.2cqw;font-weight:700;letter-spacing:.04em;cursor:pointer;flex:0 0 auto;margin-bottom:6cqh;box-shadow:0 .6cqh 1.4cqh rgba(0,0,0,.3);transition:filter .15s ease,scale .15s ease;}}
+  .{p}-iniciar:not(:disabled):hover{{background:#9fd48a;border-color:#d7efc9;color:#2b5a1e;}}
+  .{p}-iniciar:disabled{{background:#9a9a9a;border-color:#c4c4c4;color:#f0f0f0;box-shadow:none;cursor:default;}}
+  .{p}-separador{{height:1px;background:#b7d4a6;margin:0 -3.6cqw 3.4cqh -4.2cqw;flex:0 0 auto;}}
+  .{p}-proc-t{{text-align:center;font-size:3.5cqw;font-weight:500;color:#222;margin:0 0 2.6cqh;}}
+  .{p}-proc{{display:flex;align-items:center;gap:2cqw;}}
+  .{p}-proc__cards{{flex:1;min-width:0;display:flex;border:1px solid #c9c9c9;border-radius:.6cqw;background:#fff;}}
+  .{p}-proc__cards div{{flex:1;display:flex;align-items:center;justify-content:space-between;padding:1.8cqh 2.2cqw;min-width:0;}}
+  .{p}-proc__cards div+div{{border-left:1px solid #d6d6d6;}}
+  .{p}-proc__cards small{{font-size:2.5cqw;color:#333;line-height:1.3;}}
+  .{p}-proc__cards small i{{display:block;font-size:2cqw;color:#666;}}
+  .{p}-proc__cards b{{font-size:5.6cqw;color:#1f3d14;font-weight:500;}}
+  .{p}-proc__lupa{{width:12cqw;height:12cqw;border-radius:50%;border:.35cqw solid #b7cfab;background:#5a7d4a;color:#fff;display:flex;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:0 .5cqh 1.2cqh rgba(0,0,0,.28);}}
+  .{p}-proc__lupa svg{{width:5.4cqw;height:5.4cqw;}}
+  /* ---- seleção da leitura (sem a barra do app) ---- */
+  .{p}--proto .{p}-app[data-sem-appbar] .{p}-appbar{{display:none;}}
+  .{p}--proto .{p}-app[data-sem-appbar] .{p}-subbar{{top:0;}}
+  .{p}--proto .{p}-app[data-sem-appbar] .{p}-corpo{{top:4.6cqh;height:95.4cqh;}}
+  .{p}-opcao{{width:100%;height:7cqh;border:0;border-bottom:1px solid #d0d0d0;background:transparent;display:flex;align-items:center;gap:2.4cqw;padding:0 .4cqw;color:#222;font-size:3cqw;text-align:left;cursor:pointer;}}
+  .{p}-opcao.is-oculta{{display:none;}}
+  .{p}-opcao i{{width:3.4cqw;height:3.4cqw;border-radius:50%;border:.22cqw solid #8a8a8a;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;}}
+  .{p}-opcao.is-sel i{{border-color:#6e9a62;}}
+  .{p}-opcao.is-sel i::after{{content:"";width:1.6cqw;height:1.6cqw;border-radius:50%;background:#6e9a62;}}
+  /* ---- execução: lote de IATF, score, resumo da rotina, animais processados, visão por rotina ---- */
+  .{p}-campo .{p}-bt--lixo{{display:none;}}
+  .{p}-campo.is-preenchido .{p}-bt--lixo{{display:flex;}}
+  .{p}-campo.is-preenchido .{p}-bt--lupa{{display:none;}}
+  .{p}-volta:disabled{{opacity:.45;cursor:default;}}
+  .{p}-resumo{{margin:2.6cqh 0 0;padding:0;list-style:none;}}
+  .{p}-resumo li{{display:flex;align-items:center;gap:1.8cqw;font-size:3.3cqw;color:#333;margin-bottom:2.2cqh;}}
+  .{p}-resumo li i{{width:3.8cqw;height:3.8cqw;border-radius:50%;border:1px solid #9a9a9a;font-size:1.9cqw;font-style:normal;color:#555;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;}}
+  .{p}-resumo li svg{{width:3.6cqw;height:3.6cqw;color:#7bc26a;flex:0 0 auto;}}
+  .{p}-proc-cab{{display:flex;align-items:center;gap:2cqw;background:#e2e2e2;margin:-2.3cqh -3.6cqw 2.6cqh -4.2cqw;padding:2.2cqh 3.6cqw 2.2cqh 4.2cqw;}}
+  .{p}-proc-cab h3{{margin:0;font-size:3.1cqw;font-weight:500;color:#222;}}
+  .{p}-proc-cab h3 small{{display:block;font-size:1.75cqw;font-weight:400;color:#666;font-style:italic;margin-top:.5cqh;}}
+  .{p}-proc-cab > div{{flex:1;min-width:0;}}
+  .{p}-proc-cab label{{font-size:1.7cqw;color:#555;text-align:right;line-height:1.2;}}
+  .{p}-proc-cab b{{width:14cqw;height:7cqh;background:#fff;border-radius:.6cqw;display:flex;align-items:center;justify-content:center;font-size:4.8cqw;font-weight:500;color:#222;flex:0 0 auto;}}
+  .{p}-rel{{display:flex;align-items:center;border:1px solid #c9c9c9;border-radius:999px;background:#fff;padding:.7cqh .7cqh .7cqh 3.4cqw;margin-bottom:2.8cqh;}}
+  .{p}-rel span{{flex:1;font-size:2.5cqw;font-weight:500;color:#333;}}
+  .{p}-rel button{{width:12cqw;height:6.2cqh;border:0;border-radius:999px;background:#2b5a1e;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 .4cqh 1cqh rgba(0,0,0,.25);}}
+  .{p}-rel button svg{{width:3cqw;height:3cqw;}}
+  .{p}-rel button:not(:disabled):hover{{filter:brightness(1.15);}}
+  .{p}-proc-grupo{{margin:0 0 .6cqh;padding:1cqh 0;font-size:2.7cqw;font-weight:500;color:#222;border-bottom:.2cqh solid #b7d4a6;}}
+  .{p}-proc-linha{{display:flex;align-items:center;gap:1.8cqw;height:5.6cqh;border-bottom:1px solid #d6d6d6;font-size:2.5cqw;color:#222;}}
+  .{p}-proc-linha svg{{width:2.6cqw;height:2.6cqw;color:#6e9a62;flex:0 0 auto;}}
+  .{p}-proc-linha.is-apagada svg{{color:#c4c4c4;}}
+  .{p}-proc-linha span{{flex:1;}}
+  .{p}-proc-linha b{{font-weight:400;margin-right:2cqw;}}
+  .{p}-vis-prop{{background:#d6ead0;margin:-2.3cqh -3.6cqw 2.4cqh -4.2cqw;padding:1.6cqh 3.6cqw 1.6cqh 4.2cqw;font-size:2.4cqw;color:#333;}}
+  .{p}-vis-tab{{border:1px solid #c9c9c9;border-radius:.4cqw;overflow:hidden;background:#fff;margin-bottom:2.2cqh;}}
+  .{p}-vis-tab div{{display:grid;grid-template-columns:1fr 3fr;gap:2cqw;padding:1.2cqh 2cqw;font-size:2.4cqw;color:#222;}}
+  .{p}-vis-tab div:first-child{{background:#ececec;}}
+  .{p}-vis-cab,.{p}-vis-row{{display:grid;grid-template-columns:1fr 2fr 1fr;gap:2cqw;font-size:2.3cqw;color:#222;}}
+  .{p}-vis-cab{{font-weight:500;padding:.8cqh 0;}}
+  .{p}-vis-row{{padding:1.6cqh 0;border-top:1px solid #d6d6d6;line-height:1.45;}}
+  .{p}-vis-row span:nth-child(2){{white-space:pre-line;}}
+  .{p}-vis-env{{margin:3cqh 0 2cqh;border:1px solid #c9c9c9;border-radius:.6cqw;padding:2cqh 2cqw 2cqh;position:relative;}}
+  .{p}-vis-env legend{{padding:0 1cqw;font-size:2.8cqw;font-weight:500;color:#3d7029;}}
+  .{p}-vis-env label{{display:block;font-size:2.2cqw;color:#333;margin-bottom:.8cqh;}}
+  .{p}-vis-env label b{{color:#e53935;font-weight:400;}}
+  .{p}-vis-env .{p}-input{{height:6.4cqh;}}
+  .{p}-vis-env .{p}-input input{{flex:1;min-width:0;border:0;background:transparent;padding-left:2cqw;font-size:2.8cqw;color:#2b2b2b;outline:none;}}
+  .{p}-vis-env .{p}-input input::placeholder{{color:#b9b9b9;}}
+  .{p}-vis-env .{p}-bt{{width:7cqw;}}
+  /* ---- carga inicial ---- */
+  .{p}-carga-fs{{border:1px solid #c9c9c9;border-radius:.6cqw;padding:1.2cqh 2.4cqw 2.2cqh;margin:.6cqh 0 2.8cqh;}}
+  .{p}-carga-fs legend{{padding:0 1cqw;font-size:3.4cqw;color:#333;display:flex;align-items:center;gap:1cqw;}}
+  .{p}-carga-sub{{color:#3d7029;font-size:2.7cqw;font-weight:500;border-bottom:1px solid #9cc48f;padding-bottom:.6cqh;margin:1.2cqh 0 1.6cqh;}}
+  .{p}-carga-lbl{{font-size:2cqw;color:#555;margin:0 0 1.2cqh;}}
+  .{p}-cg{{display:grid;grid-template-columns:1fr 1fr;gap:1.8cqh 2cqw;margin-bottom:1.4cqh;}}
+  .{p}-cg > div{{display:flex;flex-direction:column;gap:1.8cqh;}}
+  .{p}-check--esq{{margin:0;justify-content:flex-start;}}
+  .{p}-check:disabled{{opacity:.45;cursor:default;}}
+  .{p}-carga-t{{display:flex;align-items:center;gap:1cqw;font-size:2.7cqw;color:#333;margin:0 0 1.4cqh;}}
+  .{p}-input--cinza{{background:#e9e9ea;border-color:#d2d2d2;margin-bottom:1.2cqh;}}
+  .{p}-input--cinza span{{color:#333;}}
+  .{p}-add{{display:flex;align-items:center;gap:1cqw;color:#5a9a4e;font-size:2cqw;text-decoration:underline;margin:.4cqh 0 2.6cqh;}}
+  .{p}-add b{{font-size:2.6cqw;text-decoration:none;font-weight:400;}}
+  .{p}-acc--solto{{border:0;margin:0;padding:0;}}
+  .{p}-acc--solto .{p}-acc__cab{{padding:0 0 1.6cqh;font-size:2.7cqw;color:#333;}}
+  .{p}-acc--solto .{p}-acc__cab b{{font-weight:400;}}
+  /* ---- configurações bluetooth ---- */
+  .{p}-bt-pergunta{{margin:.4cqh 0 1.2cqh;font-size:2.2cqw;color:#333;}}
+  .{p}-disp{{border:1px solid #c9c9c9;border-radius:.5cqw;overflow:hidden;background:#fff;margin-bottom:2cqh;}}
+  .{p}-disp > div{{display:flex;align-items:center;justify-content:space-between;padding:1.4cqh 2cqw;border-top:1px solid #e3e3e3;font-size:2.5cqw;color:#222;}}
+  .{p}-disp > div:first-child{{background:#ececec;border-top:0;font-size:2.3cqw;font-weight:500;color:#333;}}
+  .{p}-disp small{{display:block;font-size:1.6cqw;color:#888;margin-top:.4cqh;}}
+  /* ---- vendas de animais ---- */
+  .{p}-vendas{{border:1px solid #c9c9c9;border-radius:.5cqw;overflow:hidden;background:#fff;margin:0 -.6cqw;}}
+  .{p}-vendas div{{display:grid;grid-template-columns:1.5fr .9fr 1.15fr 1.7fr .5fr;align-items:center;padding:0 1.6cqw;height:5.4cqh;border-top:1px solid #e3e3e3;font-size:2.3cqw;color:#222;}}
+  .{p}-vendas div:first-child{{background:#ececec;border-top:0;font-weight:500;color:#333;font-size:2.1cqw;}}
+  .{p}-vendas .{p}-lupa{{justify-self:end;}}
+  .{p}-vendas .{p}-lupa svg{{width:2.8cqw;height:2.8cqw;}}
+  .{p}-janela--vendas{{top:12cqh;max-height:76cqh;}}
+  .{p}-janela--vendas .{p}-janela__topo{{background:#1f4a16;font-size:2.4cqw;}}
+  .{p}-janela--vendas table{{font-size:2.2cqw;}}
+  .{p}-janela--vendas th{{font-size:2.3cqw;}}
+  .{p}-janela__rod--escuro{{background:#1f4a16;color:#fff;display:flex;justify-content:space-around;font-size:2.3cqw;padding:1.6cqh 2cqw;}}
   .{p}-lupa{{border:0;background:transparent;padding:0;margin:0;color:#6e9a62;display:inline-flex;cursor:pointer;}}
   .{p}-lupa svg{{width:3.3cqw;height:3.3cqw;}}
   .{p}-lupa:hover svg{{color:#3d7029;scale:1.15;}}
@@ -653,7 +790,7 @@ def app(p, fazenda, sub, corpo, lado_html='', modal='', attrs='', gaveta=False, 
             f'<div class="{cl}">{lado_html}<div class="{p}-form">{corpo}</div></div>{modal}</div>')
 
 # ======================================================================= slide
-ACOES = ('ir:', 'nav:', 'nav-volta:', 'popup:', 'focar', 'evt-toggle', 'evt-continuar', 'slot-excluir', 'slot-excluir-sim', 'rotina-salvar', 'rotina-editar', 'rotina-nova', 'gaveta', 'gaveta-fechar', 'gaveta-inicio', 'gaveta-ir:', 'acordeao', 'fechar', 'remover', 'abrir-cria', 'fechar-cria', 'salvar-cria', 'tocar-peso', 'reconectar')
+ACOES = ('ir:', 'nav:', 'nav-volta:', 'popup:', 'focar', 'evt-toggle', 'evt-continuar', 'slot-excluir', 'slot-excluir-sim', 'rotina-salvar', 'rotina-editar', 'rotina-nova', 'rotina-executar', 'tocar-leitura', 'iniciar', 'leitura-opcao', 'check-toggle', 'protocolo-preencher', 'lote-preencher', 'proximo-animal', 'gaveta', 'gaveta-fechar', 'gaveta-inicio', 'gaveta-ir:', 'acordeao', 'vendas-detalhe', 'fechar', 'remover', 'abrir-cria', 'fechar-cria', 'salvar-cria', 'tocar-peso', 'reconectar')
 
 def desativa_sem_acao(tela_html):
     """Botões da tela do app sem comportamento programado ficam disabled: não piscam, não mostram a mãozinha
@@ -772,9 +909,20 @@ def js(p='tb'):
 
       /* ---- interações dentro do app ---- */
       const tela = sec.querySelector('.{p}-tela');
+      /* leitura do animal: campo começa vazio, o toque preenche o animal fictício e habilita INICIAR */
+      const habilitaIniciar = () => {{ const inp = tela.querySelector('[data-leitura]'); if(!inp) return; const ok = !!inp.value.trim(); tela.querySelectorAll('[data-acao="iniciar"]').forEach(x => x.disabled = !ok); inp.closest('.{p}-leitura-campo').classList.toggle('is-preenchido', ok); }};
+      const preencheLeitura = () => {{ const inp = tela.querySelector('[data-leitura]'); if(!inp) return; if(!inp.value.trim()) inp.value = inp.dataset.sugestao || ''; habilitaIniciar(); inp.focus(); }};
+      tela.querySelectorAll('[data-leitura]').forEach(inp => {{ ['pointerdown', 'focus'].forEach(ev => inp.addEventListener(ev, preencheLeitura)); inp.addEventListener('input', habilitaIniciar); }});
+      tela.querySelectorAll('[data-filtro-opcao]').forEach(inp => inp.addEventListener('input', () => {{
+        const q = inp.value.trim().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase(); const pag = inp.closest('.{p}-pag');
+        pag.querySelectorAll('.{p}-opcao').forEach(o => o.classList.toggle('is-oculta', !!q && !o.textContent.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase().includes(q)));
+      }}));
       /* título da rotina: Salvar só habilita com texto no campo */
       tela.querySelectorAll('[data-titulo-rotina]').forEach(inp => inp.addEventListener('input', () => tela.querySelectorAll('[data-acao="rotina-salvar"]').forEach(x => x.disabled = !inp.value.trim())));
-      const mostraTexto = pg => sec.querySelectorAll('.{p}-pbloco').forEach(b => b.classList.toggle('is-ativo', b.dataset.texto === (pg.dataset.texto || 'padrao')));
+      const mostraTexto = pg => {{
+        sec.querySelectorAll('.{p}-pbloco').forEach(b => b.classList.toggle('is-ativo', b.dataset.texto === (pg.dataset.texto || 'padrao')));
+        if(pg.dataset.etapa !== undefined){{ const n = parseInt(pg.dataset.etapa, 10); sec.querySelectorAll('.{p}-etapas li').forEach((li, i) => {{ li.classList.toggle('is-feita', i < n); li.classList.toggle('is-atual', i === n); }}); }}
+      }};
       const fechaPopups = () => sec.querySelectorAll('.{p}-popup.is-aberto').forEach(x => x.classList.remove('is-aberto'));
       sec.addEventListener('click', e => {{ if(!e.target.closest('.{p}-popup, [data-acao^="popup:"]')) fechaPopups(); }});
       const ICONE_ALCA = {ALCA_JSON}, ICONE_LIXO = {LIXO_JSON}, ICONE_EDITAR = {EDITAR_JSON}, ICONE_PLAY = {PLAY_JSON};
@@ -875,8 +1023,9 @@ def js(p='tb'):
         if(grupo && b.hasAttribute('data-radio')){{ grupo.querySelectorAll('[data-radio]').forEach(x => x.classList.toggle('is-sel', x === b)); return; }}
         if(b.dataset.passo !== undefined){{   // quantidade com passos
           const sp = b.closest('[data-passos]').querySelector('[data-valor]');
-          const v = b.dataset.passo === '0' ? 0 : parseFloat(sp.dataset.valor) + parseFloat(b.dataset.passo);
-          sp.dataset.valor = v; sp.textContent = String(v).replace('.', ',');
+          const v = b.dataset.passo === '0' ? 0 : parseFloat(sp.dataset.valor || '0') + parseFloat(b.dataset.passo);
+          sp.dataset.valor = v || ''; const vazio = !v && sp.dataset.ph !== undefined;
+          sp.textContent = vazio ? sp.dataset.ph : String(v).replace('.', ','); sp.classList.toggle('{p}-ph', vazio);
           return;
         }}
         const acao = b.dataset.acao;
@@ -923,6 +1072,12 @@ def js(p='tb'):
         if(acao === 'fechar'){{ b.closest('.{p}-modal').classList.remove('is-aberto'); return; }}
         if(acao === 'gaveta'){{ tela.querySelector('.{p}-gaveta').classList.add('is-aberta'); return; }}
         if(acao === 'gaveta-fechar'){{ tela.querySelector('.{p}-gaveta').classList.remove('is-aberta'); return; }}
+        if(acao === 'vendas-detalhe'){{   // lupa da venda: lista os animais do embarque na janela modal
+          const jan = tela.querySelector('.{p}-modal[data-popup="vendas"]'), d = b.dataset; const n = parseInt(d.n, 10), media = parseFloat(d.peso);
+          let linhas = ''; for(let k = 0; k < n; k++){{ const w = media + (((k * 37) % 61) - 30); linhas += '<tr><td>0' + (3522 + k + Math.floor(k * 0.6)) + '</td><td>' + w.toFixed(2) + '</td><td>ABATE</td><td>' + d.data + '</td></tr>'; }}
+          jan.querySelector('[data-v-linhas]').innerHTML = linhas; jan.querySelector('[data-v-qtd]').textContent = n; jan.querySelector('[data-v-media]').textContent = media.toFixed(2);
+          jan.querySelector('.{p}-janela__corpo').scrollTop = 0; jan.classList.add('is-aberto'); return;
+        }}
         if(acao === 'acordeao'){{   // abre a propriedade clicada e fecha as outras
           const acc = b.closest('.{p}-acc'), abrir = !acc.classList.contains('is-aberto');
           acc.parentElement.querySelectorAll('.{p}-acc').forEach(x => x.classList.remove('is-aberto')); if(abrir) acc.classList.add('is-aberto'); return;
@@ -955,6 +1110,36 @@ def js(p='tb'):
           limpaRotina(); tela._hist = []; irPara('2', true); return;
         }}
         if(acao === 'rotina-nova'){{ limpaRotina(); irPara('4', false); return; }}
+        if(acao === 'rotina-executar'){{   // play: abre a leitura do animal com o campo vazio e INICIAR bloqueado
+          const inp = tela.querySelector('[data-leitura]'); if(inp){{ inp.value = ''; habilitaIniciar(); }}
+          irPara('7', false); return;
+        }}
+        if(acao === 'tocar-leitura'){{ preencheLeitura(); return; }}
+        if(acao === 'iniciar'){{ irPara('9', false); return; }}
+        if(acao === 'leitura-opcao'){{   // escolhe o tipo de leitura e volta para a tela de leitura
+          b.parentElement.querySelectorAll('.{p}-opcao').forEach(x => x.classList.toggle('is-sel', x === b));
+          tela.querySelectorAll('[data-leitura-rotulo]').forEach(x => x.textContent = b.dataset.nome);
+          irPara('7', true); return;
+        }}
+        if(acao === 'check-toggle'){{ b.classList.toggle('is-marcado'); return; }}
+        if(acao === 'protocolo-preencher'){{   // escolha do protocolo: preenche o campo, mostra os eventos e o responsável
+          const pg = b.closest('.{p}-pag'); if(pg.querySelector('[data-protocolo-campo].is-preenchido')) return;
+          pg.querySelector('[data-protocolo-campo]').classList.add('is-preenchido');
+          pg.querySelectorAll('[data-protocolo-campo] span').forEach(s => {{ s.textContent = 'PROTOCOLO DE TESTE'; s.classList.remove('{p}-ph'); }});
+          pg.querySelectorAll('[data-protocolo-resp] span').forEach(s => {{ s.textContent = 'JOSÉ VET'; s.classList.remove('{p}-ph'); }});
+          pg.querySelectorAll('[data-protocolo-eventos]').forEach(x => x.style.display = ''); return;
+        }}
+        if(acao === 'lote-preencher'){{ const c = b.closest('[data-lote-campo]'); c.classList.add('is-preenchido'); c.querySelectorAll('span').forEach(s => {{ s.textContent = 'LOTE EM 23/24-01'; s.classList.remove('{p}-ph'); }}); return; }}
+        if(acao === 'proximo-animal'){{   // fecha o animal: soma nos totais, limpa os eventos e volta à leitura
+          tela.querySelectorAll('[data-total]').forEach(x => x.textContent = parseInt(x.textContent, 10) + 1);
+          const pc = tela.querySelector('[data-protocolo-campo]'); if(pc){{ pc.classList.remove('is-preenchido'); pc.querySelectorAll('span').forEach(s => {{ s.textContent = 'Selecione'; s.classList.add('{p}-ph'); }}); }}
+          tela.querySelectorAll('[data-protocolo-resp] span').forEach(s => {{ s.textContent = 'Selecione'; s.classList.add('{p}-ph'); }});
+          tela.querySelectorAll('[data-protocolo-eventos]').forEach(x => x.style.display = 'none');
+          tela.querySelectorAll('[data-lote-campo]').forEach(c => {{ c.classList.remove('is-preenchido'); c.querySelectorAll('span').forEach(s => {{ s.textContent = 'Selecione'; s.classList.add('{p}-ph'); }}); }});
+          tela.querySelectorAll('[data-passos] [data-ph]').forEach(s => {{ s.dataset.valor = ''; s.textContent = s.dataset.ph; s.classList.add('{p}-ph'); }});
+          const inp = tela.querySelector('[data-leitura]'); if(inp){{ inp.value = ''; habilitaIniciar(); }}
+          tela._hist = []; irPara('7', true); return;
+        }}
         if(acao === 'rotina-editar'){{   // abre a edição com o título e os eventos da rotina escolhida
           limpaRotina(); const card = b.closest('.{p}-rot'); tela._rotinaEditando = card;
           const titulo = card.querySelector('.{p}-rot__cab span').textContent.trim();
