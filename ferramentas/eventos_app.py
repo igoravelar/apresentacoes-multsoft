@@ -412,7 +412,7 @@ ROTINAS = [('Cadastramento De Animais', 'Entrada de Animais &gt; Identificação
 
 def tela_prototipo(p):
     """Protótipo do App MB Curral: escolha da fazenda -> rotinas salvas (deslize lateral entre as telas)."""
-    faz = ''.join(f'<button class="{p}-faz" type="button" data-acao="nav:2" data-nome="{f}"><span>{f}</span>{ICO["play"]}</button>' for f in FAZENDAS)
+    faz = ''.join(f'<button class="{p}-faz" type="button" data-acao="nav:2" data-nome="{f}"{" data-vazia" if f == "FAZENDA GADO MANSO" else ""}><span>{f}</span>{ICO["play"]}</button>' for f in FAZENDAS)
     corpo1 = (f'<p class="{p}-pergunta">Qual fazenda você irá atender?</p>'
               f'<div class="{p}-busca"><input type="text" placeholder="Digite o nome da fazenda" aria-label="Buscar fazenda" data-filtro autocomplete="off">{ICO["lupa"]}'
               f'<button class="{p}-toque" type="button" data-acao="focar" aria-label="Buscar fazenda"></button></div>'
@@ -422,7 +422,10 @@ def tela_prototipo(p):
     play = lambda n: ' data-acao="rotina-executar"' if n == 'Diagnóstico Gestacional' else ''
     rots = ''.join(f'<div class="{p}-rot"><div class="{p}-rot__cab"><span>{n}</span><button class="{p}-rot__ic" type="button" data-acao="rotina-editar" aria-label="Editar">{ICO["editar"]}</button>'
                    f'<button class="{p}-rot__ic" type="button"{play(n)} aria-label="Executar">{ICO["play"]}</button></div><div class="{p}-rot__cad">{c}</div></div>' for n, c in ROTINAS)
-    corpo2 = f'<p class="{p}-pergunta">Rotinas Salvas:</p><div data-rotinas>{rots}</div><div style="height:12cqh;flex:0 0 auto"></div>'
+    caixa = ('<svg viewBox="0 0 120 100" fill="currentColor"><path d="M60 48 30 34l-26 8 28 16zM60 48l30-14 26 8-28 16zM32 20l28 12 28-12-28-10zM30 60v30l28 10V74zM90 60v30L62 100V74z"/></svg>')
+    corpo2 = (f'<p class="{p}-pergunta" data-rotinas-rotulo>Rotinas Salvas:</p><div data-rotinas="padrao">{rots}</div><div data-rotinas="vazia" style="display:none"></div>'
+              f'<div class="{p}-vazio-rot" data-rotinas-vazio style="display:none"><p>Não existe rotina de manejo para esta fazenda.</p>{caixa}<button class="{p}-criar" type="button" data-acao="rotina-nova">Criar rotina</button></div>'
+              f'<div style="height:12cqh;flex:0 0 auto"></div>')
     fab = f'<button class="{p}-fab" type="button" data-acao="rotina-nova" aria-label="Nova rotina">{ICO["maisb"]}</button>'
     pag2 = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('titulo', 'Rotinas de Manejo', ''), corpo2, modal=fab, attrs=' data-proto', gaveta=True, vaca='nav:3')
     pag2 = pag2.replace(f'<button class="{p}-volta" type="button" aria-label="Voltar">', f'<button class="{p}-volta" type="button" data-acao="nav-volta:1" aria-label="Voltar">')
@@ -522,9 +525,15 @@ def campos_slot(p):
                                  + _chip(p, 'Produtor', 'MULTB...') + _chip(p, 'Rebanho', '', 'vazio') + f'</div><span class="{p}-slot__link">Outros Parâmetros</span><span class="{p}-slot__link" style="margin-left:2.4cqw">Configurações Avançadas</span>'),
       'Identificação Eletrônica': dict(html=g(_chip(p, 'Identificação eletrônica', 'Ler (BASTÃO)', 'amarelo', largo=True))),
       'Diagnóstico de Gestação': dict(info=True, html=f'<div class="{p}-slot__grade {p}-slot__grade--3">' + _chip(p, 'Avaliação Ovariana', 'Ler', 'amarelo') + _chip(p, 'Possui Repasse?', '', 'vazio') + _chip(p, 'Responsável Aplicação', 'Álvaro Vet', 'amarelo') + '</div>'),
-      'Aplicação Protocolo IATF': dict(info=True, html=g(_chip(p, 'Protocolo', 'Ler (PROTOCOLO DE TESTE)', 'amarelo'), _chip(p, 'Responsável', 'JOSÉ VET'))),
-      'Inserção no Lote de IATF': dict(html=g(_chip(p, 'Lote de IATF', 'Ler', 'amarelo', largo=True))),
-      'Score Corpóreo': dict(info=True, html=g(_chip(p, 'Condição Corporal', 'Ler', 'amarelo', largo=True))),
+      'Aplicação Protocolo IATF': dict(html=g(_chip(p, 'Protocolo', 'Ler', 'amarelo'), _chip(p, 'Permite editar Protocolo?', 'Sim'), _chip(p, 'Responsável pela aplicação', 'Novilha'), _chip(p, 'Ciclo Curto', 'Não'))
+                                            + f'<span class="{p}-slot__link">Adicionar Score Corpóreo</span>'),
+      'Inserção no Lote de IATF': dict(html=g(_chip(p, 'Lote de IATF', 'Lote 2', largo=True))),
+      'Score Corpóreo': dict(html=g(_chip(p, 'Score Corpóreo', 'Ler', 'amarelo', largo=True))),
+      'Morte': dict(html=g(_chip(p, 'Data', 'Ler', 'amarelo'), _chip(p, 'Causa', 'Ler', 'amarelo'), _chip(p, 'Laudo', '', 'vazio'), _chip(p, 'Responsável', 'Diogo Lopes'))),
+      'Venda de Animais': dict(html=f'<div class="{p}-slot__grade {p}-slot__grade--3">' + _chip(p, 'Tipo Venda', 'NÃO IDENTIFI...') + _chip(p, 'Data', '09/01/2024') + _chip(p, 'Documento', '22092022')
+                               + _chip(p, 'Produtor de Origem', 'DIOGO LOPES') + _chip(p, 'Destino', 'FAZENDA MB') + _chip(p, 'Embarque', 'EMB-010124') + _chip(p, 'Sexo', 'AMBOS') + '</div>'),
+      'Conferência Lote de E.M.': dict(html=f'<p class="{p}-slot__sub">1º Lote</p>' + g(_chip(p, 'Lote de IATF', 'Lote EM 2023/24', largo=True)) + f'<span class="{p}-slot__link">Novo</span>'),
+      'Confer. Por Lote Estação de Monta': dict(html=f'<p class="{p}-slot__sub">1º Lote</p>' + g(_chip(p, 'Lote de IATF', 'Lote EM 2023/24', largo=True)) + f'<span class="{p}-slot__link">Novo</span>'),
       'Sexagem': dict(html=g(_chip(p, 'Resultado', 'Ler', 'amarelo'), _chip(p, 'Responsável', 'MULTSOFT COM. ASS. MICRO'))),
       'Desmame': dict(html=g(_chip(p, 'Peso', 'Ler', 'amarelo', largo=True))),
     }
@@ -550,9 +559,12 @@ def tela_edicao_rotina(p):
              f'<button class="{p}-toque" type="button" data-acao="focar" aria-label="Título da rotina" style="bottom:2.2cqh"></button></div>'
              f'<div data-slots></div><div style="height:14cqh;flex:0 0 auto"></div>')
     fixo = (f'<div class="{p}-fixo"><button type="button" data-acao="nav:4">{ICO["maisb"]} Evento</button><button type="button" data-acao="rotina-salvar" disabled>{ICO["check"]} Salvar</button></div>')
+    confirma = (f'<div class="{p}-modal" data-popup="salvar" data-acao="fechar"><div class="{p}-dialogo {p}-dialogo--grande" data-acao=""><h4>Confirmação</h4><p>As alterações da rotina não foram salvas. Deseja salvar?</p>'
+                f'<div><button type="button" data-acao="rotina-salvar-sim">Sim</button><button type="button" data-acao="fechar">Não</button></div></div></div>')
     dialogo = (f'<div class="{p}-modal" data-popup="excluir" data-acao="fechar"><div class="{p}-dialogo" data-acao=""><h4>Excluir evento</h4><p>Deseja realmente excluir este evento da rotina?</p>'
                f'<div><button type="button" data-acao="slot-excluir-sim">SIM</button><button type="button" data-acao="fechar">NÃO</button></div></div></div>')
-    h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('titulo', 'Rotinas de Manejo', ''), corpo, modal=fixo + dialogo, gaveta=True, vaca='nav:3')
+    acoes = f'<span class="{p}-subacoes"><button type="button">{ICO["lixo"]} Excluir</button><button type="button" class="is-escuro">{ICO["bandeira"]} Iniciar</button></span>'
+    h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('titulo', 'Edição de Rotina', acoes), corpo, modal=fixo + dialogo + confirma, gaveta=True, vaca='nav:3')
     return dados + h.replace(f'<button class="{p}-volta" type="button" aria-label="Voltar">', f'<button class="{p}-volta" type="button" data-acao="nav-volta:" aria-label="Voltar">')
 
 LOTES_IATF = {
@@ -588,7 +600,10 @@ def tela_leitura(p):
              f'<button class="{p}-alterar" type="button" data-acao="nav:8">{troca} Alterar</button></div>'
              f'<div class="{p}-leitura-campo"><input type="text" placeholder="Digite aqui..." aria-label="Identificação do animal" data-leitura data-sugestao="MB-001" autocomplete="off">'
              f'<button class="{p}-bt" type="button" aria-label="Buscar">{ICO["lupa"]}</button><button class="{p}-toque" type="button" data-acao="tocar-leitura" aria-label="Informar animal"></button></div>'
-             f'<button class="{p}-check" type="button" data-acao="check-toggle"><i>{check}</i>Fazer Lançamento Retroativo</button>'
+             f'<button class="{p}-check" type="button" data-acao="check-toggle" data-mostra="[data-retro]"><i>{check}</i>Fazer Lançamento Retroativo</button>'
+             f'<div class="{p}-retro" data-retro style="display:none"><label>Data de Lançamento <b>*</b></label>'
+             f'<div class="{p}-leitura-campo"><span>Selecione a data...</span><button class="{p}-bt" type="button" aria-label="Limpar">{ICO["lixo"]}</button></div>'
+             f'<small>IMPORTANTE: Todos os dados serão lançados com a data definida acima.</small></div>'
              f'<button class="{p}-iniciar" type="button" data-acao="iniciar" disabled>INICIAR</button>'
              f'<div class="{p}-separador"></div><p class="{p}-proc-t">Animais Processados:</p>'
              f'<div class="{p}-proc"><div class="{p}-proc__cards"><div><small>Total Dia:<i>De 27/10/2026</i></small><b data-total>0</b></div><div><small>Total Sessão:<i>Desde 08:05:15</i></small><b data-total>0</b></div></div>'

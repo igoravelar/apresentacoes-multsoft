@@ -671,6 +671,24 @@ def css(p='tb'):
   .{p}-janela--vendas table{{font-size:2.2cqw;}}
   .{p}-janela--vendas th{{font-size:2.3cqw;}}
   .{p}-janela__rod--escuro{{background:#1f4a16;color:#fff;display:flex;justify-content:space-around;font-size:2.3cqw;padding:1.6cqh 2cqw;}}
+  /* ---- estado vazio das rotinas e confirmação de salvar ---- */
+  .{p}-vazio-rot{{text-align:center;padding-top:5cqh;}}
+  .{p}-vazio-rot p{{margin:0 auto 3cqh;max-width:40cqw;font-size:2.8cqw;color:#666;line-height:1.35;}}
+  .{p}-vazio-rot svg{{width:26cqw;height:22cqw;color:#7c7c7c;display:block;margin:0 auto 6cqh;}}
+  .{p}-criar{{width:38cqw;height:7.6cqh;border:.3cqw solid #7d9a78;border-radius:999px;background:#40603b;color:#fff;font-size:3.6cqw;cursor:pointer;box-shadow:0 .6cqh 1.4cqh rgba(0,0,0,.3);transition:background .15s ease,color .15s ease;}}
+  .{p}-criar:hover{{background:#9fd48a;border-color:#d7efc9;color:#2b5a1e;}}
+  .{p}-dialogo--grande{{left:20cqw;top:34cqh;width:60cqw;padding:3cqh 3.4cqw 2.4cqh;}}
+  .{p}-dialogo--grande h4{{font-size:4.2cqw;font-weight:700;color:#3d7029;margin-bottom:1.8cqh;}}
+  .{p}-dialogo--grande p{{font-size:2.9cqw;color:#666;line-height:1.3;margin-bottom:3cqh;}}
+  .{p}-dialogo--grande button{{border:1px solid #c9c9c9;border-radius:.6cqw;background:#fff;color:#222;font-size:2.9cqw;padding:1.3cqh 3cqw;}}
+  .{p}-dialogo--grande button:hover{{background:#f1f7ee;}}
+  /* ---- lançamento retroativo (leitura do animal) ---- */
+  .{p}-retro{{margin:-3.4cqh 7cqw 4.6cqh;}}
+  .{p}-retro label{{display:block;font-size:3cqw;color:#333;margin-bottom:1.3cqh;}}
+  .{p}-retro label b{{color:#e53935;font-weight:400;}}
+  .{p}-retro .{p}-leitura-campo{{margin:0 0 1.2cqh;}}
+  .{p}-retro .{p}-leitura-campo span{{flex:1;display:flex;align-items:center;padding-left:2.6cqw;font-size:3.7cqw;color:#b9b9b9;}}
+  .{p}-retro small{{display:block;text-align:center;font-size:1.9cqw;color:#777;font-style:italic;}}
   .{p}-lupa{{border:0;background:transparent;padding:0;margin:0;color:#6e9a62;display:inline-flex;cursor:pointer;}}
   .{p}-lupa svg{{width:3.3cqw;height:3.3cqw;}}
   .{p}-lupa:hover svg{{color:#3d7029;scale:1.15;}}
@@ -790,7 +808,7 @@ def app(p, fazenda, sub, corpo, lado_html='', modal='', attrs='', gaveta=False, 
             f'<div class="{cl}">{lado_html}<div class="{p}-form">{corpo}</div></div>{modal}</div>')
 
 # ======================================================================= slide
-ACOES = ('ir:', 'nav:', 'nav-volta:', 'popup:', 'focar', 'evt-toggle', 'evt-continuar', 'slot-excluir', 'slot-excluir-sim', 'rotina-salvar', 'rotina-editar', 'rotina-nova', 'rotina-executar', 'tocar-leitura', 'iniciar', 'leitura-opcao', 'check-toggle', 'protocolo-preencher', 'lote-preencher', 'proximo-animal', 'gaveta', 'gaveta-fechar', 'gaveta-inicio', 'gaveta-ir:', 'acordeao', 'vendas-detalhe', 'fechar', 'remover', 'abrir-cria', 'fechar-cria', 'salvar-cria', 'tocar-peso', 'reconectar')
+ACOES = ('ir:', 'nav:', 'nav-volta:', 'popup:', 'focar', 'evt-toggle', 'evt-continuar', 'slot-excluir', 'slot-excluir-sim', 'rotina-salvar', 'rotina-salvar-sim', 'rotina-editar', 'rotina-nova', 'rotina-executar', 'tocar-leitura', 'iniciar', 'leitura-opcao', 'check-toggle', 'protocolo-preencher', 'lote-preencher', 'proximo-animal', 'gaveta', 'gaveta-fechar', 'gaveta-inicio', 'gaveta-ir:', 'acordeao', 'vendas-detalhe', 'fechar', 'remover', 'abrir-cria', 'fechar-cria', 'salvar-cria', 'tocar-peso', 'reconectar')
 
 def desativa_sem_acao(tela_html):
     """Botões da tela do app sem comportamento programado ficam disabled: não piscam, não mostram a mãozinha
@@ -925,15 +943,24 @@ def js(p='tb'):
       }};
       const fechaPopups = () => sec.querySelectorAll('.{p}-popup.is-aberto').forEach(x => x.classList.remove('is-aberto'));
       sec.addEventListener('click', e => {{ if(!e.target.closest('.{p}-popup, [data-acao^="popup:"]')) fechaPopups(); }});
+      /* rotinas salvas por fazenda: a fazenda marcada como vazia começa sem rotinas e mostra o estado vazio */
+      const listaRotinas = () => tela.querySelector('[data-rotinas="' + (tela.dataset.vazia === '1' ? 'vazia' : 'padrao') + '"]');
+      const atualizaListaRotinas = () => {{
+        const vazia = tela.dataset.vazia === '1';
+        tela.querySelectorAll('[data-rotinas]').forEach(c => c.style.display = ((c.dataset.rotinas === 'vazia') === vazia) ? '' : 'none');
+        const tem = !!listaRotinas().querySelector('.{p}-rot');
+        tela.querySelectorAll('[data-rotinas-vazio]').forEach(x => x.style.display = tem ? 'none' : '');
+        tela.querySelectorAll('[data-rotinas-rotulo], .{p}-fab').forEach(x => x.style.display = tem ? '' : 'none');
+      }};
       const ICONE_ALCA = {ALCA_JSON}, ICONE_LIXO = {LIXO_JSON}, ICONE_EDITAR = {EDITAR_JSON}, ICONE_PLAY = {PLAY_JSON};
-      const irPara = (dest, volta, nome) => {{
+      const irPara = (dest, volta, nome, vazia) => {{
         const hist = tela._hist = tela._hist || [];
         const atual = tela.querySelector('.{p}-pag.is-ativa');
         if(volta){{ if(!dest) dest = hist.pop() || '1'; else if(hist.length && hist[hist.length-1] === dest) hist.pop(); }}
         else if(atual && atual.dataset.pag !== dest) hist.push(atual.dataset.pag);
         const prox = tela.querySelector('.{p}-pag[data-pag="' + dest + '"]');
+        if(nome){{ tela.querySelectorAll('[data-fazenda-nome]').forEach(x => x.textContent = nome); tela.dataset.vazia = vazia ? '1' : ''; atualizaListaRotinas(); }}
         if(!prox || prox === atual || tela.dataset.animando) return;
-        if(nome) tela.querySelectorAll('[data-fazenda-nome]').forEach(x => x.textContent = nome);
         tela.dataset.animando = '1'; mostraTexto(prox); fechaPopups();
         prox.classList.add('is-ativa', volta ? '{p}-pag--entra-esq' : '{p}-pag--entra-dir');
         atual.classList.add(volta ? '{p}-pag--sai-dir' : '{p}-pag--sai-esq');
@@ -1044,7 +1071,7 @@ def js(p='tb'):
           const pp = sec.querySelector('.{p}-popup[data-popup="' + acao.slice(6) + '"]'); if(pp) pp.classList.toggle('is-aberto'); return;
         }}
         if(acao && (acao.startsWith('nav:') || acao.startsWith('nav-volta:'))){{   // troca de tela com deslize lateral
-          irPara(acao.split(':')[1], acao.startsWith('nav-volta:'), b.dataset.nome); return;
+          irPara(acao.split(':')[1], acao.startsWith('nav-volta:'), b.dataset.nome, b.hasAttribute('data-vazia')); return;
         }}
         if(acao && acao.startsWith('ir:')){{   // troca de página dentro do tablet
           const dest = acao.slice(3);
@@ -1101,13 +1128,15 @@ def js(p='tb'):
           const s = tela._slotExcluir; if(s){{ const ev = tela.querySelector('.{p}-evt[data-nome="' + CSS.escape(s.dataset.nome) + '"]'); if(ev) ev.classList.remove('is-marcado'); s.remove(); renumera(); atualizaContinuar(); }}
           app.querySelector('.{p}-modal[data-popup="excluir"]').classList.remove('is-aberto'); return;
         }}
-        if(acao === 'rotina-salvar'){{   // nova rotina entra no topo das Rotinas Salvas e volta para a lista
+        if(acao === 'rotina-salvar'){{ app.querySelector('.{p}-modal[data-popup="salvar"]').classList.add('is-aberto'); return; }}
+        if(acao === 'rotina-salvar-sim'){{   // nova rotina entra no topo das Rotinas Salvas e volta para a lista
+          app.querySelector('.{p}-modal[data-popup="salvar"]').classList.remove('is-aberto');
           const titulo = (tela.querySelector('[data-titulo-rotina]').value || '').trim() || 'Nova Rotina';
           const cadeia = [...tela.querySelectorAll('[data-slots] .{p}-slot')].map(s => s.dataset.nome).join(' &gt; ');
-          const alvo = tela.querySelector('[data-rotinas]'), ed = tela._rotinaEditando;
+          const alvo = listaRotinas(), ed = tela._rotinaEditando;
           if(ed && ed.isConnected){{ ed.querySelector('.{p}-rot__cab span').textContent = titulo; ed.querySelector('.{p}-rot__cad').innerHTML = cadeia; }}
           else alvo.insertAdjacentHTML('afterbegin', '<div class="{p}-rot"><div class="{p}-rot__cab"><span>' + titulo + '</span><button class="{p}-rot__ic" type="button" data-acao="rotina-editar" aria-label="Editar">' + ICONE_EDITAR + '</button><button class="{p}-rot__ic" type="button" disabled>' + ICONE_PLAY + '</button></div><div class="{p}-rot__cad">' + cadeia + '</div></div>');
-          limpaRotina(); tela._hist = []; irPara('2', true); return;
+          limpaRotina(); atualizaListaRotinas(); tela._hist = []; irPara('2', true); return;
         }}
         if(acao === 'rotina-nova'){{ limpaRotina(); irPara('4', false); return; }}
         if(acao === 'rotina-executar'){{   // play: abre a leitura do animal com o campo vazio e INICIAR bloqueado
@@ -1121,7 +1150,7 @@ def js(p='tb'):
           tela.querySelectorAll('[data-leitura-rotulo]').forEach(x => x.textContent = b.dataset.nome);
           irPara('7', true); return;
         }}
-        if(acao === 'check-toggle'){{ b.classList.toggle('is-marcado'); return; }}
+        if(acao === 'check-toggle'){{ b.classList.toggle('is-marcado'); const alvo = b.dataset.mostra ? tela.querySelector(b.dataset.mostra) : null; if(alvo) alvo.style.display = b.classList.contains('is-marcado') ? '' : 'none'; return; }}
         if(acao === 'protocolo-preencher'){{   // escolha do protocolo: preenche o campo, mostra os eventos e o responsável
           const pg = b.closest('.{p}-pag'); if(pg.querySelector('[data-protocolo-campo].is-preenchido')) return;
           pg.querySelector('[data-protocolo-campo]').classList.add('is-preenchido');
