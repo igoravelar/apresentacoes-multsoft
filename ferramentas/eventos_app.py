@@ -419,7 +419,7 @@ def tela_prototipo(p):
               f'<p class="{p}-rotulo-lista">Fazendas disponíveis:</p>{faz}<p class="{p}-vazio">Nenhuma fazenda encontrada.</p>'
               f'<div class="{p}-marca-agua">MULT<span>SOFT</span></div>')
     pag1 = app(p, '', ('simples', 'Fazendas', ''), corpo1, attrs=' data-proto', gaveta=True, vaca='nav:3')
-    play = lambda n: ' data-acao="rotina-executar"' if n == 'Diagnóstico Gestacional' else ''
+    play = lambda n: ' data-acao="rotina-executar"'
     rots = ''.join(f'<div class="{p}-rot"><div class="{p}-rot__cab"><span>{n}</span><button class="{p}-rot__ic" type="button" data-acao="rotina-editar" aria-label="Editar">{ICO["editar"]}</button>'
                    f'<button class="{p}-rot__ic" type="button"{play(n)} aria-label="Executar">{ICO["play"]}</button></div><div class="{p}-rot__cad">{c}</div></div>' for n, c in ROTINAS)
     caixa = ('<svg viewBox="0 0 120 100" fill="currentColor"><path d="M60 48 30 34l-26 8 28 16zM60 48l30-14 26 8-28 16zM32 20l28 12 28-12-28-10zM30 60v30l28 10V74zM90 60v30L62 100V74z"/></svg>')
@@ -431,7 +431,7 @@ def tela_prototipo(p):
     pag2 = pag2.replace(f'<button class="{p}-volta" type="button" aria-label="Voltar">', f'<button class="{p}-volta" type="button" data-acao="nav-volta:1" aria-label="Voltar">')
     itens = [('g-inicio', 'Início', 'gaveta-inicio'), ('g-lotes', 'Lotes de IATF', 'gaveta-ir:6'), ('g-vaca', 'Animais Faltantes', 'gaveta-ir:3'), ('g-pastos', 'Conferência de Pastos', None),
              ('g-enviar', 'Enviar Dados', None), ('g-envios', 'Envios', None), ('g-venda', 'Venda de Animais', 'gaveta-ir:19'), ('g-carga', 'Carga Inicial', 'gaveta-ir:17'),
-             ('g-config', 'Configurações Gerais', None), ('g-bluetooth', 'Configurações Bluetooth', 'gaveta-ir:18'), ('g-erros', 'Erros de Sincronização', None),
+             ('g-config', 'Configurações Avançadas', 'gaveta-ir:20'), ('g-bluetooth', 'Configurações Bluetooth', 'gaveta-ir:18'), ('g-erros', 'Erros de Sincronização', None),
              ('g-quebras', 'Quebras de Relacionamento', None), ('g-historico', 'Histórico', None), ('g-ajuda', 'Ajuda', None)]
     acao_attr = lambda a: f' data-acao="{a}"' if a else ''
     gav = ''.join(f'<button class="{p}-gaveta__item" type="button"{acao_attr(a)}>{ICO[i]}{r}</button>' for i, r, a in itens)
@@ -439,13 +439,14 @@ def tela_prototipo(p):
               f'<nav class="{p}-gaveta__painel">{gav}</nav></div>')
     pag3 = tela_conferencia(p, proto=True); pag4 = tela_selecao_eventos(p); pag5 = tela_edicao_rotina(p); pag6 = tela_lotes_iatf(p)
     pag7 = tela_leitura(p); pag8 = tela_selecao_leitura(p); pag9 = tela_entrada_exec(p); pag10 = tela_diagnostico_exec(p); pag11 = tela_protocolo_exec(p)
-    pag12 = tela_lote_exec(p); pag13 = tela_score_exec(p); pag14 = tela_resumo_exec(p); pag15 = tela_processados(p); pag16 = tela_visao_rotina(p); pag17 = tela_carga_inicial(p); pag18 = tela_bluetooth(p); pag19 = tela_vendas(p)
-    return (f'<div class="{p}-pag is-ativa" data-pag="1">{pag1}</div><div class="{p}-pag" data-pag="2">{pag2}</div><div class="{p}-pag" data-pag="3" data-texto="faltantes">{pag3}</div>'
+    pag12 = tela_lote_exec(p); pag13 = tela_score_exec(p); pag14 = tela_resumo_exec(p); pag15 = tela_processados(p); pag16 = tela_visao_rotina(p); pag17 = tela_carga_inicial(p); pag18 = tela_bluetooth(p); pag19 = tela_vendas(p); pag20 = tela_config_avancadas(p); pag21 = tela_morte_exec(p)
+    exec_json = '<script type="application/json" data-exec-pags>' + __import__('json').dumps(EXEC_PAGS, ensure_ascii=False) + '</script>'
+    return (exec_json + f'<div class="{p}-pag is-ativa" data-pag="1">{pag1}</div><div class="{p}-pag" data-pag="2">{pag2}</div><div class="{p}-pag" data-pag="3" data-texto="faltantes">{pag3}</div>'
             f'<div class="{p}-pag" data-pag="4">{pag4}</div><div class="{p}-pag" data-pag="5">{pag5}</div><div class="{p}-pag" data-pag="6">{pag6}</div>'
             f'<div class="{p}-pag" data-pag="7" data-texto="rotina" data-etapa="0">{pag7}</div><div class="{p}-pag" data-pag="8" data-texto="rotina">{pag8}</div><div class="{p}-pag" data-pag="9" data-texto="rotina" data-etapa="1">{pag9}</div>'
             f'<div class="{p}-pag" data-pag="10" data-texto="rotina" data-etapa="2">{pag10}</div><div class="{p}-pag" data-pag="11" data-texto="rotina" data-etapa="3">{pag11}</div>'
             f'<div class="{p}-pag" data-pag="12" data-texto="rotina" data-etapa="4">{pag12}</div><div class="{p}-pag" data-pag="13" data-texto="rotina" data-etapa="5">{pag13}</div><div class="{p}-pag" data-pag="14" data-texto="rotina" data-etapa="6">{pag14}</div>'
-            f'<div class="{p}-pag" data-pag="15" data-texto="rotina">{pag15}</div><div class="{p}-pag" data-pag="16" data-texto="rotina">{pag16}</div><div class="{p}-pag" data-pag="17">{pag17}</div><div class="{p}-pag" data-pag="18">{pag18}</div><div class="{p}-pag" data-pag="19">{pag19}</div>{gaveta}')
+            f'<div class="{p}-pag" data-pag="15" data-texto="rotina">{pag15}</div><div class="{p}-pag" data-pag="16" data-texto="rotina">{pag16}</div><div class="{p}-pag" data-pag="17">{pag17}</div><div class="{p}-pag" data-pag="18">{pag18}</div><div class="{p}-pag" data-pag="19">{pag19}</div><div class="{p}-pag" data-pag="20">{pag20}</div><div class="{p}-pag" data-pag="21" data-texto="rotina">{pag21}</div>{gaveta}')
 
 def bloco_faltantes(p):
     """texto à esquerda quando a tela Animais Faltantes está aberta."""
@@ -634,7 +635,7 @@ def tela_entrada_exec(p):
          + linha(p, campo(p, 'Raça', 'NELORE', False, bt=None), campo(p, 'Grau de Sangue', 'PURO SANGUE'))
          + linha(p, campo(p, 'Rebanho', 'MB24'), campo(p, 'Pelagem', 'BRANCA'))
          + campo(p, 'Produtor', 'MULTBOVINOS', False, True) + '</div>')
-    corpo = tit(p, 'Entrada do Animal') + obs(p) + seg(p, 'Sexo', ['Fêmea', 'Macho'], 0, True, sexo=True) + f + m + f'<button class="{p}-avancar" type="button" data-acao="nav:10">AVANÇAR</button>'
+    corpo = tit(p, 'Entrada do Animal') + obs(p) + seg(p, 'Sexo', ['Fêmea', 'Macho'], 0, True, sexo=True) + f + m + f'<button class="{p}-avancar" type="button" data-acao="exec-next">AVANÇAR</button>'
     h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('execucao', '27/10/2026'), corpo, attrs=' data-sexo="f"', gaveta=True, vaca='nav:3')
     return h.replace(f'<button class="{p}-volta" type="button" aria-label="Voltar">', f'<button class="{p}-volta" type="button" data-acao="nav-volta:" aria-label="Voltar">')
 
@@ -655,7 +656,7 @@ def tela_diagnostico_exec(p):
     corpo = (tit(p, 'Diagnóstico de Gestação') + obs(p)
              + seg(p, 'Diagnóstico', ['Positivo', 'Negativo', 'Dúvida'], 1, True, escolha=['positivo', 'negativo', 'duvida'])
              + variante(p, 'positivo', positivo) + variante(p, 'negativo', negativo, ativa=True) + variante(p, 'duvida', duvida)
-             + f'<button class="{p}-avancar" type="button" data-acao="nav:11">AVANÇAR</button>')
+             + f'<button class="{p}-avancar" type="button" data-acao="exec-next">AVANÇAR</button>')
     h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('execucao', '27/10/2026'), corpo,
             _lado_exec(p, [('Peso', 'Não identificado', 'amarela'), ('Quantidade de IAs', '0', 'verde'), ('Lote Atual', 'Não encontrado', 'verde')], historico=True), gaveta=True, vaca='nav:3')
     return _volta_exec(p, h)
@@ -667,7 +668,7 @@ def tela_protocolo_exec(p):
     eventos = ('<div data-protocolo-eventos style="display:none">'
                + lista(p, 'Eventos', [('D0 - GONADIOL / 2 DS', False), ('D0 - IMPLANTE DIB 0,5 / 1 UN', True), ('D8 - NOVORMON / 2 ML', True), ('D9 - Retirada', True)]) + '</div>')
     resp = f'<div data-protocolo-resp>' + campo(p, 'Responsável', 'Selecione', True, ph=True) + '</div>'
-    corpo = tit(p, 'Aplicação de Protocolo IATF') + obs(p) + prot + eventos + resp + area(p, 'Observações', 'Escreva...') + f'<button class="{p}-avancar" type="button" data-acao="nav:12">AVANÇAR</button>'
+    corpo = tit(p, 'Aplicação de Protocolo IATF') + obs(p) + prot + eventos + resp + area(p, 'Observações', 'Escreva...') + f'<button class="{p}-avancar" type="button" data-acao="exec-next">AVANÇAR</button>'
     h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('execucao', '27/10/2026'), corpo, _lado_exec(p, [('Peso', 'Não identificado', 'amarela')]), gaveta=True, vaca='nav:3')
     return _volta_exec(p, h)
 
@@ -676,7 +677,7 @@ def tela_lote_exec(p):
     lote = (f'<div class="{p}-campo" data-lote-campo><label>Lote de IATF <b>*</b></label><div class="{p}-input {p}-input--toque"><span class="{p}-ph">Selecione</span>'
             f'<button class="{p}-bt {p}-bt--lupa" type="button" aria-label="Buscar">{ICO["lupa"]}</button><button class="{p}-bt {p}-bt--lixo" type="button" aria-label="Limpar">{ICO["lixo"]}</button>'
             f'<button class="{p}-toque" type="button" data-acao="lote-preencher" aria-label="Selecionar lote"></button></div></div>')
-    corpo = tit(p, 'Inserção no Lote de IATF', info=False) + obs(p) + lote + f'<button class="{p}-avancar" type="button" data-acao="nav:13">AVANÇAR</button>'
+    corpo = tit(p, 'Inserção no Lote de IATF', info=False) + obs(p) + lote + f'<button class="{p}-avancar" type="button" data-acao="exec-next">AVANÇAR</button>'
     h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('execucao', '27/10/2026'), corpo, _lado_exec(p, [('Peso', 'Não identificado', 'amarela')]), gaveta=True, vaca='nav:3')
     return _volta_exec(p, h)
 
@@ -686,7 +687,7 @@ def tela_score_exec(p):
                    f'<div class="{p}-input {p}-input--off"><span class="{p}-ph" data-valor="" data-ph="Toque nos números">Toque nos números</span></div>'
                    f'<div class="{p}-passos"><button type="button" data-passo="1">+1</button><button type="button" data-passo="0.5">+0,5</button>'
                    f'<button type="button" data-passo="0.25">+0,25</button><button type="button" data-passo="0" aria-label="Zerar">{ICO["lixo"]}</button></div></div>')
-    corpo = tit(p, 'Score Corpóreo') + obs(p) + passos_html + f'<button class="{p}-avancar" type="button" data-acao="nav:14">AVANÇAR</button>'
+    corpo = tit(p, 'Score Corpóreo') + obs(p) + passos_html + f'<button class="{p}-avancar" type="button" data-acao="exec-next">AVANÇAR</button>'
     h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('execucao', '27/10/2026'), corpo, _lado_exec(p, [('Peso', 'Não identificado', 'amarela')]), gaveta=True, vaca='nav:3')
     return _volta_exec(p, h)
 
@@ -694,7 +695,7 @@ def tela_resumo_exec(p):
     """fecha o animal: resumo da rotina e PRÓXIMO ANIMAL (volta à leitura e soma nos totais)."""
     itens = ['Entrada de Animal', 'Diagnóstico de Gestação', 'Aplicação de Protocolo IATF', 'Inserção no Lote de IATF', 'Score Corpóreo']
     li = ''.join(f'<li><i>{k}</i>{n}{ICO["ok-circulo"]}</li>' for k, n in enumerate(itens, 1))
-    corpo = (tit(p, 'Resumo da Rotina', info=False) + f'<ul class="{p}-resumo">{li}</ul>'
+    corpo = (tit(p, 'Resumo da Rotina', info=False) + f'<ul class="{p}-resumo" data-resumo>{li}</ul>'
              + f'<button class="{p}-avancar {p}-avancar--largo" type="button" data-acao="proximo-animal">PRÓXIMO ANIMAL</button>')
     acoes = f'<span class="{p}-subacoes"><button type="button">{ICO["desfazer"]} Desfazer</button></span>'
     lado_html = lado(p, 'MB-001', [('Sexo / Tipo', 'Fêmea / Reprodução'), ('Raça / G. Sangue', 'NELORE / Puro Sangue'), ('Data de Nascimento (idade)', '10/09/2022 (1a4m)'),
@@ -777,8 +778,8 @@ def bloco_rotina(p):
     ATUAL = ' class="is-atual"'
     li = ''.join(f'<li{ATUAL if k == 0 else ""}><i></i>{e}</li>' for k, e in enumerate(etapas))
     return (f'<div class="{p}-pbloco" data-texto="rotina"><h3 class="{p}-et-tit">Coleta OFF-line de<br>Dados Reprodutivos</h3>'
-            f'<div class="{p}-et-pil"></div><p class="{p}-et-sub">Etapas de Execução da Rotina<br><b>“Diagnóstico Gestacional”:</b></p>'
-            f'<ul class="{p}-etapas">{li}</ul></div>')
+            f'<div class="{p}-et-pil"></div><p class="{p}-et-sub">Etapas de Execução da Rotina<br><b data-rotina-titulo>“Diagnóstico Gestacional”:</b></p>'
+            f'<ul class="{p}-etapas" data-etapas>{li}</ul></div>')
 
 VENDAS = [('27/03/2024', 35, '564,01', 'Fazenda Brasil'), ('25/03/2024', 45, '527,40', 'Frigorífico Sul'), ('18/03/2024', 30, '562,12', 'Frigorífico Sul'),
           ('12/03/2024', 10, '534,30', 'Frigorífico Norte'), ('09/03/2024', 50, '612,62', 'Frigorífico Norte'), ('28/02/2024', 39, '512,19', 'Fazenda Brasil'),
@@ -795,6 +796,32 @@ def tela_vendas(p):
               f'<div class="{p}-janela__corpo"><table><thead><tr><th>Animal</th><th>Peso</th><th>Embarque</th><th>Data Embarque</th></tr></thead><tbody data-v-linhas></tbody></table></div>'
               f'<div class="{p}-janela__rod--escuro"><span>Qtd Animais: <b data-v-qtd>0</b></span><span>Peso Médio: <b data-v-media>0</b></span></div></div></div>')
     h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('titulo', 'Vendas de Animais', ''), corpo, modal=janela, attrs=' data-proto', gaveta=True, vaca='nav:3')
+    return _volta_exec(p, h)
+
+def tela_config_avancadas(p):
+    """Configurações Avançadas: grupos de opções em rádio, sem a barra do app."""
+    grupos = [('Se Nome Usual já existir na Propriedade', ['Interromper o processo', 'Continuar o processo'], 1),
+              ('Tipo de Inclusão', ['Com confirmação', 'Automática'], 1),
+              ('Calcular idade a partir da', ['Data de Aquisição', 'Data de Lançamento'], 0),
+              ('Informar a idade em', ['Meses', 'Mês/Ano'], 0)]
+    corpo = f'<div class="{p}-cfg">' + ''.join(f'<p class="{p}-cfg-t">{tit_}</p>' + radios(p, '', ops, sel) for tit_, ops, sel in grupos) + f'</div><div class="{p}-marca-agua">MULT<span>SOFT</span></div>'
+    h = app(p, '', ('titulo', 'Configurações Avançadas', ''), corpo, attrs=' data-proto data-sem-appbar')
+    return _volta_exec(p, h)
+
+# telas de execução disponíveis por evento (nome na cadeia da rotina -> página do tablet)
+EXEC_PAGS = {'Entrada de Animais': 9, 'Diagnóstico de Gestação': 10, 'Aplicação Protocolo IATF': 11, 'Aplicação de Protocolo IATF': 11,
+             'Inserção no Lote de IATF': 12, 'Score Corpóreo': 13, 'Morte': 21}
+
+def tela_morte_exec(p):
+    """evento Morte na execução: data e causa preenchem ao toque, responsável fixo."""
+    def sel(rotulo, valor, bt, obrig=False):
+        ob = ' <b>*</b>' if obrig else ''
+        return (f'<div class="{p}-campo" data-preenchivel><label>{rotulo}{ob}</label><div class="{p}-input {p}-input--toque"><span class="{p}-ph">Selecione</span>'
+                f'<button class="{p}-bt" type="button" aria-label="{rotulo}">{ICO[bt]}</button><button class="{p}-toque" type="button" data-acao="preencher:{valor}" aria-label="Selecionar {rotulo}"></button></div></div>')
+    corpo = (tit(p, 'Morte', info=False) + obs(p) + sel('Data', '27/10/2026', 'lixo', True) + sel('Causa', 'ACIDENTE', 'lupa')
+             + campo(p, 'Responsável', 'Diogo Lopes', False) + f'<button class="{p}-avancar" type="button" data-acao="exec-next">AVANÇAR</button>')
+    h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('execucao', '27/10/2026'), corpo,
+            _lado_exec(p, [('Último Peso', '23/07/2025 (2a10m)<br>438.00 kg<br>GMD: 0.01', 'amarela')]), gaveta=True, vaca='nav:3')
     return _volta_exec(p, h)
 
 # ---------------------------------------------------------------- eventos (texto do slide + tela)

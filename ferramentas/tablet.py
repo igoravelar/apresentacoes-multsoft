@@ -649,10 +649,11 @@ def css(p='tb'):
   .{p}-carga-t{{display:flex;align-items:center;gap:1cqw;font-size:2.7cqw;color:#333;margin:0 0 1.4cqh;}}
   .{p}-input--cinza{{background:#e9e9ea;border-color:#d2d2d2;margin-bottom:1.2cqh;}}
   .{p}-input--cinza span{{color:#333;}}
-  .{p}-add{{display:flex;align-items:center;gap:1cqw;color:#5a9a4e;font-size:2cqw;text-decoration:underline;margin:.4cqh 0 2.6cqh;}}
-  .{p}-add b{{font-size:2.6cqw;text-decoration:none;font-weight:400;}}
+  .{p}-add{{display:flex;align-items:center;gap:1.2cqw;color:#5a9a4e;font-size:2.5cqw;text-decoration:underline;margin:.6cqh 0 2.8cqh;}}
+  .{p}-add b{{font-size:3.6cqw;line-height:1;text-decoration:none;font-weight:400;}}
   .{p}-acc--solto{{border:0;margin:0;padding:0;}}
   .{p}-acc--solto .{p}-acc__cab{{padding:0 0 1.6cqh;font-size:2.7cqw;color:#333;}}
+  .{p}-acc--solto .{p}-acc__cab svg{{width:3.4cqw;height:3.4cqw;}}
   .{p}-acc--solto .{p}-acc__cab b{{font-weight:400;}}
   /* ---- configurações bluetooth ---- */
   .{p}-bt-pergunta{{margin:.4cqh 0 1.2cqh;font-size:2.2cqw;color:#333;}}
@@ -689,6 +690,14 @@ def css(p='tb'):
   .{p}-retro .{p}-leitura-campo{{margin:0 0 1.2cqh;}}
   .{p}-retro .{p}-leitura-campo span{{flex:1;display:flex;align-items:center;padding-left:2.6cqw;font-size:3.7cqw;color:#b9b9b9;}}
   .{p}-retro small{{display:block;text-align:center;font-size:1.9cqw;color:#777;font-style:italic;}}
+  /* ---- configurações avançadas: grupos de rádios em coluna ---- */
+  .{p}-cfg-t{{margin:1.2cqh 0 1.4cqh;font-size:2.4cqw;font-weight:500;color:#555;}}
+  .{p}-cfg [data-radios]{{margin-bottom:3cqh;}}
+  .{p}-cfg [data-radios] label{{display:none;}}
+  .{p}-cfg .{p}-radios{{grid-template-columns:1fr;gap:2.2cqh;}}
+  .{p}-cfg .{p}-radio{{font-size:2.9cqw;}}
+  .{p}-cfg .{p}-radio i{{width:3.4cqw;height:3.4cqw;}}
+  .{p}-cfg .{p}-radio.is-sel i::after{{width:1.7cqw;height:1.7cqw;}}
   .{p}-lupa{{border:0;background:transparent;padding:0;margin:0;color:#6e9a62;display:inline-flex;cursor:pointer;}}
   .{p}-lupa svg{{width:3.3cqw;height:3.3cqw;}}
   .{p}-lupa:hover svg{{color:#3d7029;scale:1.15;}}
@@ -808,7 +817,7 @@ def app(p, fazenda, sub, corpo, lado_html='', modal='', attrs='', gaveta=False, 
             f'<div class="{cl}">{lado_html}<div class="{p}-form">{corpo}</div></div>{modal}</div>')
 
 # ======================================================================= slide
-ACOES = ('ir:', 'nav:', 'nav-volta:', 'popup:', 'focar', 'evt-toggle', 'evt-continuar', 'slot-excluir', 'slot-excluir-sim', 'rotina-salvar', 'rotina-salvar-sim', 'rotina-editar', 'rotina-nova', 'rotina-executar', 'tocar-leitura', 'iniciar', 'leitura-opcao', 'check-toggle', 'protocolo-preencher', 'lote-preencher', 'proximo-animal', 'gaveta', 'gaveta-fechar', 'gaveta-inicio', 'gaveta-ir:', 'acordeao', 'vendas-detalhe', 'fechar', 'remover', 'abrir-cria', 'fechar-cria', 'salvar-cria', 'tocar-peso', 'reconectar')
+ACOES = ('ir:', 'nav:', 'nav-volta:', 'popup:', 'focar', 'evt-toggle', 'evt-continuar', 'slot-excluir', 'slot-excluir-sim', 'rotina-salvar', 'rotina-salvar-sim', 'rotina-editar', 'rotina-nova', 'rotina-executar', 'tocar-leitura', 'iniciar', 'exec-next', 'preencher:', 'leitura-opcao', 'check-toggle', 'protocolo-preencher', 'lote-preencher', 'proximo-animal', 'gaveta', 'gaveta-fechar', 'gaveta-inicio', 'gaveta-ir:', 'acordeao', 'vendas-detalhe', 'fechar', 'remover', 'abrir-cria', 'fechar-cria', 'salvar-cria', 'tocar-peso', 'reconectar')
 
 def desativa_sem_acao(tela_html):
     """Botões da tela do app sem comportamento programado ficam disabled: não piscam, não mostram a mãozinha
@@ -900,7 +909,7 @@ def html_proto(p, n, d, tela_html, voltar, menu=2, casa=9):
 
 def js(p='tb'):
     import json as _j
-    ALCA_JSON, LIXO_JSON, EDITAR_JSON, PLAY_JSON = (_j.dumps(ICO[k]) for k in ('alca', 'lixo', 'editar', 'play'))
+    ALCA_JSON, LIXO_JSON, EDITAR_JSON, PLAY_JSON, OK_JSON = (_j.dumps(ICO[k]) for k in ('alca', 'lixo', 'editar', 'play', 'ok-circulo'))
     return f'''    /* ---- Tablet 3D: inclina seguindo o mouse (repouso: levemente virado para a esquerda) ----
        Gerado por ferramentas/aplica_eventos.py — não editar à mão. */
     document.querySelectorAll('.slide.{p}').forEach(sec => {{
@@ -939,7 +948,8 @@ def js(p='tb'):
       tela.querySelectorAll('[data-titulo-rotina]').forEach(inp => inp.addEventListener('input', () => tela.querySelectorAll('[data-acao="rotina-salvar"]').forEach(x => x.disabled = !inp.value.trim())));
       const mostraTexto = pg => {{
         sec.querySelectorAll('.{p}-pbloco').forEach(b => b.classList.toggle('is-ativo', b.dataset.texto === (pg.dataset.texto || 'padrao')));
-        if(pg.dataset.etapa !== undefined){{ const n = parseInt(pg.dataset.etapa, 10); sec.querySelectorAll('.{p}-etapas li').forEach((li, i) => {{ li.classList.toggle('is-feita', i < n); li.classList.toggle('is-atual', i === n); }}); }}
+        const din = tela._etapaDe && tela._etapaDe[pg.dataset.pag];
+        if(din !== undefined || pg.dataset.etapa !== undefined){{ const n = din !== undefined ? din : parseInt(pg.dataset.etapa, 10); sec.querySelectorAll('.{p}-etapas li').forEach((li, i) => {{ li.classList.toggle('is-feita', i < n); li.classList.toggle('is-atual', i === n); }}); }}
       }};
       const fechaPopups = () => sec.querySelectorAll('.{p}-popup.is-aberto').forEach(x => x.classList.remove('is-aberto'));
       sec.addEventListener('click', e => {{ if(!e.target.closest('.{p}-popup, [data-acao^="popup:"]')) fechaPopups(); }});
@@ -952,7 +962,7 @@ def js(p='tb'):
         tela.querySelectorAll('[data-rotinas-vazio]').forEach(x => x.style.display = tem ? 'none' : '');
         tela.querySelectorAll('[data-rotinas-rotulo], .{p}-fab').forEach(x => x.style.display = tem ? '' : 'none');
       }};
-      const ICONE_ALCA = {ALCA_JSON}, ICONE_LIXO = {LIXO_JSON}, ICONE_EDITAR = {EDITAR_JSON}, ICONE_PLAY = {PLAY_JSON};
+      const ICONE_ALCA = {ALCA_JSON}, ICONE_LIXO = {LIXO_JSON}, ICONE_EDITAR = {EDITAR_JSON}, ICONE_PLAY = {PLAY_JSON}, ICONE_OK = {OK_JSON};
       const irPara = (dest, volta, nome, vazia) => {{
         const hist = tela._hist = tela._hist || [];
         const atual = tela.querySelector('.{p}-pag.is-ativa');
@@ -1135,16 +1145,31 @@ def js(p='tb'):
           const cadeia = [...tela.querySelectorAll('[data-slots] .{p}-slot')].map(s => s.dataset.nome).join(' &gt; ');
           const alvo = listaRotinas(), ed = tela._rotinaEditando;
           if(ed && ed.isConnected){{ ed.querySelector('.{p}-rot__cab span').textContent = titulo; ed.querySelector('.{p}-rot__cad').innerHTML = cadeia; }}
-          else alvo.insertAdjacentHTML('afterbegin', '<div class="{p}-rot"><div class="{p}-rot__cab"><span>' + titulo + '</span><button class="{p}-rot__ic" type="button" data-acao="rotina-editar" aria-label="Editar">' + ICONE_EDITAR + '</button><button class="{p}-rot__ic" type="button" disabled>' + ICONE_PLAY + '</button></div><div class="{p}-rot__cad">' + cadeia + '</div></div>');
+          else alvo.insertAdjacentHTML('afterbegin', '<div class="{p}-rot"><div class="{p}-rot__cab"><span>' + titulo + '</span><button class="{p}-rot__ic" type="button" data-acao="rotina-editar" aria-label="Editar">' + ICONE_EDITAR + '</button><button class="{p}-rot__ic" type="button" data-acao="rotina-executar" aria-label="Executar">' + ICONE_PLAY + '</button></div><div class="{p}-rot__cad">' + cadeia + '</div></div>');
           limpaRotina(); atualizaListaRotinas(); tela._hist = []; irPara('2', true); return;
         }}
         if(acao === 'rotina-nova'){{ limpaRotina(); irPara('4', false); return; }}
-        if(acao === 'rotina-executar'){{   // play: abre a leitura do animal com o campo vazio e INICIAR bloqueado
+        if(acao === 'rotina-executar'){{   // play: monta a sequência de telas a partir dos eventos da rotina e abre a leitura
+          const card = b.closest('.{p}-rot'), EXEC = JSON.parse(tela.querySelector('[data-exec-pags]').textContent);
+          const titulo = card.querySelector('.{p}-rot__cab span').textContent.trim();
+          const nomes = card.querySelector('.{p}-rot__cad').textContent.split('>').map(s => s.trim()).filter(Boolean);
+          const seq = nomes.filter(n => EXEC[n]).map(n => ({{n, p: String(EXEC[n])}}));
+          tela._seq = seq; tela._etapaDe = {{'7': 0, '14': seq.length + 1}}; seq.forEach((s, k) => tela._etapaDe[s.p] = k + 1);
+          sec.querySelectorAll('[data-etapas]').forEach(ul => ul.innerHTML = ['Leitura do Animal'].concat(seq.map(s => s.n), ['Resumo da Rotina']).map(n => '<li><i></i>' + n + '</li>').join(''));
+          sec.querySelectorAll('[data-rotina-titulo]').forEach(x => x.textContent = '\u201c' + titulo + '\u201d:');
+          tela.querySelectorAll('[data-resumo]').forEach(ul => ul.innerHTML = seq.map((s, k) => '<li><i>' + (k + 1) + '</i>' + s.n + ICONE_OK + '</li>').join(''));
           const inp = tela.querySelector('[data-leitura]'); if(inp){{ inp.value = ''; habilitaIniciar(); }}
           irPara('7', false); return;
         }}
+        if(acao === 'exec-next'){{   // AVANÇAR dos eventos: próxima tela da sequência, ou o resumo
+          const seq = tela._seq || [], atual = tela.querySelector('.{p}-pag.is-ativa'), i = seq.findIndex(s => s.p === atual.dataset.pag);
+          irPara(seq[i + 1] ? seq[i + 1].p : '14', false); return;
+        }}
+        if(acao && acao.startsWith('preencher:')){{   // toque num campo "Selecione": preenche com o valor de demonstração
+          const c = b.closest('.{p}-campo'); c.classList.add('is-preenchido'); c.querySelectorAll('span').forEach(s => {{ s.textContent = acao.slice(10); s.classList.remove('{p}-ph'); }}); return;
+        }}
         if(acao === 'tocar-leitura'){{ preencheLeitura(); return; }}
-        if(acao === 'iniciar'){{ irPara('9', false); return; }}
+        if(acao === 'iniciar'){{ const seq = tela._seq || []; irPara(seq[0] ? seq[0].p : '14', false); return; }}
         if(acao === 'leitura-opcao'){{   // escolhe o tipo de leitura e volta para a tela de leitura
           b.parentElement.querySelectorAll('.{p}-opcao').forEach(x => x.classList.toggle('is-sel', x === b));
           tela.querySelectorAll('[data-leitura-rotulo]').forEach(x => x.textContent = b.dataset.nome);
@@ -1164,7 +1189,7 @@ def js(p='tb'):
           const pc = tela.querySelector('[data-protocolo-campo]'); if(pc){{ pc.classList.remove('is-preenchido'); pc.querySelectorAll('span').forEach(s => {{ s.textContent = 'Selecione'; s.classList.add('{p}-ph'); }}); }}
           tela.querySelectorAll('[data-protocolo-resp] span').forEach(s => {{ s.textContent = 'Selecione'; s.classList.add('{p}-ph'); }});
           tela.querySelectorAll('[data-protocolo-eventos]').forEach(x => x.style.display = 'none');
-          tela.querySelectorAll('[data-lote-campo]').forEach(c => {{ c.classList.remove('is-preenchido'); c.querySelectorAll('span').forEach(s => {{ s.textContent = 'Selecione'; s.classList.add('{p}-ph'); }}); }});
+          tela.querySelectorAll('[data-lote-campo], [data-preenchivel]').forEach(c => {{ c.classList.remove('is-preenchido'); c.querySelectorAll('span').forEach(s => {{ s.textContent = 'Selecione'; s.classList.add('{p}-ph'); }}); }});
           tela.querySelectorAll('[data-passos] [data-ph]').forEach(s => {{ s.dataset.valor = ''; s.textContent = s.dataset.ph; s.classList.add('{p}-ph'); }});
           const inp = tela.querySelector('[data-leitura]'); if(inp){{ inp.value = ''; habilitaIniciar(); }}
           tela._hist = []; irPara('7', true); return;
