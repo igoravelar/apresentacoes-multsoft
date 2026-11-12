@@ -1,6 +1,7 @@
 """Conteúdo dos slides de eventos (Rotinas de Manejo Salvas) e das telas do App MB Curral.
 Transcrito dos slides 103–118 do deck de Reprodução e Cria. Usado por aplica_eventos.py."""
 from tablet import campo, seg, radios, variante, passos, area, lista, linha, lado, tit, obs, avancar, app, ICO, top
+import proto_curral as PC
 
 PESO_438 = '23/07/2019 (3a7m)<br>438.00 kg<br>GMD: 0.01'
 
@@ -221,20 +222,20 @@ def tela_desmame(p):
     # 1) Desmame com o diálogo de confirmação aberto (só o SIM funciona)
     dialogo = (f'<div class="{p}-modal is-aberto" data-inicial><div class="{p}-dialogo"><h4>Confirmação</h4><p>Deseja desmamar o animal?</p>'
                f'<div><button type="button" data-acao="ir:2">SIM</button><button type="button" disabled>NÃO</button></div></div></div>')
-    pag1 = app(p, 'ANITA RANCHO', ('execucao', '27/10/2026'), tit(p, 'Desmame', info=False) + obs(p, 'Este evento é obrigatório')
+    pag1 = app(p, 'FAZENDA SANTA LUZIA', ('execucao', '27/10/2026'), tit(p, 'Desmame', info=False) + obs(p, 'Este evento é obrigatório')
                + f'<button class="{p}-avancar" type="button" disabled>AVANÇAR</button>',
                lado_([('Situação da mãe', 'Vazia', 'verde'), peso_anim]), modal=dialogo)
     # 2) Pesagem: campo editável + AVANÇAR
     corpo2 = (tit(p, 'Pesagem', info=False) + obs(p, 'Este evento é obrigatório')
               + f'<div class="{p}-campo"><label>Peso <b>*</b></label><div class="{p}-input {p}-input--toque"><input class="{p}-entrada" type="text" inputmode="decimal" value="" placeholder="Digite" aria-label="Peso" data-peso data-sugestao="215"><button class="{p}-toque" type="button" data-acao="tocar-peso" aria-label="Informar peso"></button></div></div>'
               + f'<button class="{p}-avancar" type="button" data-acao="ir:3">AVANÇAR</button>')
-    pag2 = app(p, 'ANITA RANCHO', ('execucao', '27/10/2026'), corpo2, lado_([('Situação da mãe', 'Vazia', 'verde'), ('Peso', 'Não Identificado', 'amarela')]))
+    pag2 = app(p, 'FAZENDA SANTA LUZIA', ('execucao', '27/10/2026'), corpo2, lado_([('Situação da mãe', 'Vazia', 'verde'), ('Peso', 'Não Identificado', 'amarela')]))
     # 3) Resumo da rotina: PRÓXIMO ANIMAL volta ao início com outro animal
     corpo3 = (tit(p, 'Resumo da rotina', info=False)
               + f'<ul class="{p}-res"><li>{ICO["ok-circulo"]}Pesagem</li><li class="{p}-res--sub">{ICO["check"]}Peso: <span data-peso-resumo>215</span> KG</li><li>{ICO["ok-circulo"]}Desmame</li></ul>'
               + f'<button class="{p}-avancar {p}-avancar--largo" type="button" data-acao="ir:1" data-proximo>PRÓXIMO ANIMAL</button>')
     acoes = f'<span class="{p}-subacoes"><button type="button" disabled>{ICO["desfazer"]} Desfazer</button></span>'
-    pag3 = app(p, 'ANITA RANCHO', ('simples', 'Resumo', acoes), corpo3, lado_([peso_box], lapis=False, situacao=False))
+    pag3 = app(p, 'FAZENDA SANTA LUZIA', ('simples', 'Resumo', acoes), corpo3, lado_([peso_box], lapis=False, situacao=False))
     dados = '<script type="application/json" data-animais>' + ANIMAIS_JSON + '</script>'
     return (dados + f'<div class="{p}-pag is-ativa" data-pag="1">{bloqueia(pag1)}</div><div class="{p}-pag" data-pag="2">{bloqueia(pag2)}</div>'
             f'<div class="{p}-pag" data-pag="3">{bloqueia(pag3)}</div>')
@@ -309,7 +310,7 @@ def tela_diagnostico(p):
     dialogo = (f'<div class="{p}-modal is-aberto" data-inicial><div class="{p}-dialogo"><h4>Confirmação</h4>'
                f'<p>Fêmea Gestante com diagnóstico Positivo na data {v("dgdata")}. Deseja fazer um novo diagnóstico?</p>'
                f'<div><button type="button" data-acao="fechar">SIM</button><button type="button" disabled>NÃO</button></div></div></div>')
-    html = app(p, 'ANITA RANCHO', ('execucao', '27/10/2026'), corpo, lado_html, modal=dialogo)
+    html = app(p, 'FAZENDA SANTA LUZIA', ('execucao', '27/10/2026'), corpo, lado_html, modal=dialogo)
     dados = '<script type="application/json" data-animais>' + __import__('json').dumps(ANIMAIS_DIAGNOSTICO, ensure_ascii=False) + '</script>'
     return dados + html.replace(f'<button class="{p}-volta" type="button"', f'<button class="{p}-volta" type="button" disabled')
 
@@ -360,7 +361,7 @@ def tela_sexagem(p):
              + seg(p, 'Resultado', ['Fêmea', 'Macho', 'Dúvida'], 0, True)
              + campo(p, 'Responsável', 'MULTSOFT COM. ASS. MICRO')
              + f'<button class="{p}-avancar" type="button" data-acao="ir:1" data-proximo>AVANÇAR</button>')
-    html = app(p, 'ANITA RANCHO', ('execucao', '27/10/2026'), corpo, lado_html)
+    html = app(p, 'FAZENDA SANTA LUZIA', ('execucao', '27/10/2026'), corpo, lado_html)
     dados = '<script type="application/json" data-animais>' + __import__('json').dumps(ANIMAIS_SEXAGEM, ensure_ascii=False) + '</script>'
     return dados + html.replace(f'<button class="{p}-volta" type="button"', f'<button class="{p}-volta" type="button" disabled')
 
@@ -373,7 +374,7 @@ def tela_inventario(p):
     corpo = (tit(p, 'Inventário', info=False) + obs(p, 'Este evento é obrigatório')
              + campo(p, 'Responsável', 'MULTSOFT COM. ASS. MICRO', True, True)
              + f'<button class="{p}-avancar" type="button" disabled>AVANÇAR</button>')
-    html = app(p, 'ANITA RANCHO', ('execucao', '27/10/2026'), corpo, lado_html)
+    html = app(p, 'FAZENDA SANTA LUZIA', ('execucao', '27/10/2026'), corpo, lado_html)
     html = html.replace(f'<button class="{p}-bt" type="button"', f'<button class="{p}-bt" type="button" disabled')
     return html.replace(f'<button class="{p}-volta" type="button"', f'<button class="{p}-volta" type="button" disabled')
 
@@ -387,7 +388,7 @@ def tela_identificacao(p):
              + f'<div class="{p}-campo {p}-ident"><label>Identificação eletrônica <b>*</b></label><div class="{p}-input {p}-input--off" data-ident="982 000000727780"><span></span></div></div>'
              + f'<p class="{p}-nota {p}-nota--erro">Bastão desconectado.<br><button type="button" data-acao="reconectar"><u>Clique aqui para reconectar</u></button></p>'
              + f'<button class="{p}-avancar" type="button" disabled>AVANÇAR</button>')
-    html = app(p, 'ANITA RANCHO', ('execucao', '27/10/2026'), corpo, lado_html)
+    html = app(p, 'FAZENDA SANTA LUZIA', ('execucao', '27/10/2026'), corpo, lado_html)
     return html.replace(f'<button class="{p}-volta" type="button"', f'<button class="{p}-volta" type="button" disabled')
 
 def cena_identificacao(p):
@@ -398,7 +399,7 @@ def cena_identificacao(p):
             f'        </div>\n')
 
 FAZENDAS = ['FAZENDA BOA FORTUNA', 'FAZENDA GADO MANSO', 'FAZENDA SANTA LUZIA', 'FAZENDA RIO VERDE', 'FAZENDA TRÊS BARRAS']
-ROTINAS = [('Cadastramento De Animais', 'Entrada de Animais &gt; Identificação Eletrônica &gt; Movimentação entre Pastos &gt; Pesagens &gt; Vacinação'),
+ROTINAS = [PC.ROTINA_RECEPCAO, ('Cadastramento De Animais', 'Entrada de Animais &gt; Identificação Eletrônica &gt; Movimentação entre Pastos &gt; Pesagens &gt; Vacinação'),
            ('Inventário, Pesagem e Vacinação', 'Inventário &gt; Pesagem &gt; Vacinação e Vermífugos'),
            ('Inseminação Artificial', 'Conferência de Lotes &gt; Inseminação &gt; Score Corpóreo'),
            ('Diagnóstico Gestacional', 'Entrada de Animais &gt; Diagnóstico de Gestação &gt; Aplicação Protocolo IATF &gt; Inserção no Lote de IATF &gt; Score Corpóreo'),
@@ -446,7 +447,7 @@ def tela_prototipo(p):
             f'<div class="{p}-pag" data-pag="7" data-texto="rotina" data-etapa="0">{pag7}</div><div class="{p}-pag" data-pag="8" data-texto="rotina">{pag8}</div><div class="{p}-pag" data-pag="9" data-texto="rotina" data-etapa="1">{pag9}</div>'
             f'<div class="{p}-pag" data-pag="10" data-texto="rotina" data-etapa="2">{pag10}</div><div class="{p}-pag" data-pag="11" data-texto="rotina" data-etapa="3">{pag11}</div>'
             f'<div class="{p}-pag" data-pag="12" data-texto="rotina" data-etapa="4">{pag12}</div><div class="{p}-pag" data-pag="13" data-texto="rotina" data-etapa="5">{pag13}</div><div class="{p}-pag" data-pag="14" data-texto="rotina" data-etapa="6">{pag14}</div>'
-            f'<div class="{p}-pag" data-pag="15" data-texto="rotina">{pag15}</div><div class="{p}-pag" data-pag="16" data-texto="rotina">{pag16}</div><div class="{p}-pag" data-pag="17">{pag17}</div><div class="{p}-pag" data-pag="18">{pag18}</div><div class="{p}-pag" data-pag="19">{pag19}</div><div class="{p}-pag" data-pag="20">{pag20}</div><div class="{p}-pag" data-pag="21" data-texto="rotina">{pag21}</div>{gaveta}')
+            f'<div class="{p}-pag" data-pag="15" data-texto="rotina">{pag15}</div><div class="{p}-pag" data-pag="16" data-texto="rotina">{pag16}</div><div class="{p}-pag" data-pag="17">{pag17}</div><div class="{p}-pag" data-pag="18">{pag18}</div><div class="{p}-pag" data-pag="19">{pag19}</div><div class="{p}-pag" data-pag="20">{pag20}</div><div class="{p}-pag" data-pag="21" data-texto="rotina">{pag21}</div>' + PC.paginas(p) + gaveta).replace(f'<div class="{p}-ficha">', f'<button class="{p}-ficha" type="button" data-acao="ficha">').replace('Ver Ficha Completa</div>', 'Ver Ficha Completa</button>')
 
 def bloco_faltantes(p):
     """texto à esquerda quando a tela Animais Faltantes está aberta."""
@@ -491,36 +492,52 @@ def popup_faltantes(p):
 
 GRUPOS_EVENTOS = [
  ('Estoque de Animais', ['Entrada de Animais', 'Alteração de Animais', 'Identificação Eletrônica', 'Retirada Ident. Eletrônica', 'Informar RGN/Tatuagem', 'Inventário',
-                        'Lote Avaliação', 'Movimentação entre Pastos', 'Movim. entre Propriedades', 'Advertências', 'Morte', 'Venda de Animais', 'Venda com Pesagens']),
+                        'Identificação Pós Recepção', 'Movimentação entre Pastos', 'Movim. entre Propriedades', 'Movimentação entre Lote Avaliação', 'Movimentação entre Lote Finalidade',
+                        'Movimentação entre Lote Alimentar', 'Advertência', 'Morte', 'Venda de Animais', 'Venda com Pesagens']),
  ('Movimentação de Animais', ['Movimentação Por Localidade', 'Movimentação Por Lote Alimentar', 'Movimentação Por Lote Avaliação', 'Movimentação Por Lote Finalidade', 'Moviment. Por Lote Reprodutivo']),
  ('Conferência de Lotes', ['Conferência Por Localidade', 'Conferência Por Lote Alimentar', 'Conferência Por Lote Avaliação', 'Conferência Por Lote Finalidade', 'Confer. Por Lote Estação de Monta']),
  ('Reprodução', ['Diagnóstico de Gestação', 'Aplicação Protocolo IATF', 'Aplicação Tratamento IATF', 'Avaliação Ovariana', 'Conferência Lote de E.M.', 'Inserção no Lote de IATF',
                  'Inseminação Artificial', 'Perda de Implante', 'Estação de Monta', 'Cobertura', 'Acasalamentos', 'Tratamentos - Protocolo', 'Sexagem', 'Parto', 'Desmame',
                  'Score Corpóreo', 'Repasse', 'Descarte de Reprodutor']),
  ('SISBOV', ['Identificação SISBOV', 'Venda Cota Hilton']),
- ('Pesos e Medidas', ['Pesagem', 'Apartação', 'Circunferência Escrotal', 'Avaliação Morfológica']),
+ ('Pesos e Medidas', ['Pesagem', 'Medições', 'Apartação', 'Apartação por Resultado DG', 'Circunferência Escrotal', 'Avaliação Morfológica']),
  ('Zoosanitário', ['Vacinação', 'Aplicação de Tratamento']),
 ]
 
 def _chip(p, rotulo, valor, cor='verde', largo=False):
     cls = f'{p}-chip' + {'verde': '', 'amarelo': f' {p}-chip--amarelo', 'vazio': f' {p}-chip--vazio'}[cor] + (f' {p}-chip--largo' if largo else '')
-    if cor == 'vazio': return f'<div class="{cls}"><b>{rotulo}</b></div>'
-    return f'<div class="{cls}"><small>{rotulo}</small><b>{valor}</b></div>'
+    if cor == 'vazio': return f'<div class="{cls}" data-acao="chip-config"><b>{rotulo}</b></div>'
+    return f'<div class="{cls}" data-acao="chip-config"><small>{rotulo}</small><b>{valor}</b></div>'
 
 def campos_slot(p):
     """campos mostrados em cada slot de evento na edição da rotina ('*' = padrão)."""
     g = lambda *c: f'<div class="{p}-slot__grade">{"".join(c)}</div>'
     return {
       '*': dict(html=g(_chip(p, 'Responsável', 'Ler (CLIENTE)', 'amarelo', largo=True))),
-      'Inventário': dict(html=g(_chip(p, 'Responsável', 'Ler (CLIENTE)', 'amarelo', largo=True))),
-      'Pesagem': dict(html=g(_chip(p, 'Peso', 'Ler', 'amarelo', largo=True))),
+      'Inventário': dict(html=g(_chip(p, 'Responsável', 'Ler (CARLOS BRANDÃO)', 'amarelo', largo=True))),
+      'Pesagem': dict(html=g(_chip(p, 'Peso', 'Ler', 'amarelo'), _chip(p, 'Perguntar a cada leitura', 'Sim'))),
       'Venda com Pesagens': dict(html=g(_chip(p, 'Peso', 'Ler', 'amarelo'), _chip(p, 'Tipo Venda', 'Ler', 'amarelo'))),
       'Aplicação de Tratamento': dict(info=True, html=g(_chip(p, 'Doença', 'Carrapaticidas'), _chip(p, 'Tratamento', 'Ler', 'amarelo'), _chip(p, 'Quantidade', 'Ler', 'amarelo'),
-                                                       _chip(p, 'Peso Médio', '', 'vazio'), _chip(p, 'Responsável', 'THIAGO TAVARES', largo=True))),
-      'Vacinação': dict(info=True, html=f'<p class="{p}-slot__sub">1° Vacina</p><div class="{p}-slot__grade {p}-slot__grade--4">'
-                        + _chip(p, 'Vacina', 'Brucelose') + _chip(p, 'Partida', '', 'vazio') + _chip(p, 'Dose', '1') + _chip(p, 'Unidade de uso', 'DOSE')
-                        + _chip(p, 'Data Validade', '', 'vazio') + _chip(p, 'Fabricante', '', 'vazio') + _chip(p, 'Lote', '', 'vazio') + _chip(p, 'Responsável', 'THIAGO TA...')
-                        + f'</div><span class="{p}-slot__link">Nova Vacina</span>'),
+                                                       _chip(p, 'Peso Médio', '', 'vazio'), _chip(p, 'Responsável', 'CARLOS BRANDÃO', largo=True))),
+      'Vacinação': dict(info=True, html=''.join(f'<p class="{p}-slot__sub">{k}º Vacina</p><div class="{p}-slot__grade {p}-slot__grade--4">'
+                        + _chip(p, 'Confirma a Aplicação?', 'Sim') + _chip(p, 'Vacina', vac) + _chip(p, 'Partida', '', 'vazio') + _chip(p, 'Dose', dose)
+                        + _chip(p, 'Unidade de uso', un) + _chip(p, 'Data Validade', '', 'vazio') + _chip(p, 'Fabricante', '', 'vazio') + _chip(p, 'Lote', '', 'vazio')
+                        + _chip(p, 'Responsável', 'Ler (CARLOS B...)', 'amarelo') + _chip(p, 'Centro de Custo', '', 'vazio') + '</div>'
+                        for k, vac, dose, un in ((1, 'POLIGUARD FC', '5', 'MILILITRO'), (2, 'DECTOMAX', 'Ler', 'UNIDADE'))) + f'<span class="{p}-slot__link">Nova Vacina</span>'),
+      'Identificação Pós Recepção': dict(html=g(_chip(p, 'Lote', '27032026', largo=True))),
+      'Alteração de Animais': dict(html=f'<div class="{p}-slot__grade {p}-slot__grade--3">' + _chip(p, 'ID Usual', 'Ler', 'amarelo') + _chip(p, 'Sexo', 'Ler', 'amarelo') + _chip(p, 'Tipo', 'Ler', 'amarelo')
+                                   + _chip(p, 'Data nascimento', 'Ler', 'amarelo') + _chip(p, 'Idade (Meses)', '', 'vazio') + _chip(p, 'Ordem Inicial', 'Ler', 'amarelo')
+                                   + _chip(p, 'Raça', 'Ler', 'amarelo') + _chip(p, 'Grau de sangue', 'Ler', 'amarelo') + _chip(p, 'Pelagem', 'Ler', 'amarelo') + _chip(p, 'Rebanho', 'Ler', 'amarelo') + '</div>'),
+      'Movimentação entre Pastos': dict(info=True, html=g(_chip(p, 'Tipo', '', 'vazio'), _chip(p, 'Pasto', '', 'vazio'))),
+      'Movimentação entre Lote Avaliação': dict(html=g(_chip(p, 'Lote', 'Ler (0 DENTES)', 'amarelo'), _chip(p, 'Perguntar a cada leitura', 'Sim'))),
+      'Movimentação entre Lote Finalidade': dict(html=g(_chip(p, 'Lote', '', 'vazio'), _chip(p, 'Perguntar a cada leitura', 'Não'))),
+      'Movimentação entre Lote Alimentar': dict(html=g(_chip(p, 'Lote', 'Ler (ENGORDA 2026)', 'amarelo', largo=True))),
+      'Medições': dict(html=''.join(f'<p class="{p}-slot__sub">{k}º Medição</p>' + f'<div class="{p}-slot__grade {p}-slot__grade--3">' + _chip(p, 'Avaliação', av) + _chip(p, 'Valor', 'Ler', 'amarelo') + _chip(p, 'Responsável', 'RAFAEL MOURA') + '</div>'
+                               for k, av in ((1, 'ALTURA'), (2, 'APRUMOS'))) + f'<span class="{p}-slot__link">Nova Medição</span>'),
+      'Apartação': dict(info=True, html=f'<p class="{p}-slot__sub">1º Localidade</p><div class="{p}-slot__grade {p}-slot__grade--4">' + _chip(p, 'Localidade', 'PASTO A') + _chip(p, 'Peso de', '110') + _chip(p, 'Peso até', '250') + _chip(p, 'Confirmação', 'Não') + '</div>'
+                        + f'<p class="{p}-slot__sub">2º Localidade</p><div class="{p}-slot__grade {p}-slot__grade--4">' + _chip(p, 'Localidade', 'PASTO B') + _chip(p, 'Peso de', '250.5') + _chip(p, 'Peso até', '350') + _chip(p, 'Confirmação', 'Não') + '</div>'
+                        + f'<span class="{p}-slot__link">Novo</span>'),
+      'Advertência': dict(info=True, html=g(_chip(p, 'Tipo', 'Ler', 'amarelo'), _chip(p, 'Perguntar a cada leitura', 'Sim'))),
       'Entrada de Animais': dict(html=f'<div class="{p}-slot__grade {p}-slot__grade--4">' + _chip(p, 'Sexo', 'Ler (Fêm...', 'amarelo') + _chip(p, 'Tipo', 'Ler (Repr...', 'amarelo') + _chip(p, 'Ordem', 'Novilha') + _chip(p, 'Idade (Meses)', '16')
                                  + _chip(p, 'Estado Inicial', 'Solteira') + _chip(p, 'Raça', 'Ler (NEL...', 'amarelo') + _chip(p, 'Grau de Sang...', '', 'vazio') + _chip(p, 'Pelagem', '', 'vazio')
                                  + _chip(p, 'Produtor', 'MULTB...') + _chip(p, 'Rebanho', '', 'vazio') + f'</div><span class="{p}-slot__link">Outros Parâmetros</span><span class="{p}-slot__link" style="margin-left:2.4cqw">Configurações Avançadas</span>'),
@@ -562,9 +579,9 @@ def tela_edicao_rotina(p):
     fixo = (f'<div class="{p}-fixo"><button type="button" data-acao="nav:4">{ICO["maisb"]} Evento</button><button type="button" data-acao="rotina-salvar" disabled>{ICO["check"]} Salvar</button></div>')
     confirma = (f'<div class="{p}-modal" data-popup="salvar" data-acao="fechar"><div class="{p}-dialogo {p}-dialogo--grande" data-acao=""><h4>Confirmação</h4><p>As alterações da rotina não foram salvas. Deseja salvar?</p>'
                 f'<div><button type="button" data-acao="rotina-salvar-sim">Sim</button><button type="button" data-acao="fechar">Não</button></div></div></div>')
-    dialogo = (f'<div class="{p}-modal" data-popup="excluir" data-acao="fechar"><div class="{p}-dialogo" data-acao=""><h4>Excluir evento</h4><p>Deseja realmente excluir este evento da rotina?</p>'
+    dialogo = (f'<div class="{p}-toast" data-toast>Exclusão realizada com sucesso!</div><div class="{p}-modal" data-popup="excluir" data-acao="fechar"><div class="{p}-dialogo" data-acao=""><h4>Confirmação</h4><p>Confirma a exclusão do registro?</p>'
                f'<div><button type="button" data-acao="slot-excluir-sim">SIM</button><button type="button" data-acao="fechar">NÃO</button></div></div></div>')
-    acoes = f'<span class="{p}-subacoes"><button type="button">{ICO["lixo"]} Excluir</button><button type="button" class="is-escuro">{ICO["bandeira"]} Iniciar</button></span>'
+    acoes = f'<span class="{p}-subacoes"><button type="button">{ICO["lixo"]} Excluir</button><button type="button" class="is-escuro" data-acao="rotina-iniciar">{ICO["bandeira"]} Iniciar</button></span>'
     h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('titulo', 'Edição de Rotina', acoes), corpo, modal=fixo + dialogo + confirma, gaveta=True, vaca='nav:3')
     return dados + h.replace(f'<button class="{p}-volta" type="button" aria-label="Voltar">', f'<button class="{p}-volta" type="button" data-acao="nav-volta:" aria-label="Voltar">')
 
@@ -603,14 +620,15 @@ def tela_leitura(p):
              f'<button class="{p}-bt" type="button" aria-label="Buscar">{ICO["lupa"]}</button><button class="{p}-toque" type="button" data-acao="tocar-leitura" aria-label="Informar animal"></button></div>'
              f'<button class="{p}-check" type="button" data-acao="check-toggle" data-mostra="[data-retro]"><i>{check}</i>Fazer Lançamento Retroativo</button>'
              f'<div class="{p}-retro" data-retro style="display:none"><label>Data de Lançamento <b>*</b></label>'
-             f'<div class="{p}-leitura-campo"><span>Selecione a data...</span><button class="{p}-bt" type="button" aria-label="Limpar">{ICO["lixo"]}</button></div>'
+             f'<div class="{p}-leitura-campo" data-retro-campo><span data-retro-data>Selecione a data...</span><button class="{p}-bt" type="button" data-acao="limpar-data" aria-label="Limpar">{ICO["lixo"]}</button>'
+             f'<button class="{p}-toque" type="button" data-acao="calendario" aria-label="Selecionar data"></button></div>'
              f'<small>IMPORTANTE: Todos os dados serão lançados com a data definida acima.</small></div>'
              f'<button class="{p}-iniciar" type="button" data-acao="iniciar" disabled>INICIAR</button>'
              f'<div class="{p}-separador"></div><p class="{p}-proc-t">Animais Processados:</p>'
              f'<div class="{p}-proc"><div class="{p}-proc__cards"><div><small>Total Dia:<i>De 27/10/2026</i></small><b data-total>0</b></div><div><small>Total Sessão:<i>Desde 08:05:15</i></small><b data-total>0</b></div></div>'
              f'<button class="{p}-proc__lupa" type="button" data-acao="nav:15" aria-label="Consultar">{ICO["lupa"]}</button></div><div style="height:4cqh;flex:0 0 auto"></div>')
     acoes = f'<span class="{p}-subacoes"><button type="button" aria-label="Ajuda">{ICO["ajuda"]}</button></span>'
-    h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('titulo', 'Leitura do Animal', acoes), corpo, attrs=' data-proto', gaveta=True, vaca='nav:3')
+    h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('titulo', 'Leitura do Animal', acoes), corpo, modal=PC.calendario(p), attrs=' data-proto', gaveta=True, vaca='nav:3')
     return h.replace(f'<button class="{p}-volta" type="button" aria-label="Voltar">', f'<button class="{p}-volta" type="button" data-acao="nav-volta:" aria-label="Voltar">')
 
 def tela_selecao_leitura(p):
@@ -640,7 +658,7 @@ def tela_entrada_exec(p):
     return h.replace(f'<button class="{p}-volta" type="button" aria-label="Voltar">', f'<button class="{p}-volta" type="button" data-acao="nav-volta:" aria-label="Voltar">')
 
 def _lado_exec(p, caixas, historico=False):
-    return lado(p, 'MB-001', [('Sexo / Tipo', 'Fêmea / Reprodução'), ('Raça / G. Sangue', 'NELORE / Puro Sangue'), ('Data de Nascimento (idade)', '10/09/2022 (1a4m)'),
+    return lado(p, '<span data-exec-id>MB-001</span>', [('Sexo / Tipo', 'Fêmea / Reprodução'), ('Raça / G. Sangue', 'NELORE / Puro Sangue'), ('Data de Nascimento (idade)', '10/09/2022 (1a4m)'),
                               ('Ordem', 'Novilha'), ('Situação / Estado', 'Vazia / Solteira'), ('Pasto', 'Não informado')], caixas, historico=historico)
 
 def _volta_exec(p, h):
@@ -698,8 +716,8 @@ def tela_resumo_exec(p):
     corpo = (tit(p, 'Resumo da Rotina', info=False) + f'<ul class="{p}-resumo" data-resumo>{li}</ul>'
              + f'<button class="{p}-avancar {p}-avancar--largo" type="button" data-acao="proximo-animal">PRÓXIMO ANIMAL</button>')
     acoes = f'<span class="{p}-subacoes"><button type="button">{ICO["desfazer"]} Desfazer</button></span>'
-    lado_html = lado(p, 'MB-001', [('Sexo / Tipo', 'Fêmea / Reprodução'), ('Raça / G. Sangue', 'NELORE / Puro Sangue'), ('Data de Nascimento (idade)', '10/09/2022 (1a4m)'),
-                                   ('Ordem', 'Novilha'), ('Situação / Estado', 'Vazia / Solteira'), ('Pasto', 'Não informado')], [], lapis=False)
+    lado_html = lado(p, '<span data-exec-id>MB-001</span>', [('Sexo / Tipo', 'Fêmea / Reprodução'), ('Raça / G. Sangue', 'NELORE / Puro Sangue'), ('Data de Nascimento (idade)', '10/09/2022 (1a4m)'),
+                                   ('Ordem', 'Novilha'), ('Situação / Estado', 'Vazia / Solteira'), ('Pasto', 'Não informado')], [], lapis=False, ficha=True)
     return app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('titulo', 'Resumo da Rotina', acoes), corpo, lado_html, gaveta=True, vaca='nav:3')
 
 def tela_processados(p):
@@ -739,8 +757,10 @@ def tela_carga_inicial(p):
         return (f'<button class="{p}-check {p}-check--esq{" is-marcado" if marcado else ""}" type="button" data-acao="check-toggle"{" disabled" if bloqueado else ""}>'
                 f'<i>{check}</i>{rotulo}</button>')
     def lst(rotulo, itens):
-        li = ''.join(f'<div class="{p}-input {p}-input--cinza"><span>{i}</span><button class="{p}-bt" type="button" aria-label="Remover">{ICO["lixo"]}</button></div>' for i in itens)
-        return f'<p class="{p}-carga-t">{rotulo} {info}</p>{li}<p class="{p}-add"><b>+</b> Adicionar Novo</p>'
+        li = ''.join(f'<div class="{p}-input {p}-input--cinza"><span>{i}</span><button class="{p}-bt" type="button" data-acao="remover-linha" aria-label="Remover">{ICO["lixo"]}</button></div>' for i in itens)
+        chave = {'Propriedades': 'fazendas', 'Setor / Retiro': 'local', 'Localidades': 'local'}[rotulo]
+        return (f'<p class="{p}-carga-t">{rotulo} {info}</p><div data-add-lista>{li}</div>'
+                f'<button class="{p}-add" type="button" data-acao="picker:{chave}" data-titulo="Selecione" data-add><b>+</b> Adicionar Novo</button>')
     animais = (f'<fieldset class="{p}-carga-fs"><legend>Animais {info}</legend>'
                f'<p class="{p}-carga-sub">Fêmeas</p><div class="{p}-cg"><div><p class="{p}-carga-lbl">Tipo</p>{ck("Reprodução", True)}{ck("Engorda")}{ck("Receptora")}{ck("Doadora", True)}</div>'
                f'<div><p class="{p}-carga-lbl">Situação</p>{ck("Vazia", True)}{ck("Servida")}{ck("Gestante", True)}</div></div>'
@@ -750,9 +770,9 @@ def tela_carga_inicial(p):
                + campo(p, 'Período Protocolos Aplicados (Mês)', '1', False, bt=None) + '</div></div></div>')
     corpo = (animais + lst('Propriedades', ['<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', 'Fazenda Manacá']) + lst('Setor / Retiro', ['Todos']) + lst('Localidades', ['Todos'])
              + filtros + '<div style="height:12cqh;flex:0 0 auto"></div>')
-    fixo = f'<div class="{p}-fixo"><button type="button">{ICO["check"]} Salvar</button></div>'
+    fixo = f'<div class="{p}-fixo"><button type="button" data-acao="carga-salvar">{ICO["check"]} Salvar</button></div>'
     acoes = f'<span class="{p}-subacoes"><button type="button">{ICO["ajuda"]} Ajuda</button></span>'
-    h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('titulo', 'Carga Inicial', acoes), corpo, modal=fixo, attrs=' data-proto', gaveta=True, vaca='nav:3')
+    h = app(p, '<span data-fazenda-nome>FAZENDA BOA FORTUNA</span>', ('titulo', 'Carga Inicial', acoes), corpo, modal=fixo + PC.progresso_carga(p), attrs=' data-proto', gaveta=True, vaca='nav:3')
     return _volta_exec(p, h)
 
 def tela_bluetooth(p):
@@ -810,7 +830,7 @@ def tela_config_avancadas(p):
 
 # telas de execução disponíveis por evento (nome na cadeia da rotina -> página do tablet)
 EXEC_PAGS = {'Entrada de Animais': 9, 'Diagnóstico de Gestação': 10, 'Aplicação Protocolo IATF': 11, 'Aplicação de Protocolo IATF': 11,
-             'Inserção no Lote de IATF': 12, 'Score Corpóreo': 13, 'Morte': 21}
+             'Inserção no Lote de IATF': 12, 'Score Corpóreo': 13, 'Morte': 21, **PC.EXEC_NOVOS}
 
 def tela_morte_exec(p):
     """evento Morte na execução: data e causa preenchem ao toque, responsável fixo."""
