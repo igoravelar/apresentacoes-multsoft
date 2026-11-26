@@ -17,11 +17,21 @@ LISTAS = {
  'lote_aval': ['0 DENTES', '2 DENTES', '4 DENTES', '6 DENTES', 'BOCA CHEIA', 'REFUGO'],
  'lote_final': ['ENGORDA', 'REPRODUÇÃO', 'RECRIA', 'DESCARTE', 'VENDA', 'REPOSIÇÃO'],
  'lote_alim': ['CONFINAMENTO 2026', 'ENGORDA 2026', 'SEMICONFINAMENTO', 'CREEP', 'PASTO SUPLEMENTADO', 'RECRIA ÁGUAS 2026'],
- 'local': ['CURRAL 1', 'CURRAL 2', 'CURRAL 3', 'PASTO A', 'PASTO B', 'PASTO C', 'PIQUETE 1', 'PIQUETE 2', 'EMBARQUE'],
+ 'local': ['CURRAL 1', 'CURRAL 2', 'CURRAL 3', 'PASTO 1', 'PASTO 2', 'PASTO MORRO', 'PASTO A', 'PASTO B', 'PASTO C', 'PIQUETE 1', 'PIQUETE 2', 'EMBARQUE'],
  'advertencia': ['ANIMAIS COM REAÇÃO', 'ANIMAL PERDEU CHIP', 'ANIMAL PERDEU O NÚMERO VISUAL', 'ANIMAL SEM ID USUAL', 'BOI SEM ORELHAS',
                  'CONFERIR CHIP ELETRÔNICO', 'CONFERIR SEXO', 'CONFIRMAR LOCALIDADE', 'DESCARTE', 'VERIFICAR DIAS DE GESTAÇÃO'],
  'vacina': ['POLIGUARD FC', 'DECTOMAX', 'AFTOSA', 'BRUCELOSE B19', 'CLOSTRIDIOSE', 'RAIVA', 'IVOMEC GOLD'],
  'responsavel': [RESP1, RESP2, 'MARCOS VIEIRA', 'JOÃO PEDRO LIMA', 'ANA PAULA REIS'],
+ 'tipo_parto': ['Normal', 'Puxado', 'Cesariana', 'Aborto', 'Morte Embrionária'],
+ 'situacao_cria': ['Vivo', 'Descartado', 'Natimorto'],
+ 'tamanho': ['Pequeno', 'Médio', 'Grande'],
+ 'sexo': ['Macho', 'Fêmea'],
+ 'animais': ['ID Usual: 2210-25|Sexo: Fêmea|Data nascimento: 09/08/2019|Raça: NELORE|Tipo: Reprodução',
+             'ID Usual: 0014|Sexo: Fêmea|Data nascimento: 02/08/2018|Tipo: Receptora',
+             'ID Usual: AC201|Sexo: Fêmea|Data nascimento: 10/01/2020|Raça: NELORE|Tipo: Reprodução',
+             'ID Usual: AC202|Sexo: Fêmea|Data nascimento: 10/01/2020|Raça: NELORE|Tipo: Reprodução',
+             'ID Usual: AC204|Sexo: Fêmea|Data nascimento: 10/01/2020|Raça: NELORE|Tipo: Reprodução',
+             'ID Usual: TT301|Sexo: Fêmea|Data nascimento: 02/01/2019|Raça: NELORE|Tipo: Reprodução'],
  'fazendas': ['FAZENDA BOA FORTUNA', 'FAZENDA GADO MANSO', 'FAZENDA SANTA LUZIA', 'FAZENDA RIO VERDE', 'FAZENDA TRÊS BARRAS',
               'FAZENDA SÃO BENTO', 'FAZENDA ÁGUA LIMPA', 'FAZENDA PEDRA BRANCA', 'FAZENDA BELA VISTA', 'FAZENDA CAPÃO ALTO'],
 }
@@ -29,7 +39,7 @@ LISTAS = {
 # eventos da rotina de recepção -> página do tablet
 EXEC_NOVOS = {'Alteração de Animais': 25, 'Movimentação entre Lote Avaliação': 26, 'Movimentação entre Lote Finalidade': 27,
               'Movimentação entre Lote Alimentar': 28, 'Pesagem': 29, 'Pesagens': 29, 'Apartação': 30, 'Medições': 31,
-              'Inventário': 32, 'Advertência': 33, 'Vacinação': 34}
+              'Inventário': 32, 'Advertência': 33, 'Vacinação': 34, 'Parto': 35}
 
 ROTINA_RECEPCAO = ('Recepção de Animais', ' &gt; '.join(['Alteração de Animais', 'Movimentação entre Lote Avaliação', 'Movimentação entre Lote Finalidade',
                    'Movimentação entre Lote Alimentar', 'Pesagem', 'Apartação', 'Medições', 'Inventário', 'Advertência', 'Vacinação']))
@@ -149,6 +159,8 @@ def tela_tipo_acao(p):
     xis = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>'
     corpo = (f'<h3 class="{p}-acao-tit" data-acao-titulo>Campo</h3>'
              f'<button class="{p}-acao-op {p}-acao-op--ler" type="button" data-acao="acao-tipo:ler">{barras}Ler a cada vez</button>'
+             f'<div class="{p}-acao-ler" data-ler-conf style="display:none"><label data-ler-rot>Campo</label><p data-ler-val></p>'
+             f'<button class="{p}-acao-ok {p}-acao-ok--ler" type="button" data-acao="acao-ler-ok">OK</button></div>'
              f'<button class="{p}-acao-op {p}-acao-op--fixar" type="button" data-acao="acao-tipo:fixar">{pino}Fixar valor</button>'
              f'<div class="{p}-acao-fixar" data-fixar style="display:none"><label>Valor</label><div class="{p}-input {p}-input--toque">'
              f'<input class="{p}-entrada" type="text" placeholder="Digite" aria-label="Valor" data-tap="" autocomplete="off"><button class="{p}-toque" type="button" data-acao="tap-fill" aria-label="Valor"></button></div>'
@@ -158,16 +170,62 @@ def tela_tipo_acao(p):
     return _volta(p, h)
 
 def calendario(p):
-    """calendário de novembro de 2026 (1º de novembro cai num domingo)."""
-    dias = ''.join(f'<button type="button" data-acao="dia" data-d="{d:02d}"{" class=is-sel" if d == 11 else ""}>{d}</button>' for d in range(1, 31))
-    return (f'<div class="{p}-modal" data-popup="calendario"><div class="{p}-cal" data-acao=""><p class="{p}-cal__mes">novembro de 2026</p>'
+    """calendário: o mês é desenhado pelo JS (setas para meses anteriores/seguintes)."""
+    return (f'<div class="{p}-modal" data-popup="calendario"><div class="{p}-cal" data-acao=""><div class="{p}-cal__cab"><p class="{p}-cal__mes" data-cal-mes></p>'
+            f'<button type="button" data-acao="cal-mes:-12" aria-label="Ano anterior">«</button><button type="button" data-acao="cal-mes:-1" aria-label="Mês anterior">‹</button>'
+            f'<button type="button" data-acao="cal-mes:1" aria-label="Próximo mês">›</button><button type="button" data-acao="cal-mes:12" aria-label="Próximo ano">»</button></div>'
             f'<div class="{p}-cal__sem"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>'
-            f'<div class="{p}-cal__dias">{dias}</div><div class="{p}-cal__bt"><button type="button" data-acao="fechar">CANCELAR</button>'
+            f'<div class="{p}-cal__dias" data-cal-dias></div><div class="{p}-cal__bt"><button type="button" data-acao="fechar">CANCELAR</button>'
             f'<button type="button" data-acao="cal-selecionar">SELECIONAR</button></div></div></div>')
 
 def progresso_carga(p):
     return (f'<div class="{p}-modal" data-popup="carga"><div class="{p}-dialogo {p}-carga-prog" data-acao=""><i class="{p}-spin"></i>'
             f'<p>Carregando dados de: <b data-carga-item>Animais</b></p><strong data-carga-pct>0% Concluído</strong></div></div>')
+
+# ---------------------------------------------------------------- evento Parto (vídeo MBCURRAL - PARTOS)
+PAI = ('0870 SERRA ALTA', 'SERRA ALTA FIV 2207')
+
+def _lado_parto(p):
+    return lado(p, '<span data-exec-id>2210-25</span>', [('Sexo / Tipo', 'Fêmea / Reprodução'), ('Raça / G. Sangue', 'NELORE / CEIP'), ('Data nascimento (Idade)', '09/08/2019 (7a3m)'),
+                                                          ('Ordem', 'Multípara'), ('Situação / Estado', 'Servida / Solteira'), ('Pasto', 'PASTO MORRO')],
+                [('Última cobertura', f'IA - 05/02/2026 (293 Dias)<br>{PAI[0]} - Previsão do Parto: 13/11/2026', 'verde'),
+                 ('Último parto', 'Normal - 10/11/2025', 'verde'), ('Último Peso', '14/08/2026 (7a0m)<br>455.00 Kg<br>GMD: 0.42', 'amarela')], ficha=True)
+
+def _passos(p, rotulo, ph='Toque'):
+    return (f'<div class="{p}-campo" data-passos><label>{rotulo}</label>'
+            f'<div class="{p}-input {p}-input--off"><span class="{p}-ph" data-valor="" data-ph="{ph}">{ph}</span></div>'
+            f'<div class="{p}-passos"><button type="button" data-passo="1">+1</button><button type="button" data-passo="0.5">+0,5</button>'
+            f'<button type="button" data-passo="0.25">+0,25</button><button type="button" data-passo="0" aria-label="Zerar">{ICO["lixo"]}</button></div></div>')
+
+def tela_parto(p):
+    data = (f'<div class="{p}-campo" data-det-data><label>Data <b>*</b></label><div class="{p}-input {p}-input--toque"><span class="{p}-ph" data-cal-data>Selecione a data...</span>'
+            f'<button class="{p}-bt" type="button" data-acao="limpar-data" aria-label="Limpar">{ICO["lixo"]}</button>'
+            f'<button class="{p}-toque" type="button" data-acao="calendario" data-cal-ini="17/11/2026" aria-label="Selecionar data"></button></div></div>')
+    crias = (f'<div class="{p}-campo"><label>Crias <b>*</b> <i class="{p}-mais" role="button" data-acao="cria-nova" aria-label="Nova cria">{ICO["mais"]}</i></label>'
+             f'<ul class="{p}-lista" data-crias-exec data-vazio-texto="Sem registros."><li class="{p}-item {p}-item--vazio" data-vazio>Sem registros.</li></ul></div>')
+    corpo = (data + sel(p, 'Tipo de Parto', 'tipo_parto', True, valor='Normal', det='Tipo: {v}') + sel(p, 'Rebanho', 'rebanho', False, valor='ELITE')
+             + _passos(p, 'Score Corpóreo') + sel(p, 'Responsável', 'responsavel', True, valor=RESP1)
+             + campo(p, 'Localização após o parto', 'PASTO 2', False) + crias + txt(p, 'Observação', 'Nasceu 100% saudável', ph='Digite')
+             + f'<div class="{p}-toast" data-toast-parto></div>' + avancar(p, 'parto-avancar'))
+    h = app(p, FAZ, ('execucao', '<span data-exec-data>27/10/2026</span>'), tit(p, 'Parto', info=False) + obs(p) + corpo, _lado_parto(p), modal=calendario(p), gaveta=True, vaca='nav:3')
+    return _volta(p, h)
+
+def tela_cria(p):
+    pai = (f'<div class="{p}-cria-dados"><b>Dados da Mãe</b><small>ID Usual: <span data-exec-id>2210-25</span></small>'
+           f'<b>Dados do Pai</b><small>ID Usual: {PAI[0]}<br>Nome: {PAI[1]}</small></div>')
+    corpo = (pai + seg(p, '', ['Fêmea', 'Macho'], 0) + sel(p, 'Situação da Cria', 'situacao_cria', True, valor='Vivo')
+             + txt(p, 'ID Usual', '', True, extra=' data-cria-id') + txt(p, 'ID Secundário', '', extra=' data-cria-id2') + txt(p, 'SISBOV', '')
+             + txt(p, 'Nome', 'NV 456', extra=' data-cria-nome') + campo(p, 'Identificação eletrônica', '', False, bt=None)
+             + txt(p, 'Peso', '35', True) + sel(p, 'Raça', 'raca', True, valor='NELORE') + sel(p, 'Tipo', 'tipo', True)
+             + _passos(p, 'Score Corpóreo') + seg(p, 'Tamanho Cria', ['Pequeno', 'Médio', 'Grande'], 1)
+             + sel(p, 'Pelagem', 'pelagem', False, valor='BRANCA') + sel(p, 'Grau de sangue', 'grau', False, valor='PURO DE ORIGEM')
+             + sel(p, 'Movimentação entre Lote Avaliação', 'lote_aval', False)
+             + f'<button class="{p}-avancar" type="button" data-acao="cria-salvar">SALVAR</button>')
+    m = (f'<div class="{p}-modal" data-popup="cria-nome"><div class="{p}-dialogo" data-acao=""><h4>Confirmação</h4><p>O Animal <b data-cria-dup></b> está usando o mesmo nome, deseja prosseguir?</p>'
+         f'<div><button type="button" data-acao="cria-salvar-ok">SIM</button><button type="button" data-acao="fechar">NÃO</button></div></div></div>')
+    acoes = f'<span class="{p}-subacoes"><button type="button">{ICO["ajuda"]} Ajuda</button></span>'
+    h = app(p, '', ('titulo', 'Cria', acoes), corpo, modal=m, attrs=' data-proto data-sem-appbar')
+    return _volta(p, h)
 
 def listas_json():
     return '<script type="application/json" data-listas>' + json.dumps(LISTAS, ensure_ascii=False) + '</script>'
@@ -178,5 +236,5 @@ def paginas(p):
             (25, tela_alteracao(p), ' data-texto="rotina"'), (26, tela_lote_aval(p), ' data-texto="rotina"'), (27, tela_lote_final(p), ' data-texto="rotina"'),
             (28, tela_lote_alim(p), ' data-texto="rotina"'), (29, tela_pesagem_rec(p), ' data-texto="rotina"'), (30, tela_apartacao(p), ' data-texto="rotina"'),
             (31, tela_medicao(p), ' data-texto="rotina"'), (32, tela_inventario_rec(p), ' data-texto="rotina"'), (33, tela_advertencia(p), ' data-texto="rotina"'),
-            (34, tela_vacinacao_rec(p), ' data-texto="rotina"')]
+            (34, tela_vacinacao_rec(p), ' data-texto="rotina"'), (35, tela_parto(p), ' data-texto="rotina"'), (36, tela_cria(p), ' data-texto="manter"')]
     return listas_json() + ''.join(f'<div class="{p}-pag" data-pag="{n}"{a}>{h}</div>' for n, h, a in pags)

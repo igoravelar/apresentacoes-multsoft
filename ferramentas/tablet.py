@@ -702,6 +702,10 @@ def css(p='tb'):
   .{p}-input--toque:focus-within .{p}-toque{{display:none;}}
   .{p}-campo.is-preenchido .{p}-input--toque .{p}-toque{{right:5.86cqw;}}
   .{p}-opcao--simples{{height:6cqh;font-size:2.6cqw;padding-left:.6cqw;}}
+  .{p}-opcao--multi{{height:auto;padding:1.4cqh .6cqw;font-size:2cqw;line-height:1.35;align-items:flex-start;text-align:left;}}
+  .{p}-cria-dados{{margin:0 0 2cqh;}}
+  .{p}-cria-dados b{{display:block;font-size:2.3cqw;color:#222;margin:1.4cqh 0 .5cqh;}}
+  .{p}-cria-dados small{{display:block;font-size:1.9cqw;color:#444;line-height:1.4;}}
   button.{p}-add{{border:0;background:transparent;padding:0;cursor:pointer;font-family:inherit;}}
   button.{p}-ficha{{border:0;width:calc(100% + 4.1cqw);cursor:pointer;font-family:inherit;text-align:left;}}
   button.{p}-ficha:hover{{background:#3b7f2b;}}
@@ -730,10 +734,17 @@ def css(p='tb'):
   .{p}-acao-op--nao{{background:#e2e2e2;}}
   .{p}-acao-fixar{{margin:0 4cqw 3cqh;display:flex;flex-direction:column;}}
   .{p}-acao-fixar label{{font-size:2.3cqw;color:#333;margin-bottom:1cqh;}}
+  .{p}-acao-ler{{margin:-.6cqh 6cqw 3cqh;display:flex;flex-direction:column;}}
+  .{p}-acao-ler label{{font-size:2.4cqw;color:#333;margin-bottom:1.6cqh;}}
+  .{p}-acao-ler p{{margin:0 0 1cqh;padding-bottom:1.2cqh;border-bottom:1px solid #bdbdbd;font-size:2.9cqw;color:#222;}}
+  .{p}-acao-ok--ler{{background:#f2eeb1 !important;}}
   .{p}-acao-ok{{align-self:center;margin-top:2cqh;width:14cqw;height:5.6cqh;border:0;border-radius:999px;background:#cfe6c4;color:#333;font-size:2.4cqw;cursor:pointer;}}
   .{p}-retro [data-retro-data].is-preenchido{{color:#2b2b2b;}}
   .{p}-cal{{position:absolute;left:8cqw;top:18cqh;width:84cqw;background:#fff;border-radius:.8cqw;box-shadow:0 1cqh 3cqh rgba(0,0,0,.4);padding:2.4cqh 3cqw 2cqh;}}
-  .{p}-cal__mes{{margin:0 0 2cqh;font-size:2.8cqw;font-weight:500;color:#222;}}
+  .{p}-cal__mes{{margin:0;flex:1;font-size:2.8cqw;font-weight:500;color:#222;}}
+  .{p}-cal__cab{{display:flex;align-items:center;gap:1cqw;margin-bottom:2cqh;}}
+  .{p}-cal__cab button{{width:5cqw;height:5cqw;border:0;border-radius:50%;background:transparent;font-size:3.6cqw;color:#40603b;cursor:pointer;}}
+  .{p}-cal__cab button:hover{{background:#eef5ea;}}
   .{p}-cal__sem,.{p}-cal__dias{{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;}}
   .{p}-cal__sem span{{font-size:2.2cqw;color:#666;padding-bottom:1.4cqh;}}
   .{p}-cal__dias button{{height:5.4cqh;border:0;background:transparent;border-radius:.6cqw;font-size:2.6cqw;color:#222;cursor:pointer;}}
@@ -866,7 +877,7 @@ def app(p, fazenda, sub, corpo, lado_html='', modal='', attrs='', gaveta=False, 
             f'<div class="{cl}">{lado_html}<div class="{p}-form">{corpo}</div></div>{modal}</div>')
 
 # ======================================================================= slide
-ACOES = ('ir:', 'nav:', 'nav-volta:', 'popup:', 'focar', 'evt-toggle', 'evt-continuar', 'slot-excluir', 'slot-excluir-sim', 'rotina-salvar', 'rotina-salvar-sim', 'rotina-editar', 'rotina-nova', 'rotina-executar', 'tocar-leitura', 'iniciar', 'exec-next', 'preencher:', 'leitura-opcao', 'check-toggle', 'protocolo-preencher', 'lote-preencher', 'proximo-animal', 'gaveta', 'gaveta-fechar', 'gaveta-inicio', 'gaveta-ir:', 'acordeao', 'vendas-detalhe', 'fechar', 'remover', 'abrir-cria', 'fechar-cria', 'salvar-cria', 'tocar-peso', 'reconectar', 'picker', 'limpar-campo', 'limpar-data', 'remover-linha', 'tap-fill', 'confirma-avancar', 'ficha', 'acao-tipo:', 'acao-ok', 'calendario', 'dia', 'cal-selecionar', 'carga-salvar', 'rotina-iniciar')
+ACOES = ('ir:', 'nav:', 'nav-volta:', 'popup:', 'focar', 'evt-toggle', 'evt-continuar', 'slot-excluir', 'slot-excluir-sim', 'rotina-salvar', 'rotina-salvar-sim', 'rotina-editar', 'rotina-nova', 'rotina-executar', 'tocar-leitura', 'iniciar', 'exec-next', 'preencher:', 'leitura-opcao', 'check-toggle', 'protocolo-preencher', 'lote-preencher', 'proximo-animal', 'gaveta', 'gaveta-fechar', 'gaveta-inicio', 'gaveta-ir:', 'acordeao', 'vendas-detalhe', 'fechar', 'remover', 'abrir-cria', 'fechar-cria', 'salvar-cria', 'tocar-peso', 'reconectar', 'picker', 'limpar-campo', 'limpar-data', 'remover-linha', 'tap-fill', 'confirma-avancar', 'ficha', 'acao-tipo:', 'acao-ok', 'calendario', 'dia', 'cal-selecionar', 'carga-salvar', 'rotina-iniciar', 'cal-mes:', 'picker-animal', 'cria-nova', 'cria-salvar', 'cria-salvar-ok', 'parto-avancar', 'rotina-salvar-nao', 'rotina-voltar', 'acao-ler-ok')
 
 def desativa_sem_acao(tela_html):
     """Botões da tela do app sem comportamento programado ficam disabled: não piscam, não mostram a mãozinha
@@ -994,7 +1005,7 @@ def js(p='tb'):
         pag.querySelectorAll('.{p}-opcao').forEach(o => o.classList.toggle('is-oculta', !!q && !o.textContent.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase().includes(q)));
       }}));
       /* título da rotina: Salvar só habilita com texto no campo */
-      tela.querySelectorAll('[data-titulo-rotina]').forEach(inp => inp.addEventListener('input', () => tela.querySelectorAll('[data-acao="rotina-salvar"]').forEach(x => x.disabled = !inp.value.trim())));
+      tela.querySelectorAll('[data-titulo-rotina]').forEach(inp => inp.addEventListener('input', () => {{ tela._sujo = true; tela.querySelectorAll('[data-acao="rotina-salvar"]').forEach(x => x.disabled = !inp.value.trim()); }}));
       const mostraTexto = pg => {{
         if(pg.dataset.texto === 'manter') return;
         sec.querySelectorAll('.{p}-pbloco').forEach(b => b.classList.toggle('is-ativo', b.dataset.texto === (pg.dataset.texto || 'padrao')));
@@ -1020,12 +1031,29 @@ def js(p='tb'):
       }};
       const preencheCampo = (c, v) => {{ c.classList.add('is-preenchido'); c.querySelectorAll('.{p}-input span').forEach(s => {{ s.textContent = v; s.classList.remove('{p}-ph'); }}); }};
       const limpaCampo = c => {{ c.classList.remove('is-preenchido'); c.querySelectorAll('.{p}-input span').forEach(s => {{ s.textContent = 'Selecione'; s.classList.add('{p}-ph'); }}); }};
+      const abrePicker = (chave, titulo, extra) => {{
+        const L = (extra || []).concat(JSON.parse(tela.querySelector('[data-listas]').textContent)[chave] || []);
+        const pg = tela.querySelector('.{p}-pag[data-pag="22"]'), f = pg.querySelector('[data-filtro-opcao]'); f.value = '';
+        pg.querySelector('[data-pick-titulo]').textContent = titulo;
+        pg.querySelector('[data-pick-lista]').innerHTML = L.map(v => {{ const multi = v.indexOf('|') >= 0, val = multi ? v.split('|')[0].replace(/^ID Usual: /, '') : v;
+          return '<button class="{p}-opcao {p}-opcao--simples' + (multi ? ' {p}-opcao--multi' : '') + '" type="button" data-acao="picker-escolher" data-v="' + val + '">' + v.split('|').join('<br>') + '</button>'; }}).join('');
+        irPara('22', false);
+      }};
+      const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+      const desenhaCal = md => {{
+        const c = tela._cal, ini = new Date(c.y, c.m, 1).getDay(), n = new Date(c.y, c.m + 1, 0).getDate(), z = x => String(x).padStart(2, '0');
+        md.querySelector('[data-cal-mes]').textContent = MESES[c.m] + ' de ' + c.y;
+        let h = ''; for(let i = 0; i < ini; i++) h += '<span></span>';
+        for(let d = 1; d <= n; d++){{ const dt = z(d) + '/' + z(c.m + 1) + '/' + c.y; h += '<button type="button" data-acao="dia" data-data="' + dt + '"' + (dt === c.sel ? ' class="is-sel"' : '') + '>' + d + '</button>'; }}
+        md.querySelector('[data-cal-dias]').innerHTML = h;
+      }};
       const montaResumo = () => {{
         const seq = tela._seq || [];
         tela.querySelectorAll('[data-resumo]').forEach(ul => ul.innerHTML = seq.map((s, k) => {{
           const pg = tela.querySelector('.{p}-pag[data-pag="' + s.p + '"]');
           const det = pg ? [...pg.querySelectorAll('[data-det]')].map(c => {{ const v = valorCampo(c); if(!v) return ''; const d = c.dataset.det;
-            return '<li class="{p}-resumo-det">\u2714 ' + (d.indexOf('{{v}}') >= 0 ? d.replace('{{v}}', v) : d + ': ' + v) + '</li>'; }}).join('') : '';
+            return '<li class="{p}-resumo-det">\u2714 ' + (d.indexOf('{{v}}') >= 0 ? d.replace('{{v}}', v) : d + ': ' + v) + '</li>'; }}).join('')
+            + [...pg.querySelectorAll('[data-det-item]')].map(x => '<li class="{p}-resumo-det">\u2714 ' + x.dataset.detItem + '</li>').join('') : '';
           return '<li><i>' + (k + 1) + '</i>' + s.n + ICONE_OK + '</li>' + det;
         }}).join(''));
       }};
@@ -1071,18 +1099,27 @@ def js(p='tb'):
         nomes.forEach(n => adicionaSlot(lista, campos, n));
         renumera();
       }};
-      const adicionaSlot = (lista, campos, n) => {{
+      const adicionaSlot = (lista, campos, n, cfg) => {{
         if(lista.querySelector('.{p}-slot[data-nome="' + CSS.escape(n) + '"]')) return;
-        const c = campos[n] || campos['*'];
+        const c = (cfg && campos[n + '@cfg']) || campos[n] || campos['*'];
         lista.insertAdjacentHTML('beforeend', '<div class="{p}-slot" data-nome="' + n + '"><div class="{p}-slot__alca">' + ICONE_ALCA + '</div><div class="{p}-slot__conteudo">'
           + '<div class="{p}-slot__cab"><span data-ordem>1°</span> ' + n + (c.info ? ' <i class="{p}-info-v">i</i>' : '') + '<button class="{p}-slot__lixo" type="button" data-acao="slot-excluir" aria-label="Excluir evento">' + ICONE_LIXO + '</button></div>'
           + c.html + '</div></div>');
+      }};
+      const salvaRotina = () => {{   // grava a rotina (nova no topo da lista, ou atualiza a que está em edição)
+        const titulo = (tela.querySelector('[data-titulo-rotina]').value || '').trim() || 'Nova Rotina';
+        const cadeia = [...tela.querySelectorAll('[data-slots] .{p}-slot')].map(s => s.dataset.nome).join(' &gt; ');
+        const alvo = listaRotinas(), ed = tela._rotinaEditando, slotsHtml = tela.querySelector('[data-slots]').innerHTML;
+        if(ed && ed.isConnected){{ ed.querySelector('.{p}-rot__cab span').textContent = titulo; ed.querySelector('.{p}-rot__cad').innerHTML = cadeia; ed._slotsHtml = slotsHtml; }}
+        else {{ alvo.insertAdjacentHTML('afterbegin', '<div class="{p}-rot"><div class="{p}-rot__cab"><span>' + titulo + '</span><button class="{p}-rot__ic" type="button" data-acao="rotina-editar" aria-label="Editar">' + ICONE_EDITAR + '</button><button class="{p}-rot__ic" type="button" data-acao="rotina-executar" aria-label="Executar">' + ICONE_PLAY + '</button></div><div class="{p}-rot__cad">' + cadeia + '</div></div>');
+          alvo.firstElementChild._slotsHtml = slotsHtml; tela._rotinaEditando = alvo.firstElementChild; }}
+        tela._sujo = false; atualizaListaRotinas();
       }};
       const limpaRotina = () => {{
         tela.querySelectorAll('.{p}-evt.is-marcado').forEach(x => x.classList.remove('is-marcado')); atualizaContinuar();
         tela.querySelectorAll('[data-slots] .{p}-slot').forEach(s => s.remove());
         const inp = tela.querySelector('[data-titulo-rotina]'); if(inp) inp.value = '';
-        tela.querySelectorAll('[data-acao="rotina-salvar"]').forEach(x => x.disabled = true); tela._rotinaEditando = null;
+        tela.querySelectorAll('[data-acao="rotina-salvar"]').forEach(x => x.disabled = true); tela._rotinaEditando = null; tela._sujo = false;
       }};
       tela.querySelectorAll('[data-filtro-evt]').forEach(inp => inp.addEventListener('input', () => {{
         const q = norm2(inp.value.trim()); const pag = inp.closest('.{p}-pag');
@@ -1106,7 +1143,7 @@ def js(p='tb'):
           }}
           renumera();
         }});
-        const fim = e => {{ if(!drag) return; drag.classList.remove('is-arrastando'); drag = null; e.stopPropagation(); }};
+        const fim = e => {{ if(!drag) return; tela._sujo = true; drag.classList.remove('is-arrastando'); drag = null; e.stopPropagation(); }};
         lista.addEventListener('pointerup', fim); lista.addEventListener('pointercancel', fim);
       }});
       /* busca de fazendas: filtra a lista enquanto digita (sem acentos, sem maiúsculas) */
@@ -1209,6 +1246,7 @@ def js(p='tb'):
           return;
         }}
         if(acao === 'evt-toggle'){{ b.classList.toggle('is-marcado'); atualizaContinuar(); return; }}
+        if(['evt-continuar', 'slot-excluir-sim', 'acao-ok', 'acao-ler-ok'].includes(acao) || (acao && acao.startsWith('acao-tipo:'))) tela._sujo = true;
         if(acao === 'evt-continuar'){{ montaSlots(); irPara('5', false); return; }}
         if(acao === 'slot-excluir'){{ tela._slotExcluir = b.closest('.{p}-slot'); app.querySelector('.{p}-modal[data-popup="excluir"]').classList.add('is-aberto'); return; }}
         if(acao === 'slot-excluir-sim'){{
@@ -1216,35 +1254,43 @@ def js(p='tb'):
           app.querySelector('.{p}-modal[data-popup="excluir"]').classList.remove('is-aberto');
           const ts = app.querySelector('[data-toast]'); if(ts){{ ts.classList.add('is-visivel'); setTimeout(() => ts.classList.remove('is-visivel'), 1800); }} return;
         }}
-        if(acao === 'rotina-salvar'){{ app.querySelector('.{p}-modal[data-popup="salvar"]').classList.add('is-aberto'); return; }}
-        if(acao === 'rotina-salvar-sim'){{   // nova rotina entra no topo das Rotinas Salvas e volta para a lista
+        if(acao === 'rotina-salvar'){{ salvaRotina(); limpaRotina(); atualizaListaRotinas(); tela._hist = []; irPara('2', true); return; }}
+        if(acao === 'rotina-salvar-sim' || acao === 'rotina-salvar-nao'){{   // confirmação ao Iniciar ou Voltar sem salvar
           app.querySelector('.{p}-modal[data-popup="salvar"]').classList.remove('is-aberto');
-          const titulo = (tela.querySelector('[data-titulo-rotina]').value || '').trim() || 'Nova Rotina';
-          const cadeia = [...tela.querySelectorAll('[data-slots] .{p}-slot')].map(s => s.dataset.nome).join(' &gt; ');
-          const alvo = listaRotinas(), ed = tela._rotinaEditando;
-          if(ed && ed.isConnected){{ ed.querySelector('.{p}-rot__cab span').textContent = titulo; ed.querySelector('.{p}-rot__cad').innerHTML = cadeia; }}
-          else alvo.insertAdjacentHTML('afterbegin', '<div class="{p}-rot"><div class="{p}-rot__cab"><span>' + titulo + '</span><button class="{p}-rot__ic" type="button" data-acao="rotina-editar" aria-label="Editar">' + ICONE_EDITAR + '</button><button class="{p}-rot__ic" type="button" data-acao="rotina-executar" aria-label="Executar">' + ICONE_PLAY + '</button></div><div class="{p}-rot__cad">' + cadeia + '</div></div>');
-          limpaRotina(); atualizaListaRotinas(); tela._hist = []; irPara('2', true); return;
+          const salvar = acao === 'rotina-salvar-sim', apos = tela._aposSalvar;
+          if(apos === 'iniciar'){{ const nomes = [...tela.querySelectorAll('[data-slots] .{p}-slot')].map(s => s.dataset.nome), tit = (tela.querySelector('[data-titulo-rotina]').value || 'Nova Rotina').trim();
+            if(salvar) salvaRotina(); executa(tit, nomes); return; }}
+          if(salvar){{ salvaRotina(); limpaRotina(); atualizaListaRotinas(); tela._hist = []; irPara('2', true); return; }}
+          limpaRotina(); irPara('', true); return;
         }}
+        if(acao === 'rotina-voltar'){{ if(tela._sujo){{ tela._aposSalvar = 'voltar'; app.querySelector('.{p}-modal[data-popup="salvar"]').classList.add('is-aberto'); return; }} limpaRotina(); irPara('', true); return; }}
         if(acao === 'rotina-nova'){{ limpaRotina(); irPara('4', false); return; }}
         if(acao === 'rotina-executar'){{   // play: executa a rotina do card
           const card = b.closest('.{p}-rot');
           executa(card.querySelector('.{p}-rot__cab span').textContent.trim(), card.querySelector('.{p}-rot__cad').textContent.split('>').map(s => s.trim()).filter(Boolean)); return;
         }}
-        if(acao === 'rotina-iniciar'){{   // Iniciar na edição: executa a rotina montada na tela
+        if(acao === 'rotina-iniciar'){{   // Iniciar na edição: executa a rotina montada na tela (confirma se não foi salva)
+          if(tela._sujo){{ tela._aposSalvar = 'iniciar'; app.querySelector('.{p}-modal[data-popup="salvar"]').classList.add('is-aberto'); return; }}
           const nomes = [...tela.querySelectorAll('[data-slots] .{p}-slot')].map(s => s.dataset.nome);
           executa((tela.querySelector('[data-titulo-rotina]').value || 'Nova Rotina').trim(), nomes); return;
         }}
         if(acao && acao.startsWith('picker:')){{   // abre o seletor "Selecione" com a lista do campo
-          const L = JSON.parse(tela.querySelector('[data-listas]').textContent)[acao.slice(7)] || [];
-          tela._pickAlvo = b.hasAttribute('data-add') ? null : b.closest('[data-preenchivel]'); tela._pickAdd = b.hasAttribute('data-add') ? b.previousElementSibling : null;
-          const pg = tela.querySelector('.{p}-pag[data-pag="22"]'), f = pg.querySelector('[data-filtro-opcao]'); f.value = '';
-          pg.querySelector('[data-pick-titulo]').textContent = b.dataset.titulo || 'Selecione';
-          pg.querySelector('[data-pick-lista]').innerHTML = L.map(v => '<button class="{p}-opcao {p}-opcao--simples" type="button" data-acao="picker-escolher" data-v="' + v + '">' + v + '</button>').join('');
-          irPara('22', false); return;
+          tela._pickAlvo = b.hasAttribute('data-add') ? null : b.closest('[data-preenchivel]'); tela._pickAdd = b.hasAttribute('data-add') ? b.previousElementSibling : null; tela._pickChip = null; tela._pickLeitura = false;
+          abrePicker(acao.slice(7), b.dataset.titulo || 'Selecione'); return;
         }}
+        if(acao === 'picker-animal'){{ tela._pickAlvo = tela._pickAdd = tela._pickChip = null; tela._pickLeitura = true; abrePicker('animais', 'Selecione'); return; }}
         if(acao === 'picker-escolher'){{
           const v = b.dataset.v;
+          if(tela._pickLeitura){{ const inp = tela.querySelector('[data-leitura]'); inp.value = v; habilitaIniciar(); tela._pickLeitura = false; irPara('', true); return; }}
+          if(tela._pickChip){{   // valor sugerido (Ler) ou fixo de um campo da rotina
+            const c = tela._chip, rot = (c.querySelector('small') || c.querySelector('b')).textContent, ler = tela._pickChip === 'ler';
+            if(ler){{ const pg = tela.querySelector('.{p}-pag[data-pag="24"]'), lc = pg.querySelector('[data-ler-conf]'); tela._lerValor = v; tela._pickChip = null;
+              lc.querySelector('[data-ler-rot]').textContent = rot; lc.querySelector('[data-ler-val]').textContent = v; lc.style.display = '';
+              pg.querySelector('.{p}-acao-op--fixar').style.display = 'none'; pg.querySelector('[data-fixar]').style.display = 'none'; irPara('', true); return; }}
+            c.classList.remove('{p}-chip--amarelo', '{p}-chip--vazio'); if(ler) c.classList.add('{p}-chip--amarelo');
+            c.innerHTML = '<small>' + rot + '</small><b>' + (ler ? (v === 'Sem Sugestão' ? 'Ler' : 'Ler (' + v + ')') : v) + '</b>';
+            tela._pickChip = null; const h = tela._hist || []; while(h.length && h[h.length - 1] !== '5') h.pop(); h.pop(); irPara('5', true); return;
+          }}
           if(tela._pickAdd) tela._pickAdd.insertAdjacentHTML('beforeend', '<div class="{p}-input {p}-input--cinza"><span>' + v + '</span><button class="{p}-bt" type="button" data-acao="remover-linha" aria-label="Remover">' + ICONE_LIXO + '</button></div>');
           else if(tela._pickAlvo) preencheCampo(tela._pickAlvo, v);
           irPara('', true); return;
@@ -1262,12 +1308,14 @@ def js(p='tb'):
           tela._chip = b; const rot = (b.querySelector('small') || b.querySelector('b')).textContent;
           const pg = tela.querySelector('.{p}-pag[data-pag="24"]'), fx = pg.querySelector('[data-fixar]'), inp = fx.querySelector('input');
           pg.querySelector('[data-acao-titulo]').textContent = rot; fx.style.display = 'none'; fx.querySelector('label').textContent = rot;
+          pg.querySelector('[data-ler-conf]').style.display = 'none'; pg.querySelector('.{p}-acao-op--fixar').style.display = '';
           const fixo = !b.classList.contains('{p}-chip--amarelo') && !b.classList.contains('{p}-chip--vazio');
           inp.value = fixo ? b.querySelector('b').textContent : ''; inp.dataset.tap = fixo ? inp.value : 'Valor padrão';
           irPara('24', false); return;
         }}
         if(acao && acao.startsWith('acao-tipo:')){{
           const tp = acao.slice(10), c = tela._chip; if(!c) return;
+          if(c.dataset.lista && tp !== 'nao'){{ tela._pickChip = tp; tela._pickAlvo = tela._pickAdd = null; tela._pickLeitura = false; abrePicker(c.dataset.lista, tp === 'ler' ? 'Informe o valor sugerido:' : 'Selecione', tp === 'ler' ? ['Sem Sugestão'] : []); return; }}
           if(tp === 'fixar'){{ tela.querySelector('[data-fixar]').style.display = ''; return; }}
           const rot = (c.querySelector('small') || c.querySelector('b')).textContent;
           c.classList.remove('{p}-chip--amarelo', '{p}-chip--vazio');
@@ -1275,20 +1323,61 @@ def js(p='tb'):
           else {{ c.classList.add('{p}-chip--vazio'); c.innerHTML = '<b>' + rot + '</b>'; }}
           irPara('', true); return;
         }}
+        if(acao === 'acao-ler-ok'){{
+          const c = tela._chip, v = tela._lerValor; if(!c) return; const rot = (c.querySelector('small') || c.querySelector('b')).textContent;
+          c.classList.remove('{p}-chip--vazio'); c.classList.add('{p}-chip--amarelo'); c.innerHTML = '<small>' + rot + '</small><b>' + (v === 'Sem Sugestão' ? 'Ler' : 'Ler (' + v + ')') + '</b>';
+          const h = tela._hist || []; while(h.length && h[h.length - 1] !== '5') h.pop(); h.pop(); irPara('5', true); return;
+        }}
         if(acao === 'acao-ok'){{
           const c = tela._chip, inp = tela.querySelector('[data-fixar] input'); if(!c) return;
           const rot = (c.querySelector('small') || c.querySelector('b')).textContent, v = inp.value.trim() || inp.dataset.tap;
           c.classList.remove('{p}-chip--amarelo', '{p}-chip--vazio'); c.innerHTML = '<small>' + rot + '</small><b>' + v + '</b>';
           irPara('', true); return;
         }}
-        if(acao === 'calendario'){{ app.querySelector('.{p}-modal[data-popup="calendario"]').classList.add('is-aberto'); return; }}
-        if(acao === 'dia'){{ b.parentElement.querySelectorAll('button').forEach(x => x.classList.toggle('is-sel', x === b)); return; }}
+        if(acao === 'calendario'){{   // abre o calendário da tela, no mês da data atual do campo
+          const alvo = b.parentElement.querySelector('[data-retro-data], [data-cal-data]'); tela._calAlvo = alvo;
+          const atual = /^\\d\\d\\/\\d\\d\\/\\d{{4}}$/.test(alvo.textContent.trim()) ? alvo.textContent.trim() : (b.dataset.calIni || '11/11/2026');
+          const [d, mm, y] = atual.split('/').map(Number); tela._cal = {{y, m: mm - 1, sel: atual}};
+          const md = app.querySelector('.{p}-modal[data-popup="calendario"]'); desenhaCal(md); md.classList.add('is-aberto'); return;
+        }}
+        if(acao && acao.startsWith('cal-mes:')){{ const c = tela._cal; c.m += parseInt(acao.slice(8), 10); if(c.m < 0){{ c.m = 11; c.y--; }} if(c.m > 11){{ c.m = 0; c.y++; }} desenhaCal(b.closest('.{p}-modal')); return; }}
+        if(acao === 'dia'){{ b.parentElement.querySelectorAll('button').forEach(x => x.classList.toggle('is-sel', x === b)); tela._cal.sel = b.dataset.data; return; }}
         if(acao === 'cal-selecionar'){{
-          const m = b.closest('.{p}-modal'), d = m.querySelector('[data-acao="dia"].is-sel'), sp = app.querySelector('[data-retro-data]');
-          if(d && sp){{ const dt = d.dataset.d + '/11/2026'; sp.textContent = dt; sp.classList.add('is-preenchido'); tela._dataExec = dt; }}
+          const m = b.closest('.{p}-modal'), sp = tela._calAlvo, dt = tela._cal && tela._cal.sel;
+          if(sp && dt){{ sp.textContent = dt; sp.classList.add('is-preenchido'); sp.classList.remove('{p}-ph'); if(sp.hasAttribute('data-retro-data')) tela._dataExec = dt; }}
           m.classList.remove('is-aberto'); return;
         }}
-        if(acao === 'limpar-data'){{ const sp = app.querySelector('[data-retro-data]'); sp.textContent = 'Selecione a data...'; sp.classList.remove('is-preenchido'); tela._dataExec = ''; return; }}
+        if(acao === 'limpar-data'){{ const sp = b.parentElement.querySelector('[data-retro-data], [data-cal-data]'); sp.textContent = 'Selecione a data...'; sp.classList.remove('is-preenchido');
+          if(sp.hasAttribute('data-cal-data')) sp.classList.add('{p}-ph'); else tela._dataExec = ''; return; }}
+        if(acao === 'cria-nova'){{   // abre o cadastro da cria com os campos limpos e o ID sugerido pela mãe
+          const pg = tela.querySelector('.{p}-pag[data-pag="36"]'), mae = (tela.querySelector('[data-exec-id]') || {{}}).textContent || '2210-25';
+          const n = tela.querySelectorAll('[data-crias-exec] li[data-det-item]').length, id = mae.replace('-', '/') + '-26' + (n ? '/' + (n + 1) : '');
+          pg.querySelectorAll('input[data-tap]').forEach(x => x.value = ''); pg.querySelectorAll('[data-cria-id], [data-cria-id2]').forEach(x => x.dataset.tap = id);
+          pg.querySelectorAll('[data-preenchivel]').forEach(c => {{ if(c.dataset.ini) preencheCampo(c, c.dataset.ini); else limpaCampo(c); }});
+          pg.querySelectorAll('[data-passos] [data-ph]').forEach(s => {{ s.dataset.valor = ''; s.textContent = s.dataset.ph; s.classList.add('{p}-ph'); }});
+          pg.querySelectorAll('.{p}-form').forEach(f => f.scrollTop = 0); irPara('36', false); return;
+        }}
+        if(acao === 'cria-salvar' || acao === 'cria-salvar-ok'){{
+          const pg = tela.querySelector('.{p}-pag[data-pag="36"]'), idi = pg.querySelector('[data-cria-id]'), nm = pg.querySelector('[data-cria-nome]');
+          if(!idi.value.trim()) idi.value = idi.dataset.tap; const nome = nm.value.trim();
+          const ul = tela.querySelector('[data-crias-exec]'), dup = [...ul.querySelectorAll('li[data-det-item]')].find(x => nome && x.dataset.nome === nome);
+          if(acao === 'cria-salvar' && dup){{ const md = pg.querySelector('.{p}-modal[data-popup="cria-nome"]'); md.querySelector('[data-cria-dup]').textContent = dup.dataset.id; md.classList.add('is-aberto'); return; }}
+          pg.querySelectorAll('.{p}-modal.is-aberto').forEach(x => x.classList.remove('is-aberto'));
+          const sit = valorCampo(pg.querySelector('[data-preenchivel]')) || 'Vivo', n = ul.querySelectorAll('li[data-det-item]').length + 1;
+          const vz = ul.querySelector('[data-vazio]'); if(vz) vz.remove();
+          ul.insertAdjacentHTML('beforeend', '<li class="{p}-item" data-det-item="Cria ' + n + ': ' + idi.value + '" data-nome="' + nome + '" data-id="' + idi.value + '"><span>Cria número ' + n + ' / ' + sit + ' / ' + idi.value + '</span><button type="button" class="is-escuro" data-acao="remover" aria-label="Remover">' + ICONE_LIXO + '</button></li>');
+          irPara('35', true); return;
+        }}
+        if(acao === 'parto-avancar'){{   // valida a data (até 300 dias da cobertura) e as crias antes de avançar
+          const pg = b.closest('.{p}-pag'), ts = pg.querySelector('[data-toast-parto]'), dt = pg.querySelector('[data-cal-data]').textContent.trim();
+          const aviso = msg => {{ ts.textContent = msg; ts.classList.add('is-visivel'); clearTimeout(ts._t); ts._t = setTimeout(() => ts.classList.remove('is-visivel'), 2600); }};
+          if(!/^\\d\\d\\/\\d\\d\\/\\d{{4}}$/.test(dt)) return aviso('Informe a data do parto.');
+          const [d, mm, y] = dt.split('/').map(Number), dias = (new Date(y, mm - 1, d) - new Date(2026, 1, 5)) / 864e5;
+          if(dias > 300) return aviso('A data do parto não pode ser mais que 300 dias após a cobertura.');
+          if(dias < 0) return aviso('A data do parto não pode ser anterior à cobertura.');
+          if(!pg.querySelector('[data-crias-exec] li[data-det-item]')) return aviso('Informe ao menos uma cria.');
+          const seq = tela._seq || [], i = seq.findIndex(s => s.p === pg.dataset.pag); irPara(seq[i + 1] ? seq[i + 1].p : '14', false); return;
+        }}
         if(acao === 'carga-salvar'){{   // carga inicial: barra de progresso e volta à escolha da fazenda
           const m = app.querySelector('.{p}-modal[data-popup="carga"]'), itens = ['Animais', 'Lote Reprodutivo', 'Movimentação entre Lote Avaliação', 'Localidades', 'Vacinas', 'Responsáveis'];
           let pct = 0; m.classList.add('is-aberto');
@@ -1331,6 +1420,8 @@ def js(p='tb'):
           tela.querySelectorAll('[data-protocolo-eventos]').forEach(x => x.style.display = 'none');
           tela.querySelectorAll('[data-lote-campo], [data-preenchivel]').forEach(c => {{ if(c.dataset.ini) preencheCampo(c, c.dataset.ini); else {{ c.classList.remove('is-preenchido'); c.querySelectorAll('span').forEach(s => {{ s.textContent = 'Selecione'; s.classList.add('{p}-ph'); }}); }} }});
           tela.querySelectorAll('input[data-tap]').forEach(x => x.value = '');
+          tela.querySelectorAll('[data-crias-exec]').forEach(ul => ul.innerHTML = '<li class="{p}-item {p}-item--vazio" data-vazio>Sem registros.</li>');
+          tela.querySelectorAll('[data-cal-data]').forEach(s => {{ s.textContent = 'Selecione a data...'; s.classList.add('{p}-ph'); s.classList.remove('is-preenchido'); }});
           tela.querySelectorAll('[data-passos] [data-ph]').forEach(s => {{ s.dataset.valor = ''; s.textContent = s.dataset.ph; s.classList.add('{p}-ph'); }});
           const inp = tela.querySelector('[data-leitura]'); if(inp){{ inp.value = ''; habilitaIniciar(); }}
           tela._hist = []; irPara('7', true); return;
@@ -1342,7 +1433,7 @@ def js(p='tb'):
           tela.querySelectorAll('.{p}-evt').forEach(e => e.classList.toggle('is-marcado', nomes.includes(e.dataset.nome))); atualizaContinuar();
           tela.querySelector('[data-titulo-rotina]').value = titulo; tela.querySelectorAll('[data-acao="rotina-salvar"]').forEach(x => x.disabled = false);
           const lista = tela.querySelector('[data-slots]'), campos = JSON.parse(tela.querySelector('[data-slot-campos]').textContent);
-          nomes.forEach(n => adicionaSlot(lista, campos, n)); renumera();
+          if(card._slotsHtml) lista.innerHTML = card._slotsHtml; else nomes.forEach(n => adicionaSlot(lista, campos, n, true)); renumera();
           irPara('5', false); return;
         }}
         if(acao === 'focar'){{ const inp = b.parentElement.querySelector('input'); if(inp) inp.focus(); return; }}
