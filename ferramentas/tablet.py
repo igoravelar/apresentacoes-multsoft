@@ -718,7 +718,7 @@ def css(p='tb'):
   .{p}-toast.is-visivel{{opacity:1;}}
   .{p}-subtxt .{p}-ficha-id{{color:#f3d53a;margin-left:.8cqw;}}
   .{p}-subtxt .{p}-ficha-sub{{display:block;font-size:1.3cqw;font-weight:400;opacity:.75;margin-top:.2cqh;}}
-  .{p}-ficha-sec{{border:1px solid #d0d0d0;border-radius:.6cqw;background:#fff;padding:1cqh 2.4cqw 1.8cqh;margin:0 0 2.2cqh;}}
+  .{p}-ficha-sec{{border:1px solid #d0d0d0;border-radius:.6cqw;background:transparent;padding:1cqh 2.4cqw 1.8cqh;margin:0 0 2.2cqh;}}
   .{p}-ficha-sec legend{{padding:0 1cqw;font-size:2.6cqw;color:#3d7029;}}
   .{p}-ficha-grade{{display:grid;grid-template-columns:1fr 1fr;gap:1.4cqh 2.4cqw;}}
   .{p}-ficha-grade small{{display:block;font-size:1.8cqw;color:#666;}}

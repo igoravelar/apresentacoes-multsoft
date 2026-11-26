@@ -220,7 +220,7 @@ def tela_cria(p):
              + _passos(p, 'Score Corpóreo') + seg(p, 'Tamanho Cria', ['Pequeno', 'Médio', 'Grande'], 1)
              + sel(p, 'Pelagem', 'pelagem', False, valor='BRANCA') + sel(p, 'Grau de sangue', 'grau', False, valor='PURO DE ORIGEM')
              + sel(p, 'Movimentação entre Lote Avaliação', 'lote_aval', False)
-             + f'<button class="{p}-avancar" type="button" data-acao="cria-salvar">SALVAR</button>')
+             + f'<button class="{p}-avancar" type="button" data-acao="cria-salvar" style="margin-top:2cqh">SALVAR</button><div style="height:12cqh;flex:0 0 auto"></div>')
     m = (f'<div class="{p}-modal" data-popup="cria-nome"><div class="{p}-dialogo" data-acao=""><h4>Confirmação</h4><p>O Animal <b data-cria-dup></b> está usando o mesmo nome, deseja prosseguir?</p>'
          f'<div><button type="button" data-acao="cria-salvar-ok">SIM</button><button type="button" data-acao="fechar">NÃO</button></div></div></div>')
     acoes = f'<span class="{p}-subacoes"><button type="button">{ICO["ajuda"]} Ajuda</button></span>'

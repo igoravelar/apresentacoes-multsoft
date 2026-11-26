@@ -1536,7 +1536,7 @@
   .tb-toast.is-visivel{opacity:1;}
   .tb-subtxt .tb-ficha-id{color:#f3d53a;margin-left:.8cqw;}
   .tb-subtxt .tb-ficha-sub{display:block;font-size:1.3cqw;font-weight:400;opacity:.75;margin-top:.2cqh;}
-  .tb-ficha-sec{border:1px solid #d0d0d0;border-radius:.6cqw;background:#fff;padding:1cqh 2.4cqw 1.8cqh;margin:0 0 2.2cqh;}
+  .tb-ficha-sec{border:1px solid #d0d0d0;border-radius:.6cqw;background:transparent;padding:1cqh 2.4cqw 1.8cqh;margin:0 0 2.2cqh;}
   .tb-ficha-sec legend{padding:0 1cqw;font-size:2.6cqw;color:#3d7029;}
   .tb-ficha-grade{display:grid;grid-template-columns:1fr 1fr;gap:1.4cqh 2.4cqw;}
   .tb-ficha-grade small{display:block;font-size:1.8cqw;color:#666;}
@@ -4258,7 +4258,7 @@
       });
     }
     deck.addEventListener('click', (e)=>{
-      if(e.target.closest('.hotspot, .repro-back, button, a')) return;  // deixa o botão agir
+      if(e.target.closest('.hotspot, .repro-back, button, a, [data-acao]')) return;  // deixa o botão agir
       flashHints();
     });
 
